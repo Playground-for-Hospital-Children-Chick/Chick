@@ -1,0 +1,68 @@
+def ssh_publisher(SERVER_CONFIG) {
+    sshPublisher(
+        continueOnError: false,
+        failOnError: true,
+        publishers:[
+            sshPublisherDesc(
+                configName: "${SERVER_CONFIG}",
+                verbose: true,
+                transfers: [
+                    // (5.1) Copy script files
+                    sshTransfer(
+                        sourceFiles: "deploy/develop/script/*.sh",
+                        removePrefix: "deploy/develop/script",
+                        remoteDirectory: "build/script"
+                    ),
+                    // (5.2) Copy build files
+                    sshTransfer(
+                        sourceFiles: "build/libs/*.jar",
+                        removePrefix: "build/libs",
+                        remoteDirectory: "/build/lib",
+                        // Absolute path.
+                        execCommand: "sh /home/build/script/deploy_server.sh"
+                    ),
+                    // (5.3) Health check
+					sshTransfer(
+                    	// Absolute path.
+                        execCommand: "sh /home/build/script/health_check.sh"
+                    )
+                ]
+            )
+        ]
+    )
+}
+
+// (1)
+pipeline {
+    environment {
+        // (2) Registered in Jenkins
+        SERVER_LIST = "server1,server2"
+    }
+
+    agent any
+
+    stages {
+        stage("Build") {
+        	// (3)
+            steps {
+                sh "chmod +x gradlew"
+                sh "./gradlew clean build -x test"
+            }
+        }
+
+        stage("Deploy") {
+            steps {
+                echo "deploy.."
+                echo "${SERVER_LIST}"
+
+                script {
+                	// (4)
+                    SERVER_LIST.tokenize(',').each {
+                        echo "SERVER: ${it}"
+                        ssh_publisher("${it}")
+                    }
+                }
+            }
+        }
+    }
+}
