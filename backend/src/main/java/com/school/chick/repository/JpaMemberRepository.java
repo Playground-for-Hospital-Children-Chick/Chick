@@ -10,9 +10,9 @@ public interface JpaMemberRepository  extends JpaRepository<Member, Long>, Membe
     @Override
     Member save(Member memeber);
     @Override
-    Optional<Member> findById(Long id);
+    Optional<Member> findByMemId(Long id);
     @Override
-    Optional<Member> findByChildName(String childName);
+    Optional<Member> findByMemChName(String childName);
     @Override
     List<Member> findAll();
 

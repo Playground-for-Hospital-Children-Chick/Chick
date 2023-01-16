@@ -8,16 +8,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringConfig {
-//    private final MemberRepository memberRepository;
+
+//    private final MemberRepository memberRepositoryy;
 //
 //    @Autowired
 //    public SpringConfig(MemberRepository memberRepository) {
-//        this.memberRepository = memberRepository;
+//        this.memberRepositoryy = memberRepository;
 //    }
 //
 //    @Bean
 //    public MemberService memberService(){
-//        return new MemberService(memberRepository);
+//        return new MemberService(memberRepositoryy);
 //    }
 
 }

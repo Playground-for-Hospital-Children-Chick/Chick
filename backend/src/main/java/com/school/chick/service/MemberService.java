@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-//@Service
+@Service
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -23,7 +23,7 @@ public class MemberService {
     public String join(Member member) {
 //        validateDuplicateMember(member);//중복 회원검증
         memberRepository.save(member);
-        return member.getId();
+        return member.getMemId();
     }
 
     /**
@@ -33,7 +33,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
     public Optional<Member> findOne(Long memberId){
-        return memberRepository.findById(memberId);
+        return memberRepository.findByMemId(memberId);
     }
 
 //    private void validateDuplicateMember(Member member) {
