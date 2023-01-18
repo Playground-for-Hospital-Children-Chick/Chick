@@ -40,6 +40,8 @@ dependencies {
 	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '4.1.4'
 	// https://mvnrepository.com/artifact/com.querydsl/querydsl-apt
 	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '4.1.4'
+	// https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio
+	implementation group: 'com.corundumstudio.socketio', name: 'netty-socketio', version: '1.7.17'
 
 
 
