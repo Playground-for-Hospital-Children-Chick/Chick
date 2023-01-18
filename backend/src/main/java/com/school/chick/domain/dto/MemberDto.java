@@ -63,24 +63,8 @@ public class MemberDto {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime memUpdateDate;
-    @Column(name = "role")
+    @Column(name = "memRole")
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.ROLE_NOT_PERMITTED;
 
-    @Builder
-    public MemberDto(int memNO, String memId, String memPwd, String memChName, String memBirth, String memEmail, String memServiceTerm, String memPrivacyTerm, String memCurProfile, String memCreateBy, LocalDateTime memCreateDate, String memUpdateBy, LocalDateTime memUpdateDate) {
-        this.memNO = memNO;
-        this.memId = memId;
-        this.memPwd = memPwd;
-        this.memChName = memChName;
-        this.memBirth = memBirth;
-        this.memEmail = memEmail;
-        this.memServiceTerm = memServiceTerm;
-        this.memPrivacyTerm = memPrivacyTerm;
-        this.memCurProfile = memCurProfile;
-        this.memCreateBy = memCreateBy;
-        this.memCreateDate = memCreateDate;
-        this.memUpdateBy = memUpdateBy;
-        this.memUpdateDate = memUpdateDate;
-    }
 }
