@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `ssafydb`.`user_info` (
   `mem_email` VARCHAR(50) NOT NULL,
   `mem_service_term` ENUM('Y', 'N') NOT NULL,
   `mem_privacy_term` ENUM('Y', 'N') NOT NULL,
-  `mem_cur_profile` VARCHAR(10) NOT NULL,
+  `mem_cur_profuser_infoile` VARCHAR(10) NOT NULL,
+  `mem_ban` boolean default FALSE,
+  `mem_role` VARCHAR(50) NOT NULL,
   `mem_create_by` VARCHAR(100) NOT NULL,
   `mem_create_date` DATETIME NOT NULL,
   `mem_update_by` VARCHAR(100) NOT NULL,
@@ -83,6 +85,24 @@ CREATE TABLE IF NOT EXISTS `ssafydb`.`profile` (
   PRIMARY KEY (`prof_no`, `mem_no`),
   INDEX `FK_user_info_TO_profile_1` (`mem_no` ASC) VISIBLE,
   CONSTRAINT `FK_user_info_TO_profile_1`
+    FOREIGN KEY (`mem_no`)
+    REFERENCES `ssafydb`.`user_info` (`mem_no`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Table `ssafydb`.`report`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssafydb`.`report` (
+  `report_no` BIGINT NOT NULL AUTO_INCREMENT,
+  `mem_no` BIGINT NOT NULL,
+  `report_reason` VARCHAR(100) NOT NULL,
+  `report_create_by` VARCHAR(100) NOT NULL,
+  `report_create_date` DATETIME NOT NULL,
+  PRIMARY KEY (`report_no`, `mem_no`),
+  INDEX `FK_user_info_TO_profile_1` (`mem_no` ASC) VISIBLE,
+  CONSTRAINT `FK_user_info_TO_reportreportreport_1`
     FOREIGN KEY (`mem_no`)
     REFERENCES `ssafydb`.`user_info` (`mem_no`))
 ENGINE = InnoDB
