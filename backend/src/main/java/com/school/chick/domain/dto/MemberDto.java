@@ -1,4 +1,4 @@
-package com.school.chick.domain;
+package com.school.chick.domain.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,8 +23,13 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @ApiModel(value = "Member : 회원정보", description = "회원의 상세 정보를 나타낸다.")
-public class Member {
+@Table(name = "UerInfo")
+public class MemberDto {
     @Id
+    @GeneratedValue
+    @ApiModelProperty(value = "회원별 할당 숫자")
+    private int memNO;
+
     @ApiModelProperty(value = "회원 아이디")
     private String memId;
     @ApiModelProperty(value = "회원 비밀번호")
@@ -58,10 +63,13 @@ public class Member {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime memUpdateDate;
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.ROLE_NOT_PERMITTED;
 
     @Builder
-
-    public Member(String memId, String memPwd, String memChName, String memBirth, String memEmail, String memServiceTerm, String memPrivacyTerm, String memCurProfile, String memCreateBy, LocalDateTime memCreateDate, String memUpdateBy, LocalDateTime memUpdateDate) {
+    public MemberDto(int memNO, String memId, String memPwd, String memChName, String memBirth, String memEmail, String memServiceTerm, String memPrivacyTerm, String memCurProfile, String memCreateBy, LocalDateTime memCreateDate, String memUpdateBy, LocalDateTime memUpdateDate) {
+        this.memNO = memNO;
         this.memId = memId;
         this.memPwd = memPwd;
         this.memChName = memChName;

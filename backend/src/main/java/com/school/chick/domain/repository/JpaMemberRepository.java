@@ -1,19 +1,19 @@
-package com.school.chick.repository;
+package com.school.chick.domain.repository;
 
-import com.school.chick.domain.Member;
+import com.school.chick.domain.dto.MemberDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface JpaMemberRepository  extends JpaRepository<Member, Long>, MemberRepository{
+public interface JpaMemberRepository  extends JpaRepository<MemberDto, Long>, MemberRepository{
     @Override
-    Member save(Member memeber);
+    MemberDto save(MemberDto memeber);
     @Override
-    Optional<Member> findByMemId(Long id);
+    Optional<MemberDto> findByMemId(Long id);
     @Override
-    Optional<Member> findByMemChName(String childName);
+    Optional<MemberDto> findByMemChName(String childName);
     @Override
-    List<Member> findAll();
+    List<MemberDto> findAll();
 
 }

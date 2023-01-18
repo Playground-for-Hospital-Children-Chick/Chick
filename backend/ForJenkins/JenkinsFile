@@ -1,68 +1,46 @@
-def ssh_publisher(SERVER_CONFIG) {
-    sshPublisher(
-        continueOnError: false,
-        failOnError: true,
-        publishers:[
-            sshPublisherDesc(
-                configName: "${SERVER_CONFIG}",
-                verbose: true,
-                transfers: [
-                    // (5.1) Copy script files
-                    sshTransfer(
-                        sourceFiles: "deploy/develop/script/*.sh",
-                        removePrefix: "deploy/develop/script",
-                        remoteDirectory: "build/script"
-                    ),
-                    // (5.2) Copy build files
-                    sshTransfer(
-                        sourceFiles: "build/libs/*.jar",
-                        removePrefix: "build/libs",
-                        remoteDirectory: "/build/lib",
-                        // Absolute path.
-                        execCommand: "sh /home/build/script/deploy_server.sh"
-                    ),
-                    // (5.3) Health check
-					sshTransfer(
-                    	// Absolute path.
-                        execCommand: "sh /home/build/script/health_check.sh"
-                    )
-                ]
-            )
-        ]
-    )
-}
-
-// (1)
 pipeline {
-    environment {
-        // (2) Registered in Jenkins
-        SERVER_LIST = "server1,server2"
-    }
+ agent any
 
-    agent any
+ environment {
+   GIT_URL = "https://lab.ssafy.com/hju9707/backendtest.git"
+ }
 
-    stages {
-        stage("Build") {
-        	// (3)
-            steps {
-                sh "chmod +x gradlew"
-                sh "./gradlew clean build -x test"
-            }
-        }
+ tools {
+   gradle "gradle7.6"
+ }
 
-        stage("Deploy") {
-            steps {
-                echo "deploy.."
-                echo "${SERVER_LIST}"
+ stages {
+   stage('Pull') {
+     steps {
+       script {
+         git url: "${GIT_URL}", branch: "master", credentialsId: 'f37fcd64-302f-4c75-8d5c-7bb405e81711', poll: true, changelog: true
+       }
+     }
+   }
 
-                script {
-                	// (4)
-                    SERVER_LIST.tokenize(',').each {
-                        echo "SERVER: ${it}"
-                        ssh_publisher("${it}")
-                    }
-                }
-            }
-        }
-    }
+   stage('SpringBoot Build') {
+     steps {
+       script {
+         dir('backend') {
+             sh './gradlew build'
+         }
+       }
+     }
+   }
+
+   stage('Build') {
+     steps {
+       script {
+         sh 'docker build -t springboot ./backend/'
+       }
+     }
+   }
+
+   stage('Deploy') {
+     steps {
+        echo 'Deploy'
+     }
+   }
+
+ }
 }
