@@ -1,13 +1,13 @@
-package com.school.chick.repository;
+package com.school.chick.domain.repository;
 
-import com.school.chick.domain.Member;
+import com.school.chick.domain.dto.MemberDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
-    Member save(Member memeber);
-    Optional<Member> findByMemId(Long id);//Null을 반환할때 Optional을 많이쓴다
-    Optional<Member> findByMemChName(String childName);
-    List<Member> findAll();
+    MemberDto save(MemberDto memeber);
+    Optional<MemberDto> findByMemId(Long id);//Null을 반환할때 Optional을 많이쓴다
+    Optional<MemberDto> findByMemChName(String childName);
+    List<MemberDto> findAll();
 }

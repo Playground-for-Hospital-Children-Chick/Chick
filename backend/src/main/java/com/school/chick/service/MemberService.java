@@ -1,7 +1,7 @@
 package com.school.chick.service;
 
-import com.school.chick.domain.Member;
-import com.school.chick.repository.MemberRepository;
+import com.school.chick.domain.dto.MemberDto;
+import com.school.chick.domain.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class MemberService {
     /**
      *  회원 가입
      * */
-    public String join(Member member) {
+    public String join(MemberDto member) {
 //        validateDuplicateMember(member);//중복 회원검증
         memberRepository.save(member);
         return member.getMemId();
@@ -29,10 +29,11 @@ public class MemberService {
     /**
      * 전체 화면 조회
      */
-    public List<Member> findMemberes(){
+    public List<MemberDto> findMemberes(){
         return memberRepository.findAll();
     }
-    public Optional<Member> findOne(Long memberId){
+
+    public Optional<MemberDto> findOne(Long memberId){
         return memberRepository.findByMemId(memberId);
     }
 
