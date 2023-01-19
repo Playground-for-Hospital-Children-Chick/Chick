@@ -10,4 +10,5 @@ public interface MemberRepository {
     Optional<MemberDto> findByMemId(Long id);//Null을 반환할때 Optional을 많이쓴다
     Optional<MemberDto> findByMemChName(String childName);
     List<MemberDto> findAll();
+
 }

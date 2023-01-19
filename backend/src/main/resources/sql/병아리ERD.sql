@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `ssafydb`.`user_info` (
   `mem_service_term` ENUM('Y', 'N') NOT NULL,
   `mem_privacy_term` ENUM('Y', 'N') NOT NULL,
   `mem_cur_profuser_infoile` VARCHAR(10) NOT NULL,
-  `mem_ban` boolean default FALSE,
+  `mem_state` tinyint default 0,
+  `mem_number_of_reports` tinyint default 0,
   `mem_role` VARCHAR(50) NOT NULL,
   `mem_create_by` VARCHAR(100) NOT NULL,
   `mem_create_date` DATETIME NOT NULL,
@@ -97,19 +98,26 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `ssafydb`.`report` (
   `report_no` BIGINT NOT NULL AUTO_INCREMENT,
   `mem_no` BIGINT NOT NULL,
+  `report_reported_people` VARCHAR(10) NOT NULL,
+  `report_reporter` VARCHAR(10) NOT NULL,
+  `report_category` VARCHAR(10) NOT NULL,
   `report_reason` VARCHAR(100) NOT NULL,
   `report_create_by` VARCHAR(100) NOT NULL,
   `report_create_date` DATETIME NOT NULL,
+   `report_handling` BOOLEAN default FALSE,
   PRIMARY KEY (`report_no`, `mem_no`),
-  INDEX `FK_user_info_TO_profile_1` (`mem_no` ASC) VISIBLE,
-  CONSTRAINT `FK_user_info_TO_reportreportreport_1`
+  INDEX `FK_user_info_TO_report_1` (`mem_no` ASC) VISIBLE,
+  CONSTRAINT `FK_user_info_TO_report_1`
     FOREIGN KEY (`mem_no`)
     REFERENCES `ssafydb`.`user_info` (`mem_no`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+CREATE TABLE IF NOT EXISTS `ssafydb`.`persistent_logins` (
+  series VARCHAR(64) NOT NULL,
+  username VARCHAR(64) NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  last_used DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (series)
+)
