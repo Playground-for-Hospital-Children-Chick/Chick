@@ -36,6 +36,8 @@ public class MemberDto {
     private String memChName;
     @ApiModelProperty(value = "아이 생일")
     private String memBirth;
+    @ApiModelProperty(value = "아이 성별")
+    private String memSex;
     @ApiModelProperty(value = "회원 이메일")
     private String memEmail;
     @ApiModelProperty(value = "회원 서비스 약관")
@@ -44,6 +46,10 @@ public class MemberDto {
     private String memPrivacyTerm;
     @ApiModelProperty(value = "현재 프로필")
     private String memCurProfile;
+    @ApiModelProperty(value = "현재 회원 상태")
+    private int memState;
+    @ApiModelProperty(value = "신고 당한 횟수")
+    private int memNumberOfReports;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
