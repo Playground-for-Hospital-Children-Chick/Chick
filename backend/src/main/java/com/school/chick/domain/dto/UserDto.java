@@ -20,54 +20,53 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 @Entity
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
-@ApiModel(value = "Member : 회원정보", description = "회원의 상세 정보를 나타낸다.")
+@ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 @Table(name = "UerInfo")
-public class MemberDto {
+public class UserDto {
     @Id
     @GeneratedValue
     @ApiModelProperty(value = "회원별 할당 숫자")
-    private int memNO;
-
-    @ApiModelProperty(value = "회원 아이디")
-    private String memId;
-    @ApiModelProperty(value = "회원 비밀번호")
-    private String memPwd;
-    @ApiModelProperty(value = "아이 이름")
-    private String memChName;
-    @ApiModelProperty(value = "아이 생일")
-    private String memBirth;
-    @ApiModelProperty(value = "아이 성별")
-    private String memSex;
+    private int userNO;
     @ApiModelProperty(value = "회원 이메일")
-    private String memEmail;
-    @ApiModelProperty(value = "회원 서비스 약관")
-    private String memServiceTerm;
-    @ApiModelProperty(value = "회원 약관")
-    private String memPrivacyTerm;
-    @ApiModelProperty(value = "현재 프로필")
-    private String memCurProfile;
-    @ApiModelProperty(value = "현재 회원 상태")
-    private int memState;
+    private String userEmail;
+    @ApiModelProperty(value = "회원 비밀번호")
+    private String userPwd;
+    @ApiModelProperty(value = "아이 이름")
+    private String userChName;
+    @ApiModelProperty(value = "보호자 이름")
+    private String userParentName;
+    @ApiModelProperty(value = "아이 성별")
+    private String userSex;
+    @ApiModelProperty(value = "아이 생일")
+    private String userBirth;
+    @ApiModelProperty(value = "회원 상태")
+    private String userState;
     @ApiModelProperty(value = "신고 당한 횟수")
-    private int memNumberOfReports;
+    private String userNumberOfReports;
+    @ApiModelProperty(value = "회원 서비스 약관")
+    private String userServiceTerm;
+    @ApiModelProperty(value = "회원 약관")
+    private String userPrivacyTerm;
+    @ApiModelProperty(value = "현재 프로필")
+    private String userCurProfile;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
-    private String memCreateBy;
+    private String userCreateBy;
     @CreatedDate
     @Column(updatable = false, nullable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "생성일")
-    private LocalDateTime memCreateDate;
+    private LocalDateTime userCreateDate;
     @ApiModelProperty(value = "수정자")
     @LastModifiedBy
-    private String memUpdateBy;
+    private String userUpdateBy;
     @LastModifiedDate
     @Column(nullable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
-    private LocalDateTime memUpdateDate;
-    @Column(name = "memRole")
+    private LocalDateTime userUpdateDate;
+    @Column(name = "userRole")
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.ROLE_NOT_PERMITTED;
 
