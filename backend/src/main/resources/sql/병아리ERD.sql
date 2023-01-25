@@ -50,7 +50,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `ssafydb`.`user_info`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`user_info` (
-  `user_no` BIGINT NOT NULL,
+  `user_no` BIGINT NOT NULL AUTO_INCREMENT,
   `prof_no` BIGINT NOT NULL,
   `user_email` VARCHAR(50) NOT NULL,
   `user_pwd` VARCHAR(100) NOT NULL,
@@ -101,44 +101,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `ssafydb`.`room_info`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafydb`.`room_info` (
-  `room_id` BIGINT NOT NULL,
-  `room_cnt` INT NOT NULL,
-  `room_type` VARCHAR(100) NOT NULL,
-  `room_link` VARCHAR(100) NOT NULL,
-  `romm_create_date` DATETIME NOT NULL,
-  `room_update_by` VARCHAR(100) NOT NULL,
-  `room_update_date` DATETIME NOT NULL,
-  `maching_create_by` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`room_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `ssafydb`.`maching`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `ssafydb`.`maching` (
-  `user_no` BIGINT NOT NULL,
-  `room_id` BIGINT NOT NULL,
-  `ma_game_name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`user_no`, `room_id`),
-  INDEX `FK_room_info_TO_maching_1` (`room_id` ASC) VISIBLE,
-  CONSTRAINT `FK_room_info_TO_maching_1`
-    FOREIGN KEY (`room_id`)
-    REFERENCES `ssafydb`.`room_info` (`room_id`),
-  CONSTRAINT `FK_user_info_TO_maching_1`
-    FOREIGN KEY (`user_no`)
-    REFERENCES `ssafydb`.`user_info` (`user_no`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `ssafydb`.`report`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`report` (
@@ -158,6 +120,57 @@ CREATE TABLE IF NOT EXISTS `ssafydb`.`report` (
   CONSTRAINT `FK_user_info_TO_report_1`
     FOREIGN KEY (`user_no`)
     REFERENCES `ssafydb`.`user_info` (`user_no`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ssafydb`.`room_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssafydb`.`room_info` (
+  `room_id` BIGINT NOT NULL,
+  `user_no` BIGINT NOT NULL,
+  `prof_no` BIGINT NOT NULL,
+  `room_cnt` INT NOT NULL,
+  `room_type` VARCHAR(100) NOT NULL,
+  `room_link` VARCHAR(100) NOT NULL,
+  `romm_create_date` DATETIME NOT NULL,
+  `room_update_by` VARCHAR(100) NOT NULL,
+  `room_update_date` DATETIME NOT NULL,
+  `maching_create_by` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`room_id`, `user_no`, `prof_no`),
+  INDEX `FK_user_info_TO_room_info_1` (`user_no` ASC) VISIBLE,
+  INDEX `FK_user_info_TO_room_info_2` (`prof_no` ASC) VISIBLE,
+  CONSTRAINT `FK_user_info_TO_room_info_1`
+    FOREIGN KEY (`user_no`)
+    REFERENCES `ssafydb`.`user_info` (`user_no`),
+  CONSTRAINT `FK_user_info_TO_room_info_2`
+    FOREIGN KEY (`prof_no`)
+    REFERENCES `ssafydb`.`user_info` (`prof_no`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ssafydb`.`wait_room`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ssafydb`.`wait_room` (
+  `wait_no` BIGINT NOT NULL,
+  `user_no` BIGINT NOT NULL,
+  `prof_no` BIGINT NOT NULL,
+  `wait_game_type` VARCHAR(100) NOT NULL,
+  `wait_creat_date` DATETIME NOT NULL,
+  PRIMARY KEY (`wait_no`, `user_no`, `prof_no`),
+  INDEX `FK_user_info_TO_wait_room_1` (`user_no` ASC) VISIBLE,
+  INDEX `FK_user_info_TO_wait_room_2` (`prof_no` ASC) VISIBLE,
+  CONSTRAINT `FK_user_info_TO_wait_room_1`
+    FOREIGN KEY (`user_no`)
+    REFERENCES `ssafydb`.`user_info` (`user_no`),
+  CONSTRAINT `FK_user_info_TO_wait_room_2`
+    FOREIGN KEY (`prof_no`)
+    REFERENCES `ssafydb`.`user_info` (`prof_no`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
