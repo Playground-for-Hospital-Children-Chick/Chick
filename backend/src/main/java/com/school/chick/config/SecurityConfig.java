@@ -21,9 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/swagger-ui/**").permitAll()
-//                .anyRequest().authenticated();
         http.csrf().disable() // swagger API 호출시 403 에러 발생 방지
                 .authorizeRequests()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
