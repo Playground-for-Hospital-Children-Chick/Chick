@@ -41,10 +41,16 @@ dependencies {
 	implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
 	// https://mvnrepository.com/artifact/com.querydsl/querydsl-apt
 	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '4.1.4'
+<<<<<<< HEAD
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+	//openvidu
+	implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.25.0'
+=======
 	// https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio
 	implementation group: 'com.corundumstudio.socketio', name: 'netty-socketio', version: '1.7.17'
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+>>>>>>> bcbd0a31543bb4f78beb68f845dffc5818cf7a3a
 
 
 
