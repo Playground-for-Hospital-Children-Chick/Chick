@@ -26,7 +26,11 @@ public class UserDto {
     @Id
     @GeneratedValue
     @ApiModelProperty(value = "회원별 할당 숫자")
-    private int userNO;
+    private int userNo;
+    @ManyToOne
+    @JoinColumn(name = "profile_no")
+    @ApiModelProperty(value = "프로필 번호")
+    private ProfileDto profileNo;
     @ApiModelProperty(value = "회원 이메일")
     private String userEmail;
     @ApiModelProperty(value = "회원 비밀번호")
