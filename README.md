@@ -32,6 +32,4 @@ VSCode, IntelliJ, MySQL workbench
 
 ### DevOps
 
-Jenkins
-
 docker
