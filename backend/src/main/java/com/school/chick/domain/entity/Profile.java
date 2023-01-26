@@ -1,4 +1,4 @@
-package com.school.chick.domain.dto;
+package com.school.chick.domain.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +18,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 @Table(name = "Profile")
-public class ProfileDto {
+public class Profile {
 
     @Id
     @ApiModelProperty(value = "프로필 번호")

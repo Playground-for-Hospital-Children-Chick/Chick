@@ -1,15 +1,15 @@
 package com.school.chick.service;
 
-import com.school.chick.domain.dto.UserDto;
+import com.school.chick.domain.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
 
-        public String join(UserDto user);
-        public List<UserDto> findUsers();
-        public Optional<UserDto> findOne(Long userEmail);
+        public String join(User user);
+        public List<User> findUsers();
+        public Optional<User> findOne(Long userEmail);
 
 
 }

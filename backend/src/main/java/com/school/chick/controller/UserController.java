@@ -1,6 +1,6 @@
 package com.school.chick.controller;
 
-import com.school.chick.domain.dto.UserDto;
+import com.school.chick.domain.entity.User;
 import com.school.chick.service.UserService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -27,14 +27,14 @@ public class UserController {
         this.userService = userService;
     }
     @PostMapping("/create-user")
-    public String create(UserDto user){
+    public String create(User user){
         System.out.println(user+" create-user ");
         userService.join(user);
         return "redirect:/";
     }
     @GetMapping("/find")
     public String list(Model model){
-        List<UserDto> members = userService.findUsers();
+        List<User> members = userService.findUsers();
         model.addAttribute("members", members);
         return "member/memberList";
     }
