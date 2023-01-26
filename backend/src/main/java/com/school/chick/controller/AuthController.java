@@ -3,9 +3,11 @@ package com.school.chick.controller;
 import com.school.chick.domain.dto.BaseResponseBody;
 import com.school.chick.domain.dto.UserLoginPostReq;
 import com.school.chick.domain.dto.UserLoginPostRes;
+import com.school.chick.domain.entity.AuthRefreshSave;
 import com.school.chick.domain.entity.User;
 import com.school.chick.domain.repository.AuthRefreshSaveRepository;
 import com.school.chick.service.UserService;
+import com.school.chick.util.jwt.JwtTokenUtil;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,23 +48,23 @@ public class AuthController {
             return ResponseEntity.status(404).body(UserLoginPostRes.of(404, "Not Exist", null));
         }
 
-//        // 로그인 요청시 입력한 패스와드와 DB의 패스워드가 같은지 확인
-//        if(passwordEncoder.matches(password, user.getPassword())) {
-//            // 같으면 로그인 성공
-//            String refreshToken = JwtTokenUtil.getRefreshToken(phone);
-//            AuthRefreshSave tokenDto = new AuthRefreshSave();
-//            tokenDto.setRefreshToken(refreshToken);
-//            authRefreshSaveRepository.save(tokenDto);
-//
-//            Cookie cookie=new Cookie("refreshToken", refreshToken); // refresh 담긴 쿠키 생성
-//            cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간을 refresh 유효시간만큼 설정
-//            cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
-//            cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
-//            cookie.setPath("/");
-//
-//            response.addCookie(cookie);
-//            return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(phone)));
-//        }
+        // 로그인 요청시 입력한 패스와드와 DB의 패스워드가 같은지 확인
+        if(passwordEncoder.matches(password, user.getUserPwd())) {
+            // 같으면 로그인 성공
+            String refreshToken = JwtTokenUtil.getRefreshToken(email);
+            AuthRefreshSave tokenDto = new AuthRefreshSave();
+            tokenDto.setRefreshToken(refreshToken);
+            authRefreshSaveRepository.save(tokenDto);
+
+            Cookie cookie=new Cookie("refreshToken", refreshToken); // refresh 담긴 쿠키 생성
+            cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간을 refresh 유효시간만큼 설정
+            cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
+            cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
+            cookie.setPath("/");
+
+            response.addCookie(cookie);
+            return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(email)));
+        }
 
         // 패스워드가 일치하지 않으면 로그인 실패 응답
         return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
