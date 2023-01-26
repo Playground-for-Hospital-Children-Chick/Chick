@@ -32,6 +32,7 @@ public class UserDto {
     @ApiModelProperty(value = "프로필 번호")
     private ProfileDto profileNo;
     @ApiModelProperty(value = "회원 이메일")
+    @Column(nullable = false, length=100, unique = true)
     private String userEmail;
     @ApiModelProperty(value = "회원 비밀번호")
     private String userPwd;
