@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserRepository {
     User save(User user);
-    Optional<User> findByUserEmail(Long userEmail);//Null을 반환할때 Optional을 많이쓴다
+    User findByUserEmail(String userEmail);//Null을 반환할때 Optional을 많이쓴다
     Optional<User> findByMemChName(String childName);
     List<User> findAll();
 

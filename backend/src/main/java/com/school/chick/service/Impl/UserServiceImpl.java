@@ -35,8 +35,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findOne(Long userEmail){
-        return userRepository.findByUserEmail(userEmail);
+    @Override
+    public User getUserByEmail(String email) {
+        User user = userRepository.findByUserEmail(email);
+        return user;
     }
 
 //    private void validateDuplicateMember(Member member) {

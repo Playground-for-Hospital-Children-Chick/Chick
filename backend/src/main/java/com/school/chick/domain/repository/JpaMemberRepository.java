@@ -6,12 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface JpaMemberRepository  extends JpaRepository<User, Long>, UserRepository {
-    @Override
+public interface JpaMemberRepository  extends JpaRepository<User, Long> {
     User save(User memeber);
-    @Override
-    Optional<User> findByUserEmail(Long id);
-    @Override
+    Optional<User> findByUserEmail(String id);
+
     Optional<User> findByMemChName(String childName);
     @Override
     List<User> findAll();
