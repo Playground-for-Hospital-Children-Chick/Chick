@@ -1,14 +1,14 @@
 package com.school.chick.domain.repository;
 
-import com.school.chick.domain.dto.UserDto;
+import com.school.chick.domain.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-    UserDto save(UserDto user);
-    Optional<UserDto> findByUserEmail(Long userEmail);//Null을 반환할때 Optional을 많이쓴다
-    Optional<UserDto> findByMemChName(String childName);
-    List<UserDto> findAll();
+    User save(User user);
+    Optional<User> findByUserEmail(Long userEmail);//Null을 반환할때 Optional을 많이쓴다
+    Optional<User> findByMemChName(String childName);
+    List<User> findAll();
 
 }

@@ -1,6 +1,6 @@
 package com.school.chick.service.Impl;
 
-import com.school.chick.domain.dto.UserDto;
+import com.school.chick.domain.entity.User;
 import com.school.chick.domain.repository.UserRepository;
 import com.school.chick.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +21,21 @@ public class UserServiceImpl implements UserService {
     /**
      *  회원 가입
      * */
-    public String join(UserDto user) {
+    public String join(User user) {
 //        validateDuplicateMember(member);//중복 회원검증
         userRepository.save(user);
-        return user.getMemId();
+        return user.getUserEmail();
     }
 
 
     /**
      * 전체 화면 조회
      */
-    public List<UserDto> findUsers(){
+    public List<User> findUsers(){
         return userRepository.findAll();
     }
 
-    public Optional<UserDto> findOne(Long userEmail){
+    public Optional<User> findOne(Long userEmail){
         return userRepository.findByUserEmail(userEmail);
     }
 

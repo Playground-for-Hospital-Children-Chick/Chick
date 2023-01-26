@@ -1,19 +1,19 @@
 package com.school.chick.domain.repository;
 
-import com.school.chick.domain.dto.UserDto;
+import com.school.chick.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface JpaMemberRepository  extends JpaRepository<UserDto, Long>, UserRepository {
+public interface JpaMemberRepository  extends JpaRepository<User, Long>, UserRepository {
     @Override
-    UserDto save(UserDto memeber);
+    User save(User memeber);
     @Override
-    Optional<UserDto> findByUserEmail(Long id);
+    Optional<User> findByUserEmail(Long id);
     @Override
-    Optional<UserDto> findByMemChName(String childName);
+    Optional<User> findByMemChName(String childName);
     @Override
-    List<UserDto> findAll();
+    List<User> findAll();
 
 }

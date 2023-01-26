@@ -1,5 +1,12 @@
 package com.school.chick.config;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum UserRole {
-    ROLE_NOT_PERMITTED, ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
+    USER("ROLE_USER"),
+    ADMIN("ROLE_ADMIN");
+    private final String value;
 }
