@@ -52,7 +52,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `ssafydb`.`user_info` (
   `user_no` BIGINT NOT NULL AUTO_INCREMENT,
   `prof_no` BIGINT NOT NULL,
-  `user_email` VARCHAR(50) NOT NULL,
+  `user_email` VARCHAR(50) NOT NULL Unique,
   `user_pwd` VARCHAR(100) NOT NULL,
   `user_ch_name` VARCHAR(10) NOT NULL,
   `user_parent_name` VARCHAR(10) NOT NULL,
