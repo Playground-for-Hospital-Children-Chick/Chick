@@ -26,18 +26,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @PostMapping("/create-user")
-    public String create(User user){
-        System.out.println(user+" create-user ");
-        userService.join(user);
-        return "redirect:/";
-    }
-    @GetMapping("/find")
-    public String list(Model model){
-        List<User> members = userService.findUsers();
-        model.addAttribute("members", members);
-        return "member/memberList";
-    }
 
 
 

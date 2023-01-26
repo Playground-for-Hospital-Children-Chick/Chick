@@ -18,23 +18,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    /**
-     *  회원 가입
-     * */
-    public String join(User user) {
-//        validateDuplicateMember(member);//중복 회원검증
-        userRepository.save(user);
-        return user.getUserEmail();
-    }
-
-
-    /**
-     * 전체 화면 조회
-     */
-    public List<User> findUsers(){
-        return userRepository.findAll();
-    }
-
     @Override
     public User getUserByEmail(String email) {
         User user = userRepository.findByUserEmail(email);
