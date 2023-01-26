@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface UserService {
 
-        public String join(User user);
-        public List<User> findUsers();
         public User getUserByEmail(String email);
 
 
