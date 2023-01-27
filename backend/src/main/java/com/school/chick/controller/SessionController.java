@@ -10,8 +10,8 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @CrossOrigin(origins = "*")
-@RestController
-public class RtcController {
+@RestController("/rooms")
+public class SessionController {
 
     @Value("${OPENVIDU_URL}")
     private String OPENVIDU_URL;
