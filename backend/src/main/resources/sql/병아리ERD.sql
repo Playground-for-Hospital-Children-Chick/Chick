@@ -179,3 +179,10 @@ COLLATE = utf8mb4_0900_ai_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+desc profile;
+desc user_info;
+
+insert into profile values(0, "chick", "/chick.jpg", 'ssafy','2023-01-01', 'ssafy', '2023-01-01' );
+select * from profile;
+insert into user_info values(0,0,"ssafy@ssafy.com", "your_password", "ssafy", "ssafy", "M", "19970707", 0, 0,'Y', 'Y', 'Y', 'ssafy','2023-01-01', 'ssafy', '2023-01-01')

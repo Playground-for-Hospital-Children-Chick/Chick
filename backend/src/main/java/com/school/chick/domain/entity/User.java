@@ -1,6 +1,5 @@
 package com.school.chick.domain.entity;
 
-import com.school.chick.config.UserRole;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -21,7 +20,7 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
-@Table(name = "UerInfo")
+@Table(name = "UserInfo")
 public class User {
     @Id
     @GeneratedValue
@@ -52,8 +51,6 @@ public class User {
     private String userServiceTerm;
     @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
-    @ApiModelProperty(value = "현재 프로필")
-    private String userCurProfile;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
@@ -71,8 +68,7 @@ public class User {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime userUpdateDate;
-    @Column(name = "userRole")
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole = UserRole.USER;
+    @ApiModelProperty(value = "관리자인지 아닌지")
+    private String userRole = "N";
 
 }

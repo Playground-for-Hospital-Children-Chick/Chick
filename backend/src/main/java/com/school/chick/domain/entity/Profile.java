@@ -12,6 +12,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -35,7 +37,7 @@ public class Profile {
     @Column(updatable = false, nullable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     @ApiModelProperty(value = "생성일")
-    private String profCreateDate;
+    private LocalDateTime profCreateDate;
 
     @ApiModelProperty(value = "수정자")
     @LastModifiedBy
@@ -44,6 +46,6 @@ public class Profile {
     @Column(nullable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
-    private String profUpdateDate;
+    private LocalDateTime  profUpdateDate;
 
 }

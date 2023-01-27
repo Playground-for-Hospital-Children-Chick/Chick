@@ -1,6 +1,5 @@
 package com.school.chick.domain.dto;
 
-import com.school.chick.config.UserRole;
 import com.school.chick.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +16,7 @@ public class UserDto {
     private String userChName;
     private String userParentName;
 
-    private UserRole userRole;
+    private String userRole;
 
     /* DTO -> Entity */
     public User toEntity() {
@@ -26,7 +25,7 @@ public class UserDto {
                 .userPwd(userPwd)
                 .userChName(userChName)
                 .userParentName(userParentName)
-                .userRole(userRole.USER)
+                .userRole(userRole)
                 .build();
         return user;
     }
