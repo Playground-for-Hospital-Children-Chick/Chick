@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService))
                 .authorizeRequests()//보호된 리소스 uri에 접근할 수 있는 권한 설정
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
-                .antMatchers("/login*/**").permitAll()
+                .antMatchers("/auth/login*/**").permitAll()
                 .anyRequest().authenticated();
     }
 }
