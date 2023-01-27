@@ -16,7 +16,10 @@
         "plugin:import/recommended",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
+        "plugin:testing-library/react",
+        "plugin:jest-dom/recommended",
         "prettier",
+
     ],
     "overrides": [
     ],
@@ -29,6 +32,9 @@
         "import",
         "react-hooks",
         "jsx-a11y",
+        "testing-library",
+        "jest-dom",
+
     ],
     "rules": {
         "react-hooks/rules-of-hooks": "error",
@@ -95,5 +101,13 @@
               "components": ["Link"],
             },
           ],
+          "testing-library/await-async-query": "error",
+          "testing-library/no-await-sync-query": "error",
+          "testing-library/no-debugging-utils": "warn",
+          "testing-library/no-dom-import": "off",
+          "jest-dom/prefer-checked": "error",
+          "jest-dom/prefer-enabled-disabled": "error",
+          "jest-dom/prefer-required": "error",
+          "jest-dom/prefer-to-have-attribute": "error",
 	},
 }
