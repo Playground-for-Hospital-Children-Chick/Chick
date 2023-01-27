@@ -15,7 +15,8 @@
         "plugin:react/jsx-runtime",
         "plugin:import/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended"
+        "plugin:jsx-a11y/recommended",
+        "prettier",
     ],
     "overrides": [
     ],
@@ -49,7 +50,7 @@
 		    "callbacksLast": true,
 		    "noSortAlphabetically": false,
 		    "reservedFirst": true,
-				"multiline": "last",
+			"multiline": "last",
 		  },
 		],
         "import/order": [
