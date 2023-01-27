@@ -6,6 +6,8 @@ import com.school.chick.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -21,10 +23,23 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-//    private void validateDuplicateMember(Member member) {
-//        memberRepository.save(member);
-//        memberRepository.findByChildName(member.getId()).ifPresent(member1 -> {
-//            throw  new IllegalStateException("존재");
-//        });
+//    public boolean createUser(UserRegisterPostReq userRegisterInfo) {
+//        if (userRepository.findByPhone(userRegisterInfo.getPhone()) != null) {
+//            return false;
+//        }
+//
+//        User user = new User();
+//        user.setPhone(userRegisterInfo.getPhone());
+//        user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
+//        user.setName(userRegisterInfo.getName());
+//        user.setAddress(userRegisterInfo.getAddress());
+//        user.setBank(userRegisterInfo.getBank());
+//        user.setAccount(userRegisterInfo.getAccount());
+//        user.setZipCode(userRegisterInfo.getZipCode());
+//        user.setDetailAddress(userRegisterInfo.getDetailAddress());
+//        user.setPicture(imageRepository.findById(userRegisterInfo.getPicture()).get());
+//        user.setData_create(LocalDateTime.now());
+//        userRepository.save(user);
+//        return true;
 //    }
 }
