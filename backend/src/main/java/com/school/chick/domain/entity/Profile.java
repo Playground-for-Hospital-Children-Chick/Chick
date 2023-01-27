@@ -24,7 +24,7 @@ public class Profile {
 
     @Id
     @ApiModelProperty(value = "프로필 번호")
-    private int profNo;
+    private Long profNo;
     @ApiModelProperty(value = "원본 파일 이름")
     private String profImg;
     @ApiModelProperty(value = "저장된 파일 이름")
