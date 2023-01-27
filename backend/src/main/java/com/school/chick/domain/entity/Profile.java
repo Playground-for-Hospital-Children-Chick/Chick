@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
-@Table(name = "Profile")
+@Table(name = "PROFILE")
 public class Profile {
 
     @Id

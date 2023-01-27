@@ -20,14 +20,14 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
-@Table(name = "UserInfo")
+@Table(name = "USERINFO")
 public class User {
     @Id
     @GeneratedValue
     @ApiModelProperty(value = "회원별 할당 숫자")
     private int userNo;
     @ManyToOne
-    @JoinColumn(name = "prof_no")
+    @JoinColumn(name = "PROF_NO")
     @ApiModelProperty(value = "프로필 번호")
     private Profile profNo;
     @ApiModelProperty(value = "회원 이메일")
