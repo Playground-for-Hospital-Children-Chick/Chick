@@ -17,7 +17,7 @@ public class SpringConfig {
     }
 
     @Bean
-    public UserServiceImpl memberService(){
+    public UserServiceImpl userService(){
         return new UserServiceImpl(userRepositoryy);
     }
 
