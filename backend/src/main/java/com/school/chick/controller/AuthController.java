@@ -10,6 +10,7 @@ import com.school.chick.service.UserService;
 import com.school.chick.util.jwt.JwtTokenUtil;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    @Autowired
     UserService userService;
     PasswordEncoder passwordEncoder;
     AuthRefreshSaveRepository authRefreshSaveRepository;
