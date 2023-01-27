@@ -25,7 +25,7 @@ public class User {
     @Id
     @GeneratedValue
     @ApiModelProperty(value = "회원별 할당 숫자")
-    private int userNo;
+    private Long userNo;
     @ManyToOne
     @JoinColumn(name = "PROF_NO")
     @ApiModelProperty(value = "프로필 번호")
