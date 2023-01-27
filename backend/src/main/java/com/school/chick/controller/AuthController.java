@@ -42,7 +42,6 @@ public class AuthController {
     public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo, HttpServletResponse response) {
         String email = loginInfo.getEmail();
         String password = loginInfo.getPassword();
-
         User user = userService.getUserByEmail(email);
 
         // 로그인 요청한 아이디가 DB에 존재하지 않으면 사용자없음 에러

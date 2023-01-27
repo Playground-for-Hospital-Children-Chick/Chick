@@ -28,9 +28,9 @@ public class User {
     @ApiModelProperty(value = "회원별 할당 숫자")
     private int userNo;
     @ManyToOne
-    @JoinColumn(name = "profile_no")
+    @JoinColumn(name = "prof_no")
     @ApiModelProperty(value = "프로필 번호")
-    private Profile profileNo;
+    private Profile profNo;
     @ApiModelProperty(value = "회원 이메일")
     @Column(nullable = false, length=100, unique = true)
     private String userEmail;
