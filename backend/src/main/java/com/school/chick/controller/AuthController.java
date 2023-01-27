@@ -1,6 +1,8 @@
 package com.school.chick.controller;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.school.chick.domain.dto.BaseResponseBody;
+import com.school.chick.domain.dto.ReAccessPostRes;
 import com.school.chick.domain.dto.UserLoginPostReq;
 import com.school.chick.domain.dto.UserLoginPostRes;
 import com.school.chick.domain.entity.AuthRefreshSave;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @AllArgsConstructor
@@ -72,5 +75,85 @@ public class AuthController {
         return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
     }
 
+    @PostMapping("/logout")
+    @ApiOperation(value = "로그아웃", notes = "로그아웃한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
+            @ApiResponse(code = 401, message = "토큰 없음", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "요청 실패", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<BaseResponseBody> logout(HttpServletRequest request, HttpServletResponse response) {
+        String refreshToken=null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies==null) {
+            return ResponseEntity.status(404).body(ReAccessPostRes.of(404, "Cookies is null", null, null));
+        }
+
+        for(Cookie cookie : cookies){
+            if("refreshToken".equals(cookie.getName())){
+                refreshToken=cookie.getValue();
+            }
+        }
+
+        // 쿠키 목록에 refreshToken 이 없으면 요청 실패 에러
+        if(refreshToken==null) {
+            return ResponseEntity.status(404).body(ReAccessPostRes.of(404, "Not Exist refreshToken", null, null));
+        }
+
+        // DB에 refreshToken 이 있으면 refreshToken 삭제 후 로그아웃
+        AuthRefreshSave token = authRefreshSaveRepository.findByRefreshToken(refreshToken);
+        if(token!=null) {
+            authRefreshSaveRepository.delete(token);
+
+            Cookie cookie = new Cookie("refreshToken", null);
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+
+            response.addCookie(cookie);
+            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+        }
+
+        // DB에 refreshToken 이 없으면 토큰 없음 에러
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Invalid Token"));
+    }
+
+    @PostMapping("/reissue")
+    @ApiOperation(value = "access 토큰 재발급", notes = "access 토큰을 재발급한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
+            @ApiResponse(code = 401, message = "토큰 없음", response = BaseResponseBody.class),
+            @ApiResponse(code = 404, message = "요청 실패", response = BaseResponseBody.class),
+            @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
+    })
+    public ResponseEntity<ReAccessPostRes> reissue(HttpServletRequest request, HttpServletResponse response) {
+        String refreshToken=null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies==null) {
+            return ResponseEntity.status(404).body(ReAccessPostRes.of(404, "Cookies is null", null, null));
+        }
+        for(Cookie cookie : cookies){
+            if("refreshToken".equals(cookie.getName())){
+                refreshToken=cookie.getValue();
+            }
+        }
+
+        // 쿠키 목록에 refreshToken 이 없으면 요청 실패 에러
+        if(refreshToken==null) {
+            return ResponseEntity.status(404).body(ReAccessPostRes.of(404, "Not Exist refreshToken", null, null));
+        }
+
+        // DB에 refreshToken 이 있으면 토큰재발급
+        AuthRefreshSave token = authRefreshSaveRepository.findByRefreshToken(refreshToken);
+        if(token!=null) {
+            // 폰번호도 보내기
+            DecodedJWT decodedJWT = JwtTokenUtil.getVerifier().verify(refreshToken.replace(JwtTokenUtil.TOKEN_PRIFIX, ""));
+            String email = decodedJWT.getSubject();
+            return ResponseEntity.ok(ReAccessPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(email), email));
+        }
+
+        // DB에 refreshToken 이 없으면 토큰 없음 에러
+        return ResponseEntity.status(401).body(ReAccessPostRes.of(401, "Invalid Token", null, null));
+    }
 
 }
