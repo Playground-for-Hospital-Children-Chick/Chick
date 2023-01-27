@@ -33,7 +33,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `ssafydb`.`profile`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`profile` (
-  `prof_no` BIGINT NOT NULL,
+  `prof_no` BIGINT NOT NULL AUTO_INCREMENT,
   `prof_img` VARCHAR(10) NOT NULL,
   `prof_img_path` VARCHAR(100) NOT NULL,
   `prof_create_by` VARCHAR(100) NOT NULL,
@@ -52,27 +52,29 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `ssafydb`.`user_info` (
   `user_no` BIGINT NOT NULL AUTO_INCREMENT,
   `prof_no` BIGINT NOT NULL,
-  `user_email` VARCHAR(50) NOT NULL Unique,
+  `user_email` VARCHAR(50) NOT NULL,
   `user_pwd` VARCHAR(100) NOT NULL,
   `user_ch_name` VARCHAR(10) NOT NULL,
   `user_parent_name` VARCHAR(10) NOT NULL,
   `user_sex` ENUM('M', 'F') NOT NULL,
   `user_birth` VARCHAR(8) NOT NULL,
-  `user_state` INT NOT NULL,
+  `user_state` VARCHAR(10) NOT NULL,
   `user_number_of_reports` INT NOT NULL,
   `user_service_term` ENUM('Y', 'N') NOT NULL,
   `user_privacy_term` ENUM('Y', 'N') NOT NULL,
-  `user_role` ENUM('Y', 'N') NOT NULL,
+  `user_role` VARCHAR(10) NOT NULL,
   `user_create_by` VARCHAR(100) NOT NULL,
   `user_create_date` DATETIME NOT NULL,
   `user_update_by` VARCHAR(100) NOT NULL,
   `user_update_date` DATETIME NOT NULL,
   PRIMARY KEY (`user_no`, `prof_no`),
+  UNIQUE INDEX `user_email` (`user_email` ASC) VISIBLE,
   INDEX `FK_profile_TO_user_info_1` (`prof_no` ASC) VISIBLE,
   CONSTRAINT `FK_profile_TO_user_info_1`
     FOREIGN KEY (`prof_no`)
     REFERENCES `ssafydb`.`profile` (`prof_no`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -81,7 +83,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `ssafydb`.`daily_log`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`daily_log` (
-  `log_id` BIGINT NOT NULL,
+  `log_id` BIGINT NOT NULL AUTO_INCREMENT,
   `user_no` BIGINT NOT NULL,
   `log_game_name` VARCHAR(100) NOT NULL,
   `log_play_time` INT NOT NULL,
@@ -104,7 +106,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `ssafydb`.`report`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`report` (
-  `rp_no` BIGINT NOT NULL,
+  `rp_no` BIGINT NOT NULL AUTO_INCREMENT,
   `user_no` BIGINT NOT NULL,
   `rp_reported_people` VARCHAR(10) NOT NULL,
   `rp_reporter` VARCHAR(10) NOT NULL,
@@ -129,7 +131,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `ssafydb`.`room_info`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`room_info` (
-  `room_id` BIGINT NOT NULL,
+  `room_id` BIGINT NOT NULL AUTO_INCREMENT,
   `user_no` BIGINT NOT NULL,
   `prof_no` BIGINT NOT NULL,
   `room_cnt` INT NOT NULL,
@@ -157,7 +159,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `ssafydb`.`wait_room`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ssafydb`.`wait_room` (
-  `wait_no` BIGINT NOT NULL,
+  `wait_no` BIGINT NOT NULL AUTO_INCREMENT,
   `user_no` BIGINT NOT NULL,
   `prof_no` BIGINT NOT NULL,
   `wait_game_type` VARCHAR(100) NOT NULL,
@@ -180,9 +182,12 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
 desc profile;
 desc user_info;
 
-insert into profile values(0, "chick", "/chick.jpg", 'ssafy','2023-01-01', 'ssafy', '2023-01-01' );
+insert into profile values(1, "chick", "/chick.jpg", 'ssafy','2023-01-01', 'ssafy', '2023-01-01' );
 select * from profile;
-insert into user_info values(0,0,"ssafy@ssafy.com", "your_password", "ssafy", "ssafy", "M", "19970707", 0, 0,'Y', 'Y', 'Y', 'ssafy','2023-01-01', 'ssafy', '2023-01-01')
+insert into user_info values(1,1,"ssafy@ssafy.com", "your_password", "ssafy", "ssafy", "M", "19970707", "0", 0,'Y', 'Y', "user", 'ssafy','2023-01-01', 'ssafy', '2023-01-01');
+select * from user_info;
+
