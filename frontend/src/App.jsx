@@ -7,7 +7,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="text-3xl text-red-500 font-bold underline">Hello world!</h1>
+      
+      <h1 className="text-sm text-red-500 bg-emerald-600 font-bold underline">Hello world!</h1>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
