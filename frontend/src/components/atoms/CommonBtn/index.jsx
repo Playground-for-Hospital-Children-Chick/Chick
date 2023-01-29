@@ -25,7 +25,7 @@ function CommonBtn({ text, color, onClick }) {
     return (
       <button
         className={
-          "w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-white "
+          "font-chick w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-white "
         }
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
@@ -39,7 +39,7 @@ function CommonBtn({ text, color, onClick }) {
     return (
       <button
         className={
-          "w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#ff82b3] "
+          "font-chick w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#ff82b3] "
         }
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
@@ -53,7 +53,7 @@ function CommonBtn({ text, color, onClick }) {
     return (
       <button
         className={
-          "w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#fcff83] "
+          "font-chick w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#fcff83] "
         }
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
@@ -67,7 +67,7 @@ function CommonBtn({ text, color, onClick }) {
     return (
       <button
         className={
-          "w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#9acfc5] "
+          "font-chick w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#9acfc5] "
         }
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
@@ -81,7 +81,7 @@ function CommonBtn({ text, color, onClick }) {
     return (
       <button
         className={
-          "w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#57a2e8] "
+          "font-chick w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#57a2e8] "
         }
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
@@ -95,7 +95,7 @@ function CommonBtn({ text, color, onClick }) {
     return (
       <button
         className={
-          "w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#57a2e8] "
+          "font-chick w-[138px] h-[70px] absolute left-5 top-5 overflow-hidden rounded-[30px] bg-[#57a2e8] "
         }
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
