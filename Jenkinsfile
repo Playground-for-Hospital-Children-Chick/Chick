@@ -9,15 +9,26 @@ pipeline {
 				}
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
+        stage('SpringBoot Build') {
+          steps {
+            script {
+              dir('backend') {
+                  sh './gradlew build'
+              }
             }
+          }
         }
+   
+        stage('Build') {
+          steps {
+              echo 'Deploying....'
+          }
+        }
+   
         stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
+          steps {
+              echo 'Deploy'
+          }
         }
     }
 }
