@@ -8,11 +8,11 @@
   Ver 1.0.0
   
   - 사용 예시:
-<SideBar />
+<SideBarBase />
   */
 }
 
-function SideBar() {
+function SideBarBase() {
   return (
     <div
       className="w-[118px] h-[834px] overflow-hidden rounded-[40px] bg-white"
@@ -21,4 +21,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default SideBarBase;
