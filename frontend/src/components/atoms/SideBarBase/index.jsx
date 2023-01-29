@@ -6,18 +6,26 @@
   수정 작성일: 23.01.29
   
   Ver 1.0.0
+  최초 버전
+  Ver 1.1.0
+  children 추가
   
   - 사용 예시:
-<SideBarBase />
+    <SideBarBase>
+      <Component1 />
+      <Component2 />
+    </SideBarBase>
   */
 }
 
-function SideBarBase() {
+function SideBarBase({ children }) {
   return (
     <div
-      className="w-[118px] h-[834px] overflow-hidden rounded-[40px] bg-white"
+      className="relative w-[118px] h-[834px] overflow-hidden rounded-[40px] bg-white"
       style={{ boxShadow: "0px 4px 4px 4px rgba(0,0,0,0.25)" }}
-    />
+    >
+      {children}
+    </div>
   );
 }
 
