@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+				script{
+				git branch: 'back-end', credentialsId: 'jaeuk', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
+				}
             }
         }
         stage('Test') {
