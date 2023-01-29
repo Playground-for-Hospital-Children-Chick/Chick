@@ -5,7 +5,7 @@ pipeline {
         stage('Pull') {
             steps {
 				script{
-				  checkout scmGit(branches: [[name: '*/back-end']], extensions: [submodule(parentCredentials: true, reference: '', trackingSubmodules: true)], userRemoteConfigs: [[credentialsId: 'jaeuk', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207']])
+				  git branch: 'back-end', credentialsId: 'jaeuk', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
 				}
             }
         }
@@ -13,6 +13,7 @@ pipeline {
           steps {
             script {
               dir('backend') {
+                  chmod +x gradlew
                   sh './gradlew build'
               }
             }
