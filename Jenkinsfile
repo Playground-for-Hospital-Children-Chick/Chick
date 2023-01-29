@@ -11,9 +11,11 @@ pipeline {
         }
         stage('SpringBoot Build') {
           steps {
+            script{
+                 chmod +x gradlew
+            }
             script {
               dir('backend') {
-                  chmod +x gradlew
                   sh './gradlew build'
               }
             }
