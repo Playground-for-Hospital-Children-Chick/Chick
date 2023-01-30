@@ -23,7 +23,7 @@ function FacePlayHomeBox() {
   return (
     <HomeBox>
       <div className="font-chick text-4xl text-center text-black/[0.66]">
-        친구들과 밥 먹기!
+        친구들과 영상 놀이터
       </div>
       <div className="inline-flex justify-center w-[100%]">
         <img src={ChildOne} style={{ height: 87, width: 154 }} />
