@@ -20,13 +20,13 @@ default="blue"
 */
 }
 
-function GamePlayBtn({ text, color, onClick }) {
+function GamePlayBtn({ text, color, setGameStart }) {
   if (color === "white") {
     return (
       <button
         className="font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-white"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
-        onClick={onClick}
+        onClick={() => setGameStart(true)}
       >
         <p className="flex justify-center text-[28px] text-center text-black/[0.66]">
           {text}
@@ -38,7 +38,7 @@ function GamePlayBtn({ text, color, onClick }) {
       <button
         className="font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#ffcadf]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
-        onClick={onClick}
+        onClick={() => setGameStart(true)}
       >
         <p className="flex justify-center text-[28px] text-center text-black/[0.66]">
           {text}
@@ -50,7 +50,7 @@ function GamePlayBtn({ text, color, onClick }) {
       <button
         className="font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#fdffb6]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
-        onClick={onClick}
+        onClick={() => setGameStart(true)}
       >
         <p className="flex justify-center text-[28px] text-center text-black/[0.66]">
           {text}
@@ -62,7 +62,7 @@ function GamePlayBtn({ text, color, onClick }) {
       <button
         className="font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 rounded-[30px] bg-[#b2e9de]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
-        onClick={onClick}
+        onClick={() => setGameStart(true)}
       >
         <p className="flex justify-center text-[28px] text-center text-black/[0.66]">
           {text}
@@ -74,7 +74,7 @@ function GamePlayBtn({ text, color, onClick }) {
       <button
         className="font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#6bb8ff]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
-        onClick={onClick}
+        onClick={() => setGameStart(true)}
       >
         <p className="flex justify-center text-[28px] text-center text-black/[0.66]">
           {text}
@@ -86,7 +86,7 @@ function GamePlayBtn({ text, color, onClick }) {
       <button
         className="font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#6bb8ff]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
-        onClick={onClick}
+        onClick={() => setGameStart(true)}
       >
         <p className="flex justify-center text-[28px] text-center text-black/[0.66]">
           {text}
