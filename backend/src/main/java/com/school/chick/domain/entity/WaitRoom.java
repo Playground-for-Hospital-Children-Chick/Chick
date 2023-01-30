@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "WaitRoom : 대기방 정보", description = "대기방의 상세 정보를 나타낸다.")
 @Table(name = "WAIT_ROOM")
 public class WaitRoom {

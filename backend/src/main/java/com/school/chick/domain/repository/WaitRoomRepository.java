@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface WaitRoomRepository  extends JpaRepository<WaitRoom, Long> {
-    
+
 }
