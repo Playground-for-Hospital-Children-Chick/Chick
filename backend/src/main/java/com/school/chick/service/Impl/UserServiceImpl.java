@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setUserNumberOfReports(userRegisterInfo.getUser_reported());
         user.setUserServiceTerm(userRegisterInfo.getUser_service_term());
         user.setUserPrivacyTerm(userRegisterInfo.getUser_privacy_term());
-        user.setUserRole(userRegisterInfo.getUser_role());
+//        user.setUserRole(userRegisterInfo.getUser_role());
         user.setUserCreateBy(userRegisterInfo.getUser_create_by());
         user.setUserCreateDate(LocalDateTime.now());
         user.setUserUpdateBy(userRegisterInfo.getUser_upadate_by());
