@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @CrossOrigin(origins = "*")
-@RestController
+@RestController()
 public class SessionController {
 
     @Value("${OPENVIDU_URL}")
