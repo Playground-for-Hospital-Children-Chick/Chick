@@ -23,9 +23,9 @@ public class RoomInfo {
     @Id
     @GeneratedValue
     private Long roomId;
-    @ManyToOne
-    @JoinColumn(name = "USER_NO")
-    private User userNO;
+//    @ManyToOne
+    @JoinColumn(name = "USER_Email")
+    private String userEmail;
     private int roomCnt;
     private String roomType;
     private String roomLink;
