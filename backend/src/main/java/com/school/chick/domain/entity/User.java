@@ -51,6 +51,8 @@ public class User {
     private String userServiceTerm;
     @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
+//    @ApiModelProperty(value = "회원 역힐")
+//    private String userRole;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
@@ -70,5 +72,4 @@ public class User {
     private LocalDateTime userUpdateDate;
     @ApiModelProperty(value = "관리자인지 아닌지")
     private String userRole = "N";
-
 }
