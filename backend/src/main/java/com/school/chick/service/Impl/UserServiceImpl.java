@@ -1,5 +1,6 @@
 package com.school.chick.service.Impl;
 
+import com.school.chick.domain.dto.UserFindEmailReq;
 import com.school.chick.domain.dto.UserLoginInfo;
 import com.school.chick.domain.dto.UserRegisterPostReq;
 import com.school.chick.domain.dto.UserRole;
@@ -83,5 +84,12 @@ public class UserServiceImpl implements UserService {
         userLoginInfo.setUserChName(user.getUserChName());
         userLoginInfo.setUserRole(user.getUserRole());
         return userLoginInfo;
+    }
+
+    @Override
+    public User findEmail(UserFindEmailReq userFindEmailReq) {
+        User user = userRepository.findByUserParentNameAndUserChNameAndUserBirth(userFindEmailReq.getParentName(),
+                userFindEmailReq.getChildName(), userFindEmailReq.getBirth());
+        return user;
     }
 }

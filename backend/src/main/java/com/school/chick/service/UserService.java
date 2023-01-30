@@ -1,5 +1,6 @@
 package com.school.chick.service;
 
+import com.school.chick.domain.dto.UserFindEmailReq;
 import com.school.chick.domain.dto.UserLoginInfo;
 import com.school.chick.domain.dto.UserRegisterPostReq;
 import com.school.chick.domain.entity.User;
@@ -13,5 +14,7 @@ public interface UserService {
         public boolean createUser(UserRegisterPostReq userRegisterInfo);
 
         public UserLoginInfo getUserLoginInfo(User user);
+
+        public User findEmail(UserFindEmailReq userFindEmailReq);
 
 }
