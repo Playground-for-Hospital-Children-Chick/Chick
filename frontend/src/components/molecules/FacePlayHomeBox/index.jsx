@@ -22,14 +22,14 @@ import GamePlayBtn from "./../../atoms/GamePlayBtn/index";
 function FacePlayHomeBox() {
   return (
     <HomeBox>
-      <p className="font-chick text-4xl w-[368px] h-[48px] absolute text-center text-black/[0.66]">
+      <p className="font-chick text-4xl text-center text-black/[0.66]">
         친구들과 밥 먹기!
       </p>
       <ChildOne />
       <ChildTwo />
       <ChildThree />
       <ChildFour />
-      <GamePlayBtn text={"친구들 만나러 가기"} />
+      <GamePlayBtn text={"친구들 만나러 가기"} color="emerald" />
     </HomeBox>
   );
 }

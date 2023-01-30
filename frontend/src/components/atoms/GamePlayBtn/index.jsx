@@ -24,7 +24,7 @@ function GamePlayBtn({ text, color, onClick }) {
   if (color === "white") {
     return (
       <button
-        className="font-chick flex justify-center items-center w-[439px] h-[75px] absolute left-5 top-5 overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-white"
+        className="font-chick flex justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-white"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         onClick={onClick}
       >
@@ -36,7 +36,7 @@ function GamePlayBtn({ text, color, onClick }) {
   } else if (color === "pink") {
     return (
       <button
-        className="font-chick flex justify-center items-center w-[439px] h-[75px] absolute left-5 top-5 overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#ffcadf]"
+        className="font-chick flex justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#ffcadf]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         onClick={onClick}
       >
@@ -48,7 +48,7 @@ function GamePlayBtn({ text, color, onClick }) {
   } else if (color === "yellow") {
     return (
       <button
-        className="font-chick flex justify-center items-center w-[439px] h-[75px] absolute left-5 top-5 overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#fdffb6]"
+        className="font-chick flex justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#fdffb6]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         onClick={onClick}
       >
@@ -60,7 +60,7 @@ function GamePlayBtn({ text, color, onClick }) {
   } else if (color === "emerald") {
     return (
       <button
-        className="font-chick flex justify-center items-center w-[439px] h-[75px] absolute left-5 top-5 overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#b2e9de]"
+        className="font-chick flex justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#b2e9de]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         onClick={onClick}
       >
@@ -72,7 +72,7 @@ function GamePlayBtn({ text, color, onClick }) {
   } else if (color === "blue") {
     return (
       <button
-        className="font-chick flex justify-center items-center w-[439px] h-[75px] absolute left-5 top-5 overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#6bb8ff]"
+        className="font-chick flex justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#6bb8ff]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         onClick={onClick}
       >
@@ -84,7 +84,7 @@ function GamePlayBtn({ text, color, onClick }) {
   } else {
     return (
       <button
-        className="font-chick flex justify-center items-center w-[439px] h-[75px] absolute left-5 top-5 overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#6bb8ff]"
+        className="font-chick flex justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#6bb8ff]"
         style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         onClick={onClick}
       >

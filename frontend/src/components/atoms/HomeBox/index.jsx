@@ -17,13 +17,11 @@
 
 function HomeBox({ children }) {
   return (
-    <div className="container mx-auto px-4 relative w-[903px] h-[508px]">
-      <div
-        className="container mx-auto flex items-center justify-center px-4 w-[903px] h-[508px] left-[-1px] top-[-1px] rounded-[30px] bg-white border border-black/75"
-        style={{ boxShadow: "4px 4px 4px 3px rgba(0,0,0,0.25)" }}
-      >
-        {children}
-      </div>
+    <div
+      className="container mx-auto flex items-center justify-center px-6 w-[903px] h-[508px] rounded-[30px] bg-white border border-black/75"
+      style={{ boxShadow: "4px 4px 4px 3px rgba(0,0,0,0.25)" }}
+    >
+      {children}
     </div>
   );
 }
