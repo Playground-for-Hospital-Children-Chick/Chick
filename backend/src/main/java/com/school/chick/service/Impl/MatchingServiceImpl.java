@@ -17,10 +17,10 @@ public class MatchingServiceImpl implements MatchingService {
     }
 
     public boolean createWaiting(WaitRoomReq waitRoomReq) {
-        WaitRoom user = new WaitRoom();
-        user.setUserNO(waitRoomReq.getUserNO());
-        user.setWaitGameType(waitRoomReq.getWaitGameType());
-        waitRoomRepository.save(user);
+        WaitRoom waitUser= new WaitRoom();
+        waitUser.setUserEmail(waitRoomReq.getUserEmail());
+        waitUser.setWaitGameType(waitRoomReq.getWaitGameType());
+        waitRoomRepository.save(waitUser);
         return true;
     }
 

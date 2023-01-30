@@ -21,8 +21,8 @@ public class WaitRoom {
     @Id
     @GeneratedValue
     private Long waitNo;
-    @JoinColumn(name = "USER_NO")
-    private long userNO;
+    @JoinColumn(name = "USER_Email")
+    private String userEmail;
     private String waitGameType;
     @CreatedDate
     @Column(updatable = false, nullable = false)
