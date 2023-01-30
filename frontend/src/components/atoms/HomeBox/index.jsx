@@ -18,7 +18,7 @@
 function HomeBox({ children }) {
   return (
     <div
-      className="container mx-auto flex flex-col justify-evenly px-6 w-[903px] h-[508px] rounded-[30px] bg-white border border-black/75"
+      className="container mt-12 flex flex-col justify-evenly px-6 w-[903px] h-[508px] rounded-[30px] bg-white border border-black/75"
       style={{ boxShadow: "4px 4px 4px 3px rgba(0,0,0,0.25)" }}
     >
       {children}
