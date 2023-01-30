@@ -20,7 +20,7 @@ default="blue"
 */
 }
 
-function CommonBtn({ text, color, onClick }) {
+function CommonBtn({ text = "Button", color, onClick }) {
   if (color === "white") {
     return (
       <button
