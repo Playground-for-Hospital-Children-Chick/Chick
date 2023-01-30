@@ -20,9 +20,8 @@ public class WaitRoom {
     @Id
     @GeneratedValue
     private Long waitNo;
-    @ManyToOne
     @JoinColumn(name = "USER_NO")
-    private User userNO;
+    private long userNO;
     private String waitGameType;
     @CreatedDate
     @Column(updatable = false, nullable = false)

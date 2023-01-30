@@ -35,14 +35,14 @@ public class UserRegisterPostReq {
     String user_service_term;
     @ApiModelProperty(name="유저 개인정보이용약관", example = "Y")
     String user_privacy_term;
-    @ApiModelProperty(name="유저 역할: 회원(user),관리자(admin),부모님(parent)", example="user")
-    String user_role;
-    @ApiModelProperty(name="생성자", example="ssafy")
-    String user_create_by;
+//    @ApiModelProperty(name="유저 역할: 회원(user),관리자(admin),부모님(parent)", example="user")
+//    String user_role;
+//    @ApiModelProperty(name="생성자", example="ssafy")
+//    String user_create_by;
 //    @ApiModelProperty(name="생성일", example="2023-01-27")
 //    String user_create_date;
-    @ApiModelProperty(name="수정자", example="ssafy")
-    String user_upadate_by;
+//    @ApiModelProperty(name="수정자", example="ssafy")
+//    String user_upadate_by;
 //    @ApiModelProperty(name="수정일", example="2023-01-27")
 //    String user_update_date;
 }
