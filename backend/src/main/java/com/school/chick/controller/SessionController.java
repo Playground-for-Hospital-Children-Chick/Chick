@@ -1,6 +1,8 @@
 package com.school.chick.controller;
 
+import com.school.chick.service.SessionService;
 import io.openvidu.java.client.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,4 +57,5 @@ public class SessionController {
         Connection connection = session.createConnection(properties);
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
+
 }
