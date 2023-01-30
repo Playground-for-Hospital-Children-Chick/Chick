@@ -34,17 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**",
             "/webjars/**",
             "/users/*",
+            "/*/*",
     };
     @Override
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() // swagger API 호출시 403 에러 발생 방지
+        http.httpBasic().disable().csrf().disable() // swagger API 호출시 403 에러 발생 방지
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // JWT 토큰 기반 인증 설정
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService))
                 .authorizeRequests()//보호된 리소스 uri에 접근할 수 있는 권한 설정
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .antMatchers("/auth/login*/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().cors();
     }
 }

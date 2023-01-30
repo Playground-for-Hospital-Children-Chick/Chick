@@ -58,7 +58,7 @@ public class User {
     @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
     @ApiModelProperty(value = "회원 역힐")
-    private String userRole;
+    private UserRole userRole;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
