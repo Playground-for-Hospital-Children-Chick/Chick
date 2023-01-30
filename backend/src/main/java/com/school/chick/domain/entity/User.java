@@ -32,7 +32,7 @@ public class User {
     @ApiModelProperty(value = "프로필 번호")
     private Profile profNo;
     @ApiModelProperty(value = "회원 이메일")
-    @Column(nullable = false, length=100, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String userEmail;
     @ApiModelProperty(value = "회원 비밀번호")
     private String userPwd;
@@ -52,6 +52,8 @@ public class User {
     private String userServiceTerm;
     @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
+    //    @ApiModelProperty(value = "회원 역힐")
+//    private String userRole;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
@@ -70,6 +72,5 @@ public class User {
     @ApiModelProperty(value = "수정일")
     private LocalDateTime userUpdateDate;
     @ApiModelProperty(value = "관리자인지 아닌지")
-    private UserRole userRole = UserRole.USER;
-
+    private UserRole userRole = UserRole.ROLE_USER;
 }
