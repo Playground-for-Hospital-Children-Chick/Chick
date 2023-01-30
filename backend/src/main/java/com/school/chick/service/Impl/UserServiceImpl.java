@@ -1,5 +1,6 @@
 package com.school.chick.service.Impl;
 
+import com.school.chick.domain.dto.UserRegisterPostReq;
 import com.school.chick.domain.entity.User;
 import com.school.chick.domain.repository.UserRepository;
 import com.school.chick.service.UserService;
@@ -24,9 +25,9 @@ public class UserServiceImpl implements UserService {
     }
 
 //    public boolean createUser(UserRegisterPostReq userRegisterInfo) {
-//        if (userRepository.findByPhone(userRegisterInfo.getPhone()) != null) {
-//            return false;
-//        }
+////        if (userRepository.findByPhone(userRegisterInfo.getPhone()) != null) {
+////            return false;
+////        }
 //
 //        User user = new User();
 //        user.setPhone(userRegisterInfo.getPhone());
