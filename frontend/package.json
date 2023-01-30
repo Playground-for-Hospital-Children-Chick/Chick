@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
+    
   },
   "dependencies": {
     "click-to-react-component": "^1.0.8",
@@ -18,7 +19,9 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
-    "vite-plugin-svgr": "^2.4.0"
+    "vite-plugin-svgr": "^2.4.0",
+    "axios": "0.21.1",
+    "openvidu-browser": "2.25.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

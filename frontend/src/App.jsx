@@ -1,5 +1,5 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+
 import "./App.css";
 import CommonBtn from "../src/components/atoms/CommonBtn";
 import InputBox from "./components/atoms/Input";
