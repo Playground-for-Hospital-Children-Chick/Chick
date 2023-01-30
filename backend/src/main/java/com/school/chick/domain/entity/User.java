@@ -1,5 +1,6 @@
 package com.school.chick.domain.entity;
 
+import com.school.chick.domain.dto.UserRole;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -32,7 +33,7 @@ public class User {
     @ApiModelProperty(value = "프로필 번호")
     private Profile profNo;
     @ApiModelProperty(value = "회원 이메일")
-    @Column(nullable = false, length=100, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String userEmail;
     @ApiModelProperty(value = "회원 비밀번호")
     private String userPwd;
@@ -52,7 +53,7 @@ public class User {
     private String userServiceTerm;
     @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
-//    @ApiModelProperty(value = "회원 역힐")
+    //    @ApiModelProperty(value = "회원 역힐")
 //    private String userRole;
     @CreatedBy
     @Column(updatable = false)
@@ -72,5 +73,5 @@ public class User {
     @ApiModelProperty(value = "수정일")
     private LocalDateTime userUpdateDate;
     @ApiModelProperty(value = "관리자인지 아닌지")
-    private String userRole = "N";
+    private UserRole userRole = UserRole.ROLE_USER;
 }
