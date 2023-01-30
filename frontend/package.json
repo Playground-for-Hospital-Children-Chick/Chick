@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "atom-react-preview": "^1.1.4",
     "axios": "0.21.1",
     "click-to-react-component": "^1.0.8",
     "openvidu-browser": "2.25.0",
