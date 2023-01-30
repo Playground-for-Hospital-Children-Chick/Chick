@@ -15,22 +15,22 @@
       />
     */
 }
-import { ReactComponent as Tiger } from "../../../assets/images/sidebar/tiger.svg";
-import { ReactComponent as Rice } from "../../../assets/images/sidebar/rice.svg";
+import Tiger from "../../../assets/images/sidebar/tiger.svg";
+import Rice from "../../../assets/images/sidebar/rice.svg";
 
 function SideBarBtn({ type, selected, onClick }) {
   if (type === "rice") {
     if (selected) {
       return (
-        <button onClick={onClick}>
-          <Rice />
+        <button onClick={onClick} className="py-2">
+          <img src={Rice} />
           <span className={"font-chick text-xl text-blue-500 "}>밥먹기</span>
         </button>
       );
     } else {
       return (
-        <button onClick={onClick}>
-          <Rice />
+        <button onClick={onClick} className="py-2">
+          <img src={Rice} />
           <span className={"font-chick text-xl "}>밥먹기</span>
         </button>
       );
@@ -38,15 +38,15 @@ function SideBarBtn({ type, selected, onClick }) {
   } else if (type === "tiger") {
     if (selected) {
       return (
-        <button onClick={onClick}>
-          <Tiger />
+        <button onClick={onClick} className="py-2">
+          <img src={Tiger} />
           <span className={"font-chick text-xl text-blue-500 "}>얼굴놀이</span>
         </button>
       );
     } else {
       return (
-        <button onClick={onClick}>
-          <Tiger />
+        <button onClick={onClick} className="py-2">
+          <img src={Tiger} />
           <span className={"font-chick text-xl "}>얼굴놀이</span>
         </button>
       );

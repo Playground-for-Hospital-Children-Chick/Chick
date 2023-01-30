@@ -12,14 +12,14 @@
     */
 }
 
-import { ReactComponent as LogoText } from "../../../assets/logo/logo-text.svg";
+import LogoText from "../../../assets/logo/logo-text.svg";
 import SideBarBase from "../../atoms/SideBarBase";
 import SideBarBtn from "./../../atoms/SideBarBtn/index";
 
 function SideBar() {
   return (
     <SideBarBase>
-      <LogoText />
+      <img src={LogoText} />
       <SideBarBtn
         type={"tiger"}
         selected={true}
