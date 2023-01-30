@@ -27,15 +27,15 @@ public class UserRegisterPostReq {
     String user_sex;
     @ApiModelProperty(name="유저 출생일", example = "2016-01-01")
     String user_birth;
-    @ApiModelProperty(name="유저 상태(0: 회원, 1: 차단)", example = "0")
-    int user_state;
+    @ApiModelProperty(name="정상(0), 탈퇴(1), 신고당해서 차단(2)", example = "0")
+    String user_state;
     @ApiModelProperty(name="유저 신고당한 횟수", example = "2")
     int user_reported;
     @ApiModelProperty(name="유저 서비스이용약관", example="Y")
     String user_service_term;
     @ApiModelProperty(name="유저 개인정보이용약관", example="Y")
     String user_privacy_term;
-    @ApiModelProperty(name="유저 역할(관리자/회원)", example="N")
+    @ApiModelProperty(name="유저 역할(회원(user),관리자(admin),부모님(parent))", example="user")
     String user_role;
     @ApiModelProperty(name="생성자", example="ssafy")
     String user_create_by;
