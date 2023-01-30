@@ -33,7 +33,8 @@ public class UserServiceImpl implements UserService {
 //        }
 
         User user = new User();
-        user.setProfNo(new Profile(1L, "chick", "/click.jpg", "ssafy", LocalDateTime.now(), "ssafy", LocalDateTime.now()));
+        user.setProfNo(1L);
+        user.setUserEmail(userRegisterInfo.getUser_email());
         user.setUserPwd(userRegisterInfo.getUser_password());
         user.setUserChName(userRegisterInfo.getUser_child_name());
         user.setUserParentName(userRegisterInfo.getUser_parent_name());
@@ -43,11 +44,29 @@ public class UserServiceImpl implements UserService {
         user.setUserNumberOfReports(userRegisterInfo.getUser_reported());
         user.setUserServiceTerm(userRegisterInfo.getUser_service_term());
         user.setUserPrivacyTerm(userRegisterInfo.getUser_privacy_term());
-//        user.setUserRole(userRegisterInfo.getUser_role());
-        user.setUserCreateBy(userRegisterInfo.getUser_create_by());
+        user.setUserRole(userRegisterInfo.getUser_role());
+        user.setUserCreateBy(userRegisterInfo.getUser_email());
         user.setUserCreateDate(LocalDateTime.now());
-        user.setUserUpdateBy(userRegisterInfo.getUser_upadate_by());
+        user.setUserUpdateBy(userRegisterInfo.getUser_email());
         user.setUserUpdateDate(LocalDateTime.now());
+
+////        user.setUserNo(1L);
+//        user.setProfNo(1L);
+//        user.setUserEmail("ssafy4@ssafy.com");
+//        user.setUserPwd("your_password");
+//        user.setUserChName("ssafy");
+//        user.setUserParentName("ssafy");
+//        user.setUserSex("M");
+//        user.setUserBirth("19970707");
+//        user.setUserState("0");
+//        user.setUserNumberOfReports(0);
+//        user.setUserServiceTerm("Y");
+//        user.setUserPrivacyTerm("Y");
+//        user.setUserRole("user");
+//        user.setUserCreateBy("ssafy");
+//        user.setUserCreateDate(LocalDateTime.now());
+//        user.setUserUpdateBy("ssafy");
+//        user.setUserUpdateDate(LocalDateTime.now());
         userRepository.save(user);
         return true;
     }
