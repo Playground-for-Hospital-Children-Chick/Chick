@@ -26,12 +26,16 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 public class User {
     @Id
     @GeneratedValue
+//    @ApiModelProperty(value = "회원별 할당 숫자")
+//    private Long userNo;
+//    @ManyToOne
+//    @JoinColumn(name = "PROF_NO")
+//    @ApiModelProperty(value = "프로필 번호")
+//    private Profile profNo;
     @ApiModelProperty(value = "회원별 할당 숫자")
-    private Long userNo;
-    @ManyToOne
-    @JoinColumn(name = "PROF_NO")
+    private long userNo;
     @ApiModelProperty(value = "프로필 번호")
-    private Profile profNo;
+    private long profNo;
     @ApiModelProperty(value = "회원 이메일")
     @Column(nullable = false, length = 100, unique = true)
     private String userEmail;
@@ -53,8 +57,8 @@ public class User {
     private String userServiceTerm;
     @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
-    //    @ApiModelProperty(value = "회원 역힐")
-//    private String userRole;
+    @ApiModelProperty(value = "회원 역힐")
+    private String userRole;
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
@@ -64,6 +68,7 @@ public class User {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "생성일")
     private LocalDateTime userCreateDate;
+//    private String userCreateDate;
     @ApiModelProperty(value = "수정자")
     @LastModifiedBy
     private String userUpdateBy;
@@ -72,6 +77,7 @@ public class User {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime userUpdateDate;
-    @ApiModelProperty(value = "관리자인지 아닌지")
-    private UserRole userRole = UserRole.ROLE_USER;
+//    private String userUpdateDate;
+//    @ApiModelProperty(value = "관리자인지 아닌지")
+//    private UserRole userRole = UserRole.ROLE_USER;
 }
