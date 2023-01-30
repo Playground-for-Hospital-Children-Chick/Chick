@@ -24,14 +24,14 @@ function SideBarBtn({ type, selected, onClick }) {
       return (
         <button onClick={onClick}>
           <Rice />
-          <span className={"font-chick text-2xl text-blue-500 "}>밥먹기</span>
+          <span className={"font-chick text-xl text-blue-500 "}>밥먹기</span>
         </button>
       );
     } else {
       return (
         <button onClick={onClick}>
           <Rice />
-          <span className={"font-chick text-2xl "}>밥먹기</span>
+          <span className={"font-chick text-xl "}>밥먹기</span>
         </button>
       );
     }
@@ -40,14 +40,14 @@ function SideBarBtn({ type, selected, onClick }) {
       return (
         <button onClick={onClick}>
           <Tiger />
-          <span className={"font-chick text-2xl text-blue-500 "}>얼굴놀이</span>
+          <span className={"font-chick text-xl text-blue-500 "}>얼굴놀이</span>
         </button>
       );
     } else {
       return (
         <button onClick={onClick}>
           <Tiger />
-          <span className={"font-chick text-2xl "}>얼굴놀이</span>
+          <span className={"font-chick text-xl "}>얼굴놀이</span>
         </button>
       );
     }
