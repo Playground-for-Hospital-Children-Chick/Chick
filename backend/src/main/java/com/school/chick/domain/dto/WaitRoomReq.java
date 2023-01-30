@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @ApiModel("WaitRoomRequest")
 public class WaitRoomReq {
-    @ApiModelProperty(name = "회원 이메일")
+    @ApiModelProperty(name = "회원 이메일", example = "ssafy3@ssafy.com")
     private String userEmail;
 
     @ApiModelProperty(name = "게임종류", example = "face")
