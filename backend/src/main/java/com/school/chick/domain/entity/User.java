@@ -19,6 +19,7 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")

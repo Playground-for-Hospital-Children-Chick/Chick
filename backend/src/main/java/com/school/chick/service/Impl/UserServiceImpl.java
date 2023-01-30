@@ -1,5 +1,6 @@
 package com.school.chick.service.Impl;
 
+import com.school.chick.domain.dto.UserLoginInfo;
 import com.school.chick.domain.dto.UserRegisterPostReq;
 import com.school.chick.domain.dto.UserRole;
 import com.school.chick.domain.entity.Profile;
@@ -73,5 +74,14 @@ public class UserServiceImpl implements UserService {
 //        user.setUserUpdateDate(LocalDateTime.now());
         userRepository.save(user);
         return true;
+    }
+
+    @Override
+    public UserLoginInfo getUserLoginInfo(User user) {
+        UserLoginInfo userLoginInfo = new UserLoginInfo();
+        userLoginInfo.setUserEmail(user.getUserEmail());
+        userLoginInfo.setUserChName(user.getUserChName());
+        userLoginInfo.setUserRole(user.getUserRole());
+        return userLoginInfo;
     }
 }
