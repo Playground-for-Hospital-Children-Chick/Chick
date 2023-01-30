@@ -11,6 +11,9 @@ pipeline {
         }
         stage('SpringBoot Build') {
           steps {
+<<<<<<< HEAD
+              echo 'SpringBoot Build....'
+=======
             script{
                  sh 'chmod +x ./gradlew'
             }
@@ -19,12 +22,13 @@ pipeline {
                   sh './gradlew build'
               }
             }
+>>>>>>> 85a48f06ca306fd523661de213a7aa41bea90e6b
           }
         }
    
         stage('Build') {
           steps {
-              echo 'Deploying....'
+              echo 'Build....'
           }
         }
    
