@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <CommonBtn buttonName={"처음 만든 버튼"} />
       <InputBox />
-      {/* <Video/> */}
+      <Video />
       <WebCamBoardWithCams />
     </div>
   );
