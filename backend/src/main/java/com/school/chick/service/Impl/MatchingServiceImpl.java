@@ -7,6 +7,8 @@ import com.school.chick.service.MatchingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class MatchingServiceImpl implements MatchingService {
     private final WaitRoomRepository waitRoomRepository;
@@ -20,6 +22,7 @@ public class MatchingServiceImpl implements MatchingService {
         WaitRoom waitUser= new WaitRoom();
         waitUser.setUserEmail(waitRoomReq.getUserEmail());
         waitUser.setWaitGameType(waitRoomReq.getWaitGameType());
+        waitUser.setWaitCreatDate(LocalDateTime.now());
         waitRoomRepository.save(waitUser);
         return true;
     }

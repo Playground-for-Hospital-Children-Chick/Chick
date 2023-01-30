@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class WaitRoom {
     @Id
     @GeneratedValue
-    private Long waitNo;
+    private long waitNo;
     @JoinColumn(name = "USER_Email")
     private String userEmail;
     private String waitGameType;
