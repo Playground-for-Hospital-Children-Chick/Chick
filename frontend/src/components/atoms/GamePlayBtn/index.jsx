@@ -20,7 +20,7 @@ default="blue"
 */
 }
 
-function GamePlayBtn({ text, color, setGameStart }) {
+function GamePlayBtn({ text = "GamePlay", color, setGameStart }) {
   if (color === "white") {
     return (
       <button
