@@ -11,11 +11,12 @@ import lombok.ToString;
 @ToString
 @ApiModel("WaitRoomRequest")
 public class WaitRoomReq {
-    @ApiModelProperty(name = "회원번호")
+    @ApiModelProperty(name = "회원 번호")
     private long userNO;
+
+//    @ApiModelProperty(name = "회원 이메일")
+//    private String userEmail;
 
     @ApiModelProperty(name = "게임종류", example = "face")
     private String waitGameType;
-
-
 }
