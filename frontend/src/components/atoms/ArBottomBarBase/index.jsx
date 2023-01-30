@@ -16,7 +16,7 @@
     */
 }
 
-function ArBottomBar({ children }) {
+function ArBottomBarBase({ children }) {
   return (
     <div
       className="w-[1075px] h-[100px] overflow-hidden bg-white"
@@ -27,4 +27,4 @@ function ArBottomBar({ children }) {
   );
 }
 
-export default ArBottomBar;
+export default ArBottomBarBase;
