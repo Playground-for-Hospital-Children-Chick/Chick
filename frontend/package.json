@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.6",
     "axios": "0.21.1",
     "click-to-react-component": "^1.0.8",
     "openvidu-browser": "2.25.0",
