@@ -1,6 +1,7 @@
 package com.school.chick.service.Impl;
 
 import com.school.chick.domain.dto.UserRegisterPostReq;
+import com.school.chick.domain.dto.UserRole;
 import com.school.chick.domain.entity.Profile;
 import com.school.chick.domain.entity.User;
 import com.school.chick.domain.repository.ProfileRepository;
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
         user.setUserNumberOfReports(userRegisterInfo.getUser_reported());
         user.setUserServiceTerm(userRegisterInfo.getUser_service_term());
         user.setUserPrivacyTerm(userRegisterInfo.getUser_privacy_term());
-        user.setUserRole(userRegisterInfo.getUser_role());
+        user.setUserRole(UserRole.ROLE_USER);
         user.setUserCreateBy(userRegisterInfo.getUser_email());
         user.setUserCreateDate(LocalDateTime.now());
         user.setUserUpdateBy(userRegisterInfo.getUser_email());
