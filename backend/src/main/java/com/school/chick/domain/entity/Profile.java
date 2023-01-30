@@ -3,6 +3,7 @@ package com.school.chick.domain.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
@@ -17,7 +18,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 @Table(name = "PROFILE")
 public class Profile {

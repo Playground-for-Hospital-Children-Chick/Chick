@@ -16,11 +16,12 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
-@Table(name = "USERINFO")
+@Table(name = "USER_INFO")
 public class User {
     @Id
     @GeneratedValue
@@ -46,7 +47,7 @@ public class User {
     @ApiModelProperty(value = "회원 상태")
     private String userState;
     @ApiModelProperty(value = "신고 당한 횟수")
-    private String userNumberOfReports;
+    private int userNumberOfReports;
     @ApiModelProperty(value = "회원 서비스 약관")
     private String userServiceTerm;
     @ApiModelProperty(value = "회원 약관")

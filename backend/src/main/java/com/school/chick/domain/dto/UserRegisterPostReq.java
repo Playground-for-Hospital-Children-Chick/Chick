@@ -23,7 +23,7 @@ public class UserRegisterPostReq {
     String user_child_name;
     @ApiModelProperty(name="유저 부모님 이름", example = "김싸피")
     String user_parent_name;
-    @ApiModelProperty(name="유저 성별", example = "M or F")
+    @ApiModelProperty(name="유저 성별: 남자(M), 여자(W)", example = "M")
     String user_sex;
     @ApiModelProperty(name="유저 출생일", example = "2016-01-01")
     String user_birth;
