@@ -2,6 +2,7 @@ package com.school.chick.domain.repository;
 
 import com.school.chick.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,5 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAll();
 
     User findByUserChName(String userEmail);
+
+    User findByUserParentNameAndUserChNameAndUserBirth(String parentName, String childName, String birth);
 
 }

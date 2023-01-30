@@ -1,6 +1,7 @@
 package com.school.chick.controller;
 
 import com.school.chick.domain.dto.BaseResponseBody;
+import com.school.chick.domain.dto.UserFindEmailReq;
 import com.school.chick.domain.dto.UserRegisterPostReq;
 import com.school.chick.service.EmailService;
 import com.school.chick.service.UserService;
@@ -47,6 +48,20 @@ public class UserController {
 
         return confirm;
     }
-
-
+    @GetMapping("/find/email")
+    @ApiOperation(value="이메일 찾기", notes = "부모이름, 아이이름, 생일로 유저 이메일을 찾는다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공 및 이메일 반환"),
+            @ApiResponse(code = 404, message = "회원정보 없음"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> findEmail(@RequestBody @ApiParam(value="회원가입 정보", required = true) UserFindEmailReq userFindEmailReq) {
+        String email = userService.findEmail(userFindEmailReq).getUserEmail();
+        if(email!=null && email.equals("")){
+            String[] splitMail = email.split("@");
+            String front = splitMail[0].substring(0, splitMail[0].length()-2)+"**";
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", front+splitMail[1]));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(404, "Failure", null));
+    }
 }

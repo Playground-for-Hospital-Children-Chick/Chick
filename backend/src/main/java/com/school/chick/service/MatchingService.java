@@ -1,7 +1,7 @@
 package com.school.chick.service;
 
-import com.school.chick.domain.dto.WaitRoomReq;
+import com.school.chick.domain.dto.MatchingReq;
 
 public interface MatchingService {
-    public boolean createWaiting(WaitRoomReq waitRoomReq);
+    public boolean createMatching(MatchingReq matchingReq);
 }
