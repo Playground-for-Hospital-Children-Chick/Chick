@@ -31,10 +31,6 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류"),
     })
     public ResponseEntity<? extends BaseResponseBody> register(@RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
-        System.out.println("회원가입 입니다");
-        System.out.println("회원가입 입니다");
-        System.out.println("회원가입 입니다");
-        System.out.println(registerInfo.toString());
         if(userService.createUser(registerInfo)) {
             // 가입 성공시 성공 리턴
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));

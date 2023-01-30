@@ -8,6 +8,7 @@ import com.school.chick.domain.repository.ProfileRepository;
 import com.school.chick.domain.repository.UserRepository;
 import com.school.chick.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,9 @@ import java.time.LocalDateTime;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-//    private final ProfileRepository profileRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -36,7 +39,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setProfNo(1L);
         user.setUserEmail(userRegisterInfo.getUser_email());
-        user.setUserPwd(userRegisterInfo.getUser_password());
+        user.setUserPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()));
         user.setUserChName(userRegisterInfo.getUser_child_name());
         user.setUserParentName(userRegisterInfo.getUser_parent_name());
         user.setUserSex(userRegisterInfo.getUser_sex());
