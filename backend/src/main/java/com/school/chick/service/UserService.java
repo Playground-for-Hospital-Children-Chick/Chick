@@ -1,5 +1,6 @@
 package com.school.chick.service;
 
+import com.school.chick.domain.dto.UserLoginInfo;
 import com.school.chick.domain.dto.UserRegisterPostReq;
 import com.school.chick.domain.entity.User;
 
@@ -10,5 +11,7 @@ public interface UserService {
 
         public User getUserByEmail(String email);
         public boolean createUser(UserRegisterPostReq userRegisterInfo);
+
+        public UserLoginInfo getUserLoginInfo(User user);
 
 }
