@@ -26,5 +26,4 @@ public class MatchingServiceImpl implements MatchingService {
         waitRoomRepository.save(waitUser);
         return true;
     }
-
 }

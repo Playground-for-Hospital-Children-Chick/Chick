@@ -2,18 +2,12 @@ package com.school.chick.controller;
 
 import com.school.chick.domain.dto.BaseResponseBody;
 import com.school.chick.domain.dto.UserRegisterPostReq;
-import com.school.chick.domain.entity.User;
+import com.school.chick.service.EmailService;
 import com.school.chick.service.UserService;
 import io.swagger.annotations.*;
-import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Api(value = "유저 API", tags = {"User"})
 @RestController
@@ -22,6 +16,13 @@ public class UserController {
 
     @Autowired
     private final UserService userService;
+    @Autowired
+    private final EmailService emailService;
+    @Autowired
+    public UserController(UserService userService, EmailService emailService) {
+        this.userService = userService;
+        this.emailService = emailService;
+    }
     @PostMapping("/register")
     @ApiOperation(value="회원 가입", notes = "아이디와 패스워드를 통해 회원가입 한다")
     @ApiResponses({
@@ -38,11 +39,14 @@ public class UserController {
         // 가입 실패시 실패 리턴
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
     }
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
+    @PostMapping("/emailConfirm")
+    public String emailConfirm(@RequestParam String email) throws Exception {
+
+        String confirm = emailService.sendSimpleMessage(email);
+
+        return confirm;
+    }
 
 
 }
