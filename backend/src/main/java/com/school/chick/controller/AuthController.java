@@ -52,7 +52,7 @@ public class AuthController {
             // 같으면 로그인 성공
             String refreshToken = JwtTokenUtil.getRefreshToken(email);
             AuthRefreshSave tokenDto = new AuthRefreshSave();
-            tokenDto.setToken(refreshToken);
+            tokenDto.setRefreshToken(refreshToken);
             authRefreshSaveRepository.save(tokenDto);
 
             UserLoginInfo userLoginInfo = userService.getUserLoginInfo(user);

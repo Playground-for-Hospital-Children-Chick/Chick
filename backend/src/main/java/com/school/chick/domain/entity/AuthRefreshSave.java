@@ -24,7 +24,7 @@ public class AuthRefreshSave {
     private int id;
 
     private String authEmail;
-    private String token;
+    private String refreshToken;
 
     @CreatedBy
     @Column(updatable = false)

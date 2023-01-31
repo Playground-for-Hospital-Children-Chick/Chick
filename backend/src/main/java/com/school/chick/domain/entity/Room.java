@@ -18,6 +18,8 @@ import java.util.List;
 @Entity
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "RoomInfo : 게임방 정보", description = "게임방의 정보를 나타낸다")
 @Table(name = "ROOM")
@@ -46,19 +48,15 @@ public class Room {
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime roomUpdateDate;
 
-    @Builder
-    public Room(int id, int roomCnt, String roomType, String roomLink, String roomStatus, String roomCreateBy, LocalDateTime roomCreateDate, String roomUpdateBy, LocalDateTime roomUpdateDate) {
-        this.id = id;
-        this.roomCnt = roomCnt;
-        this.roomType = roomType;
-        this.roomLink = roomLink;
-        this.roomStatus = roomStatus;
-        this.roomCreateBy = roomCreateBy;
-        this.roomCreateDate = roomCreateDate;
-        this.roomUpdateBy = roomUpdateBy;
-        this.roomUpdateDate = roomUpdateDate;
-    }
 
-    @OneToMany(mappedBy = "ROOM")
-    private List<Matching> matchingList = new ArrayList<Matching>();
+//    @OneToMany(mappedBy = "room")
+//    private List<Matching> matchingList = new ArrayList<Matching>();
+//
+//    public void addMember(Matching matching) {
+//        this.matchingList.add(matching);
+//        // 무한루프에 빠지지 않도록 체크
+//        if (matching.getRoom() != this) {
+//            matching.setRoom(this);
+//        }
+//    }
 }
