@@ -18,58 +18,37 @@ import static org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.
 @Entity
 @Getter
 @Setter
-@Builder
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 @Table(name = "USER_INFO")
 public class User {
     @Id
     @GeneratedValue
-//    @ApiModelProperty(value = "회원별 할당 숫자")
-//    private Long userNo;
-//    @ManyToOne
-//    @JoinColumn(name = "PROF_NO")
-//    @ApiModelProperty(value = "프로필 번호")
-//    private Profile profNo;
-    @ApiModelProperty(value = "회원별 할당 숫자")
-    private long userNo;
-    @ApiModelProperty(value = "프로필 번호")
-    private long profNo;
-    @ApiModelProperty(value = "회원 이메일")
-    @Column(nullable = false, length = 100, unique = true)
-    private String userEmail;
-    @ApiModelProperty(value = "회원 비밀번호")
+    @ApiModelProperty(name = "USER_ID", value = "매칭 번호")
+    private int id;
+
     private String userPwd;
-    @ApiModelProperty(value = "아이 이름")
     private String userChName;
-    @ApiModelProperty(value = "보호자 이름")
     private String userParentName;
-    @ApiModelProperty(value = "아이 성별")
+    private String userEmail;
     private String userSex;
-    @ApiModelProperty(value = "아이 생일")
     private String userBirth;
-    @ApiModelProperty(value = "회원 상태")
     private String userState;
-    @ApiModelProperty(value = "신고 당한 횟수")
     private int userNumberOfReports;
-    @ApiModelProperty(value = "회원 서비스 약관")
     private String userServiceTerm;
-    @ApiModelProperty(value = "회원 약관")
     private String userPrivacyTerm;
-    @ApiModelProperty(value = "회원 역힐")
     private UserRole userRole;
+
     @CreatedBy
     @Column(updatable = false)
     @ApiModelProperty(value = "생성자")
     private String userCreateBy;
     @CreatedDate
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "생성일")
     private LocalDateTime userCreateDate;
-//    private String userCreateDate;
     @ApiModelProperty(value = "수정자")
     @LastModifiedBy
     private String userUpdateBy;
@@ -78,7 +57,5 @@ public class User {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime userUpdateDate;
-//    private String userUpdateDate;
-//    @ApiModelProperty(value = "관리자인지 아닌지")
-//    private UserRole userRole = UserRole.ROLE_USER;
+    
 }
