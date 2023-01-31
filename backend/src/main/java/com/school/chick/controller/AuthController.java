@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Api(value = "인증 API", tags = {"Auth"})
@@ -53,6 +54,11 @@ public class AuthController {
             String refreshToken = JwtTokenUtil.getRefreshToken(email);
             AuthRefreshSave tokenDto = new AuthRefreshSave();
             tokenDto.setRefreshToken(refreshToken);
+            tokenDto.setAuthEmail(email);
+            tokenDto.setAuthCreateBy(email);
+            tokenDto.setAuthCreateDate(LocalDateTime.now());
+            tokenDto.setAuthUpdateBy(email);
+            tokenDto.setAuthUpdateDate(LocalDateTime.now());
             authRefreshSaveRepository.save(tokenDto);
 
             UserLoginInfo userLoginInfo = userService.getUserLoginInfo(user);
