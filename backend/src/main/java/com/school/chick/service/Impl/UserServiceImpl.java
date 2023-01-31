@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 //        }
 
         User user = new User();
-        user.setProfNo(1L);
+        user.setId(1);
         user.setUserEmail(userRegisterInfo.getUser_email());
         user.setUserPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()));
         user.setUserChName(userRegisterInfo.getUser_child_name());
