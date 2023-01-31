@@ -31,6 +31,7 @@ pipeline {
            stage('Deploy') {
             steps {
               script {
+			    sh 'docker rm springboot'
                 sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 5000:8080 -u root springboot'
               }
             }
