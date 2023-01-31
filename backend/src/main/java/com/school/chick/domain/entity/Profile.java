@@ -2,10 +2,7 @@ package com.school.chick.domain.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -18,36 +15,38 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 @Table(name = "PROFILE")
 public class Profile {
-
     @Id
-    @ApiModelProperty(value = "프로필 번호")
-    private Long profNo;
-    @ApiModelProperty(value = "원본 파일 이름")
-    private String profImg;
-    @ApiModelProperty(value = "저장된 파일 이름")
-    private String profImgPath;
-    @CreatedBy
-    @Column(updatable = false)
-    @ApiModelProperty(value = "생성자")
-    private String profCreateBy;
+    @GeneratedValue
+    @ApiModelProperty(name = "PROF_ID", value = "매칭 번호")
+    private int id;
+
+    private String profName;
+    private String profContent;
+    private String profPath;
+    private int profRequire;
+
     @CreatedDate
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     @ApiModelProperty(value = "생성일")
     private LocalDateTime profCreateDate;
-
-    @ApiModelProperty(value = "수정자")
-    @LastModifiedBy
-    private String profUpdateBy;
     @LastModifiedDate
     @Column(nullable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime  profUpdateDate;
-
+    @Builder
+    public Profile(int id, String profName, String profContent, String profPath, int profRequire, LocalDateTime profCreateDate, LocalDateTime profUpdateDate) {
+        this.id = id;
+        this.profName = profName;
+        this.profContent = profContent;
+        this.profPath = profPath;
+        this.profRequire = profRequire;
+        this.profCreateDate = profCreateDate;
+        this.profUpdateDate = profUpdateDate;
+    }
 }
