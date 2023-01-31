@@ -39,23 +39,41 @@ public class UserServiceImpl implements UserService {
 //            return false;
 //        }
 
-        User user = new User();
-        user.setId(1);
-        user.setUserEmail(userRegisterInfo.getUser_email());
-        user.setUserPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()));
-        user.setUserChName(userRegisterInfo.getUser_child_name());
-        user.setUserParentName(userRegisterInfo.getUser_parent_name());
-        user.setUserSex(userRegisterInfo.getUser_sex());
-        user.setUserBirth(userRegisterInfo.getUser_birth());
-        user.setUserState(userRegisterInfo.getUser_state());
-        user.setUserNumberOfReports(userRegisterInfo.getUser_reported());
-        user.setUserServiceTerm(userRegisterInfo.getUser_service_term());
-        user.setUserPrivacyTerm(userRegisterInfo.getUser_privacy_term());
-        user.setUserRole(UserRole.ROLE_USER);
-        user.setUserCreateBy(userRegisterInfo.getUser_email());
-        user.setUserCreateDate(LocalDateTime.now());
-        user.setUserUpdateBy(userRegisterInfo.getUser_email());
-        user.setUserUpdateDate(LocalDateTime.now());
+        userRepository.save(User.builder()
+                .userEmail(userRegisterInfo.getUser_email().toString())
+                .userPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()).toString())
+                .userChName(userRegisterInfo.getUser_child_name().toString())
+                .userParentName(userRegisterInfo.getUser_parent_name().toString())
+                .userSex(userRegisterInfo.getUser_sex().toString())
+                .userBirth(userRegisterInfo.getUser_birth().toString())
+                .userState(userRegisterInfo.getUser_state().toString())
+                .userNumberOfReports(userRegisterInfo.getUser_reported())
+                .userServiceTerm(userRegisterInfo.getUser_service_term())
+                .userPrivacyTerm(userRegisterInfo.getUser_privacy_term())
+                .userRole(UserRole.ROLE_USER)
+                .userCreateBy(userRegisterInfo.getUser_email())
+                .userCreateDate(LocalDateTime.now())
+                .userUpdateBy(userRegisterInfo.getUser_email())
+                .userUpdateDate(LocalDateTime.now())
+                .build());
+
+//        User user = new User();
+//        user.setId(1);
+//        user.setUserEmail(userRegisterInfo.getUser_email());
+//        user.setUserPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()));
+//        user.setUserChName(userRegisterInfo.getUser_child_name());
+//        user.setUserParentName(userRegisterInfo.getUser_parent_name());
+//        user.setUserSex(userRegisterInfo.getUser_sex());
+//        user.setUserBirth(userRegisterInfo.getUser_birth());
+//        user.setUserState(userRegisterInfo.getUser_state());
+//        user.setUserNumberOfReports(userRegisterInfo.getUser_reported());
+//        user.setUserServiceTerm(userRegisterInfo.getUser_service_term());
+//        user.setUserPrivacyTerm(userRegisterInfo.getUser_privacy_term());
+//        user.setUserRole(UserRole.ROLE_USER);
+//        user.setUserCreateBy(userRegisterInfo.getUser_email());
+//        user.setUserCreateDate(LocalDateTime.now());
+//        user.setUserUpdateBy(userRegisterInfo.getUser_email());
+//        user.setUserUpdateDate(LocalDateTime.now());
 
 ////        user.setUserNo(1L);
 //        user.setProfNo(1L);
@@ -74,7 +92,7 @@ public class UserServiceImpl implements UserService {
 //        user.setUserCreateDate(LocalDateTime.now());
 //        user.setUserUpdateBy("ssafy");
 //        user.setUserUpdateDate(LocalDateTime.now());
-        userRepository.save(user);
+//        userRepository.save(user);
         return true;
     }
 
