@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    Profile findByProfNo(long profNo);//Null을 반환할때 Optional을 많이쓴다
+    Profile findById(int profid);//Null을 반환할때 Optional을 많이쓴다
 }

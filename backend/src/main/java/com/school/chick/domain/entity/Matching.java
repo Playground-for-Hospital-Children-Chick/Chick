@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "Mathcing : 매칭 정보", description = "회원의 매칭 정보를 나타낸다")
@@ -43,18 +44,15 @@ public class Matching {
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime roomUpdateDate;
 
-    @Builder
-    public Matching(long id, String matGameType, String matStatus, String roomCreateBy, LocalDateTime roomCreateDate, String roomUpdateBy, LocalDateTime roomUpdateDate) {
-        this.id = id;
-        this.matGameType = matGameType;
-        this.matStatus = matStatus;
-        this.roomCreateBy = roomCreateBy;
-        this.roomCreateDate = roomCreateDate;
-        this.roomUpdateBy = roomUpdateBy;
-        this.roomUpdateDate = roomUpdateDate;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ROOM_ID")
-    private Room team;
+//    @ManyToOne
+//    @JoinColumn(name = "ROOM_ID")
+//    private Room room;
+//
+//    public void setRoom(Room room) {
+//        this.room = room;
+//        // 무한루프에 빠지지 않도록 체크
+//        if(!room.getMatchingList().contains(this)) {
+//            room.getMatchingList().add(this);
+//        }
+//    }
 }
