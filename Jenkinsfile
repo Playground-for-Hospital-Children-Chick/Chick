@@ -21,15 +21,10 @@ pipeline {
           }
         }
    
-        stage('Build') {
-          steps {
-              echo 'Build....'
-          }
-        }
-   
         stage('Deploy') {
           steps {
-              echo 'Deploy'
+            dir('backend/build/libs') {
+              sh 'java -jar backend-0.0.1-SNAPSHOT.jar'
           }
         }
     }
