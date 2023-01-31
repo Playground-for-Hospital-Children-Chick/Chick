@@ -57,5 +57,25 @@ public class User {
     @Convert(converter = LocalDateTimeConverter.class)
     @ApiModelProperty(value = "수정일")
     private LocalDateTime userUpdateDate;
-    
+
+    @Builder
+    public User(int id, String userPwd, String userChName, String userParentName, String userEmail, String userSex, String userBirth, String userState, int userNumberOfReports, String userServiceTerm, String userPrivacyTerm, UserRole userRole, String userCreateBy, LocalDateTime userCreateDate, String userUpdateBy, LocalDateTime userUpdateDate) {
+        this.id = id;
+        this.userPwd = userPwd;
+        this.userChName = userChName;
+        this.userParentName = userParentName;
+        this.userEmail = userEmail;
+        this.userSex = userSex;
+        this.userBirth = userBirth;
+        this.userState = userState;
+        this.userNumberOfReports = userNumberOfReports;
+        this.userServiceTerm = userServiceTerm;
+        this.userPrivacyTerm = userPrivacyTerm;
+        this.userRole = userRole;
+        this.userCreateBy = userCreateBy;
+        this.userCreateDate = userCreateDate;
+        this.userUpdateBy = userUpdateBy;
+        this.userUpdateDate = userUpdateDate;
+    }
+
 }
