@@ -1,4 +1,4 @@
-function LoginScreen() {
+function Login() {
   return (
     <div className="flex-initial">
       <div>
@@ -11,5 +11,3 @@ function LoginScreen() {
     </div>
   );
 }
-
-function LoginProcess() {}
