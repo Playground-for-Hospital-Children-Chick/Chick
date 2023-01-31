@@ -11,7 +11,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@hookform/error-message": "^2.0.1",
     "@mui/material": "^5.11.6",
+    "@reduxjs/toolkit": "^1.9.2",
     "aframe": "^1.4.1",
     "axios": "0.21.1",
     "click-to-react-component": "^1.0.8",
@@ -20,9 +22,11 @@
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.0",
+    "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
-    "redux": "^4.2.0",
+    "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6"
