@@ -64,4 +64,20 @@ public class UserController {
         }
         return ResponseEntity.status(401).body(BaseResponseBody.of(404, "Failure", null));
     }
+
+    @GetMapping("/find/password")
+    @ApiOperation(value="비밀번호 찾기", notes = "유저 이메일을 찾는다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공 및 이메일 반환"),
+            @ApiResponse(code = 404, message = "회원정보 없음"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> findPassword(@RequestParam String email) {
+        if(email!=null && !email.equals("")){
+            String[] splitMail = email.split("@");
+            String front = splitMail[0].substring(0, splitMail[0].length()-2)+"**";
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", front+"@"+splitMail[1]));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(404, "Failure", null));
+    }
 }
