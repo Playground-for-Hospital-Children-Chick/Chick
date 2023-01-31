@@ -3,6 +3,7 @@ package com.school.chick.domain.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.hibernate.annotations.CollectionId;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,23 +12,25 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
-@ApiModel(value = "Mathcing : 매칭 정보", description = "회원의 매칭 정보를 나타낸다")
-@Table(name = "Matching")
-public class Matching {
+@ApiModel(value = "RoomInfo : 게임방 정보", description = "게임방의 정보를 나타낸다")
+@Table(name = "ROOM")
+public class Room {
     @Id
     @GeneratedValue
-    @ApiModelProperty(name = "MAT_ID", value = "매칭 번호")
-    private long id;
+    @Column(name ="ROOM_ID", columnDefinition = "INT UNSIGNED")
+    private int id;
 
-    private String matGameType;
-    private String matStatus;
+    private int roomCnt;
+    private String roomType;
+    private String roomLink;
+    private String roomStatus;
 
     @CreatedBy
     @Column(updatable = false)
@@ -44,17 +47,18 @@ public class Matching {
     private LocalDateTime roomUpdateDate;
 
     @Builder
-    public Matching(long id, String matGameType, String matStatus, String roomCreateBy, LocalDateTime roomCreateDate, String roomUpdateBy, LocalDateTime roomUpdateDate) {
+    public Room(int id, int roomCnt, String roomType, String roomLink, String roomStatus, String roomCreateBy, LocalDateTime roomCreateDate, String roomUpdateBy, LocalDateTime roomUpdateDate) {
         this.id = id;
-        this.matGameType = matGameType;
-        this.matStatus = matStatus;
+        this.roomCnt = roomCnt;
+        this.roomType = roomType;
+        this.roomLink = roomLink;
+        this.roomStatus = roomStatus;
         this.roomCreateBy = roomCreateBy;
         this.roomCreateDate = roomCreateDate;
         this.roomUpdateBy = roomUpdateBy;
         this.roomUpdateDate = roomUpdateDate;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "ROOM_ID")
-    private Room team;
+    @OneToMany(mappedBy = "ROOM")
+    private List<Matching> matchingList = new ArrayList<Matching>();
 }
