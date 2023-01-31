@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 /**
@@ -11,6 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 @ApiModel("UserLoginPostRequest")
 public class UserLoginPostReq {
     @ApiModelProperty(name="유저 email", example = "ssafy@ssafy.com")
