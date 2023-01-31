@@ -5,7 +5,7 @@ pipeline {
         stage('Pull') {
             steps {
 				script{
-				  git branch: 'back-end', credentialsId: '760b1940-c17d-4576-afe4-efb309aad1c4', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
+				  git branch: 'back-end', credentialsId: '3f6c0b0d-69b2-42a6-8eab-dc5ed7d829c8', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
 				}
             }
         }
@@ -31,7 +31,6 @@ pipeline {
            stage('Deploy') {
             steps {
               script {
-                sh 'docker stop springboot && docker rm springboot'
                 sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 5000:8080 -u root springboot'
               }
             }
