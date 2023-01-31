@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean createUser(UserRegisterPostReq userRegisterInfo) {
-//        if (userRepository.findByPhone(userRegisterInfo.getPhone()) != null) {
-//            return false;
-//        }
+        if (userRepository.findByUserEmail(userRegisterInfo.getUser_email()) != null) {
+            return false;
+        }
 
         userRepository.save(User.builder()
                 .userEmail(userRegisterInfo.getUser_email().toString())
