@@ -20,9 +20,9 @@ public class MatchingServiceImpl implements MatchingService {
 
     public boolean createMatching(MatchingReq matchingReq) {
         Matching matching= new Matching();
-        matching.setUserEmail(matchingReq.getUserEmail());
+//        matching.set(matchingReq.getUserEmail());
         matching.setMatGameType(matchingReq.getWaitGameType());
-        matching.setMatCreateDate(LocalDateTime.now());
+//        matching.setMatCreateDate(LocalDateTime.now());
         /*
         방의 인원 기준으로 Order by 해서 가장 인원수가 적은 방부터 선택한다.
         방의 인원수가 꽉차면 방을 만들고 그렇지 않으면 방에 입장한다.
