@@ -21,12 +21,20 @@ pipeline {
           }
         }
    
-        stage('Deploy') {
+        stage('Build') {
           steps {
-            dir('backend/build/libs') {
-              sh 'java -jar backend-0.0.1-SNAPSHOT.jar'
+            script {
+              sh 'docker build -t springboot ./backend/'
+            }
           }
         }
-    }
+           stage('Deploy') {
+            steps {
+              script {
+                sh 'docker stop springboot && docker rm springboot'
+                sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 5000:8080 -u root springboot'
+              }
+            }
+   }
   }
 }
