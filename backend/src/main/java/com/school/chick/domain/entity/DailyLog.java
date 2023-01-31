@@ -1,6 +1,7 @@
 package com.school.chick.domain.entity;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,12 +22,12 @@ import java.time.LocalDateTime;
 public class DailyLog {
     @Id
     @GeneratedValue
-    private Long logId;
-    @ManyToOne
-    @JoinColumn(name = "USER_NO")
-    private User userNO;
+    @ApiModelProperty(name = "LOG_ID", value = "로그 번호")
+    private int id;
+
     private String logGameName;
     private int logPlayTime;
+
     @CreatedBy
     @Column(updatable = false)
     private String logCreateBy;
