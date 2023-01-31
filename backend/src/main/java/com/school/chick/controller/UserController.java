@@ -55,12 +55,12 @@ public class UserController {
             @ApiResponse(code = 404, message = "회원정보 없음"),
             @ApiResponse(code = 500, message = "서버 오류"),
     })
-    public ResponseEntity<? extends BaseResponseBody> findEmail(@RequestBody @ApiParam(value="회원가입 정보", required = true) UserFindEmailReq userFindEmailReq) {
+    public ResponseEntity<? extends BaseResponseBody> findEmail(@RequestBody @ApiParam(value="이메일 찾기 위한 정보", required = true) UserFindEmailReq userFindEmailReq) {
         String email = userService.findEmail(userFindEmailReq).getUserEmail();
-        if(email!=null && email.equals("")){
+        if(email!=null && !email.equals("")){
             String[] splitMail = email.split("@");
             String front = splitMail[0].substring(0, splitMail[0].length()-2)+"**";
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", front+splitMail[1]));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", front+"@"+splitMail[1]));
         }
         return ResponseEntity.status(401).body(BaseResponseBody.of(404, "Failure", null));
     }

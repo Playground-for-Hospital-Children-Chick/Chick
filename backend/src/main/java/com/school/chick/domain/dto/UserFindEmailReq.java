@@ -11,10 +11,10 @@ import java.util.Date;
 @Setter
 @ApiModel("UserFindEmailReq")
 public class UserFindEmailReq {
-    @ApiModelProperty(name="보호자 이름")
-    String parentName;
-    @ApiModelProperty(name="아이 이름")
-    String childName;
-    @ApiModelProperty(name="아이 생일")
-    String birth;
+    @ApiModelProperty(name="보호자 이름", example = "ssafy")
+    String userParentName;
+    @ApiModelProperty(name="아이 이름", example = "ssafy")
+    String userChName;
+    @ApiModelProperty(name="아이 생일", example = "20160101")
+    String userBirth;
 }
