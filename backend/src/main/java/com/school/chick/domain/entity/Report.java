@@ -21,20 +21,20 @@ import java.time.LocalDateTime;
 public class Report {
     @Id
     @GeneratedValue
-    private Long rpNo;
-    @ManyToOne
-    @JoinColumn(name = "USER_NO")
-    private User userNO;
-    private String rpReportedPeople;
+    @Column(name ="RP_ID", columnDefinition = "INT UNSIGNED")
+    private int id;
+
     private String rpReporter;
+    private String rpReportedPeople;
     private String rpCategory;
-    private String rpReason;
-    private boolean rpHandling;
+    private String rpContent;
+    private int rpHandling;
+
     @CreatedBy
     @Column(updatable = false)
     private String rpCreateBy;
     @CreatedDate
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime rpCreateDate;
     @LastModifiedBy
