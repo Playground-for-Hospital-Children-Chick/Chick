@@ -88,8 +88,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findEmail(UserFindEmailReq userFindEmailReq) {
-        User user = userRepository.findByUserParentNameAndUserChNameAndUserBirth(userFindEmailReq.getParentName(),
-                userFindEmailReq.getChildName(), userFindEmailReq.getBirth());
+        User user = userRepository.findByUserParentNameAndUserChNameAndUserBirth(userFindEmailReq.getUserParentName(),
+                userFindEmailReq.getUserChName(), userFindEmailReq.getUserBirth());
         return user;
     }
 }
