@@ -36,7 +36,7 @@ pipeline {
               }
               script{
                 sh 'docker stop openvidu' 
-                sh ' docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET --name openvidu openvidu/openvidu-server-kms:2.23.0'
+                sh 'docker run -p 4443:4443 --rm -e openvidu.publicurl=http://i8b207.p.ssafy.io:4443/ -e OPENVIDU_SECRET=MY_SECRET --name openvidu openvidu/openvidu-server-kms:2.23.0'
               }
             }
    }
