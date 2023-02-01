@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
                 .userSex(userRegisterInfo.getUser_sex().toString())
                 .userBirth(userRegisterInfo.getUser_birth().toString())
                 .userState(userRegisterInfo.getUser_state().toString())
-                .userNumberOfReports(userRegisterInfo.getUser_reported())
+                .userNumberOfReports(0)
                 .userServiceTerm(userRegisterInfo.getUser_service_term())
                 .userPrivacyTerm(userRegisterInfo.getUser_privacy_term())
                 .userRole(UserRole.ROLE_USER)
