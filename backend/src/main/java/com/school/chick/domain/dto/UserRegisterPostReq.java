@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @ToString
 @ApiModel("UserRegisterPostRequest")
 public class UserRegisterPostReq {
-    @ApiModelProperty(name="유저 현재 프로필", example = "1")
-    long prof_no;
+//    @ApiModelProperty(name="유저 현재 프로필", example = "1")
+//    long prof_no;
     @ApiModelProperty(name="유저 이메일", example = "ssafy@ssafy.com")
     String user_email;
     @ApiModelProperty(name="유저 비밀번호", example = "your_password")
     String user_password;
-    @ApiModelProperty(name="유저 자식 이름", example = "ssafy")
+    @ApiModelProperty(name="유저 자녀 이름", example = "ssafy")
     String user_child_name;
     @ApiModelProperty(name="유저 부모님 이름", example = "ssafy")
     String user_parent_name;
@@ -27,15 +27,15 @@ public class UserRegisterPostReq {
     String user_sex;
     @ApiModelProperty(name="유저 출생일", example = "20160101")
     String user_birth;
-    @ApiModelProperty(name="정상(0), 탈퇴(1), 신고당해서 차단(2)", example = "0")
-    String user_state;
-    @ApiModelProperty(name="유저 신고당한 횟수", example = "0")
-    int user_reported;
-    @ApiModelProperty(name="유저 서비스이용약관", example = "Y")
-    String user_service_term;
-    @ApiModelProperty(name="유저 개인정보이용약관", example = "Y")
-    String user_privacy_term;
-//    @ApiModelProperty(name="유저 역할: 회원(user),관리자(admin),부모님(parent)", example="user")
+//    @ApiModelProperty(name="정상(normal), 탈퇴(withdrawal), 신고당해서 차단(block)", example = "normal")
+//    String user_state;
+//    @ApiModelProperty(name="유저 신고당한 횟수", example = "0")
+//    int user_reported;
+//    @ApiModelProperty(name="유저 서비스이용약관", example = "Y")
+//    String user_service_term;
+//    @ApiModelProperty(name="유저 개인정보이용약관", example = "Y")
+//    String user_privacy_term;
+//    @ApiModelProperty(name="유저 역할: 회원(user),관리자(admin),부모님(parent)")
 //    String user_role;
 //    @ApiModelProperty(name="생성자", example="ssafy")
 //    String user_create_by;
