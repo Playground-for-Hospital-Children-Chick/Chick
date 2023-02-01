@@ -35,7 +35,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean createUser(UserRegisterPostReq userRegisterInfo) {
-        if (userRepository.findByUserEmail(userRegisterInfo.getUser_email()) != null) {
+        String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
+        if ((userRepository.findByUserEmail(userRegisterInfo.getUser_email()) != null)
+        ||(!userRegisterInfo.getUser_email().matches(pattern))) {
             return false;
         }
 
@@ -46,10 +48,10 @@ public class UserServiceImpl implements UserService {
                 .userParentName(userRegisterInfo.getUser_parent_name().toString())
                 .userSex(userRegisterInfo.getUser_sex().toString())
                 .userBirth(userRegisterInfo.getUser_birth().toString())
-                .userState(userRegisterInfo.getUser_state().toString())
-                .userNumberOfReports(userRegisterInfo.getUser_reported())
-                .userServiceTerm(userRegisterInfo.getUser_service_term())
-                .userPrivacyTerm(userRegisterInfo.getUser_privacy_term())
+                .userState("0")
+                .userNumberOfReports(0)
+                .userServiceTerm("Y")
+                .userPrivacyTerm("Y")
                 .userRole(UserRole.ROLE_USER)
                 .userCreateBy(userRegisterInfo.getUser_email())
                 .userCreateDate(LocalDateTime.now())
