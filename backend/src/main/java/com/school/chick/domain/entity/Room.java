@@ -31,7 +31,7 @@ public class Room {
 
     private int roomCnt;
     private String roomType;
-    private String roomLink;
+    private String roomSession;
     private String roomStatus;
 
     @CreatedBy

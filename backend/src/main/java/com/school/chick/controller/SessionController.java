@@ -1,5 +1,6 @@
 package com.school.chick.controller;
 
+import com.school.chick.service.RoomService;
 import com.school.chick.service.SessionService;
 import io.openvidu.java.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RestController()
 public class SessionController {
+    private RoomService roomService;
 
     @Value("${OPENVIDU_URL}")
     private String OPENVIDU_URL;
@@ -33,11 +35,14 @@ public class SessionController {
      * @return The Session ID
      */
     @PostMapping("/api/sessions")
-    public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
+    public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, String> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
+        //  params: {customSessionId=SessionA, email=ssafy@ssafy.com, gameType=face}
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
+        System.out.println("params: " + params.toString());
+        params.put("customSessionId", roomService.getRoomSession(params.get("gameType")));
         System.out.println("params: " + params.toString());
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
