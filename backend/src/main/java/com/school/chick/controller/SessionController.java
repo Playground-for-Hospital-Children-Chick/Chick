@@ -62,7 +62,8 @@ public class SessionController {
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+//        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+        ConnectionProperties properties = new ConnectionProperties.Builder().type(ConnectionType.WEBRTC).data("ssafy@ssafy.com").role(OpenViduRole.PUBLISHER).build();
         System.out.println("properties: " + properties.toString());
         Connection connection = session.createConnection(properties);
         System.out.println("connection "+connection.getConnectionId()+"  "+connection.getRtspUri()+"    "+connection.getToken());
