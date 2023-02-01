@@ -35,6 +35,10 @@ public class SessionController {
     @PostMapping("/api/sessions")
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
+        System.out.println("세션 요청입니다");
+        System.out.println("세션 요청입니다");
+        System.out.println("세션 요청입니다");
+        System.out.println("params: " + params.toString());
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
         System.out.println(session+" session "+session.getSessionId());
@@ -50,6 +54,11 @@ public class SessionController {
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
+        System.out.println("연결 요청입니다");
+        System.out.println("연결 요청입니다");
+        System.out.println("연결 요청입니다");
+        System.out.println("sessionId :" + sessionId);
+        System.out.println("params: " + params.toString());
         Session session = openvidu.getActiveSession(sessionId);
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
