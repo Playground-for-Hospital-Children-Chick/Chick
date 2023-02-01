@@ -15,6 +15,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RestController()
 public class SessionController {
+    @Autowired
     private RoomService roomService;
 
     @Value("${OPENVIDU_URL}")
@@ -42,8 +43,9 @@ public class SessionController {
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("params: " + params.toString());
-        params.put("customSessionId", roomService.getRoomSession(params.get("gameType")));
-        System.out.println("params: " + params.toString());
+//        params.put("customSessionId", roomService.getRoomSession(params.get("gameType")));
+//        params.put("customSessionId","SessionA");
+//        System.out.println("params: " + params.toString());
         SessionProperties properties = SessionProperties.fromJson(params).build();
         Session session = openvidu.createSession(properties);
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
