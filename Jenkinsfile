@@ -34,6 +34,9 @@ pipeline {
                 sh 'docker stop springboot && docker rm springboot'
                 sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 9000:9000 -u root springboot'
               }
+              script{
+                sh ' docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-server-kms:2.23.0'
+              }
             }
    }
   }
