@@ -13,6 +13,7 @@
 }
 
 import React from "react";
+import Video from "../../../webRTC/Video";
 import FriendIsComing from "../../atoms/FriendIsComing";
 
 import WebCamBoard from "../../atoms/WebCamBoard/index";
@@ -20,7 +21,9 @@ import WebCamBoard from "../../atoms/WebCamBoard/index";
 function WebCamBoardWithCams() {
   return (
     <WebCamBoard>
-      <div className="font-chick bg-yellow-200 m-3 rounded-[30px]">주성</div>
+      <div className="font-chick bg-yellow-200 m-3 rounded-[30px]">
+        <Video />
+      </div>
       <div className="font-chick bg-yellow-200 m-3 rounded-[30px]">정온</div>
       <div className="font-chick bg-yellow-200 m-3 rounded-[30px]">재욱</div>
 
