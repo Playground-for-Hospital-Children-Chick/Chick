@@ -6,7 +6,8 @@ import ArBottomBarBase from "../components/atoms/ArBottomBarBase";
 import WebCamBoard from "../components/atoms/WebCamBoard";
 import FriendIsComing from "../components/atoms/FriendIsComing";
 
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = "http://3.35.166.44:9000/";
 
 class Video extends Component {
   constructor(props) {
@@ -73,6 +74,7 @@ class Video extends Component {
     this.setState(
       {
         session: this.OV.initSession(),
+        // session: "http://3.35.166.44:4443/",
       },
       () => {
         var mySession = this.state.session;
@@ -122,7 +124,7 @@ class Video extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "5550x350", // The resolution of your video
+                resolution: "555x400", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
                 mirror: false, // Whether to mirror your local video or not
@@ -217,27 +219,18 @@ class Video extends Component {
                 <UserVideoComponent streamManager={this.state.publisher} />
               ) : null}
 
-              {/* {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null} */}
-
               {this.state.subscribers.map((sub, i) =>
                 i < 3 ? <UserVideoComponent streamManager={sub} /> : null
               )}
 
-              {/* {1 <= this.state.subscribers.length < 2 ? (
-                <FriendIsComing />
-              ) : null}
-              {1 <= this.state.subscribers.length < 2 ? (
-                <FriendIsComing />
-              ) : null}
+              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
+              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
+              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
 
-              {2 <= this.state.subscribers.length < 3 ? (
-                <FriendIsComing />
-              ) : null} */}
+              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
+              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
+
+              {this.state.subscribers.length === 2 ? <FriendIsComing /> : null}
             </WebCamBoard>
 
             <div className="flex justify-center">
@@ -281,9 +274,16 @@ class Video extends Component {
   async createSession(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions",
-      { customSessionId: sessionId },
       {
-        headers: { "Content-Type": "application/json" },
+        customSessionId: sessionId,
+        email: "ssafy@ssafy.com",
+        gameType: "face",
+      },
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
     return response.data; // The sessionId
@@ -292,7 +292,15 @@ class Video extends Component {
   async createToken(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
-      {},
+      {
+        // customIceServers: [
+        //   {
+        //     url: "https://3.35.166.44:4443/",
+        //     username: "OPENVIDUAPP",
+        //     credential: "MY_SECRET",
+        //   },
+        // ],
+      },
       {
         headers: { "Content-Type": "application/json" },
       }

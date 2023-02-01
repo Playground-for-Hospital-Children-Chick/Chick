@@ -11,14 +11,10 @@ export default class UserVideoComponent extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.streamManager !== undefined ? (
-          <OpenViduVideoComponent streamManager={this.props.streamManager} />
-        ) : (
-          <FriendIsComing />
-        )}
-      </div>
+    return this.props.streamManager !== undefined ? (
+      <OpenViduVideoComponent streamManager={this.props.streamManager} />
+    ) : (
+      <FriendIsComing />
     );
   }
 }
