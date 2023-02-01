@@ -65,7 +65,7 @@ public class SessionController {
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         System.out.println("properties: " + properties.toString());
         Connection connection = session.createConnection(properties);
-        System.out.println("connection "+connection.getConnectionId()+"  "+connection.location+"    "+connection.getToken());
+        System.out.println("connection "+connection.getConnectionId()+"  "+connection.getRtspUri()+"    "+connection.getToken());
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 
