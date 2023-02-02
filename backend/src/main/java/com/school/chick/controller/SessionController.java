@@ -39,7 +39,7 @@ public class SessionController {
     @PostMapping("/api/sessions")
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        System.out.println("세션 요청입니다");
+        System.out.println("세션 요청입니다다");
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("params: " + params.toString());
