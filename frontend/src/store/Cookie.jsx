@@ -1,22 +1,25 @@
 import { Cookies } from "react-cookie";
 
-const cookie = new Cookies();
+const cookies = new Cookies();
 
 export const setRefreshToken = (refreshToken) => {
   const today = new Date();
   const expireDate = today.setDate(today.getDate() + 7);
+  console.log(refreshToken);
 
-  return cookie.set("refresh_token", refreshToken, {
+  return cookies.set("refreshToken", refreshToken, {
     sameSite: "strict",
     path: "/",
+    httpOnly: false,
     expires: new Date(expireDate),
+    secure: true,
+    signed: true,
   });
 };
-
-export const getRefreshToken = () => {
-  return cookie.get("refresh_token");
+export const getCookieToken = () => {
+  return cookies.get("refreshToken");
 };
 
-export const removeCookie = () => {
-  return cookie.remove("refresh_token", { sameSite: "strict", path: "/" });
+export const removeCookieToken = () => {
+  return cookies.remove("refreshToken", { sameSite: "strict", path: "/" });
 };

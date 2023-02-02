@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { HiLockClosed } from "react-icons/hi";
 import { ErrorMessage } from "@hookform/error-message";
+import { useCookies } from "react-cookie";
 
 import { loginUser } from "./../../../api/Users";
 import { setRefreshToken } from "./../../../store/Cookie";
@@ -27,19 +28,24 @@ function Login() {
     handleSubmit,
   } = useForm();
 
-  // submit 이후 동작할 코드
+  // const [cookies, setCookie] = useCookies["id"];
+  // preventDefault 대신에 동작할 코드(로그인 버튼을 누른 후 preventDefault와 더불어서 실행되는 함수)
   // 백으로 유저 정보 전달
   const onValid = async ({ email, password }) => {
     const response = await loginUser({ email, password });
 
     if (response.status) {
       // 쿠키에 Refresh Token, store에 Access Token 저장
-      setRefreshToken(response.json.refresh_token);
-      dispatch(SET_TOKEN(response.json.access_token));
-
+      console.log(response.data.data.accessToken);
+      console.log(response.data.headers);
+      console.log(response.headers);
+      // console.log(response.data.headers.get("Set-Cookie"));
+      setRefreshToken(response.json.refreshToken);
+      dispatch(SET_TOKEN(response.json.accessToken));
+      console.log(response);
       return navigate("/");
     } else {
-      console.log(response.json);
+      console.log(response);
     }
     // input 태그 값 비워주는 코드
     setValue("password", "");
