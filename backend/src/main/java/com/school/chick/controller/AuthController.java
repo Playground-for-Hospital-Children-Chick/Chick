@@ -55,7 +55,9 @@ public class AuthController {
         // 로그인 요청시 입력한 패스와드와 DB의 패스워드가 같은지 확인
         if(passwordEncoder.matches(password, user.getUserPwd())) {
             // 같으면 로그인 성공
-            String refreshToken = JwtTokenUtil.getRefreshToken(email);
+            String[] temp = email.split("@");
+            System.out.println(temp[0]);
+            String refreshToken = JwtTokenUtil.getRefreshToken(temp[0]);
             AuthRefreshSave tokenDto = new AuthRefreshSave();
             tokenDto.setRefreshToken(refreshToken);
             tokenDto.setAuthEmail(email);
