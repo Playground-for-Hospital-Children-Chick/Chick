@@ -33,16 +33,18 @@ function Login() {
   // 백으로 유저 정보 전달
   const onValid = async ({ email, password }) => {
     const response = await loginUser({ email, password });
-
+    console.log("response head" + JSON.stringify(response.headers));
     if (response.status) {
       // 쿠키에 Refresh Token, store에 Access Token 저장
-      console.log(response.data.data.accessToken);
-      console.log(response.data.headers);
-      console.log(response.headers);
+      // console.log("access " + response.data.data.accessToken);
+      // console.log("header " + response.data.headers);
+      // console.log("response " + response.headers);
       // console.log(response.data.headers.get("Set-Cookie"));
-      setRefreshToken(response.json.refreshToken);
+      document.cookie = response;
+      console.log("dc   " + document.cookie);
+      setRefreshToken(document.cookie);
       dispatch(SET_TOKEN(response.json.accessToken));
-      console.log(response);
+
       return navigate("/");
     } else {
       console.log(response);
@@ -50,7 +52,6 @@ function Login() {
     // input 태그 값 비워주는 코드
     setValue("password", "");
   };
-
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

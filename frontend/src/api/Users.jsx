@@ -50,6 +50,7 @@ export const loginUser = async (credentials) => {
   const data = await getPromise(BASE_URL + "/auth/login", option).catch(
     () => statusError
   );
+  console.log("data " + data);
   // console.log(response.json.accessToken);
   //요청이 성공적이면(2백번 대이면)
   if (parseInt(Number(data.status) / 100) === 2) {

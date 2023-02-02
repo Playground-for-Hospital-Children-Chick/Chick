@@ -5,14 +5,14 @@ const cookies = new Cookies();
 export const setRefreshToken = (refreshToken) => {
   const today = new Date();
   const expireDate = today.setDate(today.getDate() + 7);
-  console.log(refreshToken);
+  console.log("setRefreshToken " + refreshToken);
 
-  return cookies.set("refreshToken", refreshToken, {
+  return cookies.set(refreshToken, {
     sameSite: "strict",
     path: "/",
     httpOnly: false,
     expires: new Date(expireDate),
-    secure: true,
+    secure: false,
     signed: true,
   });
 };

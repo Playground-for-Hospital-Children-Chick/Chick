@@ -1,10 +1,19 @@
 import "./App.css";
-import Video from "./webRTC/Video";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Lobby from "./components/pages/Lobby";
+import Login from "./components/pages/Login";
+import Logout from "./components/pages/Logout";
 
 function App() {
   return (
     <div className="App">
-      <Video />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Lobby />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
