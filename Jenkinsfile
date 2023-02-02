@@ -5,7 +5,7 @@ pipeline {
         stage('Pull') {
             steps {
 				script{
-				  git branch: 'back-end', credentialsId: '3f6c0b0d-69b2-42a6-8eab-dc5ed7d829c8', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
+				  git branch: 'master', credentialsId: '3f6c0b0d-69b2-42a6-8eab-dc5ed7d829c8', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
 				}
             }
         }
