@@ -33,7 +33,7 @@ public class AuthController {
     AuthRefreshSaveRepository authRefreshSaveRepository;
 
     @PostMapping("/login")
-    @ApiOperation(value = "로그인", notes = "아이디와 패스워드를 통해 로그인 한다")
+    @ApiOperation(value = "로그인", notes = "이메일과 패스워드를 통해 로그인 한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
             @ApiResponse(code = 401, message = "인증 실패", response = BaseResponseBody.class),
@@ -67,9 +67,9 @@ public class AuthController {
 
             UserLoginInfo userLoginInfo = userService.getUserLoginInfo(user);
             Cookie cookie=new Cookie("refreshToken", refreshToken); // refresh 담긴 쿠키 생성
-            cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간을 refresh 유효시간만큼 설정
-//            cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
-//            cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
+            cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간 refresh 유효시간만큼 설정
+            //cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
+            //cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
             cookie.setPath("/");
 
             response.addCookie(cookie);
