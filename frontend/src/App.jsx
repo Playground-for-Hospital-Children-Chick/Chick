@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Lobby from "./components/pages/Lobby";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
+import Video from "./webRTC/Video";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </Router>
+      <Video />
     </div>
   );
 }

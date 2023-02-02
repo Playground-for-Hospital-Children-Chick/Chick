@@ -12,6 +12,7 @@ import { prototype } from "events";
 import VideoBtn from "../components/atoms/VideoBtn";
 
 const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// "http://localhost:5000/";
 // const APPLICATION_SERVER_URL = "http://3.35.166.44:9000/";
 
 class Video extends Component {
