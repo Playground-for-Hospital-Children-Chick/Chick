@@ -1,17 +1,11 @@
-import { OpenVidu, Subscriber } from "openvidu-browser";
+import { OpenVidu } from "openvidu-browser";
+// import './Video.css'
 import axios from "axios";
 import React, { Component } from "react";
-import UserVideoComponent from "./UserVideoComponent";
-import ArBottomBarBase from "../components/atoms/ArBottomBarBase";
-import WebCamBoard from "../components/atoms/WebCamBoard";
-import FriendIsComing from "../components/atoms/FriendIsComing";
 
-import MicBtn from "../components/atoms/MicBtn";
-
-import { prototype } from "events";
+import UserVideoComponent from "../UserVideoComponent";
 
 const APPLICATION_SERVER_URL = "http://localhost:5000/";
-// const APPLICATION_SERVER_URL = "http://3.35.166.44:9000/";
 
 class Video extends Component {
   constructor(props) {
@@ -22,20 +16,18 @@ class Video extends Component {
       mySessionId: "SessionA",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
       session: undefined,
+      mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined,
       subscribers: [],
     };
 
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
-    this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
-    this.handleChangeUserName = this.handleChangeUserName.bind(this);
+    // this.switchCamera = this.switchCamera.bind(this);
+    // this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
+    // this.handleChangeUserName = this.handleChangeUserName.bind(this);
+    this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
-    this.micStatusChanged = this.micStatusChanged.bind(this);
-  }
-
-  micStatusChanged() {
-    this.micStatusChanged();
   }
 
   componentDidMount() {
@@ -50,16 +42,24 @@ class Video extends Component {
     this.leaveSession();
   }
 
-  handleChangeSessionId(e) {
-    this.setState({
-      mySessionId: e.target.value,
-    });
-  }
+  //   handleChangeSessionId(e) {
+  //     this.setState({
+  //       mySessionId: e.target.value,
+  //     });
+  //   }
 
-  handleChangeUserName(e) {
-    this.setState({
-      myUserName: e.target.value,
-    });
+  //   handleChangeUserName(e) {
+  //     this.setState({
+  //       myUserName: e.target.value,
+  //     });
+  //   }
+
+  handleMainVideoStream(stream) {
+    if (this.state.mainStreamManager !== stream) {
+      this.setState({
+        mainStreamManager: stream,
+      });
+    }
   }
 
   deleteSubscriber(streamManager) {
@@ -83,7 +83,6 @@ class Video extends Component {
     this.setState(
       {
         session: this.OV.initSession(),
-        // session: "http://3.35.166.44:4443/",
       },
       () => {
         var mySession = this.state.session;
@@ -133,7 +132,7 @@ class Video extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "555x307", // The resolution of your video
+                resolution: "640x480", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
                 mirror: false, // Whether to mirror your local video or not
@@ -159,6 +158,7 @@ class Video extends Component {
               // Set the main video in the page to display our webcam and store our Publisher
               this.setState({
                 currentVideoDevice: currentVideoDevice,
+                mainStreamManager: publisher,
                 publisher: publisher,
               });
             })
@@ -195,21 +195,86 @@ class Video extends Component {
     });
   }
 
+  async switchCamera() {
+    try {
+      const devices = await this.OV.getDevices();
+      var videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+
+      if (videoDevices && videoDevices.length > 1) {
+        var newVideoDevice = videoDevices.filter(
+          (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
+        );
+
+        if (newVideoDevice.length > 0) {
+          // Creating a new publisher with specific videoSource
+          // In mobile devices the default and first camera is the front one
+          var newPublisher = this.OV.initPublisher(undefined, {
+            videoSource: newVideoDevice[0].deviceId,
+            publishAudio: true,
+            publishVideo: true,
+            mirror: true,
+          });
+
+          //newPublisher.once("accessAllowed", () => {
+          await this.state.session.unpublish(this.state.mainStreamManager);
+
+          await this.state.session.publish(newPublisher);
+          this.setState({
+            currentVideoDevice: newVideoDevice[0],
+            mainStreamManager: newPublisher,
+            publisher: newPublisher,
+          });
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   render() {
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
 
-    console.log("1231312321312", this.state.subscribers);
     return (
-      <div className="flex justify-center">
+      <div className="container">
         {this.state.session === undefined ? (
           <div>
-            <div>
+            {/* <div id="img-div">
+              <img
+                src="./public/resources/images/openvidu_grey_bg_transp_cropped.png"
+                alt="OpenVidu logo"
+              />
+            </div> */}
+            <div id="join-dialog" className="jumbotron vertical-center">
               <h1> Join a video session </h1>
               <form className="form-group" onSubmit={this.joinSession}>
+                <p>
+                  <label>Participant: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="userName"
+                    value={myUserName}
+                    onChange={this.handleChangeUserName}
+                    required
+                  />
+                </p>
+                <p>
+                  <label> Session: </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="sessionId"
+                    value={mySessionId}
+                    onChange={this.handleChangeSessionId}
+                    required
+                  />
+                </p>
                 <p className="text-center">
                   <input
-                    className="bg-pink-300 text-3xl"
+                    className="btn btn-lg btn-success"
                     name="commit"
                     type="submit"
                     value="JOIN"
@@ -221,44 +286,53 @@ class Video extends Component {
         ) : null}
 
         {this.state.session !== undefined ? (
-          <div>
-            <WebCamBoard>
+          <div id="session">
+            <div id="session-header">
+              {/* <h1 id="session-title">{mySessionId}</h1> */}
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.leaveSession}
+                value="Leave session"
+              />
+            </div>
+
+            {/* {this.state.mainStreamManager !== undefined ? (
+              <div id="main-video" className="col-md-6">
+                <UserVideoComponent
+                  streamManager={this.state.mainStreamManager}
+                />
+                <input
+                  className="btn btn-large btn-success"
+                  type="button"
+                  id="buttonSwitchCamera"
+                  onClick={this.switchCamera}
+                  value="Switch Camera"
+                />
+              </div>
+            ) : null} */}
+            {/* <div id="video-container" className="col-md-6"> */}
+            <div>
               {this.state.publisher !== undefined ? (
-                <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  <div class="relative">
-                    <UserVideoComponent streamManager={this.state.publisher} />
-                    <div class="absolute bottom-0 right-0">
-                      <MicBtn onClick={this.micStatusChanged1} />
-                    </div>
-                  </div>
+                <div
+                  className="stream-container col-md-6 col-xs-6"
+                  onClick={() =>
+                    this.handleMainVideoStream(this.state.publisher)
+                  }
+                >
+                  <UserVideoComponent streamManager={this.state.publisher} />
                 </div>
               ) : null}
-
-              {this.state.subscribers.map((sub, i) =>
-                i < 3 ? <UserVideoComponent streamManager={sub} /> : null
-              )}
-
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
-
-              {this.state.subscribers.length === 2 ? <FriendIsComing /> : null}
-            </WebCamBoard>
-
-            <div className="flex justify-center">
-              <ArBottomBarBase>
-                <div className="flex">
-                  <input
-                    className="bg-pink-400 text-3xl rounded-[30px]"
-                    type="button"
-                    onClick={this.leaveSession}
-                    value="나가기"
-                  />
+              {this.state.subscribers.map((sub, i) => (
+                <div
+                  key={i}
+                  className="stream-container col-md-6 col-xs-6"
+                  onClick={() => this.handleMainVideoStream(sub)}
+                >
+                  <UserVideoComponent streamManager={sub} />
                 </div>
-              </ArBottomBarBase>
+              ))}
             </div>
           </div>
         ) : null}
@@ -289,16 +363,9 @@ class Video extends Component {
   async createSession(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions",
+      { customSessionId: sessionId },
       {
-        customSessionId: sessionId,
-        // email: "ssafy@ssafy.com",
-        // gameType: "face",
-      },
-
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       }
     );
     return response.data; // The sessionId
@@ -307,15 +374,7 @@ class Video extends Component {
   async createToken(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
-      {
-        // customIceServers: [
-        //   {
-        //     url: "https://3.35.166.44:4443/",
-        //     username: "OPENVIDUAPP",
-        //     credential: "MY_SECRET",
-        //   },
-        // ],
-      },
+      {},
       {
         headers: { "Content-Type": "application/json" },
       }
