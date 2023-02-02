@@ -19,7 +19,7 @@ import VideoOff from "./../../../assets/images/faceplay/videoOff.svg";
 import React, { useState } from "react";
 
 function VideoBtn() {
-  const [video, setVideo] = useState(false);
+  const [video, setVideo] = useState(true);
   const videoChange = () => {
     setVideo(!video);
   };

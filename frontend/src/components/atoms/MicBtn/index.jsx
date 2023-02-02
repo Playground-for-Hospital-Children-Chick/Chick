@@ -19,7 +19,7 @@ import MicOff from "./../../../assets/images/faceplay/micOff.svg";
 import React, { useState } from "react";
 
 function Mic() {
-  const [mic, setMic] = useState(false);
+  const [mic, setMic] = useState(true);
   const micChange = () => {
     setMic(!mic);
   };

@@ -1,4 +1,4 @@
-import { OpenVidu, Subscriber } from "openvidu-browser";
+import { OpenVidu, Publisher, Subscriber } from "openvidu-browser";
 import axios from "axios";
 import React, { Component } from "react";
 import UserVideoComponent from "./UserVideoComponent";
@@ -9,6 +9,7 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import MicBtn from "../components/atoms/MicBtn";
 
 import { prototype } from "events";
+import VideoBtn from "../components/atoms/VideoBtn";
 
 const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // const APPLICATION_SERVER_URL = "http://3.35.166.44:9000/";
@@ -32,10 +33,19 @@ class Video extends Component {
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
+    this.camStatusChanged = this.camStatusChanged.bind(this);
+  }
+
+  camStatusChanged() {
+    this.state.publisher.stream.videoActive =
+      !this.state.publisher.stream.videoActive;
+    this.state.session.publish(this.state.publisher);
   }
 
   micStatusChanged() {
-    this.micStatusChanged();
+    this.state.publisher.stream.audioActive =
+      !this.state.publisher.stream.audioActive;
+    this.state.session.publish(this.state.publisher);
   }
 
   componentDidMount() {
@@ -136,7 +146,7 @@ class Video extends Component {
                 resolution: "555x307", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
+                mirror: true, // Whether to mirror your local video or not
               });
 
               // --- 6) Publish your stream ---
@@ -227,8 +237,21 @@ class Video extends Component {
                 <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
                   <div class="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
-                    <div class="absolute bottom-0 right-0">
-                      <MicBtn onClick={this.micStatusChanged1} />
+
+                    {/* 마이크 온오프 */}
+                    <div
+                      class="absolute bottom-0 right-0"
+                      onClick={this.micStatusChanged}
+                    >
+                      <MicBtn />
+                    </div>
+
+                    {/* 비디오 온오프 */}
+                    <div
+                      class="absolute bottom-0 left-0"
+                      onClick={this.camStatusChanged}
+                    >
+                      <VideoBtn />
                     </div>
                   </div>
                 </div>
