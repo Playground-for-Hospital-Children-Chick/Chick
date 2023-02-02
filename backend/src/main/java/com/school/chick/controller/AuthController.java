@@ -10,6 +10,7 @@ import com.school.chick.util.jwt.JwtTokenUtil;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,13 +69,22 @@ public class AuthController {
             authRefreshSaveRepository.save(tokenDto);
 
             UserLoginInfo userLoginInfo = userService.getUserLoginInfo(user);
-            Cookie cookie=new Cookie("refreshToken", refreshToken); // refresh 담긴 쿠키 생성
-            cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간을 refresh 유효시간만큼 설정
-            //cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
-            //cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
-            cookie.setPath("/");
+//            Cookie cookie=new Cookie("refreshToken", refreshToken); // refresh 담긴 쿠키 생성
+//            cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간을 refresh 유효시간만큼 설정
+//            //cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
+//            //cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
+//            cookie.setPath("/");
+//            response.addCookie(cookie);
+            ResponseCookie rcookie = ResponseCookie.from("refreshToken", refreshToken)
+                    .path("/")
+                    .sameSite("None")
+                    .httpOnly(false)
+                    .secure(false)
+                    .maxAge(JwtTokenUtil.refreshExpirationTime)
+                    .build();
+            response.add("Set-Cookie", rcookie.toString());
 
-            response.addCookie(cookie);
+
             return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(email), userLoginInfo));
         }
 
