@@ -26,7 +26,7 @@ public class DailyLog {
     private int id;
 
     private String logEmail;
-    private String logGameName;
+    private String logGameType;
 
     @CreatedBy
     @Column(updatable = false)

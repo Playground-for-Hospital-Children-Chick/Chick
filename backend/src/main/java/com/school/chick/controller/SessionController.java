@@ -43,6 +43,7 @@ public class SessionController {
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("params: " + params.toString());
+        roomService.createLog(params); // 매칭에 대한 로그를 데이터베이스에 저장한다
         Map<String, Object> sessionParam = new HashMap<>(); // 새션을 저장할 변수
         sessionParam.put("customSessionId", roomService.getRoomSession((String) params.get("gameType"))); // 새션 생성 혹은 기존 새션을 가져온다
         System.out.println("sessionParam: " + sessionParam.toString());

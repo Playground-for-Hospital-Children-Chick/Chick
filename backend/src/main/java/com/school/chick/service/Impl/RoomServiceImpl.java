@@ -1,24 +1,28 @@
 package com.school.chick.service.Impl;
 
-import com.school.chick.domain.dto.MatchingReq;
-import com.school.chick.domain.entity.Matching;
+import com.school.chick.domain.entity.DailyLog;
 import com.school.chick.domain.entity.Room;
-import com.school.chick.domain.repository.MatchingRepository;
+import com.school.chick.domain.repository.DailyLogRepository;
 import com.school.chick.domain.repository.RoomRepository;
 import com.school.chick.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Map;
 
 @Service
 public class RoomServiceImpl implements RoomService {
 //    private final MatchingRepository matchingRepository;
     private final RoomRepository roomRepository;
+    private final DailyLogRepository dailyLogRepository;
+
 
     @Autowired
-    public RoomServiceImpl(RoomRepository roomRepository) {
+    public RoomServiceImpl(RoomRepository roomRepository, DailyLogRepository dailyLogRepository) {
         this.roomRepository = roomRepository;
+        this.dailyLogRepository = dailyLogRepository;
     }
 
     public String getRoomSession(String gameType) {
@@ -32,5 +36,20 @@ public class RoomServiceImpl implements RoomService {
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         return "Session"+roomRepository.count();
+    }
+
+    @Override
+    public void createLog(Map<String, Object> params) {
+        /* 데이터베이스에 로그를 저장한다 */
+        String email = (String)params.get("email");
+        String gameType = (String)params.get("gameType");
+        dailyLogRepository.save(
+                DailyLog.builder()
+                        .logEmail(email)
+                        .logGameType(gameType)
+                        .logCreateBy(email)
+                        .logCreateDate(LocalDateTime.now())
+                        .build()
+        );
     }
 }
