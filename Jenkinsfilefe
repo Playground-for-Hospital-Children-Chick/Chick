@@ -26,7 +26,7 @@ pipeline {
         stage('Build') {
           steps {
             script {
-              sh 'docker build -t basepage/nginx ./backend/'
+              sh 'docker build -t basepage/nginx ./frontend/'
             }
           }
         }
