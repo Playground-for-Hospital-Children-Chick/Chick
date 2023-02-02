@@ -26,7 +26,6 @@ public class DailyLog {
     private int id;
 
     private String logGameName;
-    private int logPlayTime;
 
     @CreatedBy
     @Column(updatable = false)
