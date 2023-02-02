@@ -25,6 +25,7 @@ public class DailyLog {
     @ApiModelProperty(name = "LOG_ID", value = "로그 번호")
     private int id;
 
+    private String logEmail;
     private String logGameName;
 
     @CreatedBy
