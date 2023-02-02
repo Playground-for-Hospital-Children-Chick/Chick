@@ -79,7 +79,7 @@ public class AuthController {
                     .path("/")
                     .sameSite("None")
                     .httpOnly(false)
-                    .secure(true)
+                    .secure(false)
                     .maxAge(JwtTokenUtil.refreshExpirationTime)
                     .build();
             response.addHeader("Set-Cookie", rcookie.toString());
