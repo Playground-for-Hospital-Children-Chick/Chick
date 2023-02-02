@@ -33,17 +33,11 @@ public class Matching {
 
     @CreatedBy
     @Column(updatable = false)
-    private String roomCreateBy;
+    private String matCreateBy;
     @CreatedDate
     @Column(updatable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
-    private LocalDateTime roomCreateDate;
-    @LastModifiedBy
-    private String roomUpdateBy;
-    @LastModifiedDate
-    @Column(nullable = false)
-    @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
-    private LocalDateTime roomUpdateDate;
+    private LocalDateTime matCreateDate;
 
 //    @ManyToOne
 //    @JoinColumn(name = "ROOM_ID")

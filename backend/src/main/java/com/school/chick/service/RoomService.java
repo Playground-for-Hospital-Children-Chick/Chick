@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface RoomService {
     public String getRoomSession(String gameType);
-    public void createLog(Map<String, Object> params);
+    public void createMachingInfo(Map<String, Object> params, String userSession);
 }
