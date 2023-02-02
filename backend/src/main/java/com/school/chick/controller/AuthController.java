@@ -79,10 +79,10 @@ public class AuthController {
                     .path("/")
                     .sameSite("None")
                     .httpOnly(false)
-                    .secure(false)
+                    .secure(true)
                     .maxAge(JwtTokenUtil.refreshExpirationTime)
                     .build();
-            response.add("Set-Cookie", rcookie.toString());
+            response.addHeader("Set-Cookie", rcookie.toString());
 
 
             return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(email), userLoginInfo));
