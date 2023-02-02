@@ -43,9 +43,10 @@ public class SessionController {
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("params: " + params.toString());
-        roomService.createLog(params); // 매칭에 대한 로그를 데이터베이스에 저장한다
-        Map<String, Object> sessionParam = new HashMap<>(); // 새션을 저장할 변수
-        sessionParam.put("customSessionId", roomService.getRoomSession((String) params.get("gameType"))); // 새션 생성 혹은 기존 새션을 가져온다
+        String userSession = roomService.getRoomSession((String) params.get("gameType")); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
+        roomService.createMachingInfo(params, userSession); // 매칭에 대한 로그를 데이터베이스에 저장한다
+        Map<String, Object> sessionParam = new HashMap<>(); // 유저 새션 정보를 저장할 변수
+        sessionParam.put("customSessionId", userSession); // // 유저 새션 정보를 저장
         System.out.println("sessionParam: " + sessionParam.toString());
         SessionProperties properties = SessionProperties.fromJson(sessionParam).build();
         Session session = openvidu.createSession(properties);

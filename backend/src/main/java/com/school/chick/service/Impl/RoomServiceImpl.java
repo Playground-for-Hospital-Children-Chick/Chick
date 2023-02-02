@@ -1,8 +1,8 @@
 package com.school.chick.service.Impl;
 
-import com.school.chick.domain.entity.DailyLog;
+import com.school.chick.domain.entity.Matching;
 import com.school.chick.domain.entity.Room;
-import com.school.chick.domain.repository.DailyLogRepository;
+import com.school.chick.domain.repository.MatchingRepository;
 import com.school.chick.domain.repository.RoomRepository;
 import com.school.chick.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,14 @@ import java.util.Map;
 public class RoomServiceImpl implements RoomService {
 //    private final MatchingRepository matchingRepository;
     private final RoomRepository roomRepository;
-    private final DailyLogRepository dailyLogRepository;
+    private final MatchingRepository matchingRepository;
+
 
 
     @Autowired
-    public RoomServiceImpl(RoomRepository roomRepository, DailyLogRepository dailyLogRepository) {
+    public RoomServiceImpl(RoomRepository roomRepository, MatchingRepository matchingRepository) {
         this.roomRepository = roomRepository;
-        this.dailyLogRepository = dailyLogRepository;
+        this.matchingRepository = matchingRepository;
     }
 
     public String getRoomSession(String gameType) {
@@ -39,16 +40,17 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void createLog(Map<String, Object> params) {
-        /* 데이터베이스에 로그를 저장한다 */
+    public void createMachingInfo(Map<String, Object> params, String userSession) {
+        /* 데이터베이스에 매칭 정보를 저장한다 */
         String email = (String)params.get("email");
         String gameType = (String)params.get("gameType");
-        dailyLogRepository.save(
-                DailyLog.builder()
-                        .logEmail(email)
-                        .logGameType(gameType)
-                        .logCreateBy(email)
-                        .logCreateDate(LocalDateTime.now())
+        matchingRepository.save(
+                Matching.builder()
+                        .matEmail(email)
+                        .matGameType(gameType)
+                        .matSession(userSession)
+                        .matCreateBy(email)
+                        .matCreateDate(LocalDateTime.now())
                         .build()
         );
     }
