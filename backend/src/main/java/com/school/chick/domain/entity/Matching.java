@@ -27,8 +27,9 @@ public class Matching {
     @ApiModelProperty(name = "MAT_ID", value = "매칭 번호")
     private long id;
 
+    private String matEmail;
     private String matGameType;
-    private String matStatus;
+    private String matSession;
 
     @CreatedBy
     @Column(updatable = false)
