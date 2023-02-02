@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-     tools {
-   nodejs "nodejs-client"
- }
- 
     stages {
         stage('Pull') {
             steps {
