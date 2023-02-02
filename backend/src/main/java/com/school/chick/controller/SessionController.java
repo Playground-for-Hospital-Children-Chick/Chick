@@ -57,7 +57,7 @@ public class SessionController {
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        System.out.println("연결 요청입니다");
+        System.out.println("연결 요청입니다다");
         System.out.println("연결 요청입니다");
         System.out.println("연결 요청입니다");
         System.out.println("sessionId :" + sessionId);
