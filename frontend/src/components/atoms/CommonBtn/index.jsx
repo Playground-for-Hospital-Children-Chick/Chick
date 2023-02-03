@@ -30,7 +30,10 @@ function CommonBtn({ text = "Button", color, onClick }) {
         style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
         onClick={onClick}
       >
-        <p className="text-2xl text-center text-black/[0.66]">{text}</p>
+        <p className="text-2xl text-center text-black/[0.66]">
+          {text}
+          {props.content}
+        </p>
       </button>
     );
   } else if (color === "pink") {
