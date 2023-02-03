@@ -12,15 +12,18 @@
       */
 }
 
-import FacePlayHomeBox from '../../molecules/FacePlayHomeBox';
-import CommonBtn from './../../atoms/CommonBtn/index';
+import { Link } from "react-router-dom";
+import FacePlayHomeBox from "../../molecules/FacePlayHomeBox";
+import CommonBtn from "./../../atoms/CommonBtn/index";
 
 function FacePlay({ children }) {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        <CommonBtn text={'회원가입'} />
-        <CommonBtn text={'로그인'} color="yellow" />
+        <CommonBtn text={"회원가입"} />
+        <Link to="/login">
+          <CommonBtn text={"로그인"} color="yellow" />
+        </Link>
       </div>
       <FacePlayHomeBox />
     </div>
