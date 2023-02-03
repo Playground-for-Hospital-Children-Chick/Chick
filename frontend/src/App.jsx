@@ -13,9 +13,9 @@ function App() {
           <Route path="/" element={<Lobby />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/facepage" element={<Video />} />
         </Routes>
       </Router>
-      <Video />
     </div>
   );
 }
