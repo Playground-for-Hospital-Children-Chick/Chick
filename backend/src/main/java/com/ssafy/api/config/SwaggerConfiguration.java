@@ -51,7 +51,7 @@ public class SwaggerConfiguration {
 //		responseMessages.add(new ResponseMessageBuilder().code(500).message("서버 문제 발생 !!!").responseModel(new ModelRef("Error")).build());
 //		responseMessages.add(new ResponseMessageBuilder().code(404).message("페이지를 찾을 수 없습니다 !!!").build());
         return new Docket(DocumentationType.SWAGGER_2).groupName(groupName).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.school.chick.controller")).paths(predicate)
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.api.controller")).paths(predicate)
                 .apis(RequestHandlerSelectors.any()).build();
 //				.useDefaultResponseMessages(false)
 //				.globalResponseMessage(RequestMethod.GET,responseMessages);
@@ -60,7 +60,7 @@ public class SwaggerConfiguration {
     // swagger ui 설정.
     @Bean
     public Docket allApi() {
-        return getDocket("전체", Predicates.or(PathSelectors.regex("/*.*")));
+        return getDocket("전체", Predicates.or(PathSelectors.regex("/api/*.*")));
     }
     @Bean
     public UiConfiguration uiConfig() {
