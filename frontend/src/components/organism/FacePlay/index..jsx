@@ -25,7 +25,9 @@ function FacePlay({ children }) {
           <CommonBtn text={"로그인"} color="yellow" />
         </Link>
       </div>
-      <FacePlayHomeBox />
+      <Link to="/facepage">
+        <FacePlayHomeBox />
+      </Link>
     </div>
   );
 }

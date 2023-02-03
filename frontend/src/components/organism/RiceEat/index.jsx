@@ -14,6 +14,7 @@
 
 import RiceEatHomeBox from "../../molecules/RiceEatHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
+import { Link } from "react-router-dom";
 
 function RiceEat(params) {
   return (
