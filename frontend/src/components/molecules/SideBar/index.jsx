@@ -15,35 +15,31 @@
     */
 }
 
-import LogoText from "../../../assets/logo/logo-text.svg";
-import SideBarBase from "../../atoms/SideBarBase";
-import SideBarBtn from "./../../atoms/SideBarBtn/index";
+import LogoText from '../../../assets/logo/logo-text.svg';
+import SideBarBase from '../../atoms/SideBarBase';
+import SideBarBtn from './../../atoms/SideBarBtn/index';
 
 function SideBar({ index, setIndex }) {
   return (
     <SideBarBase>
-      <img src={LogoText} />
+      <img className="inline-flex justify-center w-[100%]" src={LogoText} />
       {index == 0 ? (
-        <SideBarBtn
-          type={"tiger"}
-          selected={true}
-          onClick={() => setIndex(0)}
-        />
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn type={'tiger'} selected={true} onClick={() => setIndex(0)} />
+        </div>
       ) : (
-        <SideBarBtn
-          type={"tiger"}
-          selected={false}
-          onClick={() => setIndex(0)}
-        />
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn type={'tiger'} selected={false} onClick={() => setIndex(0)} />
+        </div>
       )}
       {index == 1 ? (
-        <SideBarBtn type={"rice"} selected={true} onClick={() => setIndex(1)} />
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn type={'rice'} selected={true} onClick={() => setIndex(1)} />
+        </div>
       ) : (
-        <SideBarBtn
-          type={"rice"}
-          selected={false}
-          onClick={() => setIndex(1)}
-        />
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn type={'rice'} selected={false} onClick={() => setIndex(1)} />
+        </div>
       )}
     </SideBarBase>
   );
