@@ -11,6 +11,7 @@ import com.ssafy.api.domain.dto.*;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -77,11 +78,11 @@ public class AuthController {
             ResponseCookie rcookie = ResponseCookie.from("refreshToken", refreshToken)
                     .path("/")
                     .sameSite("None")
-                    .httpOnly(false)
-                    .secure(false)
+                    .httpOnly(true)
+                    .secure(true)
                     .maxAge(JwtTokenUtil.refreshExpirationTime)
                     .build();
-            response.addHeader("Set-Cookie", rcookie.toString());
+            response.addHeader(HttpHeaders.SET_COOKIE, rcookie.toString());
 
 
             return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(email), userLoginInfo));
