@@ -33,6 +33,7 @@ pipeline {
            stage('Deploy') {
             steps {
               script {
+                sh 'docker stop nginx && docker rm nginx'
                 sh 'docker run -d --name nginx -p 3000:443 -v /etc/letsencrypt/archive:/etc/letsencrypt/archive -u root basepage/nginx'
               }
             }
