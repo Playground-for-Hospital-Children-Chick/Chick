@@ -1,4 +1,4 @@
-function InputBox() {
+function InputBox({ children }) {
   return (
     <div
       className="flex justify-center items-center w-[466px] h-[60px] relative overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#fcfcfc]"
@@ -7,6 +7,7 @@ function InputBox() {
       <p className="flex-grow-0 flex-shrink-0 w-[313px] text-[19px] text-center text-neutral-200">
         Label
       </p>
+      {children}
     </div>
   );
 }

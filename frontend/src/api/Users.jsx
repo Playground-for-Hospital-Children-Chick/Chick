@@ -47,9 +47,9 @@ export const loginUser = async (credentials) => {
   };
 
   //요청 성공해서 프로미스 생성되면
-  const data = await getPromise(BASE_URL + "/auth/login", option).catch(
-    () => statusError
-  );
+  const data = await getPromise(BASE_URL + "/auth/login", option)
+    .catch(() => statusError)
+    .then((res) => console.log(res));
   console.log("data " + data);
   // console.log(response.json.accessToken);
   //요청이 성공적이면(2백번 대이면)

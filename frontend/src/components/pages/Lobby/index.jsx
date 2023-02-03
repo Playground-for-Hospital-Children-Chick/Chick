@@ -1,7 +1,10 @@
+import AlertBox from "./../../atoms/AlertBox/index";
 function Lobby() {
   return (
     <>
-      <div>Lobby</div>
+      <AlertBox>
+        <div>Lobby</div>
+      </AlertBox>
     </>
   );
 }
