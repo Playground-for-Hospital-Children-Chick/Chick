@@ -60,7 +60,7 @@ public class SwaggerConfiguration {
     // swagger ui 설정.
     @Bean
     public Docket allApi() {
-        return getDocket("전체", Predicates.or(PathSelectors.regex("/api/*.*")));
+        return getDocket("전체", Predicates.or(PathSelectors.regex("/*.*")));
     }
     @Bean
     public UiConfiguration uiConfig() {
