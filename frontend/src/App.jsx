@@ -5,6 +5,7 @@ import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Video from "./webRTC/Video";
 import HomePage from "./components/pages/HomePage/index";
+import SignUp from "./components/pages/SignUp/index";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/facepage" element={<Video />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </Router>
     </div>
