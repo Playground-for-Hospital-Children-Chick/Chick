@@ -26,6 +26,7 @@ class Video extends Component {
       session: undefined,
       publisher: undefined,
       subscribers: [],
+      mediaStream: undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -35,6 +36,33 @@ class Video extends Component {
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.camStatusChanged = this.camStatusChanged.bind(this);
+    this.canvasRef = document.createElement("canvas");
+  }
+
+  startDeepAR(canvas) {
+    var { DeepAR } = window;
+
+    var deepAR = DeepAR({
+      canvasWidth: 500,
+      canvasHeight: 500,
+      licenseKey:
+        "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
+      canvas: canvas,
+      numberOfFaces: 1,
+      libPath: "/lib",
+      segmentationInfoZip: "segmentation.zip",
+      onInitialize: () => {
+        console.log("deepAR Ready");
+
+        deepAR.startVideo(true);
+
+        deepAR.switchEffect(0, "slot", "/effects/flowers", () => {
+          console.log("flower loaded");
+        });
+      },
+    });
+
+    deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
   }
 
   camStatusChanged() {
@@ -51,6 +79,10 @@ class Video extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
+    var canvasContext = this.canvasRef.getContext("webgl");
+
+    this.startDeepAR(this.canvasRef);
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -136,12 +168,16 @@ class Video extends Component {
             .connect(token, { clientData: this.state.myUserName })
             .then(async () => {
               // --- 5) Get your own camera stream ---
+              this.setState({
+                mediaStream: this.canvasRef.captureStream(),
+              });
+              const videoTracks = this.state.mediaStream.getVideoTracks();
 
               // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
               // element: we will manage it on our own) and with the desired properties
               let publisher = await this.OV.initPublisherAsync(undefined, {
                 audioSource: undefined, // The source of audio. If undefined default microphone
-                videoSource: undefined, // The source of video. If undefined default webcam
+                videoSource: videoTracks[0], // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
                 resolution: "555x307", // The resolution of your video
@@ -214,21 +250,7 @@ class Video extends Component {
     return (
       <div className="flex justify-center">
         {this.state.session === undefined ? (
-          <div>
-            <div>
-              <h1> Join a video session </h1>
-              <form className="form-group" onSubmit={this.joinSession}>
-                <p className="text-center">
-                  <input
-                    className="bg-pink-300 text-3xl"
-                    name="commit"
-                    type="submit"
-                    value="JOIN"
-                  />
-                </p>
-              </form>
-            </div>
-          </div>
+          <div id="join">방을 생성하는 중 입니다..</div>
         ) : null}
 
         {this.state.session !== undefined ? (
