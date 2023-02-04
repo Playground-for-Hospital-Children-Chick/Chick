@@ -8,3 +8,5 @@ function Logo() {
     </span>
   );
 }
+
+export default Logo;
