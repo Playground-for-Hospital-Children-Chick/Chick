@@ -2,16 +2,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertBox from "../../atoms/AlertBox";
-import InputBox from "./../../atoms/Input";
-import CommonBtn from "./../../atoms/CommonBtn/index";
+import InputBox from "../../atoms/Input";
+import CommonBtn from "../../atoms/CommonBtn/index";
 import { useState } from "react";
 
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
-import { loginUser } from "./../../../api/Users";
-import { setRefreshToken } from "./../../../store/Cookie";
-import { SET_TOKEN } from "./../../../store/Auth";
+import { loginUser } from "../../../api/Users";
+import { setRefreshToken } from "../../../store/Cookie";
+import { SET_TOKEN } from "../../../store/Auth";
 
 function Login() {
   const navigate = useNavigate();

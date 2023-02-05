@@ -1,6 +1,6 @@
 import CommonBtn from "../../atoms/CommonBtn";
-import Logo from "./../../atoms/Logo/index";
-import InputBox from "./../../atoms/Input";
+import Logo from "../../atoms/Logo/index";
+import InputBox from "../../atoms/Input";
 
 function SignUp() {
   return (
