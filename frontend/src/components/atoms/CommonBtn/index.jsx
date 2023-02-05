@@ -1,3 +1,5 @@
+import classnames from "classnames";
+
 {
   /* 
 최초 작성자: 최정온
@@ -21,9 +23,13 @@ default="blue"
 }
 
 function CommonBtn({ text = "Button", color, onClick }) {
+  const classStr = classnames(
+    `font-chick  px-5 h-[70px] overflow-hidden rounded-[30px]`,
+    color
+  );
   return (
     <button
-      className={`font-chick  px-5 h-[70px] overflow-hidden rounded-[30px] bg-${color}-300`}
+      className={classStr}
       style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
       onClick={onClick}
     >

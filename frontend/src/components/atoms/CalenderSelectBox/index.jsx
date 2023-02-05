@@ -44,46 +44,65 @@ function CalenderSelectBox() {
       days.push(dd.toString());
     }
   }
-  console.log(days);
 
   return (
     <>
-      <select
-        defaultValue={nowDate[0]}
-        onChange={(e) => {
-          setNowCal({ ...nowCal, year: e.target.value });
-        }}
-      >
-        {years.map((item) => (
-          <option value={item} key={item}>
-            {item}
-          </option>
-        ))}
-      </select>
-      <select
-        defaultValue={nowDate[1]}
-        onChange={(e) => {
-          setNowCal({ ...nowCal, month: e.target.value });
-        }}
-      >
-        {months.map((item) => (
-          <option value={item} key={item}>
-            {item}
-          </option>
-        ))}
-      </select>
-      <select
-        defaultValue={nowDate[2]}
-        onChange={(e) => {
-          setNowCal({ ...nowCal, day: e.target.value });
-        }}
-      >
-        {days.map((item) => (
-          <option value={item} key={item}>
-            {item}
-          </option>
-        ))}
-      </select>
+      <div className="flex gap-x-16 items-center">
+        <div
+          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden gap-1 px-5 py-5 rounded-[30px]"
+          style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
+        >
+          <select
+            className="text-xl"
+            defaultValue={nowDate[0]}
+            onChange={(e) => {
+              setNowCal({ ...nowCal, year: e.target.value });
+            }}
+          >
+            {years.map((item) => (
+              <option value={item} key={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div
+          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden gap-1 px-5 py-5 rounded-[30px]"
+          style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
+        >
+          <select
+            className="text-xl"
+            defaultValue={nowDate[1]}
+            onChange={(e) => {
+              setNowCal({ ...nowCal, month: e.target.value });
+            }}
+          >
+            {months.map((item) => (
+              <option value={item} key={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div
+          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden gap-1 px-5 py-5 rounded-[30px]"
+          style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
+        >
+          <select
+            className="text-xl"
+            defaultValue={nowDate[2]}
+            onChange={(e) => {
+              setNowCal({ ...nowCal, day: e.target.value });
+            }}
+          >
+            {days.map((item) => (
+              <option value={item} key={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </>
   );
 }
