@@ -88,11 +88,12 @@ class Video extends Component {
       !this.state.publisher.stream.videoActive;
     this.state.session.publish(this.state.publisher);
     // this.state.session.publish();
-    console.log(this.state);
-    this.state.session.publish(this.state.publisher);
   }
 
   micStatusChanged() {
+    console.log(this.state.session);
+    this.state.session.unpublish(this.state.publisher);
+
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
     this.state.session.publish(this.state.publisher);
