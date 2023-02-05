@@ -26,17 +26,33 @@ public class RoomServiceImpl implements RoomService {
         this.matchingRepository = matchingRepository;
     }
 
-    public String getRoomSession(String gameType) {
+    public String getRoomSession(String email, String gameType) {
         /*
         방의 종류로 방을 선택 후 인원 기준으로 Order by 해서 가장 인원수가 적은 방을 확안한다.
         해당 방이 없거나 인원수가 4 이상이면 새로운 세션을 만들고 그렇지 않으면 해당 방의 세션을 리턴한다
          */
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeOrderByRoomCntDesc(gameType);
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
-            return roomArrayList.get(0).getRoomSession();
+            Room room = roomArrayList.get(0);
+            room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
+            room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
+            room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
+            roomRepository.save(room); // 방 정보 업데이트
+            return room.getRoomSession(); // 참가할 방 세션 리턴
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
-        return "Session"+roomRepository.count();
+        String newSession =  "Session"+roomRepository.count();
+        // 새로운 게임방 생성
+        roomRepository.save(Room.builder()
+                .roomCnt(1)
+                .roomType(gameType)
+                .roomSession(newSession)
+                .roomStatus("open")
+                .roomCreateBy(email)
+                .roomCreateDate(LocalDateTime.now())
+                .roomUpdateBy(email)
+                .roomUpdateDate(LocalDateTime.now()).build());
+        return newSession; // 참가할 방 세션 리턴
     }
 
     @Override
