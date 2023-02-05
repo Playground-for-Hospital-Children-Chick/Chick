@@ -89,6 +89,7 @@ class Video extends Component {
     this.state.session.publish(this.state.publisher);
     // this.state.session.publish();
     console.log(this.state);
+    this.state.session.publish(this.state.publisher);
   }
 
   micStatusChanged() {
