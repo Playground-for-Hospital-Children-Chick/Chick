@@ -23,7 +23,7 @@ default="blue"
 function CommonBtn({ text = "Button", color, onClick }) {
   return (
     <button
-      className={`font-chick  px-5 h-[70px] overflow-hidden rounded-[30px] bg-${color}-300 `}
+      className={`font-chick  px-5 h-[70px] overflow-hidden rounded-[30px] bg-${color}-300`}
       style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
       onClick={onClick}
     >

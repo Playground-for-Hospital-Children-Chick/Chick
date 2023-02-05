@@ -1,6 +1,7 @@
 import CommonBtn from "../../atoms/CommonBtn";
 import Logo from "../../atoms/Logo/index";
 import InputBox from "../../atoms/Input";
+import { useState } from "react";
 
 function SignUp() {
   return (
@@ -14,7 +15,7 @@ function SignUp() {
           이메일
         </label>
         <InputBox />
-        <CommonBtn text="이메일 확인" color="blue" />
+        <CommonBtn text="이메일 확인" color="emerald" />
       </div>
       <div className="gap-x-10 mt-10 password flex items-center justify-center mr-[11.8em]">
         <label className="mr-5 font-chick text-xl" htmlFor="password">
