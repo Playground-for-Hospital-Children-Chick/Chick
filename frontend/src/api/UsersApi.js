@@ -16,7 +16,7 @@ const requestPromise = (url, option) => {
   return axios({
     url,
     data: option.body,
-    method: option.method,
+    // method: option.method,
     withCredentials: true,
   });
 };
@@ -50,6 +50,7 @@ export const loginUser = async (credentials) => {
   const data = await getPromise(BASE_URL + "/auth/login", option).catch(
     () => statusError
   );
+  dispatch(setToken(data.json.accessToken));
   console.log("data " + data);
   // console.log(response.json.accessToken);
   //요청이 성공적이면(2백번 대이면)
