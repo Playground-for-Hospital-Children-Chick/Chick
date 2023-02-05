@@ -9,6 +9,7 @@ import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
+import { asyncLoginAxios } from "./../../../store/reducers/UserReducer";
 
 function Login() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Login() {
   // preventDefault 대신에 동작할 코드(로그인 버튼을 누른 후 preventDefault와 더불어서 실행되는 함수)
   // 백으로 유저 정보 전달
   const onValid = () => {
-    dispatch(asyncLoginAxios);
+    dispatch(asyncLoginAxios());
   };
   // const onValid = async () => {
   //   console.log("email", email);
