@@ -8,7 +8,7 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import MicBtn from "../components/atoms/MicBtn";
 import VideoBtn from "../components/atoms/VideoBtn";
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
+const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -371,11 +371,7 @@ class Video extends Component {
   async createSession(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions",
-      {
-        //customSessionId: sessionId
-        email: "ssafy@ssafy.com",
-        gameType: "face",
-      },
+      { customSessionId: sessionId },
       {
         headers: { "Content-Type": "application/json" },
       }
