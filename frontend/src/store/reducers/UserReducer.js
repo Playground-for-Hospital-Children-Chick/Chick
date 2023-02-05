@@ -68,4 +68,5 @@ export const { SET_USER, DELETE_USER, SET_TOKEN, DELETE_TOKEN } =
 // export const selectEmail = (state) => state.user.email;
 // export const selectUsername = (state) => state.user.username;
 
-export default userSlice;
+export { asyncLoginAxios };
+export default { userSlice };
