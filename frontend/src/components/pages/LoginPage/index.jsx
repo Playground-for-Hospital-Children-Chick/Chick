@@ -126,7 +126,7 @@ function Login() {
               </div>
             </div>
             <div>
-              <CommonBtn text="로그인" type="submit" color="emerald">
+              <CommonBtn text="로그인" type="submit" color="bg-emerald-300">
                 로그인
               </CommonBtn>
             </div>
