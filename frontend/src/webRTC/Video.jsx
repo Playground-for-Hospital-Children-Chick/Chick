@@ -5,7 +5,7 @@ import UserVideoComponent from "./UserVideoComponent";
 
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
-const APPLICATION_SERVER_URL = "http://3.35.166.44:9000/";
+const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io:9000/";
 
 class Video extends Component {
   constructor(props) {
