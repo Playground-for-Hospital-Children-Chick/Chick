@@ -1,15 +1,7 @@
-import { OpenVidu, Publisher, Subscriber } from "openvidu-browser";
+import { OpenVidu } from "openvidu-browser";
 import axios from "axios";
 import React, { Component } from "react";
 import UserVideoComponent from "./UserVideoComponent";
-import ArBottomBarBase from "../components/atoms/ArBottomBarBase";
-import WebCamBoard from "../components/atoms/WebCamBoard";
-import FriendIsComing from "../components/atoms/FriendIsComing";
-
-import MicBtn from "../components/atoms/MicBtn";
-
-import { prototype } from "events";
-import VideoBtn from "../components/atoms/VideoBtn";
 
 const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
@@ -79,7 +71,10 @@ class Video extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
+    console.log("canvasRef", this.canvasRef);
+    // console.log("canvasRef.current", this.canvasRef.current);
     var canvasContext = this.canvasRef.getContext("webgl");
+    console.log("canvasContext", canvasContext);
 
     this.startDeepAR(this.canvasRef);
     this.joinSession();
@@ -168,10 +163,15 @@ class Video extends Component {
             .connect(token, { clientData: this.state.myUserName })
             .then(async () => {
               // --- 5) Get your own camera stream ---
+              console.log("connect Session");
+
+              // if (canvasRef) {
               this.setState({
                 mediaStream: this.canvasRef.captureStream(),
               });
-              const videoTracks = this.state.mediaStream.getVideoTracks();
+              console.log("mediaStream", this.state.mediaStream);
+              var videoTracks = this.state.mediaStream.getVideoTracks();
+              console.log("videoTracks[0]", videoTracks[0]);
 
               // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
               // element: we will manage it on our own) and with the desired properties
@@ -208,6 +208,7 @@ class Video extends Component {
                 currentVideoDevice: currentVideoDevice,
                 publisher: publisher,
               });
+              // }
             })
             .catch((error) => {
               console.log(
@@ -243,68 +244,45 @@ class Video extends Component {
   }
 
   render() {
-    const mySessionId = this.state.mySessionId;
-    const myUserName = this.state.myUserName;
+    const mySessionId = "SessionID";
 
-    console.log("1231312321312", this.state.subscribers);
     return (
-      <div className="flex justify-center">
+      <div className="container">
         {this.state.session === undefined ? (
-          <div id="join">방을 생성하는 중 입니다..</div>
+          <div id="join">
+            <div id="img-div">
+              <img
+                src="resources/images/openvidu_grey_bg_transp_cropped.png"
+                alt="OpenVidu logo"
+              />
+            </div>
+          </div>
         ) : null}
 
         {this.state.session !== undefined ? (
-          <div>
-            <WebCamBoard>
+          <div id="session">
+            <div id="session-header">
+              <h1 id="session-title">{mySessionId}</h1>
+              <input
+                className="btn btn-large btn-danger"
+                type="button"
+                id="buttonLeaveSession"
+                onClick={this.leaveSession}
+                value="Leave session"
+              />
+            </div>
+
+            <div id="video-container" className="col-md-6">
               {this.state.publisher !== undefined ? (
-                <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  <div class="relative">
-                    <UserVideoComponent streamManager={this.state.publisher} />
-
-                    {/* 마이크 온오프 */}
-                    <div
-                      class="absolute bottom-0 right-0"
-                      onClick={this.micStatusChanged}
-                    >
-                      <MicBtn />
-                    </div>
-
-                    {/* 비디오 온오프 */}
-                    <div
-                      class="absolute bottom-0 left-0"
-                      onClick={this.camStatusChanged}
-                    >
-                      <VideoBtn />
-                    </div>
-                  </div>
+                <div className="stream-container col-md-6 col-xs-6">
+                  <UserVideoComponent streamManager={this.state.publisher} />
                 </div>
               ) : null}
-
-              {this.state.subscribers.map((sub, i) =>
-                i < 3 ? <UserVideoComponent streamManager={sub} /> : null
-              )}
-
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
-
-              {this.state.subscribers.length === 2 ? <FriendIsComing /> : null}
-            </WebCamBoard>
-
-            <div className="flex justify-center">
-              <ArBottomBarBase>
-                <div className="flex">
-                  <input
-                    className="bg-pink-400 text-3xl rounded-[30px]"
-                    type="button"
-                    onClick={this.leaveSession}
-                    value="나가기"
-                  />
+              {this.state.subscribers.map((sub, i) => (
+                <div key={i} className="stream-container col-md-6 col-xs-6">
+                  <UserVideoComponent streamManager={sub} />
                 </div>
-              </ArBottomBarBase>
+              ))}
             </div>
           </div>
         ) : null}
@@ -312,21 +290,35 @@ class Video extends Component {
     );
   }
 
-  /**
-   * --------------------------------------------
-   * GETTING A TOKEN FROM YOUR APPLICATION SERVER
-   * --------------------------------------------
-   * The methods below request the creation of a Session and a Token to
-   * your application server. This keeps your OpenVidu deployment secure.
-   *
-   * In this sample code, there is no user control at all. Anybody could
-   * access your application server endpoints! In a real production
-   * environment, your application server must identify the user to allow
-   * access to the endpoints.
-   *
-   * Visit https://docs.openvidu.io/en/stable/application-server to learn
-   * more about the integration of OpenVidu in your application server.
-   */
+  async getToken() {
+    const sessionId = await this.createSession(this.state.mySessionId);
+    return await this.createToken(sessionId);
+  }
+
+  async createSession(sessionId) {
+    const response = await axios.post(
+      APPLICATION_SERVER_URL + "api/sessions",
+      { customSessionId: sessionId },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    console.info("세션 연결");
+    return response.data; // The sessionId
+  }
+
+  async createToken(sessionId) {
+    const response = await axios.post(
+      APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
+      {},
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    return response.data; // The token
+  }
+
   async getToken() {
     const sessionId = await this.createSession(this.state.mySessionId);
     return await this.createToken(sessionId);
