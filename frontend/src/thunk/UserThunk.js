@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosInstance } from "./../";
+// import { axiosInstance } from "./../";
 // access Token 넣기
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 

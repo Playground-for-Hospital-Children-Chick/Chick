@@ -11,7 +11,7 @@ import { CookiesProvider } from "react-cookie";
 import { PersistGate } from "redux-persist/es/integration/react";
 import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
-import store from "./store/index";
+import store from "./store/store.js";
 
 axios.defaults.withCredentials = true;
 export let persistor = persistStore(store);
