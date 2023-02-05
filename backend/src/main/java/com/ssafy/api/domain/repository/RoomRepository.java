@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 @Component
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-    ArrayList<Room> findByRoomTypeOrderByRoomCntDesc(String roomType);
+    ArrayList<Room> findByRoomTypeOrderByRoomCntAsc(String roomType);
 }
