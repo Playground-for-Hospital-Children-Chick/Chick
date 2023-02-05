@@ -98,13 +98,13 @@ class Video extends Component {
   //     !this.state.publisher.stream.audioActive;
   //   this.state.session.publish(this.state.publisher);
   // }
-  micStatusChanged() {
+  async micStatusChanged() {
     console.log(this.state.session);
     this.state.session.unpublish(this.state.publisher);
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    this.state.session.publish(this.state.publisher);
+    await this.state.session.publish(this.state.publisher);
   }
 
   componentDidMount() {
