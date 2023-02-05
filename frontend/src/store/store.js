@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+// import { AuthReducer } from "./reducers/AuthReducer";
 import { persistReducer, PAUSE } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import tokenReducer from "./Auth";
-import userSlice from "./user";
+import { userSlice } from "./../store/reducers/UserReducer";
 import { combineReducers } from "redux";
 
 const reducers = combineReducers({
@@ -15,7 +15,6 @@ const persistConfig = {
   storage,
   whitelist: ["user"],
 };
-
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
@@ -23,6 +22,18 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
+      // }).concat(logger),
     }),
 });
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+// const persistedReducer = persistReducer(persistConfig, reducers);
+
+// const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: false,
+//     }),
+// });
 export default store;
