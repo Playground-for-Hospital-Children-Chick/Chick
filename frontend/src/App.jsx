@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Lobby from "./components/pages/Lobby";
+import Lobby from "./components/pages/LobbyPage";
 import Login from "./components/pages/LoginPage";
 import Logout from "./components/pages/LogoutPage";
 import Video from "./webRTC/Video";
