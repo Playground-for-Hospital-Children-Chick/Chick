@@ -9,9 +9,6 @@ import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
-import { loginUser } from "../../../api/UsersApi";
-import { setRefreshToken } from "../../../store/Cookie";
-import { SET_TOKEN } from "../../../store/Auth";
 
 function Login() {
   const navigate = useNavigate();
