@@ -12,38 +12,38 @@ function SignUp() {
 
         <CommonBtn text="로그인" color="bg-blue-300" />
       </div>
-      <div className="ml-[5em] gap-x-10 email flex items-center justify-center">
-        <label className="mr-[3em] font-chick text-xl" htmlFor="email">
+      <div className=" gap-x-14 email flex items-center justify-center">
+        <label className="mr-[1em] font-chick text-xl" htmlFor="email">
           이메일
         </label>
         <InputBox />
         <CommonBtn text="이메일 확인" color="bg-emerald-300" />
       </div>
-      <div className="gap-x-10 mt-10 password flex items-center justify-center">
-        <label className="mr-[1em] font-chick text-xl" htmlFor="password">
+      <div className="mr-[15em] gap-x-5 mt-10 password flex items-center justify-center">
+        <label className="mr-[1.8em] font-chick text-xl" htmlFor="password">
           비밀번호
         </label>
-        <InputBox marginleft={"ml-[3em]"} />
+        <InputBox />
       </div>
-      <div className="gap-x-10 mt-10 passwordcheck flex items-center justify-center">
+      <div className="mr-[15em] mt-10 passwordcheck flex items-center justify-center">
         <label className="mr-[1em] font-chick text-xl" htmlFor="passwordcheck">
           비밀번호 확인
         </label>
         <InputBox />
       </div>
-      <div className="gap-x-10 mt-10 childname flex items-center justify-center">
-        <label className="mr-5 font-chick text-xl" htmlFor="childname">
+      <div className="mr-[15.5em] mt-10 childname flex items-center justify-center">
+        <label className="mr-[2.5em] font-chick text-xl" htmlFor="childname">
           자녀이름
         </label>
         <InputBox />
       </div>
-      <div className="gap-x-10 mt-10 birth flex items-center justify-center">
-        <label className="mr-5 font-chick text-xl" htmlFor="birth">
+      <div className="mr-[15.5em] mt-10 birth flex items-center justify-center">
+        <label className="mr-[4.5em] font-chick text-xl" htmlFor="birth">
           출생
         </label>
         <CalenderSelectBox />
       </div>
-      <div className="mt-10">
+      <div className="mr-[10em] mt-10">
         <CommonBtn text="회원가입" color="bg-emerald-300" />
       </div>
     </>
