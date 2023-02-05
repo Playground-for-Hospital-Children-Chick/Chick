@@ -6,7 +6,7 @@ import { userSlice } from "./../store/reducers/UserReducer";
 import { combineReducers } from "redux";
 
 const reducers = combineReducers({
-  User: userSlice.reducer,
+  user: userSlice.reducer,
   // authToken: tokenReducer,
 });
 
