@@ -45,9 +45,9 @@ function Login() {
     // console.log({ email, password });
     console.log("클릭");
     const response = await loginUser({ email, password });
-    console.log(response);
-    console.log(response.json.refreshToken);
-    console.log(response.json.accessToken);
+    // console.log(response);
+    // console.log(response.json.refreshToken);
+    // console.log(response.json.accessToken);
     if (response.status) {
       // 쿠키에 Refresh Token, store에 Access Token 저장
       // console.log("access " + response.data.data.accessToken);
@@ -56,9 +56,9 @@ function Login() {
       // console.log(response.data.headers.get("Set-Cookie"));
       // document.cookie = response;
       // console.log("dc   " + document.cookie);
-      console.log(response);
-      setRefreshToken(response.json.refreshToken);
-      dispatch(SET_TOKEN(response.json.accessToken));
+      // console.log(response);
+      // setRefreshToken(response.json.refreshToken);
+      // dispatch(SET_TOKEN(response.json.accessToken));
 
       return navigate("/");
     } else {
