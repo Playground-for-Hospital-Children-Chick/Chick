@@ -8,9 +8,10 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import MicBtn from "../components/atoms/MicBtn";
 import VideoBtn from "../components/atoms/VideoBtn";
 
-const APPLICATION_SERVER_URL = "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
-// const APPLICATION_SERVER_URL = "http://3.35.166.44:9000/";
+
+const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
 class Video extends Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class Video extends Component {
       canvasHeight: 307,
       licenseKey:
         "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
+
       canvas: canvas,
       numberOfFaces: 1,
       libPath: "/lib",
@@ -91,6 +93,7 @@ class Video extends Component {
       !this.state.publisher.stream.videoActive;
     this.state.session.unpublish(this.state.publisher);
     this.state.session.publish(this.state.publisher);
+
     this.state.isPublishing = true;
   }
 
