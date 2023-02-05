@@ -37,8 +37,7 @@ class Video extends Component {
     var deepAR = DeepAR({
       canvasWidth: 500,
       canvasHeight: 500,
-      licenseKey:
-        "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
+      licenseKey: "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
       canvas: canvas,
       numberOfFaces: 1,
       libPath: "/lib",
@@ -58,14 +57,12 @@ class Video extends Component {
   }
 
   camStatusChanged() {
-    this.state.publisher.stream.videoActive =
-      !this.state.publisher.stream.videoActive;
+    this.state.publisher.stream.videoActive = !this.state.publisher.stream.videoActive;
     this.state.session.publish(this.state.publisher);
   }
 
   micStatusChanged() {
-    this.state.publisher.stream.audioActive =
-      !this.state.publisher.stream.audioActive;
+    this.state.publisher.stream.audioActive = !this.state.publisher.stream.audioActive;
     this.state.session.publish(this.state.publisher);
   }
 
@@ -192,16 +189,9 @@ class Video extends Component {
 
               // Obtain the current video device in use
               var devices = await this.OV.getDevices();
-              var videoDevices = devices.filter(
-                (device) => device.kind === "videoinput"
-              );
-              var currentVideoDeviceId = publisher.stream
-                .getMediaStream()
-                .getVideoTracks()[0]
-                .getSettings().deviceId;
-              var currentVideoDevice = videoDevices.find(
-                (device) => device.deviceId === currentVideoDeviceId
-              );
+              var videoDevices = devices.filter((device) => device.kind === "videoinput");
+              var currentVideoDeviceId = publisher.stream.getMediaStream().getVideoTracks()[0].getSettings().deviceId;
+              var currentVideoDevice = videoDevices.find((device) => device.deviceId === currentVideoDeviceId);
 
               // Set the main video in the page to display our webcam and store our Publisher
               this.setState({
@@ -211,11 +201,7 @@ class Video extends Component {
               // }
             })
             .catch((error) => {
-              console.log(
-                "There was an error connecting to the session:",
-                error.code,
-                error.message
-              );
+              console.log("There was an error connecting to the session:", error.code, error.message);
             });
         });
       }
@@ -251,10 +237,7 @@ class Video extends Component {
         {this.state.session === undefined ? (
           <div id="join">
             <div id="img-div">
-              <img
-                src="resources/images/openvidu_grey_bg_transp_cropped.png"
-                alt="OpenVidu logo"
-              />
+              <img src="resources/images/openvidu_grey_bg_transp_cropped.png" alt="OpenVidu logo" />
             </div>
           </div>
         ) : null}
@@ -298,7 +281,11 @@ class Video extends Component {
   async createSession(sessionId) {
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions",
-      { customSessionId: sessionId },
+      {
+        //customSessionId: sessionId
+        email: "ssafy@ssafy.com",
+        gameType: "face",
+      },
       {
         headers: { "Content-Type": "application/json" },
       }
