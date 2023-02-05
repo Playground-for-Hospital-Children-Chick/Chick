@@ -2,12 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 // import { AuthReducer } from "./reducers/AuthReducer";
 import { persistReducer, PAUSE } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { tokenSlice } from "./../store/reducers/AuthReducer";
 import { userSlice } from "./../store/reducers/UserReducer";
 import { combineReducers } from "redux";
 
 const reducers = combineReducers({
-  Auth: tokenSlice.reducer,
   User: userSlice.reducer,
   // authToken: tokenReducer,
 });
