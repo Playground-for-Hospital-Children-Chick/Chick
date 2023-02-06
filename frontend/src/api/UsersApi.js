@@ -50,17 +50,18 @@ export const loginUser = async function login(credentials) {
 };
 
 export const logoutUser = async function logout() {
-  const response = await axios({
-    method: "post",
-    url: BASE_URL + "/auth/logout",
-    headers: { "Content-Type": "application/json;charset=UTF-8" },
-    withCredentials: true,
+  const response = await fetch(`${BASE_URL}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    credentials: "include",
   });
   setTimeout(() => {
     purge();
     location.reload();
   }, 200);
-
+  console.log("로그인", response);
   return navigate("/");
 };
 // export const loginUser = async (credentials) => {
