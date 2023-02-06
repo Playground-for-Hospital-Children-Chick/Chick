@@ -57,6 +57,9 @@ export const userSlice = createSlice({
       state.accessToken = null;
       state.expireTime = null;
     },
+    extraReducers: (builder) => {
+      builder.addCase(PURGE, () => initialState);
+    },
   },
   // extraReducers: (builder) => {
   //   builder.addCase(asyncLoginAxios.fulfilled, (state, action) => {
