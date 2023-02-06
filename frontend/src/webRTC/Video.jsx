@@ -226,7 +226,7 @@ class Video extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 // videoSource: videoTracks[0], // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                publishVideo: true, // Whether you want to start publishing with your video enabled or not
+                publishVideo: false, // Whether you want to start publishing with your video enabled or not
                 resolution: "555x307", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
