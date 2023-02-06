@@ -34,6 +34,7 @@ public class User {
     private String userEmail;
     private String userSex;
     private String userBirth;
+    @ApiModelProperty(name = "USER_STATE", value = "유저상태(0: 정상, 1:탈퇴, 2:정지")
     private String userState;
     private int userNumberOfReports;
     private String userServiceTerm;
