@@ -18,7 +18,12 @@ const asyncLoginAxios = createAsyncThunk(
         email,
         password,
       },
-      { withCredentials: true }
+      {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        withCredentials: true,
+      }
     );
     console.log(resp);
     console.log(resp.data);
