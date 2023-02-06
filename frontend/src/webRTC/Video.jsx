@@ -42,6 +42,9 @@ class Video extends Component {
 
   newPublish() {
     this.state.session.publish(this.state.publisher);
+    this.state.session.publish(this.state.publisher);
+    this.state.session.publish(this.state.publisher);
+    this.state.session.publish(this.state.publisher);
   }
 
   async applyDeepAR() {
