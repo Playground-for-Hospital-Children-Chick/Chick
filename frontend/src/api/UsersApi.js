@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Cookies } from "react-cookie";
+import cookie from "react-cookies";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const cookies = new Cookies();
+// const cookies = new Cookies();
 
 // 에러 처리를 위한 status 선언
 // const statusError = {
@@ -45,7 +45,7 @@ export const loginUser = async function login(credentials) {
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
   });
-  console.log(cookies.get(refreshToken));
+  console.log(cookie.load("refreshToken"));
   return response;
 };
 
