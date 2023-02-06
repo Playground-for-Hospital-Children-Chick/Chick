@@ -96,17 +96,12 @@ class Video extends Component {
     // this.state.publisher.properties.publishVideo =
     //   !this.state.publisher.properties.publishVideo;
     this.state.session.unpublish(this.state.publisher);
-    newPublisher = OV.initPublisher(this.state.publisher.properties);
-    this.state.session.publish(newPublisher);
+    // newPublisher = OV.initPublisher(this.state.publisher.properties);
+    // this.state.session.publish(newPublisher);
     this.state.session.publish(this.state.publisher);
     this.newPublish;
   }
 
-  // micStatusChanged() {
-  //   this.state.publisher.stream.audioActive =
-  //     !this.state.publisher.stream.audioActive;
-  //   this.state.session.publish(this.state.publisher);
-  // }
   micStatusChanged() {
     console.log(this.state.session);
 
