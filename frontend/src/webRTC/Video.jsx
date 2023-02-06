@@ -47,6 +47,7 @@ class Video extends Component {
   }
 
   async applyDeepAR() {
+    console.log("잘들어왔나확인");
     this.startDeepAR(this.canvasRef);
     await this.setState({
       mediaStream: this.canvasRef.captureStream(),
@@ -99,7 +100,7 @@ class Video extends Component {
   camStatusChanged() {
     if (this.state.publisher.properties.videoSource) {
       console.log("아무거나");
-      this.applyDeepAR;
+      this.applyDeepAR();
     }
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
