@@ -22,13 +22,14 @@ default="blue"
 */
 }
 
-function CommonBtn({ text = "Button", color, onClick }) {
+function CommonBtn({ onClick, type, text = "Button", color }) {
   const classStr = classnames(
     `font-chick  px-5 h-[70px] overflow-hidden rounded-[30px]`,
     color
   );
   return (
     <button
+      type={type}
       className={classStr}
       style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
       onClick={onClick}
