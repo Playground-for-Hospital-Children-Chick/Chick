@@ -40,7 +40,7 @@ class Video extends Component {
     this.newPublish = this.newPublish.bind(this);
   }
 
-  async newPublish() {
+  newPublish() {
     newPublisher = OV.initPublisher(this.state.publisher.properties);
     this.state.session.publish(newPublisher);
   }
