@@ -26,6 +26,7 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       stream: undefined,
+      isPublishing: true,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -105,11 +106,14 @@ class Video extends Component {
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
 
-    this.state.session.unpublish(this.state.publisher).then(() => {
-      console.log("왜 퍼블리시안됨?");
-      this.state.session.publish(this.state.publisher);
-      console.log("왜 퍼블리시안됨?");
-    });
+    this.state.session
+      .unpublish(this.state.publisher)
+      .then((this.state.isPublishing = !this.state.isPublishing))
+      .then(() => {
+        console.log("왜 퍼블리시안됨?");
+        this.state.session.publish(this.state.publisher);
+        console.log("왜 퍼블리시안됨?");
+      });
   }
 
   micStatusChanged() {
@@ -328,21 +332,25 @@ class Video extends Component {
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
                 <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  <div class="relative">
-                    <UserVideoComponent streamManager={this.state.publisher} />
-                    <div
-                      class="absolute bottom-0 right-0"
-                      onClick={this.micStatusChanged}
-                    >
-                      <MicBtn />
+                  {this.state.isPublishing ? (
+                    <div class="relative">
+                      <UserVideoComponent
+                        streamManager={this.state.publisher}
+                      />
+                      <div
+                        class="absolute bottom-0 right-0"
+                        onClick={this.micStatusChanged}
+                      >
+                        <MicBtn />
+                      </div>
+                      <div
+                        class="absolute bottom-0 left-0"
+                        onClick={this.camStatusChanged}
+                      >
+                        <VideoBtn />
+                      </div>
                     </div>
-                    <div
-                      class="absolute bottom-0 left-0"
-                      onClick={this.camStatusChanged}
-                    >
-                      <VideoBtn />
-                    </div>
-                  </div>
+                  ) : null}
                 </div>
               ) : null}
 
