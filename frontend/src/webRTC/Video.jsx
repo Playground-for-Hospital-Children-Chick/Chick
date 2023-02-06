@@ -13,6 +13,16 @@ import VideoBtn from "../components/atoms/VideoBtn";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
+var filters = [
+  "/effects/lion",
+  "/effects/flowers",
+  "/effects/dalmatian",
+  "/effects/background_segmentation",
+  "/effects/background_blur",
+  "/effects/aviators",
+];
+var deepAR = null;
+
 class Video extends Component {
   constructor(props) {
     super(props);
@@ -37,13 +47,12 @@ class Video extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.applyDeepAR = this.applyDeepAR.bind(this);
     this.canvasRef = document.createElement("canvas");
-    this.newPublish = this.newPublish.bind(this);
+
+    this.changeEffectOne = this.changeEffectOne.bind(this);
   }
 
-  newPublish() {
-    this.state.session.unpublish(this.state.publisher).then(() => {
-      this.state.session.publish(this.state.publisher);
-    });
+  changeEffectOne() {
+    deepAR.switchEffect(0, "slot", filters[0]);
   }
 
   async applyDeepAR() {
@@ -71,7 +80,7 @@ class Video extends Component {
   startDeepAR(canvas) {
     var { DeepAR } = window;
 
-    var deepAR = DeepAR({
+    deepAR = DeepAR({
       canvasWidth: 550,
       canvasHeight: 307,
       licenseKey:
@@ -373,6 +382,9 @@ class Video extends Component {
                   />
                 </div>
                 <button onClick={this.applyDeepAR}>ar버튼입니다</button>
+                <button onClick={this.changeEffectOne}>
+                  ar바꾸기 버튼입니다
+                </button>
               </ArBottomBarBase>
             </div>
           </div>
