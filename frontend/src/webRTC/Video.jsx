@@ -66,8 +66,6 @@ class Video extends Component {
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
-    console.log("ar 적용햇을 때 퍼블리셔", this.state.publisher);
-    // this.newPublish;
   }
 
   startDeepAR(canvas) {
@@ -119,6 +117,9 @@ class Video extends Component {
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
+    if (this.state.publisher.properties.videoSourc == undefined) {
+      this.applyDeepAR();
+    }
   }
 
   componentDidMount() {
