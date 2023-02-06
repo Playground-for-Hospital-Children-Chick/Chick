@@ -23,12 +23,25 @@ import Box from "@mui/material/Box";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 function FacePlayHomeBox() {
   let [gameStart, setGameStart] = React.useState(false);
+  const user = useSelector((state) => state.user);
+
   const navigate = useNavigate();
 
   function playTheFaceGame() {
+    if (user["userEmail"] === null) {
+      Swal.fire({
+        icon: "question",
+        title: "로그인 필요",
+        text: "방에 입장하기 위해서는 로그인이 필요합니다.",
+      }).then(() => navigate("/login"));
+      return;
+    }
+
     setGameStart(true);
 
     setTimeout(() => {
