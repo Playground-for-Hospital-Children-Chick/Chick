@@ -100,8 +100,8 @@ public class AuthController {
     @PostMapping("/logout")
     @ApiOperation(value = "로그아웃", notes = "로그아웃한다")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
-            @ApiResponse(code = 401, message = "토큰 없음", response = BaseResponseBody.class),
+            @ApiResponse(code = 200, message = "성공", response = UserLogoutPostRes.class),
+            @ApiResponse(code = 401, message = "리프레쉬 토큰 없음", response = BaseResponseBody.class),
             @ApiResponse(code = 404, message = "요청 실패", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
