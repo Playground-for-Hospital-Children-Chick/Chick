@@ -41,8 +41,7 @@ class Video extends Component {
   }
 
   newPublish() {
-    newPublisher = OV.initPublisher(this.state.publisher.properties);
-    this.state.session.publish(newPublisher);
+    this.state.session.publish(this.state.publisher);
   }
 
   async applyDeepAR() {
@@ -96,10 +95,11 @@ class Video extends Component {
       !this.state.publisher.stream.videoActive;
     // this.state.publisher.properties.publishVideo =
     //   !this.state.publisher.properties.publishVideo;
-    // this.state.session.unpublish(this.state.publisher);
+    this.state.session.unpublish(this.state.publisher);
     newPublisher = OV.initPublisher(this.state.publisher.properties);
     this.state.session.publish(newPublisher);
     this.state.session.publish(this.state.publisher);
+    this.newPublish;
   }
 
   // micStatusChanged() {
