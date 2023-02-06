@@ -19,7 +19,7 @@
 function ArBottomBarBase({ children }) {
   return (
     <div
-      className="w-[1075px] h-[100px] overflow-hidden bg-white"
+      className="w-[1075px] h-[1000px] overflow-hidden bg-white"
       style={{ boxShadow: "0px 4px 4px 4px rgba(0,0,0,0.25)" }}
     >
       {children}
