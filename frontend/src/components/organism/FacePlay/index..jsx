@@ -18,7 +18,7 @@ import CommonBtn from "./../../atoms/CommonBtn/index";
 import { useSelector } from "react-redux";
 import { logoutUser } from "./../../../api/UsersApi";
 
-function FacePlay({ children }) {
+function FacePlay() {
   () => {
     console.log("user정보", user);
   };
@@ -46,9 +46,7 @@ function FacePlay({ children }) {
           </>
         )}
       </div>
-      <Link to="/facepage">
-        <FacePlayHomeBox />
-      </Link>
+      <FacePlayHomeBox />
     </div>
   );
 }
