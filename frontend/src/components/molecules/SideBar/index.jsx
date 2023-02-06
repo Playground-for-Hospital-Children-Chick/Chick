@@ -19,8 +19,13 @@ import LogoText from "../../../assets/logo/logo-text.svg";
 import SideBarBase from "../../atoms/SideBarBase";
 import SideBarBtn from "./../../atoms/SideBarBtn/index";
 import { Link } from "react-router-dom";
+import { GoScreenFull } from "react-icons/go";
 
 function SideBar({ index, setIndex }) {
+  function screenFull() {
+    document.documentElement.requestFullscreen();
+  }
+
   return (
     <SideBarBase>
       <Link to="/">
@@ -60,6 +65,11 @@ function SideBar({ index, setIndex }) {
           />
         </div>
       )}
+      <div className="absolute bottom-5 left-9">
+        <button onClick={screenFull}>
+          <GoScreenFull size={50} />
+        </button>
+      </div>
     </SideBarBase>
   );
 }
