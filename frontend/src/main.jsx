@@ -17,14 +17,12 @@ axios.defaults.withCredentials = true;
 export let persistor = persistStore(store);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <CookiesProvider>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-      <ClickToComponent />
-    </CookiesProvider>
-  </React.StrictMode>
+  <CookiesProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+    <ClickToComponent />
+  </CookiesProvider>
 );
