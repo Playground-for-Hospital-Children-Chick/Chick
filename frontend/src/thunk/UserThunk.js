@@ -9,7 +9,7 @@ const asyncLoginAxios = createAsyncThunk(
   async (email, password) => {
     const response = await axios({
       method: "POST",
-      url: "https://43.201.16.17/api/auth/login",
+      url: "https://api/auth/login",
       body: {
         email,
         password,
