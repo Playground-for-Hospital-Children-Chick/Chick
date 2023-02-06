@@ -92,10 +92,10 @@ class Video extends Component {
   }
 
   camStatusChanged() {
-    this.state.publisher.stream.videoActive =
-      !this.state.publisher.stream.videoActive;
-    // this.newPublish();
-    // this.state.session.publish();
+    // this.state.publisher.stream.videoActive =
+    //   !this.state.publisher.stream.videoActive;
+    this.state.publisher.properties.publishVideo =
+      !this.state.publisher.properties.publishVideo;
     console.log(
       "askjfjkljasklfjklsjadklfj",
       this.state.publisher.properties.publishVideo
