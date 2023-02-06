@@ -97,6 +97,7 @@ class Video extends Component {
     this.newPublish();
     // this.state.session.publish();
     console.log(this.state);
+    this.state.session.publish(this.state.publisher);
   }
 
   // micStatusChanged() {
@@ -110,6 +111,7 @@ class Video extends Component {
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
     this.newPublish();
+    this.state.session.publish(this.state.publisher);
   }
 
   componentDidMount() {
