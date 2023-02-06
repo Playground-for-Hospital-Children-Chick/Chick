@@ -96,10 +96,7 @@ class Video extends Component {
       !this.state.publisher.stream.videoActive;
     // this.newPublish();
     // this.state.session.publish();
-    console.log(
-      "askjfjkljasklfjklsjadklfj",
-      this.state.publisher.publishVideo(videoEnabled)
-    );
+    console.log("askjfjkljasklfjklsjadklfj", this.state.publisher.publishVideo);
     this.state.session.publish(this.state.publisher);
   }
 
