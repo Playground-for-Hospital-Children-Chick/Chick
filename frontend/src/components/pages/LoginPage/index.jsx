@@ -55,8 +55,8 @@ function Login() {
     // console.log(response);
     // console.log(response.json.refreshToken);
     // console.log(response.json.accessToken);
-    console.log("status", response.status);
-    if (response.status) {
+
+    if (parseInt(Number(data.status) / 100) === 2) {
       setTimeout(() => {
         dispatch(DELETE_TOKEN());
         dispatch(DELETE_TOKEN());
