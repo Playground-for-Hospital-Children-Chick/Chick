@@ -13,6 +13,16 @@ import VideoBtn from "../components/atoms/VideoBtn";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
+var filters = [
+  "/effects/lion",
+  "/effects/flowers",
+  "/effects/dalmatian",
+  "/effects/background_segmentation",
+  "/effects/background_blur",
+  "/effects/aviators",
+];
+var deepAR = null;
+
 class Video extends Component {
   constructor(props) {
     super(props);
@@ -37,15 +47,16 @@ class Video extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.applyDeepAR = this.applyDeepAR.bind(this);
     this.canvasRef = document.createElement("canvas");
-    this.newPublish = this.newPublish.bind(this);
+
+    this.changeEffectOne = this.changeEffectOne.bind(this);
   }
 
-  async newPublish() {
-    this.state.session.unpublish(this.state.publisher);
-    await this.state.session.publish(this.state.publisher);
+  changeEffectOne() {
+    deepAR.switchEffect(0, "slot", filters[0]);
   }
 
   async applyDeepAR() {
+    console.log("잘들어왔나확인");
     this.startDeepAR(this.canvasRef);
     await this.setState({
       mediaStream: this.canvasRef.captureStream(),
@@ -61,13 +72,15 @@ class Video extends Component {
       this.state.publisher.properties.videoSource = undefined;
     }
     console.log(this.state.publisher.properties.videoSource);
-    this.state.session.publish(this.state.publisher);
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
   }
 
   startDeepAR(canvas) {
     var { DeepAR } = window;
 
-    var deepAR = DeepAR({
+    deepAR = DeepAR({
       canvasWidth: 550,
       canvasHeight: 307,
       licenseKey:
@@ -92,26 +105,30 @@ class Video extends Component {
   }
 
   camStatusChanged() {
+    if (this.state.publisher.properties.videoSource) {
+      this.applyDeepAR();
+    }
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
-    // this.newPublish();
-    // this.state.session.publish();
-    console.log(this.state);
-    this.state.session.publish(this.state.publisher);
+
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
   }
 
-  // micStatusChanged() {
-  //   this.state.publisher.stream.audioActive =
-  //     !this.state.publisher.stream.audioActive;
-  //   this.state.session.publish(this.state.publisher);
-  // }
   micStatusChanged() {
-    console.log(this.state.session);
-
+    if (this.state.publisher.properties.videoSource) {
+      this.applyDeepAR();
+    }
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    // this.newPublish();
-    this.state.session.publish(this.state.publisher);
+
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
+    if (this.state.publisher.properties.videoSourc == undefined) {
+      this.applyDeepAR();
+    }
   }
 
   componentDidMount() {
@@ -226,7 +243,7 @@ class Video extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 // videoSource: videoTracks[0], // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                publishVideo: false, // Whether you want to start publishing with your video enabled or not
+                publishVideo: true, // Whether you want to start publishing with your video enabled or not
                 resolution: "555x307", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
@@ -313,29 +330,24 @@ class Video extends Component {
             </div>
           </div>
         ) : null}
-
         {this.state.session !== undefined ? (
           <div>
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
                 <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  <div class="relative">
+                  <div className="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
-                      class="absolute bottom-0 right-0"
-                      onClick={() => {
-                        this.state.session.unpublish(this.state.publisher);
-                        this.micStatusChanged;
-                      }}
+                      className="absolute bottom-0 right-0"
+                      onClick={this.micStatusChanged}
+                      id="mic"
                     >
                       <MicBtn />
                     </div>
                     <div
-                      class="absolute bottom-0 left-0"
-                      onClick={() => {
-                        this.state.session.unpublish(this.state.publisher);
-                        this.camStatusChanged;
-                      }}
+                      className="absolute bottom-0 left-0"
+                      onClick={this.camStatusChanged}
+                      id="cam"
                     >
                       <VideoBtn />
                     </div>
@@ -344,7 +356,9 @@ class Video extends Component {
               ) : null}
 
               {this.state.subscribers.map((sub, i) =>
-                i < 3 ? <UserVideoComponent streamManager={sub} /> : null
+                i < 3 ? (
+                  <UserVideoComponent streamManager={sub} key={i} />
+                ) : null
               )}
 
               {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
@@ -367,13 +381,9 @@ class Video extends Component {
                     value="나가기"
                   />
                 </div>
-                <button
-                  onClick={() => {
-                    this.state.session.unpublish(this.state.publisher);
-                    this.applyDeepAR;
-                  }}
-                >
-                  ar버튼입니다
+                <button onClick={this.applyDeepAR}>ar버튼입니다</button>
+                <button onClick={this.changeEffectOne}>
+                  ar바꾸기 버튼입니다
                 </button>
               </ArBottomBarBase>
             </div>
