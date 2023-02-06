@@ -51,7 +51,7 @@ export const userSlice = createSlice({
     },
     SET_TOKEN: (state, action) => {
       state.accessToken = action.payload.accessToken;
-      state.expireTime = today.getMinutes() + 100;
+      state.expireTime = today.getTime() + 3600000;
     },
     DELETE_TOKEN: (state) => {
       state.accessToken = null;
