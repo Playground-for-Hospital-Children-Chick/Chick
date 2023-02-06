@@ -61,7 +61,7 @@ class Video extends Component {
       this.state.publisher.properties.videoSource = undefined;
     }
     console.log(this.state.publisher.properties.videoSource);
-    this.state.session.publish(this.state.publisher);
+    // this.state.session.publish(this.state.publisher);
   }
 
   startDeepAR(canvas) {
@@ -97,7 +97,7 @@ class Video extends Component {
     // this.newPublish();
     // this.state.session.publish();
     console.log(this.state);
-    this.state.session.publish(this.state.publisher);
+    // this.state.session.publish(this.state.publisher);
   }
 
   // micStatusChanged() {
@@ -111,7 +111,7 @@ class Video extends Component {
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
     // this.newPublish();
-    this.state.session.publish(this.state.publisher);
+    // this.state.session.publish(this.state.publisher);
   }
 
   componentDidMount() {
