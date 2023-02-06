@@ -77,4 +77,12 @@ public class SessionController {
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 
+    @PostMapping("/api/sessions/{sessionId}/disconnect")
+    public ResponseEntity<String> disconnect(@PathVariable("sessionId") String sessionId) {
+        if (roomService.disconnect(sessionId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }

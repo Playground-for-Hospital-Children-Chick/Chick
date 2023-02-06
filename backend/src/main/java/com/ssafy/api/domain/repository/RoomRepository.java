@@ -9,4 +9,5 @@ import java.util.ArrayList;
 @Component
 public interface RoomRepository extends JpaRepository<Room, Integer> {
     ArrayList<Room> findByRoomTypeOrderByRoomCntAsc(String roomType);
+    Room findRoomByRoomSession(String SessionId);
 }
