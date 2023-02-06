@@ -26,7 +26,6 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       stream: undefined,
-      isPublishing: true,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -100,28 +99,23 @@ class Video extends Component {
 
   camStatusChanged() {
     if (this.state.publisher.properties.videoSource) {
-      console.log("아무거나");
       this.applyDeepAR();
     }
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
 
-    this.state.session
-      .unpublish(this.state.publisher)
-      .then((this.state.isPublishing = !this.state.isPublishing))
-      .then(() => {
-        console.log("왜 퍼블리시안됨?");
-        this.state.session.publish(this.state.publisher);
-        console.log("왜 퍼블리시안됨?");
-      });
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
   }
 
   micStatusChanged() {
-    console.log(this.state.session);
-
+    if (this.state.publisher.properties.videoSource) {
+      this.applyDeepAR();
+    }
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    // this.newPublish();
+
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
