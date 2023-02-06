@@ -26,7 +26,6 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       stream: undefined,
-      isPublishing: true,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -38,6 +37,12 @@ class Video extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.applyDeepAR = this.applyDeepAR.bind(this);
     this.canvasRef = document.createElement("canvas");
+    this.newPublish = this.newPublish.bind(this);
+  }
+
+  async newPublish() {
+    this.state.session.unpublish(this.state.publisher);
+    await this.state.session.publish(this.state.publisher);
   }
 
   async applyDeepAR() {
@@ -87,25 +92,24 @@ class Video extends Component {
   }
 
   camStatusChanged() {
-    this.state.isPublishing = false;
-
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
-    this.state.session.unpublish(this.state.publisher);
-    this.state.session.publish(this.state.publisher);
-
-    this.state.isPublishing = true;
+    this.newPublish();
+    // this.state.session.publish();
+    console.log(this.state);
   }
 
+  // micStatusChanged() {
+  //   this.state.publisher.stream.audioActive =
+  //     !this.state.publisher.stream.audioActive;
+  //   this.state.session.publish(this.state.publisher);
+  // }
   micStatusChanged() {
-    this.state.isPublishing = false;
+    console.log(this.state.session);
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    this.state.session.unpublish(this.state.publisher);
-
-    this.state.session.publish(this.state.publisher);
-    this.state.isPublishing = true;
+    this.newPublish();
   }
 
   componentDidMount() {
@@ -317,17 +321,13 @@ class Video extends Component {
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
                       class="absolute bottom-0 right-0"
-                      onClick={
-                        this.state.isPublishing ? this.micStatusChanged : null
-                      }
+                      onClick={this.micStatusChanged}
                     >
                       <MicBtn />
                     </div>
                     <div
                       class="absolute bottom-0 left-0"
-                      onClick={
-                        this.state.isPublishing ? this.camStatusChanged : null
-                      }
+                      onClick={this.camStatusChanged}
                     >
                       <VideoBtn />
                     </div>
