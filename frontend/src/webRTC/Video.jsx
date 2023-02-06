@@ -103,6 +103,12 @@ class Video extends Component {
       console.log("아무거나");
       this.applyDeepAR();
     }
+    document
+      .getElementById("cam")
+      .setAttribute("class", "absolute bottom-0 left-0 invisible");
+    document
+      .getElementById("mic")
+      .setAttribute("class", "absolute bottom-0 left-0 invisible");
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
 
@@ -112,6 +118,7 @@ class Video extends Component {
       .then(() => {
         console.log("왜 퍼블리시안됨?");
         this.state.session.publish(this.state.publisher);
+
         console.log("왜 퍼블리시안됨?");
       });
   }
@@ -326,31 +333,28 @@ class Video extends Component {
             </div>
           </div>
         ) : null}
-
         {this.state.session !== undefined ? (
           <div>
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
                 <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  {this.state.isPublishing ? (
-                    <div class="relative">
-                      <UserVideoComponent
-                        streamManager={this.state.publisher}
-                      />
-                      <div
-                        class="absolute bottom-0 right-0"
-                        onClick={this.micStatusChanged}
-                      >
-                        <MicBtn />
-                      </div>
-                      <div
-                        class="absolute bottom-0 left-0"
-                        onClick={this.camStatusChanged}
-                      >
-                        <VideoBtn />
-                      </div>
+                  <div class="relative">
+                    <UserVideoComponent streamManager={this.state.publisher} />
+                    <div
+                      class="absolute bottom-0 right-0"
+                      onClick={this.micStatusChanged}
+                      id="mic"
+                    >
+                      <MicBtn />
                     </div>
-                  ) : null}
+                    <div
+                      class="absolute bottom-0 left-0"
+                      onClick={this.camStatusChanged}
+                      id="cam"
+                    >
+                      <VideoBtn />
+                    </div>
+                  </div>
                 </div>
               ) : null}
 
