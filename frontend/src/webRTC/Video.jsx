@@ -61,7 +61,7 @@ class Video extends Component {
       this.state.publisher.properties.videoSource = undefined;
     }
     console.log(this.state.publisher.properties.videoSource);
-    this.newPublish();
+    this.state.session.publish(this.state.publisher);
   }
 
   startDeepAR(canvas) {
