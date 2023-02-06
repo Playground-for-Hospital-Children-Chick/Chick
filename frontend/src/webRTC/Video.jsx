@@ -41,10 +41,9 @@ class Video extends Component {
   }
 
   newPublish() {
-    this.state.session.publish(this.state.publisher);
-    this.state.session.publish(this.state.publisher);
-    this.state.session.publish(this.state.publisher);
-    this.state.session.publish(this.state.publisher);
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
   }
 
   async applyDeepAR() {
@@ -66,6 +65,7 @@ class Video extends Component {
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
+    this.newPublish;
   }
 
   startDeepAR(canvas) {
