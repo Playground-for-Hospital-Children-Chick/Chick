@@ -11,7 +11,11 @@ import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
-import { SET_USER, SET_TOKEN } from "./../../../store/reducers/UserReducer";
+import {
+  SET_USER,
+  SET_TOKEN,
+  DELETE_TOKEN,
+} from "./../../../store/reducers/UserReducer";
 
 function Login() {
   const navigate = useNavigate();
@@ -52,15 +56,9 @@ function Login() {
     // console.log(response.json.refreshToken);
     // console.log(response.json.accessToken);
     if (response.status) {
-      // 쿠키에 Refresh Token, store에 Access Token 저장
-      // console.log("access " + response.data.data.accessToken);
-      // console.log("header " + response.data.headers);
-      // console.log("response " + response.headers);
-      // console.log(response.data.headers.get("Set-Cookie"));
-      // document.cookie = response;
-      // console.log("dc   " + document.cookie);
-      // console.log(response);
-      // setRefreshToken(response.json.refreshToken);
+      setTimeout(() => {
+        dispatch(DELETE_TOKEN());
+      }, 3600000);
       console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
