@@ -100,7 +100,7 @@ class Video extends Component {
       "askjfjkljasklfjklsjadklfj",
       this.state.publisher.properties.publishVideo
     );
-    this.state.session.unpublish(this.state.publisher);
+    // this.state.session.unpublish(this.state.publisher);
     newPublisher = OV.initPublisher(this.state.publisher.properties);
     this.state.session.publish(newPublisher);
   }
