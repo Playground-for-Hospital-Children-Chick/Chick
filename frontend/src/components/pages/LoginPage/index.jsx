@@ -56,7 +56,7 @@ function Login() {
     // console.log(response.json.refreshToken);
     // console.log(response.json.accessToken);
 
-    if (parseInt(Number(data.status) / 100) === 2) {
+    if (parseInt(Number(response.status) / 100) === 2) {
       setTimeout(() => {
         dispatch(DELETE_TOKEN());
         dispatch(DELETE_TOKEN());
@@ -146,7 +146,7 @@ function Login() {
             </div>
             <div>
               <CommonBtn
-                onClick={onValid}
+                // onClick={onValid}
                 text="로그인"
                 type="submit"
                 color="bg-emerald-300"
