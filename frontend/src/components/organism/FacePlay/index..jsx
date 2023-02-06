@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import FacePlayHomeBox from "../../molecules/FacePlayHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { useSelector } from "react-redux";
+import { logoutUser } from "./../../../api/UsersApi";
 
 function FacePlay({ children }) {
   () => {
@@ -37,9 +38,11 @@ function FacePlay({ children }) {
           </>
         ) : (
           <>
-            <Link to="/logout">
-              <CommonBtn text={"로그아웃"} color="bg-emerald-300" />
-            </Link>
+            <CommonBtn
+              onClick={logoutUser}
+              text={"로그아웃"}
+              color="bg-emerald-300"
+            />
           </>
         )}
       </div>
