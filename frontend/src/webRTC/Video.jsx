@@ -48,6 +48,7 @@ class Video extends Component {
     var videoTracks = this.state.mediaStream.getVideoTracks();
     console.log("videoTracks[0]", videoTracks[0]);
     console.log(this.state.publisher.properties.videoSource);
+    this.state.session.unpublish(this.state.publisher);
 
     if (this.state.publisher.properties.videoSource == undefined) {
       this.state.publisher.properties.videoSource = videoTracks[0];
@@ -86,6 +87,7 @@ class Video extends Component {
   }
 
   camStatusChanged() {
+    this.state.session.unpublish(this.state.publisher);
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
     this.state.session.publish(this.state.publisher);
@@ -98,13 +100,13 @@ class Video extends Component {
   //     !this.state.publisher.stream.audioActive;
   //   this.state.session.publish(this.state.publisher);
   // }
-  async micStatusChanged() {
+  micStatusChanged() {
     console.log(this.state.session);
     this.state.session.unpublish(this.state.publisher);
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    await this.state.session.publish(this.state.publisher);
+    this.state.session.publish(this.state.publisher);
   }
 
   componentDidMount() {
