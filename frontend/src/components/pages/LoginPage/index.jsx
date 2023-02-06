@@ -5,6 +5,7 @@ import AlertBox from "../../atoms/AlertBox";
 import InputBox from "../../atoms/Input";
 import CommonBtn from "../../atoms/CommonBtn/index";
 import { useState } from "react";
+import { loginUser } from "./../../../api/UsersApi";
 
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -36,38 +37,38 @@ function Login() {
   // const [cookies, setCookie] = useCookies["id"];
   // preventDefault 대신에 동작할 코드(로그인 버튼을 누른 후 preventDefault와 더불어서 실행되는 함수)
   // 백으로 유저 정보 전달
-  const onValid = () => {
-    dispatch(asyncLoginAxios());
-  };
-  // const onValid = async () => {
-  //   console.log("email", email);
-  //   console.log("password", password);
-
-  //   // console.log({ email, password });
-  //   console.log("클릭");
-  //   const response = await loginUser({ email, password });
-  //   // console.log(response);
-  //   // console.log(response.json.refreshToken);
-  //   // console.log(response.json.accessToken);
-  //   if (response.status) {
-  //     // 쿠키에 Refresh Token, store에 Access Token 저장
-  //     // console.log("access " + response.data.data.accessToken);
-  //     // console.log("header " + response.data.headers);
-  //     // console.log("response " + response.headers);
-  //     // console.log(response.data.headers.get("Set-Cookie"));
-  //     // document.cookie = response;
-  //     // console.log("dc   " + document.cookie);
-  //     // console.log(response);
-  //     // setRefreshToken(response.json.refreshToken);
-  //     // dispatch(SET_TOKEN(response.json.accessToken));
-
-  //     return navigate("/");
-  //   } else {
-  //     console.log(response);
-  //   }
-  //   // input 태그 값 비워주는 코드
-  //   setValue("password", "");
+  // const onValid = () => {
+  //   dispatch(asyncLoginAxios());
   // };
+  const onValid = async () => {
+    console.log("email", email);
+    console.log("password", password);
+
+    // console.log({ email, password });
+    console.log("클릭");
+    const response = await loginUser({ email, password });
+    // console.log(response);
+    // console.log(response.json.refreshToken);
+    // console.log(response.json.accessToken);
+    if (response.status) {
+      // 쿠키에 Refresh Token, store에 Access Token 저장
+      // console.log("access " + response.data.data.accessToken);
+      // console.log("header " + response.data.headers);
+      // console.log("response " + response.headers);
+      // console.log(response.data.headers.get("Set-Cookie"));
+      // document.cookie = response;
+      // console.log("dc   " + document.cookie);
+      // console.log(response);
+      // setRefreshToken(response.json.refreshToken);
+      // dispatch(SET_TOKEN(response.json.accessToken));
+
+      return navigate("/");
+    } else {
+      console.log(response);
+    }
+    // input 태그 값 비워주는 코드
+    setValue("password", "");
+  };
   return (
     <div className="flex	 justify-center h-screen items-center ">
       <AlertBox>
