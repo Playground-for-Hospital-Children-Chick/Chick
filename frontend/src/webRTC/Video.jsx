@@ -65,6 +65,7 @@ class Video extends Component {
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
+    console.log("ar 적용햇을 때 퍼블리셔", this.state.publisher);
     this.newPublish;
   }
 
@@ -100,7 +101,9 @@ class Video extends Component {
       !this.state.publisher.stream.videoActive;
 
     this.state.session.unpublish(this.state.publisher).then(() => {
+      console.log("왜 퍼블리시안됨?");
       this.state.session.publish(this.state.publisher);
+      console.log("왜 퍼블리시안됨?");
     });
   }
 
