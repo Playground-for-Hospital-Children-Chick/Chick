@@ -102,7 +102,7 @@ class Video extends Component {
     // newPublisher = OV.initPublisher(this.state.publisher.properties);
     // this.state.session.publish(newPublisher);
     this.state.session.publish(this.state.publisher);
-    this.newPublish;
+    // this.newPublish;
   }
 
   micStatusChanged() {
