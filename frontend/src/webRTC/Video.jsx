@@ -26,6 +26,7 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       stream: undefined,
+      isPublishing: true,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -40,12 +41,14 @@ class Video extends Component {
     this.newPublish = this.newPublish.bind(this);
   }
 
-  async newPublish() {
-    this.state.session.unpublish(this.state.publisher);
-    await this.state.session.publish(this.state.publisher);
+  newPublish() {
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
   }
 
   async applyDeepAR() {
+    console.log("잘들어왔나확인");
     this.startDeepAR(this.canvasRef);
     await this.setState({
       mediaStream: this.canvasRef.captureStream(),
@@ -61,7 +64,11 @@ class Video extends Component {
       this.state.publisher.properties.videoSource = undefined;
     }
     console.log(this.state.publisher.properties.videoSource);
-    this.state.session.publish(this.state.publisher);
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
+    console.log("ar 적용햇을 때 퍼블리셔", this.state.publisher);
+    // this.newPublish;
   }
 
   startDeepAR(canvas) {
@@ -92,26 +99,39 @@ class Video extends Component {
   }
 
   camStatusChanged() {
+    if (this.state.publisher.properties.videoSource) {
+      console.log("아무거나");
+      this.applyDeepAR();
+    }
+    document
+      .getElementById("cam")
+      .setAttribute("class", "absolute bottom-0 left-0 invisible");
+    document
+      .getElementById("mic")
+      .setAttribute("class", "absolute bottom-0 left-0 invisible");
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
-    // this.newPublish();
-    // this.state.session.publish();
-    console.log(this.state);
-    this.state.session.publish(this.state.publisher);
+
+    this.state.session
+      .unpublish(this.state.publisher)
+      .then((this.state.isPublishing = !this.state.isPublishing))
+      .then(() => {
+        console.log("왜 퍼블리시안됨?");
+        this.state.session.publish(this.state.publisher);
+
+        console.log("왜 퍼블리시안됨?");
+      });
   }
 
-  // micStatusChanged() {
-  //   this.state.publisher.stream.audioActive =
-  //     !this.state.publisher.stream.audioActive;
-  //   this.state.session.publish(this.state.publisher);
-  // }
   micStatusChanged() {
     console.log(this.state.session);
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
     // this.newPublish();
-    this.state.session.publish(this.state.publisher);
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
   }
 
   componentDidMount() {
@@ -226,7 +246,7 @@ class Video extends Component {
                 videoSource: undefined, // The source of video. If undefined default webcam
                 // videoSource: videoTracks[0], // The source of video. If undefined default webcam
                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                publishVideo: false, // Whether you want to start publishing with your video enabled or not
+                publishVideo: true, // Whether you want to start publishing with your video enabled or not
                 resolution: "555x307", // The resolution of your video
                 frameRate: 30, // The frame rate of your video
                 insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
@@ -313,7 +333,6 @@ class Video extends Component {
             </div>
           </div>
         ) : null}
-
         {this.state.session !== undefined ? (
           <div>
             <WebCamBoard>
@@ -323,19 +342,15 @@ class Video extends Component {
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
                       class="absolute bottom-0 right-0"
-                      onClick={() => {
-                        this.state.session.unpublish(this.state.publisher);
-                        this.micStatusChanged;
-                      }}
+                      onClick={this.micStatusChanged}
+                      id="mic"
                     >
                       <MicBtn />
                     </div>
                     <div
                       class="absolute bottom-0 left-0"
-                      onClick={() => {
-                        this.state.session.unpublish(this.state.publisher);
-                        this.camStatusChanged;
-                      }}
+                      onClick={this.camStatusChanged}
+                      id="cam"
                     >
                       <VideoBtn />
                     </div>
@@ -367,14 +382,7 @@ class Video extends Component {
                     value="나가기"
                   />
                 </div>
-                <button
-                  onClick={() => {
-                    this.state.session.unpublish(this.state.publisher);
-                    this.applyDeepAR;
-                  }}
-                >
-                  ar버튼입니다
-                </button>
+                <button onClick={this.applyDeepAR}>ar버튼입니다</button>
               </ArBottomBarBase>
             </div>
           </div>
