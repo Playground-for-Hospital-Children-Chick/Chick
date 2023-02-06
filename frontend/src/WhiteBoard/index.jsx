@@ -3,6 +3,8 @@ import { fabric } from "fabric";
 import RedCrayon from "../assets/images/board/red.svg";
 import BlueCrayon from "../assets/images/board/blue.svg";
 import PurpleCrayon from "../assets/images/board/purple.svg";
+import Eraser from "../assets/images/board/eraser.png";
+import Cursor from "../assets/images/board/cursor.png";
 
 const options = {
   currentMode: "",
@@ -76,7 +78,10 @@ function Draw({ aspectRatio = 4 / 3 }) {
 
   useEffect(() => {
     if (!canvas && canvasRef.current) {
-      const canvas = initCanvas(whiteboardRef.current.clientWidth, whiteboardRef.current.clientWidth / aspectRatio);
+      const canvas = initCanvas(
+        whiteboardRef.current.clientWidth,
+        whiteboardRef.current.clientWidth / aspectRatio
+      );
       setCanvas(() => canvas);
       // console.log("setcanvus", setCanvas);
       console.log("canvas", canvas);
@@ -107,7 +112,7 @@ function Draw({ aspectRatio = 4 / 3 }) {
       options.currentMode = modes.GREEN;
       options.currentColor = "#00ff00";
       canvas.freeDrawingBrush.width = 5;
-      canvas.freeDrawingBrush.color = "#00ff00";
+      canvas.freeDrawingBrush.color = "#a352cc";
       canvas.freeDrawingBrush.width = parseInt(options.currentWidth, 10) || 1;
       canvas.isDrawingMode = true;
     }
@@ -127,20 +132,30 @@ function Draw({ aspectRatio = 4 / 3 }) {
     }
   }
 
+  function removeAllObejcts() {
+    var objs = canvas.getObjects();
+    for (let i = 0; i < objs.length; i++) {
+      canvas.remove(objs[i]);
+    }
+  }
+
   return (
     <div ref={whiteboardRef}>
       <div>
         <button onClick={() => onSelectMode(canvas)}>
-          <img src={RedCrayon} alt="Pencil" />
+          <img src={Cursor} alt="Cursor" width={300} />
         </button>
         <button onClick={() => redDraw()}>
-          <img src={RedCrayon} alt="Red" />
+          <img src={RedCrayon} alt="Red" width={80} />
         </button>
         <button onClick={() => greenDraw()}>
-          <img src={PurpleCrayon} alt="Purple" />
+          <img src={PurpleCrayon} alt="Purple" width={80} />
         </button>
         <button onClick={() => blueDraw()}>
-          <img src={BlueCrayon} alt="Blue" />
+          <img src={BlueCrayon} alt="Blue" width={80} />
+        </button>
+        <button onClick={() => removeAllObejcts()}>
+          <img src={Eraser} alt="Eraser" width={300} />
         </button>
       </div>
       <canvas ref={canvasRef} id="canvas" />
