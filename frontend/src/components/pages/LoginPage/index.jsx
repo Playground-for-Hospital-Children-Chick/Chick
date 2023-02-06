@@ -6,16 +6,17 @@ import InputBox from "../../atoms/Input";
 import CommonBtn from "../../atoms/CommonBtn/index";
 import { useState } from "react";
 import { loginUser } from "./../../../api/UsersApi";
+import { useSelector } from "react-redux";
 
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
-import { asyncLoginAxios } from "./../../../store/reducers/UserReducer";
+import { SET_USER, SET_TOKEN } from "./../../../store/reducers/UserReducer";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,11 +42,11 @@ function Login() {
   //   dispatch(asyncLoginAxios());
   // };
   const onValid = async () => {
-    console.log("email", email);
-    console.log("password", password);
+    // console.log("email", email);
+    // console.log("password", password);
 
     // console.log({ email, password });
-    console.log("클릭");
+    // console.log("클릭");
     const response = await loginUser({ email, password });
     // console.log(response);
     // console.log(response.json.refreshToken);
@@ -60,7 +61,20 @@ function Login() {
       // console.log("dc   " + document.cookie);
       // console.log(response);
       // setRefreshToken(response.json.refreshToken);
-      // dispatch(SET_TOKEN(response.json.accessToken));
+      console.log(response.data.accessToken);
+      dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
+      dispatch(
+        SET_USER({
+          userEmail: response.data.userLoginInfo.userEmail,
+          userChName: response.data.userLoginInfo.userChName,
+        })
+      );
+      console.log(user["userEmail"]);
+      console.log(user["userChName"]);
+      // dispatch(DELETE_USER());
+      console.log(user["userEmail"]);
+
+      // dispatch(SET_USER(response.));
 
       return navigate("/");
     } else {
@@ -128,11 +142,17 @@ function Login() {
               </div>
             </div>
             <div>
-              <CommonBtn text="로그인" type="submit" color="bg-emerald-300">
+              <CommonBtn
+                onClick={onValid}
+                text="로그인"
+                type="submit"
+                color="bg-emerald-300"
+              >
                 로그인
               </CommonBtn>
             </div>
           </form>
+
           <div className="mt-5 flex justify-center">
             <span className="mr-10 text-xl font-chick">이메일 찾기</span>
             <span className="mr-10 text-xl font-chick">비밀번호 찾기</span>
