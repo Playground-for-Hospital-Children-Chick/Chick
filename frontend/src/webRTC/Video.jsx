@@ -228,14 +228,6 @@ class Video extends Component {
               // --- 5) Get your own camera stream ---
               console.log("connect Session");
 
-              // ararararar
-              // this.setState({
-              //   mediaStream: this.canvasRef.captureStream(),
-              // });
-              // console.log("mediaStream", this.state.mediaStream);
-              // var videoTracks = this.state.mediaStream.getVideoTracks();
-              // console.log("videoTracks[0]", videoTracks[0]);
-
               // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
               // element: we will manage it on our own) and with the desired properties
               let publisher = await this.OV.initPublisherAsync(undefined, {
@@ -314,9 +306,11 @@ class Video extends Component {
     return (
       <div className="flex justify-center">
         {this.state.session === undefined ? (
-          <Box sx={{ width: "50%" }}>
-            <CircularProgress />
-          </Box>
+          <div className="p-2 m-2">
+            <Box sx={{ width: "50%" }}>
+              <CircularProgress />
+            </Box>
+          </div>
         ) : null}
         {this.state.session !== undefined ? (
           <div>
