@@ -1,5 +1,7 @@
 import axios from "axios";
 import cookie from "react-cookies";
+import { persistor } from "../../../frontend/src/main";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 // const cookies = new Cookies();
@@ -47,6 +49,9 @@ export const loginUser = async function login(credentials) {
   });
   console.log(cookie.load("refreshToken"));
   return response;
+};
+const purge = async () => {
+  await persistor.purge();
 };
 
 export const logoutUser = async function logout() {
