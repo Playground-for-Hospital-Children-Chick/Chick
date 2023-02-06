@@ -94,9 +94,10 @@ class Video extends Component {
   camStatusChanged() {
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
-    this.newPublish();
+    // this.newPublish();
     // this.state.session.publish();
     console.log(this.state);
+    this.state.session.publish(this.state.publisher);
   }
 
   // micStatusChanged() {
@@ -109,7 +110,8 @@ class Video extends Component {
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    this.newPublish();
+    // this.newPublish();
+    this.state.session.publish(this.state.publisher);
   }
 
   componentDidMount() {
@@ -321,13 +323,19 @@ class Video extends Component {
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
                       class="absolute bottom-0 right-0"
-                      onClick={this.micStatusChanged}
+                      onClick={() => {
+                        this.state.session.unpublish(this.state.publisher);
+                        this.micStatusChanged;
+                      }}
                     >
                       <MicBtn />
                     </div>
                     <div
                       class="absolute bottom-0 left-0"
-                      onClick={this.camStatusChanged}
+                      onClick={() => {
+                        this.state.session.unpublish(this.state.publisher);
+                        this.camStatusChanged;
+                      }}
                     >
                       <VideoBtn />
                     </div>
@@ -359,7 +367,14 @@ class Video extends Component {
                     value="나가기"
                   />
                 </div>
-                <button onClick={this.applyDeepAR}>ar버튼입니다</button>
+                <button
+                  onClick={() => {
+                    this.state.session.unpublish(this.state.publisher);
+                    this.applyDeepAR;
+                  }}
+                >
+                  ar버튼입니다
+                </button>
               </ArBottomBarBase>
             </div>
           </div>
