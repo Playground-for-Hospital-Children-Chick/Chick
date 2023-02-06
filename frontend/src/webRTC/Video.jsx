@@ -66,7 +66,7 @@ class Video extends Component {
       this.state.session.publish(this.state.publisher);
     });
     console.log("ar 적용햇을 때 퍼블리셔", this.state.publisher);
-    this.newPublish;
+    // this.newPublish;
   }
 
   startDeepAR(canvas) {
