@@ -26,6 +26,7 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       stream: undefined,
+      isPublishing: true,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -86,25 +87,25 @@ class Video extends Component {
   }
 
   camStatusChanged() {
+    this.state.isPublishing = false;
+
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
+    this.state.session.unpublish(this.state.publisher);
     this.state.session.publish(this.state.publisher);
-    // this.state.session.publish();
-    console.log(this.state);
+
+    this.state.isPublishing = true;
   }
 
-  // micStatusChanged() {
-  //   this.state.publisher.stream.audioActive =
-  //     !this.state.publisher.stream.audioActive;
-  //   this.state.session.publish(this.state.publisher);
-  // }
-  async micStatusChanged() {
-    console.log(this.state.session);
-    this.state.session.unpublish(this.state.publisher);
+  micStatusChanged() {
+    this.state.isPublishing = false;
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    await this.state.session.publish(this.state.publisher);
+    this.state.session.unpublish(this.state.publisher);
+
+    this.state.session.publish(this.state.publisher);
+    this.state.isPublishing = true;
   }
 
   componentDidMount() {
@@ -316,13 +317,17 @@ class Video extends Component {
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
                       class="absolute bottom-0 right-0"
-                      onClick={this.micStatusChanged}
+                      onClick={
+                        this.state.isPublishing ? this.micStatusChanged : null
+                      }
                     >
                       <MicBtn />
                     </div>
                     <div
                       class="absolute bottom-0 left-0"
-                      onClick={this.camStatusChanged}
+                      onClick={
+                        this.state.isPublishing ? this.camStatusChanged : null
+                      }
                     >
                       <VideoBtn />
                     </div>
