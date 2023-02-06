@@ -1,7 +1,8 @@
 import axios from "axios";
-// promise 요청 타임아웃 시간 선언
-const TIME_OUT = 300 * 1000;
+import { Cookies } from "react-cookie";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const cookies = new Cookies();
 
 // 에러 처리를 위한 status 선언
 // const statusError = {
@@ -44,18 +45,23 @@ export const loginUser = async function login(credentials) {
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
   });
+  console.log(cookies.get(refreshToken));
   return response;
 };
 
 export const logoutUser = async function logout() {
   const response = await axios({
     method: "post",
-    url: BASE_URL + "/auth/login",
-    data: credentials,
+    url: BASE_URL + "/auth/logout",
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
   });
-  return response;
+  setTimeout(() => {
+    purge();
+    location.reload();
+  }, 200);
+
+  return navigate("/");
 };
 // export const loginUser = async (credentials) => {
 //   const option = {
