@@ -106,6 +106,7 @@ public class AuthController {
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<BaseResponseBody> logout(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("로그아웃 입니다");
         String refreshToken=null;
         Cookie[] cookies = request.getCookies();
         if(cookies==null) {
@@ -115,6 +116,7 @@ public class AuthController {
         for(Cookie cookie : cookies){
             if("refreshToken".equals(cookie.getName())){
                 refreshToken=cookie.getValue();
+                System.out.println("refreshToken: "+ refreshToken);
             }
         }
 

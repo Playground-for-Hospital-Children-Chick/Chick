@@ -1,9 +1,6 @@
 package com.ssafy.api.service.Impl;
 
-import com.ssafy.api.domain.dto.UserFindEmailReq;
-import com.ssafy.api.domain.dto.UserLoginInfo;
-import com.ssafy.api.domain.dto.UserRegisterPostReq;
-import com.ssafy.api.domain.dto.UserRole;
+import com.ssafy.api.domain.dto.*;
 import com.ssafy.api.domain.entity.User;
 import com.ssafy.api.domain.repository.UserRepository;
 import com.ssafy.api.service.UserService;
@@ -57,42 +54,6 @@ public class UserServiceImpl implements UserService {
                 .userUpdateDate(LocalDateTime.now())
                 .build());
 
-//        User user = new User();
-//        user.setId(1);
-//        user.setUserEmail(userRegisterInfo.getUser_email());
-//        user.setUserPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()));
-//        user.setUserChName(userRegisterInfo.getUser_child_name());
-//        user.setUserParentName(userRegisterInfo.getUser_parent_name());
-//        user.setUserSex(userRegisterInfo.getUser_sex());
-//        user.setUserBirth(userRegisterInfo.getUser_birth());
-//        user.setUserState(userRegisterInfo.getUser_state());
-//        user.setUserNumberOfReports(userRegisterInfo.getUser_reported());
-//        user.setUserServiceTerm(userRegisterInfo.getUser_service_term());
-//        user.setUserPrivacyTerm(userRegisterInfo.getUser_privacy_term());
-//        user.setUserRole(UserRole.ROLE_USER);
-//        user.setUserCreateBy(userRegisterInfo.getUser_email());
-//        user.setUserCreateDate(LocalDateTime.now());
-//        user.setUserUpdateBy(userRegisterInfo.getUser_email());
-//        user.setUserUpdateDate(LocalDateTime.now());
-
-////        user.setUserNo(1L);
-//        user.setProfNo(1L);
-//        user.setUserEmail("ssafy4@ssafy.com");
-//        user.setUserPwd("your_password");
-//        user.setUserChName("ssafy");
-//        user.setUserParentName("ssafy");
-//        user.setUserSex("M");
-//        user.setUserBirth("19970707");
-//        user.setUserState("0");
-//        user.setUserNumberOfReports(0);
-//        user.setUserServiceTerm("Y");
-//        user.setUserPrivacyTerm("Y");
-//        user.setUserRole("user");
-//        user.setUserCreateBy("ssafy");
-//        user.setUserCreateDate(LocalDateTime.now());
-//        user.setUserUpdateBy("ssafy");
-//        user.setUserUpdateDate(LocalDateTime.now());
-//        userRepository.save(user);
         return true;
     }
 
@@ -110,5 +71,14 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUserParentNameAndUserChNameAndUserBirth(userFindEmailReq.getUserParentName(),
                 userFindEmailReq.getUserChName(), userFindEmailReq.getUserBirth());
         return user;
+    }
+
+    @Override
+    public boolean deleteUser(UserLoginPostReq deleteInfo) {
+        if (passwordEncoder.matches(deleteInfo.getPassword(), userRepository.findByUserEmail(deleteInfo.getEmail()).getUserPwd())) {
+            userRepository.deleteByEmail(deleteInfo.getEmail());
+            return true;
+        }
+        return false;
     }
 }
