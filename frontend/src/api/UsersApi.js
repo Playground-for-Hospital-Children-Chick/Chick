@@ -42,7 +42,7 @@ export const loginUser = async (credentials) => {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
     },
-    body: credentials,
+    body: JSON.stringify(credentials),
     //credentials={
     //email,
     //password
