@@ -33,9 +33,11 @@ function RiceEat(params) {
           </>
         ) : (
           <>
-            <Link to="/logout">
-              <CommonBtn text={"로그아웃"} color="bg-emerald-300" />
-            </Link>
+            <CommonBtn
+              onClick={logoutUser}
+              text={"로그아웃"}
+              color="bg-emerald-300"
+            />
           </>
         )}
       </div>
