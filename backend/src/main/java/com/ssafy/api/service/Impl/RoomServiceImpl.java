@@ -70,4 +70,12 @@ public class RoomServiceImpl implements RoomService {
                         .build()
         );
     }
+
+    public boolean disconnect(String sessionId) {
+        Room room = roomRepository.findRoomByRoomSession(sessionId);
+        if (room == null || room.getRoomCnt() <= 0) return false;
+        room.setRoomCnt(room.getRoomCnt() - 1);
+        roomRepository.save(room);
+        return true;
+    }
 }
