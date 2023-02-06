@@ -55,10 +55,15 @@ function Login() {
     // console.log(response);
     // console.log(response.json.refreshToken);
     // console.log(response.json.accessToken);
+    console.log("status", response.status);
     if (response.status) {
       setTimeout(() => {
         dispatch(DELETE_TOKEN());
+        dispatch(DELETE_TOKEN());
       }, 3600000);
+      setTimeout(() => {
+        console.log(user["userEmail"]);
+      }, 20000);
       console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
