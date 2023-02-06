@@ -103,12 +103,6 @@ class Video extends Component {
       console.log("아무거나");
       this.applyDeepAR();
     }
-    document
-      .getElementById("cam")
-      .setAttribute("class", "absolute bottom-0 left-0 invisible");
-    document
-      .getElementById("mic")
-      .setAttribute("class", "absolute bottom-0 left-0 invisible");
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
 
@@ -118,7 +112,6 @@ class Video extends Component {
       .then(() => {
         console.log("왜 퍼블리시안됨?");
         this.state.session.publish(this.state.publisher);
-
         console.log("왜 퍼블리시안됨?");
       });
   }
@@ -338,17 +331,17 @@ class Video extends Component {
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
                 <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  <div class="relative">
+                  <div className="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
-                      class="absolute bottom-0 right-0"
+                      className="absolute bottom-0 right-0"
                       onClick={this.micStatusChanged}
                       id="mic"
                     >
                       <MicBtn />
                     </div>
                     <div
-                      class="absolute bottom-0 left-0"
+                      className="absolute bottom-0 left-0"
                       onClick={this.camStatusChanged}
                       id="cam"
                     >
@@ -359,7 +352,9 @@ class Video extends Component {
               ) : null}
 
               {this.state.subscribers.map((sub, i) =>
-                i < 3 ? <UserVideoComponent streamManager={sub} /> : null
+                i < 3 ? (
+                  <UserVideoComponent streamManager={sub} key={i} />
+                ) : null
               )}
 
               {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
