@@ -94,7 +94,7 @@ class Video extends Component {
   camStatusChanged() {
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
-    this.newPublish();
+    // this.newPublish();
     // this.state.session.publish();
     console.log(this.state);
     this.state.session.publish(this.state.publisher);
@@ -110,7 +110,7 @@ class Video extends Component {
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    this.newPublish();
+    // this.newPublish();
     this.state.session.publish(this.state.publisher);
   }
 
