@@ -8,6 +8,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const today = new Date();
 
 const asyncLoginAxios = createAsyncThunk(
   "/auth/login",
@@ -39,32 +40,35 @@ export const userSlice = createSlice({
     accessToken: null,
     expireTime: null,
   },
-  // reducers: {
-  // SET_USER: (state, action) => {
-  //   state.userEmail = action.payload.userEmail;
-  //   state.userChName = action.payload.userChName;
-  // },
-  // DELETE_USER: (state) => {
-  //   state.userEmail = null;
-  //   state.userChName = null;
-  // },
-  // SET_TOKEN: (state, action) => {
-  //   state.accessToken = action.payload.accessToken;
-  //   state.expireTime = action.payload.expireTime;
-  // },
-  // DELETE_TOKEN: (state) => {
-  //   state.accessToken = null;
-  //   state.expireTime = null;
-  // },
-  // },
-  extraReducers: (builder) => {
-    builder.addCase(asyncLoginAxios.fulfilled, (state, action) => {
+  reducers: {
+    SET_USER: (state, action) => {
       state.userEmail = action.payload.userEmail;
       state.userChName = action.payload.userChName;
+    },
+    DELETE_USER: (state) => {
+      state.userEmail = null;
+      state.userChName = null;
+    },
+    SET_TOKEN: (state, action) => {
       state.accessToken = action.payload.accessToken;
-      state.expireTime = action.payload.expireTime;
-    });
+      state.expireTime = today.getMinutes() + 100;
+    },
+    DELETE_TOKEN: (state) => {
+      state.accessToken = null;
+      state.expireTime = null;
+    },
   },
+  // extraReducers: (builder) => {
+  //   builder.addCase(asyncLoginAxios.fulfilled, (state, action) => {
+  //     state.userEmail = action.payload.userEmail;
+  //     state.userChName = action.payload.userChName;
+  //     state.accessToken = action.payload.accessToken;
+  //     state.expireTime = action.payload.expireTime;
+  //   });
+  //   builder.addCase(asyncLoginAxios.pending, () => {
+  //     console.log("로그인중");
+  //   });
+  // },
 });
 
 export const { SET_USER, DELETE_USER, SET_TOKEN, DELETE_TOKEN } =
