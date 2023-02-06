@@ -41,6 +41,8 @@ public class AuthController {
             @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
             @ApiResponse(code = 401, message = "인증 실패", response = BaseResponseBody.class),
             @ApiResponse(code = 404, message = "사용자 없음", response = BaseResponseBody.class),
+            @ApiResponse(code = 405, message = "탈퇴된 계정", response = BaseResponseBody.class),
+            @ApiResponse(code = 406, message = "정지된 계정", response = BaseResponseBody.class),
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo, HttpServletResponse response) {
@@ -50,6 +52,11 @@ public class AuthController {
         String password = loginInfo.getPassword();
         User user = userService.getUserByEmail(email);
         // 로그인 요청한 아이디가 DB에 존재하지 않으면 사용자없음 에러
+        if(user.getUserState().equals("1")){
+            return ResponseEntity.status(405).body(UserLoginPostRes.of(405, "탈퇴된 계정입니다",null, null));
+        }else if (user.getUserState().equals("2")){
+            return ResponseEntity.status(406).body(UserLoginPostRes.of(406, "정지된 계정입니다",null, null));
+        }
         if(user==null) {
             return ResponseEntity.status(404).body(UserLoginPostRes.of(404, "Not Exist",null, null));
         }
