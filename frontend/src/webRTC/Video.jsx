@@ -37,6 +37,12 @@ class Video extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.applyDeepAR = this.applyDeepAR.bind(this);
     this.canvasRef = document.createElement("canvas");
+    this.newPublish = this.newPublish.bind(this);
+  }
+
+  async newPublish() {
+    this.state.session.unpublish(this.state.publisher);
+    await this.state.session.publish(this.state.publisher);
   }
 
   async applyDeepAR() {
@@ -48,7 +54,6 @@ class Video extends Component {
     var videoTracks = this.state.mediaStream.getVideoTracks();
     console.log("videoTracks[0]", videoTracks[0]);
     console.log(this.state.publisher.properties.videoSource);
-    this.state.session.unpublish(this.state.publisher);
 
     if (this.state.publisher.properties.videoSource == undefined) {
       this.state.publisher.properties.videoSource = videoTracks[0];
@@ -56,7 +61,7 @@ class Video extends Component {
       this.state.publisher.properties.videoSource = undefined;
     }
     console.log(this.state.publisher.properties.videoSource);
-    this.state.session.publish(this.state.publisher);
+    this.newPublish();
   }
 
   startDeepAR(canvas) {
@@ -87,10 +92,9 @@ class Video extends Component {
   }
 
   camStatusChanged() {
-    this.state.session.unpublish(this.state.publisher);
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
-    this.state.session.publish(this.state.publisher);
+    this.newPublish();
     // this.state.session.publish();
     console.log(this.state);
   }
@@ -102,11 +106,10 @@ class Video extends Component {
   // }
   micStatusChanged() {
     console.log(this.state.session);
-    this.state.session.unpublish(this.state.publisher);
 
     this.state.publisher.stream.audioActive =
       !this.state.publisher.stream.audioActive;
-    this.state.session.publish(this.state.publisher);
+    this.newPublish();
   }
 
   componentDidMount() {
