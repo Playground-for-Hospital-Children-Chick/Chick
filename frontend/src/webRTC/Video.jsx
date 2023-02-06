@@ -8,6 +8,9 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import MicBtn from "../components/atoms/MicBtn";
 import VideoBtn from "../components/atoms/VideoBtn";
 
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
 
@@ -134,11 +137,8 @@ class Video extends Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
 
-    // console.log("canvasRef.current", this.canvasRef.current);
-    // var canvasContext = this.canvasRef.getContext("webgl");
-
-    // this.startDeepAR(this.canvasRef);
-    // this.joinSession();
+    // 컴포넌트가 마운트 되면 자동 세션 접속
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -228,14 +228,6 @@ class Video extends Component {
               // --- 5) Get your own camera stream ---
               console.log("connect Session");
 
-              // ararararar
-              // this.setState({
-              //   mediaStream: this.canvasRef.captureStream(),
-              // });
-              // console.log("mediaStream", this.state.mediaStream);
-              // var videoTracks = this.state.mediaStream.getVideoTracks();
-              // console.log("videoTracks[0]", videoTracks[0]);
-
               // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
               // element: we will manage it on our own) and with the desired properties
               let publisher = await this.OV.initPublisherAsync(undefined, {
@@ -314,20 +306,10 @@ class Video extends Component {
     return (
       <div className="flex justify-center">
         {this.state.session === undefined ? (
-          <div>
-            <div>
-              <h1> Join a video session </h1>
-              <form className="form-group" onSubmit={this.joinSession}>
-                <p className="text-center">
-                  <input
-                    className="bg-pink-300 text-3xl"
-                    name="commit"
-                    type="submit"
-                    value="JOIN"
-                  />
-                </p>
-              </form>
-            </div>
+          <div className="p-2 m-2">
+            <Box sx={{ width: "50%" }}>
+              <CircularProgress />
+            </Box>
           </div>
         ) : null}
         {this.state.session !== undefined ? (
