@@ -146,7 +146,7 @@ function Login() {
             </div>
             <div>
               <CommonBtn
-                onClick={onValid}
+                // onClick={onValid}
                 text="로그인"
                 type="submit"
                 color="bg-emerald-300"
