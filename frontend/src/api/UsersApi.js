@@ -47,6 +47,16 @@ export const loginUser = async function login(credentials) {
   return response;
 };
 
+export const logoutUser = async function logout() {
+  const response = await axios({
+    method: "post",
+    url: BASE_URL + "/auth/login",
+    data: credentials,
+    headers: { "Content-Type": "application/json;charset=UTF-8" },
+    withCredentials: true,
+  });
+  return response;
+};
 // export const loginUser = async (credentials) => {
 //   const option = {
 //     method: "post",
