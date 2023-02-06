@@ -26,7 +26,6 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       stream: undefined,
-      isPublishing: true,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -67,8 +66,6 @@ class Video extends Component {
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
-    console.log("ar 적용햇을 때 퍼블리셔", this.state.publisher);
-    // this.newPublish;
   }
 
   startDeepAR(canvas) {
@@ -100,38 +97,29 @@ class Video extends Component {
 
   camStatusChanged() {
     if (this.state.publisher.properties.videoSource) {
-      console.log("아무거나");
       this.applyDeepAR();
     }
-    document
-      .getElementById("cam")
-      .setAttribute("class", "absolute bottom-0 left-0 invisible");
-    document
-      .getElementById("mic")
-      .setAttribute("class", "absolute bottom-0 left-0 invisible");
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
 
-    this.state.session
-      .unpublish(this.state.publisher)
-      .then((this.state.isPublishing = !this.state.isPublishing))
-      .then(() => {
-        console.log("왜 퍼블리시안됨?");
-        this.state.session.publish(this.state.publisher);
-
-        console.log("왜 퍼블리시안됨?");
-      });
-  }
-
-  micStatusChanged() {
-    console.log(this.state.session);
-
-    this.state.publisher.stream.audioActive =
-      !this.state.publisher.stream.audioActive;
-    // this.newPublish();
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
+  }
+
+  micStatusChanged() {
+    if (this.state.publisher.properties.videoSource) {
+      this.applyDeepAR();
+    }
+    this.state.publisher.stream.audioActive =
+      !this.state.publisher.stream.audioActive;
+
+    this.state.session.unpublish(this.state.publisher).then(() => {
+      this.state.session.publish(this.state.publisher);
+    });
+    if (this.state.publisher.properties.videoSourc == undefined) {
+      this.applyDeepAR();
+    }
   }
 
   componentDidMount() {
@@ -338,17 +326,17 @@ class Video extends Component {
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
                 <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
-                  <div class="relative">
+                  <div className="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
-                      class="absolute bottom-0 right-0"
+                      className="absolute bottom-0 right-0"
                       onClick={this.micStatusChanged}
                       id="mic"
                     >
                       <MicBtn />
                     </div>
                     <div
-                      class="absolute bottom-0 left-0"
+                      className="absolute bottom-0 left-0"
                       onClick={this.camStatusChanged}
                       id="cam"
                     >
@@ -359,7 +347,9 @@ class Video extends Component {
               ) : null}
 
               {this.state.subscribers.map((sub, i) =>
-                i < 3 ? <UserVideoComponent streamManager={sub} /> : null
+                i < 3 ? (
+                  <UserVideoComponent streamManager={sub} key={i} />
+                ) : null
               )}
 
               {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
