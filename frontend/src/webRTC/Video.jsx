@@ -97,6 +97,9 @@ class Video extends Component {
   }
 
   camStatusChanged() {
+    if (this.state.publisher.properties.videoSource !== undefined) {
+      this.applyDeepAR;
+    }
     this.state.publisher.stream.videoActive =
       !this.state.publisher.stream.videoActive;
 
