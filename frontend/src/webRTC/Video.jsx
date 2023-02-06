@@ -8,6 +8,9 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import MicBtn from "../components/atoms/MicBtn";
 import VideoBtn from "../components/atoms/VideoBtn";
 
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
 
@@ -134,11 +137,8 @@ class Video extends Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
 
-    // console.log("canvasRef.current", this.canvasRef.current);
-    // var canvasContext = this.canvasRef.getContext("webgl");
-
-    // this.startDeepAR(this.canvasRef);
-    // this.joinSession();
+    // 컴포넌트가 마운트 되면 자동 세션 접속
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -314,21 +314,9 @@ class Video extends Component {
     return (
       <div className="flex justify-center">
         {this.state.session === undefined ? (
-          <div>
-            <div>
-              <h1> Join a video session </h1>
-              <form className="form-group" onSubmit={this.joinSession}>
-                <p className="text-center">
-                  <input
-                    className="bg-pink-300 text-3xl"
-                    name="commit"
-                    type="submit"
-                    value="JOIN"
-                  />
-                </p>
-              </form>
-            </div>
-          </div>
+          <Box sx={{ width: "50%" }}>
+            <CircularProgress />
+          </Box>
         ) : null}
         {this.state.session !== undefined ? (
           <div>
