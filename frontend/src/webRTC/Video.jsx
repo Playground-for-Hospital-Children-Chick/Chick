@@ -339,7 +339,7 @@ class Video extends Component {
     const myUserName = this.state.myUserName;
 
     return (
-      <div className="flex justify-center">
+      <div>
         {this.state.session === undefined ? (
           <div className="p-2 m-2">
             <Box sx={{ width: "50%" }}>
@@ -348,10 +348,10 @@ class Video extends Component {
           </div>
         ) : null}
         {this.state.session !== undefined ? (
-          <div>
+          <div className="flex flex-row w-[90em]">
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
-                <div className="m-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
+                <div className="ml-[10em] mt-3 mb-3 mr-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
                   <div className="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
@@ -378,64 +378,74 @@ class Video extends Component {
                 ) : null
               )}
 
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 0 ? <FriendIsComing /> : null}
+              {this.state.subscribers.length === 0 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+              {this.state.subscribers.length === 0 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+              {this.state.subscribers.length === 0 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
 
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
-              {this.state.subscribers.length === 1 ? <FriendIsComing /> : null}
+              {this.state.subscribers.length === 1 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+              {this.state.subscribers.length === 1 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
 
-              {this.state.subscribers.length === 2 ? <FriendIsComing /> : null}
+              {this.state.subscribers.length === 2 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
             </WebCamBoard>
 
-            <div className="flex justify-center">
-              <ArBottomBarBase>
-                <div className="flex"></div>
+            <div className="relative w-[9.5em]">
+              <CommonBtn
+                text="AR 버튼"
+                color={"bg-blue-300"}
+                onClick={this.applyDeepAR}
+              />
 
-                <CommonBtn
-                  text="AR 버튼"
-                  color={"bg-blue-300"}
-                  onClick={this.applyDeepAR}
-                />
+              {this.state.arEnable === true ? (
+                <div>
+                  <>
+                    <div
+                      id="slider"
+                      className="justify-center h-[32em] overflow-y-scroll flex flex-col scrollbar-hide"
+                    >
+                      {data.map((item) => (
+                        <button
+                          key={item.id}
+                          className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
+                          onClick={() => this.changeEffectOne(item.path)}
+                        >
+                          {item.img}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                </div>
+              ) : null}
+              <div className="ml-[1em] absolute bottom-0">
                 <CommonBtn
                   text="나가기"
                   color={"bg-pink-300"}
                   onClick={this.leaveSession}
                 />
-
-                {this.state.arEnable === true ? (
-                  <div className="w-400">
-                    <>
-                      <div className=" relative flex items-center">
-                        <MdChevronLeft
-                          className="opacity-50 cursor-pointer hover:opacity-100"
-                          onClick={this.slideLeft}
-                          size={40}
-                        />
-                        <div
-                          id="slider"
-                          className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth"
-                        >
-                          {data.map((item) => (
-                            <button
-                              key={item.id}
-                              className="w-100 inline-block p-5 cursor-pointer hover:scale-110 ease-in-out duration-300 "
-                              onClick={() => this.changeEffectOne(item.path)}
-                            >
-                              {item.img}
-                            </button>
-                          ))}
-                        </div>
-                        <MdChevronRight
-                          className="opacity-50 cursor-pointer hover:opacity-100"
-                          onClick={this.slideRight}
-                          size={40}
-                        />
-                      </div>
-                    </>
-                  </div>
-                ) : null}
-              </ArBottomBarBase>
+              </div>
             </div>
           </div>
         ) : null}
