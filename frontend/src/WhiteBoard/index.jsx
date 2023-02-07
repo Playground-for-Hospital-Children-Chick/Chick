@@ -144,7 +144,9 @@ const Board = () => {
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
 
-    socketRef.current = io.connect("ws://localhost:8001");
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io");
+    console.log("ws://i8b207.p.ssafy.io");
+    // socketRef.current = io.connect("ws://localhost:8001");
     socketRef.current.on("drawing", onDrawingEvent);
   }, []);
 
