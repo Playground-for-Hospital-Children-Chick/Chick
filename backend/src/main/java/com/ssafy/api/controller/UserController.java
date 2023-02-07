@@ -1,9 +1,6 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.domain.dto.BaseResponseBody;
-import com.ssafy.api.domain.dto.UserFindEmailReq;
-import com.ssafy.api.domain.dto.UserLoginPostReq;
-import com.ssafy.api.domain.dto.UserRegisterPostReq;
+import com.ssafy.api.domain.dto.*;
 import com.ssafy.api.domain.entity.User;
 import com.ssafy.api.service.EmailService;
 import com.ssafy.api.service.UserService;
@@ -103,5 +100,13 @@ public class UserController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", front+"@"+splitMail[1]));
         }
         return ResponseEntity.status(401).body(BaseResponseBody.of(404, "Failure", null));
+    }
+
+    @GetMapping("/info")
+    @ApiOperation(value="내정보", notes = "유저 정보를 보내준다")
+    public ResponseEntity<UserInfoRes> getUserinfo(@RequestParam String email) {
+        UserInfoRes userInfoRes = userService.getUserInfo(email);
+
+        return ResponseEntity.ok(userInfoRes);
     }
 }
