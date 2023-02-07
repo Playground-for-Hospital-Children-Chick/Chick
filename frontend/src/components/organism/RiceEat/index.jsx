@@ -15,21 +15,30 @@
 import RiceEatHomeBox from "../../molecules/RiceEatHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "./../../../api/UsersApi";
+
+import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
+import { persistor } from "./../../../main";
 
 function RiceEat(params) {
   const user = useSelector((state) => state.user);
-  const [loginState, setLoginState] = useState(user);
-  const navigate = useNavigate();
+  // const [loginState, setLoginState] = useState(user);
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+
   const onLogout = async () => {
     const response = await logoutUser();
-
+    const purge = async () => {
+      await persistor.purge();
+    };
     if (parseInt(Number(response.status) / 100) === 2) {
-      setLoginState(null);
-
-      location.reload();
+      // location.reload();
+      await purge();
+      dispatch(DELETE_USER());
+      dispatch(DELETE_TOKEN());
       return;
     } else {
       console.log(response);
@@ -40,7 +49,7 @@ function RiceEat(params) {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        {loginState["userEmail"] === null ? (
+        {user["userEmail"] === null ? (
           <>
             <Link to="/signup">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />

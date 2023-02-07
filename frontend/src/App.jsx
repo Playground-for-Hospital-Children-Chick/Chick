@@ -7,8 +7,11 @@ import Video from "./webRTC/Video";
 import HomePage from "./components/pages/HomePage/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
+import { useSelector } from "react-redux";
 
 function App() {
+  const user = useSelector((state) => state.user);
+
   return (
     <div className="App">
       <Router>
@@ -16,7 +19,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/facepage" element={<Video />} />
+          <Route
+            path="/facepage"
+            element={<Video myUserName={user["userChName"]} />}
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
         </Routes>
