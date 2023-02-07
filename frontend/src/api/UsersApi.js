@@ -79,8 +79,9 @@ export const loginUser = async function login(credentials) {
 //   return response;
 // };
 export const logoutUser = async function logout() {
-  const response = await axios(`${BASE_URL}/auth/logout`, {
+  const response = await axios({
     method: "POST",
+    url: `${BASE_URL}/auth/logout`,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
     },
