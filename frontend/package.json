@@ -19,6 +19,7 @@
     "click-to-react-component": "^1.0.8",
     "cookie": "^0.5.0",
     "deepar": "^4.0.3",
+    "fabric": "^5.3.0",
     "openvidu-browser": "2.25.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
