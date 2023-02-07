@@ -74,11 +74,11 @@ export const logoutUser = async function logout() {
       "Content-Type": "application/json;charset=UTF-8",
     },
     credentials: "include",
-  }).then(() => {
-    setTimeout(() => {
-      purge();
-    }, 200);
   });
+  setTimeout(() => {
+    purge();
+  }, 200);
+
   console.log("로그아웃", response);
   return response;
 };
