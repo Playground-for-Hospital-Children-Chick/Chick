@@ -62,10 +62,9 @@ export const loginUser = async function login(credentials) {
   console.log(cookie.load("refreshToken"));
   return response;
 };
-const purge = async () => {
-  await persistor.purge();
-};
-
+// const purge = async () => {
+//   await persistor.purge();
+// };
 //백으로 로그아웃 요청
 export const logoutUser = async function logout() {
   const response = await fetch(`${BASE_URL}/auth/logout`, {
