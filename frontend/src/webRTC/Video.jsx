@@ -351,7 +351,7 @@ class Video extends Component {
           <div className="flex flex-row w-[90em]">
             <WebCamBoard>
               {this.state.publisher !== undefined ? (
-                <div className="ml-[10em] mt-3 mb-3 mr-3 rounded-[30px] w-[555px] h-[307px] flex items-center justify-center">
+                <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
                   <div className="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
                     <div
