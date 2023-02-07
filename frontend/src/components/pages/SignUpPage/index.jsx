@@ -2,6 +2,8 @@ import CommonBtn from "../../atoms/CommonBtn";
 import Logo from "../../atoms/Logo/index";
 import InputBox from "../../atoms/Input";
 import CalenderSelectBox from "../../atoms/CalenderSelectBox";
+import { Link } from "react-router-dom";
+
 import { useState } from "react";
 
 function SignUp() {
