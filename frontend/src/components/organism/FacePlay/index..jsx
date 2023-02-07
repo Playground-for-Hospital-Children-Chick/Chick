@@ -29,6 +29,7 @@ function FacePlay() {
     const response = await logoutUser();
 
     if (parseInt(Number(response.status) / 100) === 2) {
+      setLoginState(null);
       location.reload();
       return;
     } else {
