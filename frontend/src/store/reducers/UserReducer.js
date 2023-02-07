@@ -42,18 +42,22 @@ export const userSlice = createSlice({
   },
   reducers: {
     SET_USER: (state, action) => {
+      console.log("SET_USER");
       state.userEmail = action.payload.userEmail;
       state.userChName = action.payload.userChName;
     },
     DELETE_USER: (state) => {
+      console.log("DELETE_USER");
       state.userEmail = null;
       state.userChName = null;
     },
     SET_TOKEN: (state, action) => {
+      console.log("SET_TOKEN");
       state.accessToken = action.payload.accessToken;
       state.expireTime = today.getTime() + 3600000;
     },
     DELETE_TOKEN: (state) => {
+      console.log("DELETE_TOKEN");
       state.accessToken = null;
       state.expireTime = null;
     },
