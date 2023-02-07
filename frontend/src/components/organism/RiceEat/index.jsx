@@ -22,9 +22,9 @@ import { DELETE_USER } from "../../../store/reducers/UserReducer";
 
 function RiceEat(params) {
   const user = useSelector((state) => state.user);
-  const [loginState, setLoginState] = useState(user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const [loginState, setLoginState] = useState(user);
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
   const onLogout = async () => {
     const response = await logoutUser();
@@ -45,7 +45,7 @@ function RiceEat(params) {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        {loginState["userEmail"] === null ? (
+        {user["userEmail"] === null ? (
           <>
             <Link to="/signup">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />
