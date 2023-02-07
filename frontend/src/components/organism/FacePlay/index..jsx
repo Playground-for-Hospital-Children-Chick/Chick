@@ -22,17 +22,15 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "./../../../api/UsersApi";
 
 function FacePlay() {
-  () => {
-    console.log("user정보", user);
-  };
   const user = useSelector((state) => state.user);
   const [loginState, setLoginState] = useState(user);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const onLogout = async () => {
     const response = await logoutUser();
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      return navigate("/");
+      location.reload();
+      return;
     } else {
       console.log(response);
     }
