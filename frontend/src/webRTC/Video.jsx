@@ -1,4 +1,5 @@
 import { OpenVidu } from "openvidu-browser";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { Component } from "react";
 import UserVideoComponent from "./UserVideoComponent";
@@ -420,30 +421,30 @@ class Video extends Component {
 
               {this.state.arEnable === true ? (
                 <div>
-                  <>
-                    <div
-                      id="slider"
-                      className="justify-center h-[32em] overflow-y-scroll flex flex-col scrollbar-hide"
-                    >
-                      {data.map((item) => (
-                        <button
-                          key={item.id}
-                          className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
-                          onClick={() => this.changeEffectOne(item.path)}
-                        >
-                          {item.img}
-                        </button>
-                      ))}
-                    </div>
-                  </>
+                  <div
+                    id="slider"
+                    className="justify-between mt-[1em] h-[28em] overflow-y-scroll flex flex-col scrollbar-hide"
+                  >
+                    {data.map((item) => (
+                      <button
+                        key={item.id}
+                        className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
+                        onClick={() => this.changeEffectOne(item.path)}
+                      >
+                        {item.img}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               ) : null}
               <div className="ml-[1em] absolute bottom-0">
-                <CommonBtn
-                  text="나가기"
-                  color={"bg-pink-300"}
-                  onClick={this.leaveSession}
-                />
+                <Link to="/">
+                  <CommonBtn
+                    text="나가기"
+                    color={"bg-pink-300"}
+                    onClick={this.leaveSession}
+                  />
+                </Link>
               </div>
             </div>
           </div>
