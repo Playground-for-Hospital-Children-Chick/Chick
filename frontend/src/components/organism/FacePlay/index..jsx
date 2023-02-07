@@ -36,7 +36,7 @@ function FacePlay() {
     };
     if (parseInt(Number(response.status) / 100) === 2) {
       // location.reload();
-      purge();
+      await purge();
       dispatch(DELETE_USER());
       dispatch(DELETE_TOKEN());
       return;
