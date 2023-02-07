@@ -25,6 +25,7 @@ import ArSnail from "../components/atoms/ArSnail";
 import ArFlower from "./../components/atoms/ArFlower/index";
 
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import CommonBtn from "../components/atoms/CommonBtn";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
@@ -62,7 +63,7 @@ class Video extends Component {
       publisher: undefined,
       subscribers: [],
       mediaStream: undefined,
-      stream: undefined,
+      arEnable: false,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -84,6 +85,16 @@ class Video extends Component {
 
   async applyDeepAR() {
     console.log("잘들어왔나확인");
+    if (this.state.arEnable) {
+      this.setState({
+        arEnable: false,
+      });
+    } else {
+      this.setState({
+        arEnable: true,
+      });
+    }
+
     this.startDeepAR(this.canvasRef);
     await this.setState({
       mediaStream: this.canvasRef.captureStream(),
@@ -112,7 +123,6 @@ class Video extends Component {
       canvasHeight: 307,
       licenseKey:
         "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
-
       canvas: canvas,
       numberOfFaces: 3,
       libPath: "/lib",
@@ -320,6 +330,7 @@ class Video extends Component {
       myUserName: "Participant" + Math.floor(Math.random() * 100),
       mainStreamManager: undefined,
       publisher: undefined,
+      mediaStream: undefined,
     });
   }
 
@@ -379,52 +390,51 @@ class Video extends Component {
 
             <div className="flex justify-center">
               <ArBottomBarBase>
-                <div className="flex">
-                  <input
-                    className="bg-pink-400 text-3xl rounded-[30px]"
-                    type="button"
-                    onClick={this.leaveSession}
-                    value="나가기"
-                  />
-                </div>
+                <div className="flex"></div>
 
-                <button
+                <CommonBtn
+                  text="AR 버튼"
+                  color={"bg-blue-300"}
                   onClick={this.applyDeepAR}
-                  className="bg-pink-400 text-3xl rounded-[30px]"
-                >
-                  ar버튼입니다
-                </button>
+                />
+                <CommonBtn
+                  text="나가기"
+                  color={"bg-pink-300"}
+                  onClick={this.leaveSession}
+                />
 
-                <div className="w-400">
-                  <>
-                    <div className=" relative flex items-center">
-                      <MdChevronLeft
-                        className="opacity-50 cursor-pointer hover:opacity-100"
-                        onClick={this.slideLeft}
-                        size={40}
-                      />
-                      <div
-                        id="slider"
-                        className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth"
-                      >
-                        {data.map((item) => (
-                          <button
-                            key={item.id}
-                            className="w-100 inline-block p-5 cursor-pointer hover:scale-110 ease-in-out duration-300 "
-                            onClick={() => this.changeEffectOne(item.path)}
-                          >
-                            {item.img}
-                          </button>
-                        ))}
+                {this.state.arEnable === true ? (
+                  <div className="w-400">
+                    <>
+                      <div className=" relative flex items-center">
+                        <MdChevronLeft
+                          className="opacity-50 cursor-pointer hover:opacity-100"
+                          onClick={this.slideLeft}
+                          size={40}
+                        />
+                        <div
+                          id="slider"
+                          className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth"
+                        >
+                          {data.map((item) => (
+                            <button
+                              key={item.id}
+                              className="w-100 inline-block p-5 cursor-pointer hover:scale-110 ease-in-out duration-300 "
+                              onClick={() => this.changeEffectOne(item.path)}
+                            >
+                              {item.img}
+                            </button>
+                          ))}
+                        </div>
+                        <MdChevronRight
+                          className="opacity-50 cursor-pointer hover:opacity-100"
+                          onClick={this.slideRight}
+                          size={40}
+                        />
                       </div>
-                      <MdChevronRight
-                        className="opacity-50 cursor-pointer hover:opacity-100"
-                        onClick={this.slideRight}
-                        size={40}
-                      />
-                    </div>
-                  </>
-                </div>
+                    </>
+                  </div>
+                ) : null}
               </ArBottomBarBase>
             </div>
           </div>
