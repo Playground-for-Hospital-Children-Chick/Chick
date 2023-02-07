@@ -18,6 +18,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "./../../../api/UsersApi";
+
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 import { persistor } from "./../../../main";
 
@@ -33,14 +35,10 @@ function RiceEat(params) {
       await persistor.purge();
     };
     if (parseInt(Number(response.status) / 100) === 2) {
+      // location.reload();
       await purge();
       dispatch(DELETE_USER());
       dispatch(DELETE_TOKEN());
-      // setTimeout(() => {
-      //   purge();
-      // }, 200);
-
-      // location.reload();
       return;
     } else {
       console.log(response);
