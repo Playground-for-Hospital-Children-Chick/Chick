@@ -1,166 +1,168 @@
-import React, { useState, useEffect, useRef } from "react";
-import { fabric } from "fabric";
-import RedCrayon from "../assets/images/board/red.svg";
-import BlueCrayon from "../assets/images/board/blue.svg";
-import PurpleCrayon from "../assets/images/board/purple.svg";
-import Eraser from "../assets/images/board/eraser.png";
-import Cursor from "../assets/images/board/cursor.png";
+import React, { useRef, useEffect } from "react";
+import io from "socket.io-client";
+import "./styles/board.css";
 
-const options = {
-  currentMode: "",
-  currentColor: "#000000",
-  currentWidth: 5,
-  fill: false,
-  group: {},
-};
-
-const modes = {
-  RECTANGLE: "RECTANGLE",
-  TRIANGLE: "TRIANGLE",
-  ELLIPSE: "ELLIPSE",
-  LINE: "LINE",
-  RED: "RED",
-  BLUE: "BLUE",
-  GREEN: "GREEN",
-  ERASER: "ERASER",
-};
-
-const initCanvas = () => {
-  const canvas = new fabric.Canvas("canvas", {
-    height: 800,
-    width: 800,
-    backgroundColor: "gray",
-    borderColor: "black",
-  });
-  canvas.isDrawingMode = true;
-  canvas.freeDrawingBrush.width = 5;
-  canvas.freeDrawingBrush.color = "#00aeff";
-  fabric.Object.prototype.transparentCorners = false;
-  fabric.Object.prototype.cornerStyle = "circle";
-  fabric.Object.prototype.borderColor = "#4447A9";
-  fabric.Object.prototype.cornerColor = "#4447A9";
-  fabric.Object.prototype.cornerSize = 6;
-  fabric.Object.prototype.padding = 10;
-  fabric.Object.prototype.borderDashArray = [5, 5];
-
-  canvas.on("object:added", (e) => {
-    e.target.on("mousedown", removeObject(canvas));
-  });
-  canvas.on("path:created", (e) => {
-    e.path.on("mousedown", removeObject(canvas));
-  });
-  return canvas;
-};
-function removeObject(canvas) {
-  return (e) => {
-    if (options.currentMode === modes.ERASER) {
-      canvas.remove(e.target);
-    }
-  };
-}
-
-function removeCanvasListener(canvas) {
-  canvas.off("mouse:down");
-  canvas.off("mouse:move");
-  canvas.off("mouse:up");
-}
-
-function onSelectMode(canvas) {
-  console.log("모드 변경");
-  if (canvas.isDrawingMode) canvas.isDrawingMode = false;
-  else canvas.isDrawingMode = true;
-}
-
-function Draw({ aspectRatio = 4 / 3 }) {
-  const [canvas, setCanvas] = useState(null);
+const Board = () => {
   const canvasRef = useRef(null);
-  const whiteboardRef = useRef(null);
+  const colorsRef = useRef(null);
+  const socketRef = useRef();
 
   useEffect(() => {
-    if (!canvas && canvasRef.current) {
-      const canvas = initCanvas(
-        whiteboardRef.current.clientWidth,
-        whiteboardRef.current.clientWidth / aspectRatio
+    // --------------- getContext() method returns a drawing context on the canvas-----
+
+    const canvas = canvasRef.current;
+    const test = colorsRef.current;
+    const context = canvas.getContext("2d");
+
+    // ----------------------- Colors --------------------------------------------------
+
+    const colors = document.getElementsByClassName("color");
+    console.log(colors, "the colors");
+    console.log(test);
+    // set the current color
+    const current = {
+      color: "black",
+    };
+
+    // helper that will update the current color
+    const onColorUpdate = (e) => {
+      current.color = e.target.className.split(" ")[1];
+    };
+
+    // loop through the color elements and add the click event listeners
+    for (let i = 0; i < colors.length; i++) {
+      colors[i].addEventListener("click", onColorUpdate, false);
+    }
+    let drawing = false;
+
+    // ------------------------------- create the drawing ----------------------------
+
+    const drawLine = (x0, y0, x1, y1, color, emit) => {
+      context.beginPath();
+      context.moveTo(x0, y0);
+      context.lineTo(x1, y1);
+      context.strokeStyle = color;
+      context.lineWidth = 2;
+      context.stroke();
+      context.closePath();
+
+      if (!emit) {
+        return;
+      }
+      const w = canvas.width;
+      const h = canvas.height;
+
+      socketRef.current.emit("drawing", {
+        x0: x0 / w,
+        y0: y0 / h,
+        x1: x1 / w,
+        y1: y1 / h,
+        color,
+      });
+    };
+
+    // ---------------- mouse movement --------------------------------------
+
+    const onMouseDown = (e) => {
+      drawing = true;
+      current.x = e.clientX || e.touches[0].clientX;
+      current.y = e.clientY || e.touches[0].clientY;
+    };
+
+    const onMouseMove = (e) => {
+      if (!drawing) {
+        return;
+      }
+      drawLine(
+        current.x,
+        current.y,
+        e.clientX || e.touches[0].clientX,
+        e.clientY || e.touches[0].clientY,
+        current.color,
+        true
       );
-      setCanvas(() => canvas);
-      // console.log("setcanvus", setCanvas);
-      console.log("canvas", canvas);
-      //   handleResize(resizeCanvas(canvas, whiteboardRef.current)).observe(whiteboardRef.current);
-    }
-  }, [canvasRef]);
+      current.x = e.clientX || e.touches[0].clientX;
+      current.y = e.clientY || e.touches[0].clientY;
+    };
 
-  function redDraw() {
-    console.log("redDraw", canvas);
-    if (options.currentMode !== modes.RED) {
-      removeCanvasListener(canvas);
+    const onMouseUp = (e) => {
+      if (!drawing) {
+        return;
+      }
+      drawing = false;
+      drawLine(
+        current.x,
+        current.y,
+        e.clientX || e.touches[0].clientX,
+        e.clientY || e.touches[0].clientY,
+        current.color,
+        true
+      );
+    };
 
-      options.currentMode = modes.RED;
-      options.currentColor = "#ff0000";
-      canvas.freeDrawingBrush.width = 5;
-      canvas.freeDrawingBrush.color = "#ff0000";
-      canvas.freeDrawingBrush.width = parseInt(options.currentWidth, 10) || 1;
-      canvas.isDrawingMode = true;
-      setCanvas(() => canvas);
-    }
-  }
+    // ----------- limit the number of events per second -----------------------
 
-  function greenDraw() {
-    console.log("greenDraw", canvas);
-    if (options.currentMode !== modes.GREEN) {
-      removeCanvasListener(canvas);
+    const throttle = (callback, delay) => {
+      let previousCall = new Date().getTime();
+      return function () {
+        const time = new Date().getTime();
 
-      options.currentMode = modes.GREEN;
-      options.currentColor = "#00ff00";
-      canvas.freeDrawingBrush.width = 5;
-      canvas.freeDrawingBrush.color = "#a352cc";
-      canvas.freeDrawingBrush.width = parseInt(options.currentWidth, 10) || 1;
-      canvas.isDrawingMode = true;
-    }
-  }
+        if (time - previousCall >= delay) {
+          previousCall = time;
+          callback.apply(null, arguments);
+        }
+      };
+    };
 
-  function blueDraw() {
-    console.log("blueDraw", canvas);
-    if (options.currentMode !== modes.BLUE) {
-      removeCanvasListener(canvas);
+    // -----------------add event listeners to our canvas ----------------------
 
-      options.currentMode = modes.BLUE;
-      options.currentColor = "#0000FF";
-      canvas.freeDrawingBrush.width = 5;
-      canvas.freeDrawingBrush.color = "#0000FF";
-      canvas.freeDrawingBrush.width = parseInt(options.currentWidth, 10) || 1;
-      canvas.isDrawingMode = true;
-    }
-  }
+    canvas.addEventListener("mousedown", onMouseDown, false);
+    canvas.addEventListener("mouseup", onMouseUp, false);
+    canvas.addEventListener("mouseout", onMouseUp, false);
+    canvas.addEventListener("mousemove", throttle(onMouseMove, 10), false);
 
-  function removeAllObejcts() {
-    var objs = canvas.getObjects();
-    for (let i = 0; i < objs.length; i++) {
-      canvas.remove(objs[i]);
-    }
-  }
+    // Touch support for mobile devices
+    canvas.addEventListener("touchstart", onMouseDown, false);
+    canvas.addEventListener("touchend", onMouseUp, false);
+    canvas.addEventListener("touchcancel", onMouseUp, false);
+    canvas.addEventListener("touchmove", throttle(onMouseMove, 10), false);
+
+    // -------------- make the canvas fill its parent component -----------------
+
+    const onResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", onResize, false);
+    onResize();
+
+    // ----------------------- socket.io connection ----------------------------
+    const onDrawingEvent = (data) => {
+      const w = canvas.width;
+      const h = canvas.height;
+      drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+    };
+
+    socketRef.current = io.connect("wss://localhost:8080");
+    socketRef.current.on("drawing", onDrawingEvent);
+  }, []);
+
+  // ------------- The Canvas and color elements --------------------------
 
   return (
-    <div ref={whiteboardRef}>
-      <div>
-        <button onClick={() => onSelectMode(canvas)}>
-          <img src={Cursor} alt="Cursor" width={300} />
-        </button>
-        <button onClick={() => redDraw()}>
-          <img src={RedCrayon} alt="Red" width={80} />
-        </button>
-        <button onClick={() => greenDraw()}>
-          <img src={PurpleCrayon} alt="Purple" width={80} />
-        </button>
-        <button onClick={() => blueDraw()}>
-          <img src={BlueCrayon} alt="Blue" width={80} />
-        </button>
-        <button onClick={() => removeAllObejcts()}>
-          <img src={Eraser} alt="Eraser" width={300} />
-        </button>
+    <div>
+      <canvas ref={canvasRef} className="whiteboard" />
+
+      <div ref={colorsRef} className="colors">
+        <div className="color black" />
+        <div className="color red" />
+        <div className="color green" />
+        <div className="color blue" />
+        <div className="color yellow" />
       </div>
-      <canvas ref={canvasRef} id="canvas" />
     </div>
   );
-}
+};
 
-export default Draw;
+export default Board;
