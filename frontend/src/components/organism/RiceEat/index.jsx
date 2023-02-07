@@ -23,17 +23,18 @@ function RiceEat(params) {
   const user = useSelector((state) => state.user);
   const [loginState, setLoginState] = useState(user);
   const navigate = useNavigate();
-
   const onLogout = async () => {
     const response = await logoutUser();
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      return navigate("/");
+      location.reload();
+      return;
     } else {
       console.log(response);
     }
     // input 태그 값 비워주는 코드
   };
+
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
