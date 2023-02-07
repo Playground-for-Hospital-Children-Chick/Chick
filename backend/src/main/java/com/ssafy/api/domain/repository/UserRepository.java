@@ -12,8 +12,6 @@ import java.util.List;
 @Component
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUserEmail(String userEmail);//Null을 반환할때 Optional을 많이쓴다
-    List<User> findAll();
-
     User findByUserChName(String userEmail);
 
     User findByUserParentNameAndUserChNameAndUserBirth(String userParentName, String userChName, String userBirth);
