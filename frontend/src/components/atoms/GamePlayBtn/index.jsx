@@ -22,7 +22,12 @@ default="blue"
 
 import classnames from "classnames";
 
-function GamePlayBtn({ text = "GamePlay", color = "bg-blue-300", onClick }) {
+function GamePlayBtn({
+  text = "GamePlay",
+  color = "bg-blue-300",
+  onClick,
+  type,
+}) {
   const classStr = classnames(
     `font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px]`,
     color
@@ -31,6 +36,7 @@ function GamePlayBtn({ text = "GamePlay", color = "bg-blue-300", onClick }) {
   return (
     <button
       className={classStr}
+      type={type}
       style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
       onClick={onClick}
     >

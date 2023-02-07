@@ -9,8 +9,9 @@ function SignUp() {
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
         <Logo />
-
-        <CommonBtn text="로그인" color="bg-blue-300" />
+        <Link to="/login">
+          <CommonBtn text="로그인" color="bg-blue-300" />
+        </Link>
       </div>
       <div className=" gap-x-14 email flex items-center justify-center">
         <label className="mr-[1em] font-chick text-xl" htmlFor="email">
