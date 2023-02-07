@@ -15,19 +15,24 @@
 import RiceEatHomeBox from "../../molecules/RiceEatHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DELETE_USER } from "../../../store/reducers/UserReducer";
 
 function RiceEat(params) {
   const user = useSelector((state) => state.user);
   const [loginState, setLoginState] = useState(user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onLogout = async () => {
     const response = await logoutUser();
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      setLoginState(null);
+      setTimeout(() => {
+        purge();
+      }, 200);
 
       location.reload();
       return;

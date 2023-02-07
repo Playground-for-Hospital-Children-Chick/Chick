@@ -15,7 +15,7 @@
 import { Link } from "react-router-dom";
 import FacePlayHomeBox from "../../molecules/FacePlayHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -24,12 +24,17 @@ import { logoutUser } from "./../../../api/UsersApi";
 function FacePlay() {
   const user = useSelector((state) => state.user);
   const [loginState, setLoginState] = useState(user);
+  const dispatch = useDispatch();
+
   // const navigate = useNavigate();
   const onLogout = async () => {
     const response = await logoutUser();
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      setLoginState(null);
+      setTimeout(() => {
+        purge();
+      }, 200);
+
       location.reload();
       return;
     } else {
