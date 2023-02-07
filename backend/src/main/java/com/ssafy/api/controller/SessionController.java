@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.domain.dto.RoomSessionReq;
 import com.ssafy.api.service.RoomService;
 import io.openvidu.java.client.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,7 @@ public class SessionController {
      * @return The Session ID
      */
     @PostMapping("/api/sessions")
+    @ApiOperation(value="자동 매칭으로 게임방 입장", notes = "세션을 생셩하여 방을 매칭해준다")
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) RoomSessionReq roomSessionReq)
             throws OpenViduJavaClientException, OpenViduHttpException {
         String email = roomSessionReq.getEmail();
@@ -61,6 +63,7 @@ public class SessionController {
      * @return The Token associated to the Connection
      */
     @PostMapping("/api/sessions/{sessionId}/connections")
+    @ApiOperation(value="선택으로 게임방 입장", notes = "기존에 새성한 게임방에 입장한다")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
@@ -81,6 +84,7 @@ public class SessionController {
     }
 
     @PostMapping("/api/sessions/{sessionId}/disconnect")
+    @ApiOperation(value="게임방 나가기", notes = "게임방에서 나간다")
     public ResponseEntity<String> disconnect(@PathVariable("sessionId") String sessionId) {
         if (roomService.disconnect(sessionId)) {
             return new ResponseEntity<>(HttpStatus.OK);
