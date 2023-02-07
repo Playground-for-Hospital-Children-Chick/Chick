@@ -14,6 +14,18 @@ import CircularProgress from "@mui/material/CircularProgress";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
 
+import ArDevilHorns from "../components/atoms/ArDevilHorns";
+import ArLElephantTrunk from "../components/atoms/ArElephantTrunk";
+import ArGalaxy from "../components/atoms/ArGalaxy";
+import ArLion from "../components/atoms/ArLion";
+import ArMakeUpSplit from "../components/atoms/ArMakeUpSplit";
+import ArPingPong from "../components/atoms/ArPingPong";
+import ArPixelHeart from "../components/atoms/ArPixelHeart";
+import ArSnail from "../components/atoms/ArSnail";
+import ArFlower from "./../components/atoms/ArFlower/index";
+
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
 var filters = [
@@ -23,6 +35,18 @@ var filters = [
   "/effects/background_segmentation",
   "/effects/background_blur",
   "/effects/aviators",
+];
+
+const data = [
+  { id: 1, img: <ArLion />, path: "/effects/lion" },
+  { id: 2, img: <ArFlower />, path: "/effects/flowers" },
+  { id: 3, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
+  { id: 4, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
+  { id: 5, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
+  // { id: 6, img: <ArPingPong />, path: "/effects/Ping_Pong.deepar" },
+  { id: 6, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
+  // { id: 8, img: <ArPixelHeart />, path: "/effects/Pixel_Hearts.deepar" },
+  { id: 7, img: <ArSnail />, path: "/effects/Snail.deepar" },
 ];
 var deepAR = null;
 
@@ -54,8 +78,8 @@ class Video extends Component {
     this.changeEffectOne = this.changeEffectOne.bind(this);
   }
 
-  changeEffectOne() {
-    deepAR.switchEffect(0, "slot", filters[0]);
+  changeEffectOne(effectName) {
+    deepAR.switchEffect(0, "slot", effectName);
   }
 
   async applyDeepAR() {
@@ -90,7 +114,7 @@ class Video extends Component {
         "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
 
       canvas: canvas,
-      numberOfFaces: 1,
+      numberOfFaces: 3,
       libPath: "/lib",
       segmentationInfoZip: "segmentation.zip",
       onInitialize: () => {
@@ -98,9 +122,9 @@ class Video extends Component {
 
         deepAR.startVideo(true);
 
-        deepAR.switchEffect(0, "slot", "/effects/flowers", () => {
-          console.log("flower loaded");
-        });
+        // deepAR.switchEffect(0, "slot", "/effects/flowers", () => {
+        //   console.log("flower loaded");
+        // });
       },
     });
 
@@ -179,7 +203,7 @@ class Video extends Component {
 
     // --- 2) Init a session ---
 
-    // this.startDeepAR(this.canvasRef);
+    this.startDeepAR(this.canvasRef);
 
     this.setState(
       {
@@ -363,10 +387,44 @@ class Video extends Component {
                     value="나가기"
                   />
                 </div>
-                <button onClick={this.applyDeepAR}>ar버튼입니다</button>
-                <button onClick={this.changeEffectOne}>
-                  ar바꾸기 버튼입니다
+
+                <button
+                  onClick={this.applyDeepAR}
+                  className="bg-pink-400 text-3xl rounded-[30px]"
+                >
+                  ar버튼입니다
                 </button>
+
+                <div className="w-400">
+                  <>
+                    <div className=" relative flex items-center">
+                      <MdChevronLeft
+                        className="opacity-50 cursor-pointer hover:opacity-100"
+                        onClick={this.slideLeft}
+                        size={40}
+                      />
+                      <div
+                        id="slider"
+                        className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth"
+                      >
+                        {data.map((item) => (
+                          <button
+                            key={item.id}
+                            className="w-100 inline-block p-5 cursor-pointer hover:scale-110 ease-in-out duration-300 "
+                            onClick={() => this.changeEffectOne(item.path)}
+                          >
+                            {item.img}
+                          </button>
+                        ))}
+                      </div>
+                      <MdChevronRight
+                        className="opacity-50 cursor-pointer hover:opacity-100"
+                        onClick={this.slideRight}
+                        size={40}
+                      />
+                    </div>
+                  </>
+                </div>
               </ArBottomBarBase>
             </div>
           </div>
