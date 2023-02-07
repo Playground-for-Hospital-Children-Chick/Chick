@@ -17,10 +17,12 @@ import CommonBtn from "./../../atoms/CommonBtn/index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RiceEat(params) {
   const user = useSelector((state) => state.user);
   const [loginState, setLoginState] = useState(user);
+  const navigate = useNavigate();
 
   const onLogout = async () => {
     const response = await logoutUser();

@@ -17,6 +17,7 @@ import FacePlayHomeBox from "../../molecules/FacePlayHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { logoutUser } from "./../../../api/UsersApi";
 
@@ -28,6 +29,7 @@ function FacePlay() {
   const [loginState, setLoginState] = useState(user);
   const onLogout = async () => {
     const response = await logoutUser();
+    const navigate = useNavigate();
 
     if (parseInt(Number(response.status) / 100) === 2) {
       return navigate("/");
