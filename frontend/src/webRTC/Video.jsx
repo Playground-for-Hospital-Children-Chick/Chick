@@ -19,12 +19,11 @@ import ArLElephantTrunk from "../components/atoms/ArElephantTrunk";
 import ArGalaxy from "../components/atoms/ArGalaxy";
 import ArLion from "../components/atoms/ArLion";
 import ArMakeUpSplit from "../components/atoms/ArMakeUpSplit";
-import ArPingPong from "../components/atoms/ArPingPong";
-import ArPixelHeart from "../components/atoms/ArPixelHeart";
 import ArSnail from "../components/atoms/ArSnail";
 import ArFlower from "./../components/atoms/ArFlower/index";
+import ArKoala from "../components/atoms/ArKoala";
+import ArDalmatian from "../components/atoms/ArDalmatian";
 
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import CommonBtn from "../components/atoms/CommonBtn";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -44,10 +43,10 @@ const data = [
   { id: 3, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
   { id: 4, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
   { id: 5, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
-  // { id: 6, img: <ArPingPong />, path: "/effects/Ping_Pong.deepar" },
   { id: 6, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
-  // { id: 8, img: <ArPixelHeart />, path: "/effects/Pixel_Hearts.deepar" },
   { id: 7, img: <ArSnail />, path: "/effects/Snail.deepar" },
+  { id: 8, img: <ArKoala />, path: "/effects/koala" },
+  { id: 9, img: <ArDalmatian />, path: "/effects/dalmatian" },
 ];
 var deepAR = null;
 
@@ -163,9 +162,9 @@ class Video extends Component {
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
-    if (this.state.publisher.properties.videoSourc == undefined) {
-      this.applyDeepAR();
-    }
+    // if (this.state.publisher.properties.videoSourc == undefined) {
+    //   this.applyDeepAR();
+    // }
   }
 
   componentDidMount() {
