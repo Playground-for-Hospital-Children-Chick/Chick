@@ -16,6 +16,7 @@ import {
   SET_TOKEN,
   DELETE_TOKEN,
 } from "./../../../store/reducers/UserReducer";
+import GamePlayBtn from "../../atoms/GamePlayBtn";
 
 function Login() {
   const navigate = useNavigate();
@@ -128,21 +129,17 @@ function Login() {
               </div>
             </div>
             <div>
-              <CommonBtn
-                // onClick={onValid}
-                text="로그인"
-                type="submit"
-                color="bg-emerald-300"
-              >
-                로그인
-              </CommonBtn>
+              <GamePlayBtn text="로그인" color="bg-emerald-300" type="submit" />
             </div>
           </form>
 
           <div className="mt-5 flex justify-center">
             <span className="mr-10 text-xl font-chick">이메일 찾기</span>
+
             <span className="mr-10 text-xl font-chick">비밀번호 찾기</span>
-            <span className="mr-10 text-xl font-chick">회원가입</span>
+            <Link to="/signup">
+              <span className="mr-10 text-xl font-chick">회원가입</span>
+            </Link>
           </div>
         </div>
       </AlertBox>
