@@ -88,7 +88,7 @@ function Login() {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div>
-              <div className="mb-10 flex justify-center items-center">
+              <div className="mb-10 flex justify-center items-center mr-[5em]">
                 <label className="mr-5 font-chick text-lg" htmlFor="email">
                   이메일
                 </label>
@@ -109,7 +109,7 @@ function Login() {
                   )}
                 />
               </div>
-              <div className="mb-10 flex justify-center items-center">
+              <div className="mb-10 flex justify-center items-center mr-[5.5em]">
                 <label className="mr-5 font-chick text-lg" htmlFor="password">
                   비밀번호
                 </label>
@@ -134,7 +134,7 @@ function Login() {
             </div>
           </form>
 
-          <div className="mt-5 flex justify-center">
+          <div className="ml-[2.8em] mt-5 flex justify-center mt-[2.5em]">
             <span className="mr-10 text-xl font-chick">이메일 찾기</span>
 
             <span className="mr-10 text-xl font-chick">비밀번호 찾기</span>
