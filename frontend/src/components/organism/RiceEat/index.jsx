@@ -27,7 +27,7 @@ function RiceEat(params) {
   const user = useSelector((state) => state.user);
   // const [loginState, setLoginState] = useState(user);
   // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onLogout = async () => {
     const response = await logoutUser();
