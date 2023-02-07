@@ -24,7 +24,7 @@ public class UserController {
         this.emailService = emailService;
     }
     @PostMapping("/register")
-    @ApiOperation(value="회원 가입", notes = "아이디와 패스워드를 통해 회원가입 한다")
+    @ApiOperation(value="회원 가입", notes = "이메일, 비밀번호, 자녀이름, 부모님 이름, 성별, 출생일을 통해 회원가입 한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "가입 실패"),
@@ -63,8 +63,8 @@ public class UserController {
     }
 
     @PostMapping("/emailConfirm")
+    @ApiOperation(value = "이메일 인증", notes = "이메일에 인증 코드를 보내준다")
     public String emailConfirm(@RequestParam String email) throws Exception {
-
         String confirm = emailService.sendSimpleMessage(email);
 
         return confirm;
@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @GetMapping("/find/password")
-    @ApiOperation(value="비밀번호 찾기", notes = "유저 이메일을 찾는다")
+    @ApiOperation(value="비밀번호 찾기", notes = "유저 비밀번호를 찾는다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공 및 이메일 반환"),
             @ApiResponse(code = 404, message = "회원정보 없음"),
@@ -103,7 +103,7 @@ public class UserController {
     }
 
     @GetMapping("/info")
-    @ApiOperation(value="내정보", notes = "유저 정보를 보내준다")
+    @ApiOperation(value="내정보 가져오기", notes = "유저 정보를 보내준다")
     public ResponseEntity<UserInfoRes> getUserinfo(@RequestParam String email) {
         UserInfoRes userInfoRes = userService.getUserInfo(email);
 
