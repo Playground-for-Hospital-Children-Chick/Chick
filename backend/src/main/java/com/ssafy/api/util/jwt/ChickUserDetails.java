@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class ChickUserDetails implements UserDetails {
-    @Autowired
     User user;
     boolean accountNonExpired;
     boolean accountNonLocked;
