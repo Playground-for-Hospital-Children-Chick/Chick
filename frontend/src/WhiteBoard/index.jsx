@@ -145,7 +145,8 @@ const Board = () => {
     };
 
     // socketRef.current = io.connect("ws://i8b207.p.ssafy.io");
-    socketRef.current = io.connect("ws://localhost:8001");
+    socketRef.current = io.connect("ws://43.201.16.17:8001");
+    console.log("ws://43.201.16.17:8001");
     socketRef.current.on("drawing", onDrawingEvent);
   }, []);
 
