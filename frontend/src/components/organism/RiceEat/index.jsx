@@ -16,9 +16,12 @@ import RiceEatHomeBox from "../../molecules/RiceEatHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 function RiceEat(params) {
   const user = useSelector((state) => state.user);
+  const [loginState, setLoginState] = useState(user);
+
   const onLogout = async () => {
     const response = await logoutUser();
 
@@ -32,7 +35,7 @@ function RiceEat(params) {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        {user["userEmail"] === null ? (
+        {loginState["userEmail"] === null ? (
           <>
             <Link to="/signup">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />

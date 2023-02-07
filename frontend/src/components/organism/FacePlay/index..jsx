@@ -16,6 +16,8 @@ import { Link } from "react-router-dom";
 import FacePlayHomeBox from "../../molecules/FacePlayHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+
 import { logoutUser } from "./../../../api/UsersApi";
 
 function FacePlay() {
@@ -23,6 +25,7 @@ function FacePlay() {
     console.log("user정보", user);
   };
   const user = useSelector((state) => state.user);
+  const [loginState, setLoginState] = useState(user);
   const onLogout = async () => {
     const response = await logoutUser();
 
@@ -36,7 +39,7 @@ function FacePlay() {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        {user["userEmail"] === null ? (
+        {loginState["accessToken"] == null ? (
           <>
             <Link to="/signup">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />
