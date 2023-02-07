@@ -27,9 +27,9 @@ function FacePlay() {
   };
   const user = useSelector((state) => state.user);
   const [loginState, setLoginState] = useState(user);
+  const navigate = useNavigate();
   const onLogout = async () => {
     const response = await logoutUser();
-    const navigate = useNavigate();
 
     if (parseInt(Number(response.status) / 100) === 2) {
       return navigate("/");
