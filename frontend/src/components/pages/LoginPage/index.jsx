@@ -39,31 +39,17 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  // const [cookies, setCookie] = useCookies["id"];
-  // preventDefault 대신에 동작할 코드(로그인 버튼을 누른 후 preventDefault와 더불어서 실행되는 함수)
-  // 백으로 유저 정보 전달
-  // const onValid = () => {
-  //   dispatch(asyncLoginAxios());
-  // };
-  const onValid = async () => {
-    // console.log("email", email);
-    // console.log("password", password);
-
-    // console.log({ email, password });
-    // console.log("클릭");
+  const onLogin = async () => {
     const response = await loginUser({ email, password });
-    // console.log(response);
-    // console.log(response.json.refreshToken);
-    // console.log(response.json.accessToken);
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      setTimeout(() => {
-        dispatch(DELETE_TOKEN());
-        dispatch(DELETE_TOKEN());
-      }, 3600000);
-      setTimeout(() => {
-        console.log(user["userEmail"]);
-      }, 20000);
+      // setTimeout(() => {
+      //   dispatch(DELETE_TOKEN());
+      //   dispatch(DELETE_TOKEN());
+      // }, 3600000);
+      // setTimeout(() => {
+      //   console.log(user["userEmail"]);
+      // }, 20000);
       console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
@@ -74,10 +60,7 @@ function Login() {
       );
       console.log(user["userEmail"]);
       console.log(user["userChName"]);
-      // dispatch(DELETE_USER());
       console.log(user["userEmail"]);
-
-      // dispatch(SET_USER(response.));
 
       return navigate("/");
     } else {
@@ -100,7 +83,7 @@ function Login() {
           </span>
         </div>
         <div className="form ">
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onValid)}>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div>
               <div className="mb-10 flex justify-center items-center">
