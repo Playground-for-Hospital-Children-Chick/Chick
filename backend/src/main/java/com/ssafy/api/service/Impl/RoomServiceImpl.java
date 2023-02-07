@@ -1,5 +1,6 @@
 package com.ssafy.api.service.Impl;
 
+import com.ssafy.api.domain.dto.RoomSessionReq;
 import com.ssafy.api.domain.entity.Matching;
 import com.ssafy.api.domain.entity.Room;
 import com.ssafy.api.domain.repository.MatchingRepository;
@@ -56,10 +57,10 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void createMachingInfo(Map<String, Object> params, String userSession) {
+    public void createMachingInfo(RoomSessionReq roomSessionReq, String userSession) {
         /* 데이터베이스에 매칭 정보를 저장한다 */
-        String email = (String)params.get("email");
-        String gameType = (String)params.get("gameType");
+        String email = roomSessionReq.getEmail();
+        String gameType = roomSessionReq.getGameType();
         matchingRepository.save(
                 Matching.builder()
                         .matEmail(email)

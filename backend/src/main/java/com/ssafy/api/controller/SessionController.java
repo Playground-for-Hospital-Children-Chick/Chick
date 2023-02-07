@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.domain.dto.RoomSessionReq;
 import com.ssafy.api.service.RoomService;
 import io.openvidu.java.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +33,20 @@ public class SessionController {
     }
 
     /**
-     * @param params The Session properties
+     * @param roomSessionReq The Roominfo
      * @return The Session ID
      */
     @PostMapping("/api/sessions")
-    public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
+    public ResponseEntity<String> initializeSession(@RequestBody(required = false) RoomSessionReq roomSessionReq)
             throws OpenViduJavaClientException, OpenViduHttpException {
+        String email = roomSessionReq.getEmail();
+        String gameType = roomSessionReq.getGameType();
         System.out.println("세션 요청입니다다");
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
-        System.out.println("params: " + params.toString());
-        String userSession = roomService.getRoomSession((String)params.get("email"), (String)params.get("gameType")); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
-        roomService.createMachingInfo(params, userSession); // 매칭에 대한 로그를 데이터베이스에 저장한다
+        System.out.println("params: " +roomSessionReq.toString());
+        String userSession = roomService.getRoomSession(email, gameType); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
+        roomService.createMachingInfo(roomSessionReq, userSession); // 매칭에 대한 로그를 데이터베이스에 저장한다
         Map<String, Object> sessionParam = new HashMap<>(); // 유저 새션 정보를 저장할 변수
         sessionParam.put("customSessionId", userSession); // // 유저 새션 정보를 저장
         System.out.println("sessionParam: " + sessionParam.toString());
