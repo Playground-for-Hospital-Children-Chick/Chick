@@ -11,11 +11,11 @@ import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
-// import {
-//   SET_USER,
-//   SET_TOKEN,
-//   DELETE_TOKEN,
-// } from "./../../src/store/reducers/UserReducer";
+import {
+  SET_USER,
+  SET_TOKEN,
+  DELETE_TOKEN,
+} from "./../../../store/reducers/UserReducer";
 
 function Login() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const onLogout = async () => {
+  const onLogin = async () => {
     const response = await loginUser({ email, password });
 
     if (parseInt(Number(response.status) / 100) === 2) {
@@ -83,7 +83,7 @@ function Login() {
           </span>
         </div>
         <div className="form ">
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onLogout)}>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div>
               <div className="mb-10 flex justify-center items-center">

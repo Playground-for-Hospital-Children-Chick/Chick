@@ -79,6 +79,7 @@ export const logoutUser = async function logout() {
     purge();
   }, 200);
   console.log("로그인", response);
+  return response;
 };
 
 //일정 시간마다 accessToken 재발행 하는 코드만들려고 하는 시도
@@ -103,9 +104,9 @@ export const logoutUser = async function logout() {
 // 액세스토큰 재발행하는 코드
 export const accessTokenReIssue = async () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   //   //액세스 토큰 만료됐는지 확인
-  const user = useSelector((state) => state.user);
 
   //   //액세스 토큰이 만료됐을 때
   if (user["expireTime"] - Date() < 0) {
