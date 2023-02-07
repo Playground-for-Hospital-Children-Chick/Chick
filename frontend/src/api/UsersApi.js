@@ -66,13 +66,26 @@ export const loginUser = async function login(credentials) {
 //   await persistor.purge();
 // };
 //백으로 로그아웃 요청
+// export const logoutUser = async function logout() {
+//   const response = await fetch(`${BASE_URL}/auth/logout`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json;charset=UTF-8",
+//     },
+//     credentials: "include",
+//   });
+
+//   console.log("로그아웃", response);
+//   return response;
+// };
 export const logoutUser = async function logout() {
-  const response = await fetch(`${BASE_URL}/auth/logout`, {
+  const response = await axios({
     method: "POST",
+    url: `${BASE_URL}/auth/logout`,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
     },
-    credentials: "include",
+    withCredentials: true,
   });
 
   console.log("로그아웃", response);
@@ -135,6 +148,20 @@ export const accessTokenReIssue = async () => {
   }
   //   // 액세스 토큰 만료시 액세스 토큰 재발행
   //   // 액세스 토큰
+};
+
+//회원가입
+export const singUpUser = async function logout() {
+  const response = await fetch(`${BASE_URL}/api/users/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    credentials: "include",
+  });
+
+  console.log("로그아웃", response);
+  return response;
 };
 
 // export const loginUser = async (credentials) => {

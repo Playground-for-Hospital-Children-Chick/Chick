@@ -49,7 +49,7 @@ const data = [
   { id: 8, img: <ArKoala />, path: "/effects/koala" },
   { id: 9, img: <ArDalmatian />, path: "/effects/dalmatian" },
 ];
-var deepAR = null;
+// var deepAR = null;
 
 class Video extends Component {
   constructor(props) {
@@ -64,6 +64,7 @@ class Video extends Component {
       subscribers: [],
       mediaStream: undefined,
       arEnable: false,
+      deepAR: undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -80,7 +81,7 @@ class Video extends Component {
   }
 
   changeEffectOne(effectName) {
-    deepAR.switchEffect(0, "slot", effectName);
+    this.state.deepAR.switchEffect(0, "slot", effectName);
   }
 
   async applyDeepAR() {
@@ -117,8 +118,9 @@ class Video extends Component {
 
   startDeepAR(canvas) {
     var { DeepAR } = window;
+    // this.state.DeepAR = window;
 
-    deepAR = DeepAR({
+    this.state.deepAR = DeepAR({
       canvasWidth: 550,
       canvasHeight: 307,
       licenseKey:
@@ -128,9 +130,9 @@ class Video extends Component {
       libPath: "/lib",
       segmentationInfoZip: "segmentation.zip",
       onInitialize: () => {
-        console.log("deepAR Ready");
+        // console.log("deepAR Ready");
 
-        deepAR.startVideo(true);
+        this.state.deepAR.startVideo(true);
 
         // deepAR.switchEffect(0, "slot", "/effects/flowers", () => {
         //   console.log("flower loaded");
@@ -138,7 +140,7 @@ class Video extends Component {
       },
     });
 
-    deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
+    this.state.deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
   }
 
   camStatusChanged() {
@@ -213,7 +215,7 @@ class Video extends Component {
 
     // --- 2) Init a session ---
 
-    this.startDeepAR(this.canvasRef);
+    // this.startDeepAR(this.canvasRef);
 
     this.setState(
       {
@@ -314,7 +316,8 @@ class Video extends Component {
 
   leaveSession() {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-
+    // this.state.deepAR.startVideo(false);
+    // console.log("this.stae.deepAR", this.state.deepAR.startVideo());
     const mySession = this.state.session;
 
     if (mySession) {
@@ -323,20 +326,30 @@ class Video extends Component {
 
     // Empty all properties...
     this.OV = null;
-    this.setState({
-      session: undefined,
-      subscribers: [],
+    this.state = {
       mySessionId: "SessionA",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
-      mainStreamManager: undefined,
+      session: undefined,
       publisher: undefined,
+      subscribers: [],
       mediaStream: undefined,
-    });
+      arEnable: false,
+      deepAR: undefined,
+    };
+    // this.setState({
+    //   session: undefined,
+    //   subscribers: [],
+    //   mySessionId: "SessionA",
+    //   myUserName: "Participant" + Math.floor(Math.random() * 100),
+    //   mainStreamManager: undefined,
+    //   publisher: undefined,
+    //   mediaStream: undefined,
+    // });
   }
 
   render() {
-    const mySessionId = this.state.mySessionId;
-    const myUserName = this.state.myUserName;
+    // const mySessionId = this.state.mySessionId;
+    // const myUserName = this.state.myUserName;
 
     return (
       <div>

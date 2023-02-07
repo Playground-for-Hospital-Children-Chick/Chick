@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { AuthReducer } from "./reducers/AuthReducer";
 import { persistReducer, PERSIST, PURGE } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 import { userSlice } from "./../store/reducers/UserReducer";
 import { combineReducers } from "redux";
 import logger from "redux-logger";
@@ -14,7 +14,8 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
+  storage: storageSession,
+  whitelist: ["user"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
