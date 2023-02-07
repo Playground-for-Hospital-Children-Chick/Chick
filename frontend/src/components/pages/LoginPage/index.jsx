@@ -16,6 +16,7 @@ import {
   SET_TOKEN,
   DELETE_TOKEN,
 } from "./../../../store/reducers/UserReducer";
+import GamePlayBtn from "../../atoms/GamePlayBtn";
 
 function Login() {
   const navigate = useNavigate();
@@ -128,14 +129,7 @@ function Login() {
               </div>
             </div>
             <div>
-              <CommonBtn
-                // onClick={onValid}
-                text="로그인"
-                type="submit"
-                color="bg-emerald-300"
-              >
-                로그인
-              </CommonBtn>
+              <GamePlayBtn text="로그인" color="bg-emerald-300" type="submit" />
             </div>
           </form>
 
