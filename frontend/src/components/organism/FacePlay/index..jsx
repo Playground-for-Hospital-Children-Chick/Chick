@@ -18,24 +18,27 @@ import CommonBtn from "./../../atoms/CommonBtn/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { persistor } from "./../../../main";
 
 import { logoutUser } from "./../../../api/UsersApi";
+import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 
 function FacePlay() {
   const user = useSelector((state) => state.user);
   // const [loginState, setLoginState] = useState(user);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // const navigate = useNavigate();
   const onLogout = async () => {
     const response = await logoutUser();
-
+    const purge = async () => {
+      await persistor.purge();
+    };
     if (parseInt(Number(response.status) / 100) === 2) {
-      setTimeout(() => {
-        purge();
-      }, 200);
-
-      location.reload();
+      // location.reload();
+      purge();
+      dispatch(DELETE_USER());
+      dispatch(DELETE_TOKEN());
       return;
     } else {
       console.log(response);
