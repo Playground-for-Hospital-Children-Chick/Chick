@@ -75,9 +75,6 @@ export const logoutUser = async function logout() {
     },
     credentials: "include",
   });
-  setTimeout(() => {
-    purge();
-  }, 200);
 
   console.log("로그아웃", response);
   return response;
