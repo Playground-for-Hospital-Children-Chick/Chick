@@ -45,10 +45,10 @@ public class JwtTokenUtil {
     }
 
     // JWT Access 토큰 발급 (만료시간을 파라미터로 설정)
-    public static String getAccessToken(String phone) {
+    public static String getAccessToken(String email) {
         Date expires = JwtTokenUtil.getTokenExpiration(accessExpirationTime);
         return JWT.create()
-                .withSubject(phone)
+                .withSubject(email)
                 .withExpiresAt(expires)
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))

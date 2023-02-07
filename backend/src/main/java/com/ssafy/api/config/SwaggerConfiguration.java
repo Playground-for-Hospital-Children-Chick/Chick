@@ -35,7 +35,7 @@ public class SwaggerConfiguration {
         descript += "<img src=\"http://localhost:9000/api/static/assets/img/chick.jpg\">";
         return new ApiInfoBuilder().title(title).description(descript)
 //				.termsOfServiceUrl("https://edu.ssafy.com")
-                .contact(new Contact("SSAFY", "https://edu.ssafy.com", "ssafy@ssafy.com")).license("SSAFY License")
+                .contact(new Contact("병아리", "https://i8b207.p.ssafy.com", "ssafy@ssafy.com")).license("chick License")
                 .licenseUrl("ssafy@ssafy.com").version("1.0").build();
     }
 
