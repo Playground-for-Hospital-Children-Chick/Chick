@@ -34,11 +34,11 @@ function FacePlay() {
     const purge = async () => {
       await persistor.purge();
     };
-    purge();
-    dispatch(DELETE_USER);
-    dispatch(DELETE_TOKEN);
     if (parseInt(Number(response.status) / 100) === 2) {
       // location.reload();
+      purge();
+      dispatch(DELETE_USER());
+      dispatch(DELETE_TOKEN());
       return;
     } else {
       console.log(response);
