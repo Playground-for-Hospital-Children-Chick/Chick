@@ -33,7 +33,7 @@ function RiceEat(params) {
       await persistor.purge();
     };
     if (parseInt(Number(response.status) / 100) === 2) {
-      purge();
+      await purge();
       dispatch(DELETE_USER());
       dispatch(DELETE_TOKEN());
       // setTimeout(() => {
