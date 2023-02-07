@@ -141,8 +141,11 @@ function Login() {
 
           <div className="mt-5 flex justify-center">
             <span className="mr-10 text-xl font-chick">이메일 찾기</span>
+
             <span className="mr-10 text-xl font-chick">비밀번호 찾기</span>
-            <span className="mr-10 text-xl font-chick">회원가입</span>
+            <Link to="/signup">
+              <span className="mr-10 text-xl font-chick">회원가입</span>
+            </Link>
           </div>
         </div>
       </AlertBox>
