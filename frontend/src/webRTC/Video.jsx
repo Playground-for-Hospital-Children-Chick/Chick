@@ -1,4 +1,5 @@
 import { OpenVidu } from "openvidu-browser";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { Component } from "react";
 import UserVideoComponent from "./UserVideoComponent";
@@ -437,11 +438,13 @@ class Video extends Component {
                 </div>
               ) : null}
               <div className="ml-[1em] absolute bottom-0">
-                <CommonBtn
-                  text="나가기"
-                  color={"bg-pink-300"}
-                  onClick={this.leaveSession}
-                />
+                <Link to="/">
+                  <CommonBtn
+                    text="나가기"
+                    color={"bg-pink-300"}
+                    onClick={this.leaveSession}
+                  />
+                </Link>
               </div>
             </div>
           </div>
