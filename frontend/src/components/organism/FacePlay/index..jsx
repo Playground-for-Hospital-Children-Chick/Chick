@@ -23,8 +23,8 @@ import { logoutUser } from "./../../../api/UsersApi";
 
 function FacePlay() {
   const user = useSelector((state) => state.user);
-  const [loginState, setLoginState] = useState(user);
-  const dispatch = useDispatch();
+  // const [loginState, setLoginState] = useState(user);
+  // const dispatch = useDispatch();
 
   // const navigate = useNavigate();
   const onLogout = async () => {
@@ -45,7 +45,7 @@ function FacePlay() {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        {loginState["accessToken"] == null ? (
+        {user["accessToken"] == null ? (
           <>
             <Link to="/signup">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />
