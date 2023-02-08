@@ -56,10 +56,10 @@ public class JwtTokenUtil {
     }
 
     // JWT Refresh 토큰 발급 (기 설정된 만료시간으로)
-    public static String getRefreshToken(String phone) {
+    public static String getRefreshToken(String email) {
         Date expires = JwtTokenUtil.getTokenExpiration(refreshExpirationTime);
         return JWT.create()
-                .withSubject(phone)
+                .withSubject(email)
                 .withExpiresAt(expires)
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
