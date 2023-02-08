@@ -21,7 +21,6 @@ export default class ToolbarComponent extends Component {
     this.state = { fullscreen: false };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.switchCamera = this.switchCamera.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
   }
@@ -32,11 +31,6 @@ export default class ToolbarComponent extends Component {
 
   camStatusChanged() {
     this.props.camStatusChanged();
-  }
-
-  toggleFullscreen() {
-    this.setState({ fullscreen: !this.state.fullscreen });
-    this.props.toggleFullscreen();
   }
 
   switchCamera() {
@@ -94,17 +88,6 @@ export default class ToolbarComponent extends Component {
               onClick={this.switchCamera}
             >
               <SwitchVideoIcon />
-            </IconButton>
-            <IconButton
-              color="inherit"
-              className="navButton"
-              onClick={this.toggleFullscreen}
-            >
-              {localUser !== undefined && this.state.fullscreen ? (
-                <FullscreenExit />
-              ) : (
-                <Fullscreen />
-              )}
             </IconButton>
             <IconButton
               color="secondary"
