@@ -210,11 +210,14 @@ function SignUp() {
           </div>
         </div>
         <div className="mr-[15.5em] mt-10 birth flex items-center justify-center">
-          <label className="mr-[3em] font-chick text-xl" htmlFor="birthAndSex">
+          <label
+            className="mr-[2.9em] font-chick text-xl"
+            htmlFor="birthAndSex"
+          >
             출생/성별
           </label>
           <CalenderSelectBox />
-          <div className="ml-[1em]">
+          <div className="ml-[0.5em]">
             <Sex />
           </div>
         </div>
