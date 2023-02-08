@@ -47,9 +47,9 @@ function CalenderSelectBox() {
 
   return (
     <>
-      <div className="flex gap-x-16 items-center">
+      <div className="flex gap-x-6 items-center">
         <div
-          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden gap-1 px-5 py-5 rounded-[30px]"
+          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden px-5 py-5 rounded-[30px]"
           style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         >
           <select
@@ -67,7 +67,7 @@ function CalenderSelectBox() {
           </select>
         </div>
         <div
-          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden gap-1 px-5 py-5 rounded-[30px]"
+          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden px-5 py-5 rounded-[30px]"
           style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         >
           <select
@@ -85,7 +85,7 @@ function CalenderSelectBox() {
           </select>
         </div>
         <div
-          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden gap-1 px-5 py-5 rounded-[30px]"
+          className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden px-5 py-5 rounded-[30px]"
           style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
         >
           <select
