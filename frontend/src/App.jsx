@@ -13,6 +13,8 @@ import SingDance from "./singDance/Video";
 
 import VideoRoomComponent from "./webRTC_3/VideoRoomComponent";
 
+import Logout2 from "./components/pages/TestBoard";
+
 function App() {
   const user = useSelector((state) => state.user);
 
@@ -24,13 +26,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           {/* <Route path="/facepage" element={<VideoRoomComponent />} /> */}
-          <Route
-            path="/facepage"
-            element={<Video myUserName={user["userChName"]} />}
-          />
+          <Route path="/facepage" element={<Video myUserName={user["userChName"]} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
           <Route path="/singdance" element={<SingDance />} />
+          <Route path="/test" element={<Logout2 />} />
         </Routes>
       </Router>
     </div>
