@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PaintingHomeBox from "../../molecules/PaintingHomeBox";
 import CommonBtn from "../../atoms/CommonBtn/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -7,7 +8,6 @@ import { persistor } from "../../../main";
 
 import { logoutUser } from "../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
-import PaintingHomeBox from "../../molecules/PaintingHomeBox";
 
 function Painting() {
   const user = useSelector((state) => state.user);
