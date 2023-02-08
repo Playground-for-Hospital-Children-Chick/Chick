@@ -23,6 +23,14 @@ import CommonBtn from "../components/atoms/CommonBtn";
 
 import { Link } from "react-router-dom";
 
+import Mic from "@material-ui/icons/Mic";
+import MicOff from "@material-ui/icons/MicOff";
+import Videocam from "@material-ui/icons/Videocam";
+import VideocamOff from "@material-ui/icons/VideocamOff";
+import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
+
+import IconButton from "@material-ui/core/IconButton";
+
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 // process.env.NODE_ENV === "production"
@@ -293,11 +301,24 @@ class VideoRoomComponent extends Component {
     );
   }
 
-  leaveSession() {
+  async leaveSession() {
     const mySession = this.state.session;
 
     if (mySession) {
       mySession.disconnect();
+    }
+
+    const response = await axios.post(
+      APPLICATION_SERVER_URL +
+        "api/sessions/" +
+        this.state.mySessionId +
+        "/disconnect",
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (response.status == 200) {
+      console.log("leaveSession");
     }
 
     // Empty all properties...
@@ -471,7 +492,7 @@ class VideoRoomComponent extends Component {
         ) : null}
         {this.state.session !== undefined ? (
           <div className="flex flex-row w-[90em]">
-            <ToolbarComponent
+            {/* <ToolbarComponent
               sessionId={mySessionId}
               user={localUser}
               showNotification={this.state.messageReceived}
@@ -479,21 +500,59 @@ class VideoRoomComponent extends Component {
               micStatusChanged={this.micStatusChanged}
               switchCamera={this.switchCamera}
               leaveSession={this.leaveSession}
-            />
+            /> */}
             <WebCamBoard>
               {localUser !== undefined &&
                 localUser.getStreamManager() !== undefined && (
-                  <div id="localUser">
+                  // <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
+                  <div
+                    id="localUser"
+                    className="relative m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center "
+                  >
                     <StreamComponent
                       user={localUser}
                       handleNickname={this.nicknameChanged}
                     />
+                    <div className="rounded-[30px] absolute bottom-0 right-3 flex flex-row bg-[#ffff]">
+                      <IconButton
+                        color="inherit"
+                        className="navButton"
+                        id="navCamButton"
+                        onClick={this.camStatusChanged}
+                      >
+                        {localUser !== undefined &&
+                        localUser.isVideoActive() ? (
+                          <Videocam />
+                        ) : (
+                          <VideocamOff color="secondary" />
+                        )}
+                      </IconButton>
+
+                      <IconButton
+                        color="inherit"
+                        className="navButton"
+                        id="navMicButton"
+                        onClick={this.micStatusChanged}
+                      >
+                        {localUser !== undefined &&
+                        localUser.isAudioActive() ? (
+                          <Mic />
+                        ) : (
+                          <MicOff color="secondary" />
+                        )}
+                      </IconButton>
+                    </div>
+                    {/* </div>{" "} */}
                   </div>
                 )}
 
               {this.state.subscribers.map((sub, i) =>
                 i < 3 ? (
-                  <div key={i} id="remoteUsers">
+                  <div
+                    key={i}
+                    className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center"
+                    id="remoteUsers"
+                  >
                     <StreamComponent
                       user={sub}
                       streamId={sub.streamManager.stream.streamId}
@@ -502,7 +561,7 @@ class VideoRoomComponent extends Component {
                 ) : null
               )}
 
-              {/* {this.state.subscribers.length === 0 ? (
+              {this.state.subscribers.length === 0 ? (
                 <div>
                   <FriendIsComing />
                 </div>
@@ -533,12 +592,12 @@ class VideoRoomComponent extends Component {
                 <div>
                   <FriendIsComing />
                 </div>
-              ) : null} */}
+              ) : null}
             </WebCamBoard>
 
             <div className="relative w-[9.5em]">
               <CommonBtn
-                text="AR 버튼"
+                text="얼굴놀이"
                 color={"bg-blue-300"}
                 onClick={this.applyDeepAR}
               />
@@ -561,6 +620,7 @@ class VideoRoomComponent extends Component {
                   </div>
                 </div>
               ) : null}
+
               <div className="ml-[1em] absolute bottom-0">
                 <Link to="/">
                   <CommonBtn text="나가기" color={"bg-pink-300"} />
@@ -574,18 +634,24 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
-    const sessionId = await this.createSession(this.state.mySessionId);
+    const sessionId = await this.createSession(this.props.email);
+    this.setState({
+      mySessionId: sessionId,
+    });
+
     return await this.createToken(sessionId);
   }
 
-  async createSession(sessionId) {
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions",
-      { customSessionId: sessionId },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  async createSession(email) {
+    const response = await axios({
+      method: "post",
+      url: APPLICATION_SERVER_URL + "api/sessions",
+      data: {
+        email: email,
+        gameType: "face",
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    });
     return response.data; // The sessionId
   }
 
