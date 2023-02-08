@@ -151,13 +151,15 @@ export const accessTokenReIssue = async () => {
 };
 
 //회원가입
-export const singUpUser = async function logout() {
-  const response = await fetch(`${BASE_URL}/api/users/register`, {
+export const siginupUser = async function signup(credentials) {
+  const response = await axios({
     method: "POST",
+    url: `${BASE_URL}/users/register`,
+    data: credentials,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
     },
-    credentials: "include",
+    withCredentials: true,
   });
 
   console.log("로그아웃", response);
