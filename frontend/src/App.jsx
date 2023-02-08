@@ -23,11 +23,11 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          {/* <Route path="/facepage" element={<VideoRoomComponent />} /> */}
-          <Route
+          <Route path="/facepage" element={<VideoRoomComponent />} />
+          {/* <Route
             path="/facepage"
             element={<Video myUserName={user["userChName"]} />}
-          />
+          /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
           <Route path="/singdance" element={<SingDance />} />
