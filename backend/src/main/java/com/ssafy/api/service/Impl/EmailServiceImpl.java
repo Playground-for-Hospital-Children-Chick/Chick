@@ -48,6 +48,7 @@ public class EmailServiceImpl implements EmailService {
         return message;
     }
 
+
     public static String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
@@ -84,4 +85,5 @@ public class EmailServiceImpl implements EmailService {
         }
         return ePw;
     }
+
 }

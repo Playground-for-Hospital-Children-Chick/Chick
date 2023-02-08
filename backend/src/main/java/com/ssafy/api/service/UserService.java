@@ -15,4 +15,6 @@ public interface UserService {
         public boolean deleteUser(UserLoginPostReq deleteInfo);
 
         public UserInfoRes getUserInfo(String email);
+
+        public String sendPwdMessage(String to)throws Exception;
 }
