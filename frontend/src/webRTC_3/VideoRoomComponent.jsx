@@ -4,12 +4,17 @@ import React, { Component } from "react";
 import StreamComponent from "./StreamComponent";
 import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
+import WebCamBoard from "../components/atoms/WebCamBoard";
+import FriendIsComing from "../components/atoms/FriendIsComing";
+
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://i8b207.p.ssafy.io/"
-    : "http://localhost:5000/";
+const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+// process.env.NODE_ENV === "production"
+//   ? "https://i8b207.p.ssafy.io/"
+//   : "http://localhost:5000/";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -134,7 +139,7 @@ class VideoRoomComponent extends Component {
       videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
-      resolution: "640x480",
+      resolution: "555x307",
       frameRate: 30,
       insertMode: "APPEND",
     });
@@ -385,42 +390,120 @@ class VideoRoomComponent extends Component {
     const localUser = this.state.localUser;
 
     return (
-      <div className="container" id="container">
-        <ToolbarComponent
-          sessionId={mySessionId}
-          user={localUser}
-          showNotification={this.state.messageReceived}
-          camStatusChanged={this.camStatusChanged}
-          micStatusChanged={this.micStatusChanged}
-          toggleFullscreen={this.toggleFullscreen}
-          switchCamera={this.switchCamera}
-          leaveSession={this.leaveSession}
-          toggleChat={this.toggleChat}
-        />
+      <div>
+        {this.state.session === undefined ? (
+          <div className="p-2 m-2">
+            <Box sx={{ width: "50%" }}>
+              <CircularProgress />
+            </Box>
+          </div>
+        ) : null}
+        {this.state.session !== undefined ? (
+          <div className="flex flex-row w-[90em]">
+            <ToolbarComponent
+              sessionId={mySessionId}
+              user={localUser}
+              showNotification={this.state.messageReceived}
+              camStatusChanged={this.camStatusChanged}
+              micStatusChanged={this.micStatusChanged}
+              toggleFullscreen={this.toggleFullscreen}
+              switchCamera={this.switchCamera}
+              leaveSession={this.leaveSession}
+            />
+            <WebCamBoard>
+              {localUser !== undefined &&
+                localUser.getStreamManager() !== undefined && (
+                  <div
+                    className="OT_root OT_publisher custom-class"
+                    id="localUser"
+                  >
+                    <StreamComponent
+                      user={localUser}
+                      handleNickname={this.nicknameChanged}
+                    />
+                  </div>
+                )}
 
-        <div id="layout" className="bounds">
-          {localUser !== undefined &&
-            localUser.getStreamManager() !== undefined && (
-              <div className="OT_root OT_publisher custom-class" id="localUser">
-                <StreamComponent
-                  user={localUser}
-                  handleNickname={this.nicknameChanged}
-                />
-              </div>
-            )}
-          {this.state.subscribers.map((sub, i) => (
-            <div
-              key={i}
-              className="OT_root OT_publisher custom-class"
-              id="remoteUsers"
-            >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
+              {this.state.subscribers.map((sub, i) =>
+                i < 3 ? (
+                  <StreamComponent
+                    user={sub}
+                    streamId={sub.streamManager.stream.streamId}
+                  />
+                ) : null
+              )}
+
+              {this.state.subscribers.length === 0 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+              {this.state.subscribers.length === 0 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+              {this.state.subscribers.length === 0 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+
+              {this.state.subscribers.length === 1 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+              {this.state.subscribers.length === 1 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+
+              {this.state.subscribers.length === 2 ? (
+                <div>
+                  <FriendIsComing />
+                </div>
+              ) : null}
+            </WebCamBoard>
+
+            {/* <div className="relative w-[9.5em]">
+              <CommonBtn
+                text="AR 버튼"
+                color={"bg-blue-300"}
+                onClick={this.applyDeepAR}
               />
-            </div>
-          ))}
-        </div>
+
+              {this.state.arEnable === true ? (
+                <div>
+                  <div
+                    id="slider"
+                    className="justify-between mt-[1em] h-[28em] overflow-y-scroll flex flex-col scrollbar-hide"
+                  >
+                    {data.map((item) => (
+                      <button
+                        key={item.id}
+                        className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
+                        onClick={() => this.changeEffectOne(item.path)}
+                      >
+                        {item.img}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              <div className="ml-[1em] absolute bottom-0">
+                <Link to="/">
+                  <CommonBtn
+                    text="나가기"
+                    color={"bg-pink-300"}
+                    onClick={this.leaveSession}
+                  />
+                </Link>
+              </div>
+            </div> */}
+          </div>
+        ) : null}
       </div>
     );
   }
