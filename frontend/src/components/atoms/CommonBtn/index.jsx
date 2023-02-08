@@ -24,7 +24,7 @@ default="blue"
 
 function CommonBtn({ onClick, type, text = "Button", color }) {
   const classStr = classnames(
-    `font-chick  p-3 mx-2 my-5 h-[70px] overflow-hidden rounded-[30px]`,
+    `font-chick  p-3 mx-2 h-[70px] overflow-hidden rounded-[30px]`,
     color
   );
   return (
