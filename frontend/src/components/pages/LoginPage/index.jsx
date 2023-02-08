@@ -27,12 +27,8 @@ function Login() {
   const [password, setPassword] = useState("");
 
   // useForm 사용을 위한 선언
-  const {
-    setValue,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-
+  const { setValue, formState, handleSubmit, register } = useForm();
+  const { errors } = formState;
   const onEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -41,8 +37,13 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const onLogin = async () => {
-    const response = await loginUser({ email, password });
+  const test = (e) => {
+    console.log(e);
+  };
+
+  const onLogin = async (userinput) => {
+    console.log(userinput);
+    const response = await loginUser(userinput);
 
     if (parseInt(Number(response.status) / 100) === 2) {
       // setTimeout(() => {
@@ -85,6 +86,7 @@ function Login() {
           </span>
         </div>
         <div className="form ">
+          {/* <form className="mt-8 space-y-6" onSubmit={handleSubmit(onLogin)}> */}
           <form className="mt-8 space-y-6" onSubmit={handleSubmit(onLogin)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div>
@@ -92,41 +94,72 @@ function Login() {
                 <label className="mr-5 font-chick text-lg" htmlFor="email">
                   이메일
                 </label>
-                <InputBox
-                  usefor="email"
-                  text={email}
-                  onChange={onEmailChange}
-                  type="text"
-                  placeholder={"이메일을 입력해주세요".toString()}
-                />
-                <ErrorMessage
-                  name="email"
-                  errors={errors}
-                  render={({ message }) => (
-                    <p className="text-sm font-medium text-rose-500">
-                      {message}
-                    </p>
-                  )}
-                />
+                <div className="relative">
+                  <InputBox
+                    register={register("email", {
+                      required: "이메일을 입력하지 않았습니다.",
+                      pattern: {
+                        message: "이메일형식이 잘못되었습니다.",
+                        value:
+                          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                      },
+                    })}
+                    // onChange={onEmailChange}
+                    type="text"
+                    placeholder={"이메일을 입력해주세요".toString()}
+                  />
+                  <div className="relatvie w-full">
+                    <ErrorMessage
+                      name="email"
+                      errors={errors}
+                      render={({ message }) =>
+                        message == "이메일을 입력하지 않았습니다." ? (
+                          <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                            {message}
+                          </div>
+                        ) : (
+                          <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
+                            {message}
+                          </div>
+                        )
+                      }
+                    />
+                  </div>
+                </div>
               </div>
               <div className="mb-10 flex justify-center items-center mr-[5.5em]">
                 <label className="mr-5 font-chick text-lg" htmlFor="password">
                   비밀번호
                 </label>
-                <InputBox
-                  usefor="password"
-                  type="password"
-                  onChange={onPasswordChange}
-                  text={password}
-                  placeholder={"비밀번호를 입력해주세요".toString()}
-                />
-                <ErrorMessage
-                  name="password"
-                  errors={errors}
-                  render={({ message }) => (
-                    <p className="text-sm font-chick">{message}</p>
-                  )}
-                />
+                <div className="relative">
+                  <InputBox
+                    register={register("password", {
+                      required: "암호를 입력하지 않았습니다.",
+                      // pattern: {
+                      //   message: "암호를 확인해주세요.",
+                      //   value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+                      // },
+                    })}
+                    // onChange={onEmailChange}
+                    type="password"
+                    placeholder={"암호를 입력해주세요".toString()}
+                  />
+                  {/* <ErrorMessage
+                    name="password"
+                    errors={errors}
+                    render={({ message }) =>
+                      message == "암호를 입력하지 않았습니다." ? (
+                        <div className="absolute top-16 text-md font-chick right-[32%]  text-center text-red-500">
+                          {message}
+                        </div>
+                      ) : (
+                        <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-red-500">
+                          {message}
+                        </div>
+                      )
+                    }
+                  /> */}
+                </div>
               </div>
             </div>
             <div>

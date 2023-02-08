@@ -1,6 +1,6 @@
 import classnames from "classnames";
 
-function InputBox({ text, onChange, type, placeholder, marginleft }) {
+function InputBox({ register, text, onChange, type, placeholder, marginleft }) {
   const classStr1 = classnames(
     `text-xl text-center font-chick flex justify-center items-center w-[466px] h-[60px] relative overflow-hidden gap-1 px-16 py-5 rounded-[30px] bg-[#fcfcfc]`,
     marginleft
@@ -8,6 +8,7 @@ function InputBox({ text, onChange, type, placeholder, marginleft }) {
 
   return (
     <input
+      {...register}
       value={text}
       type={type}
       onChange={onChange}
