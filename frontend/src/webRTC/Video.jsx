@@ -29,15 +29,6 @@ import CommonBtn from "../components/atoms/CommonBtn";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
-var filters = [
-  "/effects/lion",
-  "/effects/flowers",
-  "/effects/dalmatian",
-  "/effects/background_segmentation",
-  "/effects/background_blur",
-  "/effects/aviators",
-];
-
 const data = [
   { id: 1, img: <ArLion />, path: "/effects/lion" },
   { id: 2, img: <ArFlower />, path: "/effects/flowers" },
