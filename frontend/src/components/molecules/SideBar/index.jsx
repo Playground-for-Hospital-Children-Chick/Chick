@@ -60,6 +60,57 @@ function SideBar({ index, setIndex }) {
           />
         </div>
       )}
+      {index == 2 ? (
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn
+            type={"dance"}
+            selected={true}
+            onClick={() => setIndex(2)}
+          />
+        </div>
+      ) : (
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn
+            type={"dance"}
+            selected={false}
+            onClick={() => setIndex(2)}
+          />
+        </div>
+      )}
+      {index == 3 ? (
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn
+            type={"painting"}
+            selected={true}
+            onClick={() => setIndex(3)}
+          />
+        </div>
+      ) : (
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn
+            type={"painting"}
+            selected={false}
+            onClick={() => setIndex(3)}
+          />
+        </div>
+      )}
+      {index == 4 ? (
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn
+            type={"myPage"}
+            selected={true}
+            onClick={() => setIndex(4)}
+          />
+        </div>
+      ) : (
+        <div className="inline-flex justify-center w-[100%]">
+          <SideBarBtn
+            type={"myPage"}
+            selected={false}
+            onClick={() => setIndex(4)}
+          />
+        </div>
+      )}
     </SideBarBase>
   );
 }
