@@ -33,8 +33,8 @@ pipeline {
            stage('Deploy') {
             steps {
               script {
-                // sh 'docker stop nginx'
-                // sh 'docker rm nginx'
+                sh 'docker stop nginx'
+                sh 'docker rm nginx'
                 sh 'docker run -d --name nginx -p 3000:80 -u root basepage/nginx'
               }
             }
