@@ -4,6 +4,7 @@ import InputBox from "../../atoms/Input";
 import CalenderSelectBox from "../../atoms/CalenderSelectBox";
 import { Link } from "react-router-dom";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
+import Sex from "../../atoms/Sex";
 import { useForm } from "react-hook-form";
 
 import { useState } from "react";
@@ -24,14 +25,14 @@ function SignUp() {
           <CommonBtn text="로그인" color="bg-blue-300" />
         </Link>
       </div>
-      <form className=" space-y-6" onSubmit={handleSubmit(onSignup)}>
-        <div className=" gap-x-14 email flex items-center justify-center">
-          <label className="mr-[1em] font-chick text-xl" htmlFor="email">
+      <form className=" space-y-8" onSubmit={handleSubmit(onSignup)}>
+        <div className="gap-x-14 email flex items-center justify-center">
+          <label className="mr-[1em] font-chick text-xl" htmlFor="user_email">
             이메일
           </label>
           <div className="relative">
             <InputBox
-              register={register("email", {
+              register={register("user_email", {
                 required: "이메일을 입력하지 않았습니다.",
                 pattern: {
                   message: "이메일형식이 잘못되었습니다.",
@@ -45,7 +46,7 @@ function SignUp() {
             />
             <div className="relatvie w-full">
               <ErrorMessage
-                name="email"
+                name="user_email"
                 errors={errors}
                 render={({ message }) =>
                   message == "이메일을 입력하지 않았습니다." ? (
@@ -64,29 +65,28 @@ function SignUp() {
           <CommonBtn text="이메일 확인" color="bg-emerald-300" />
         </div>
         <div className="mr-[15em] gap-x-5 mt-10 password flex items-center justify-center">
-          <label className="mr-[1.9em] font-chick text-xl" htmlFor="password">
+          <label
+            className="mr-[1.9em] font-chick text-xl"
+            htmlFor="user_password"
+          >
             비밀번호
           </label>
           <div className="relative">
             <InputBox
-              register={register(
-                "user_password                                                                                                                                                                                    ",
-                {
-                  required: "비밀번호를 입력하지 않았습니다.",
-                  pattern: {
-                    message: "비밀번호형식이 잘못되었습니다.",
-                    value:
-                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
-                  },
-                }
-              )}
+              register={register("user_password", {
+                required: "비밀번호를 입력하지 않았습니다.",
+                pattern: {
+                  message: "비밀번호를 확인해주세요.",
+                  value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+                },
+              })}
               // onChange={onEmailChange}
               type="text"
               placeholder={"비밀번호를 입력해주세요".toString()}
             />
             <div className="relatvie w-full">
               <ErrorMessage
-                name="email"
+                name="user_password"
                 errors={errors}
                 render={({ message }) =>
                   message == "비밀번호를 입력하지 않았습니다." ? (
@@ -103,21 +103,72 @@ function SignUp() {
             </div>
           </div>
         </div>
-        <div className="mr-[15em] mt-10 passwordcheck flex items-center justify-center">
-          <label
-            className="mr-[0.8em] font-chick text-xl"
-            htmlFor="passwordcheck"
-          >
+        <div className="mr-[15em] gap-x-5 mt-10 password flex items-center justify-center">
+          <label className=" font-chick text-xl" htmlFor="user_password_check">
             비밀번호 확인
           </label>
-          <InputBox />
+          <div className="relative">
+            <InputBox
+              register={register("user_password_check", {
+                required: "비밀번호를 입력하지 않았습니다.",
+                pattern: {
+                  message: "비밀번호형식이 잘못되었습니다.",
+                  value:
+                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                },
+              })}
+              // onChange={onEmailChange}
+              type="text"
+              placeholder={"비밀번호를 입력해주세요".toString()}
+            />
+            <div className="relatvie w-full">
+              <ErrorMessage
+                name="user_password_check"
+                errors={errors}
+                render={({ message }) =>
+                  message == "비밀번호를 입력하지 않았습니다." ? (
+                    <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                      {message}
+                    </div>
+                  ) : (
+                    <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
+                      {message}
+                    </div>
+                  )
+                }
+              />
+            </div>
+          </div>
         </div>
-        <div className="ml-[0.4em] mr-[15.5em] mt-10 childname flex items-center justify-center">
-          <label className="mr-[1.6em] font-chick text-xl" htmlFor="childname">
+        <div className="mr-[15em] gap-x-5 mt-10 password flex items-center justify-center">
+          <label
+            className="mr-[2.2em] font-chick text-xl"
+            htmlFor="user_child_name"
+          >
             자녀이름
           </label>
-          <div className="ml-[1.9em] mr">
-            <InputBox />
+          <div className="relative">
+            <InputBox
+              register={register("user_child_name", {
+                required: "자녀 이름을 입력하지 않았습니다.",
+              })}
+              // onChange={onEmailChange}
+              type="text"
+              placeholder={"자녀 이름을 입력해주세요".toString()}
+            />
+            <div className="relatvie w-full">
+              <ErrorMessage
+                name="user_child_name"
+                errors={errors}
+                render={({ message }) =>
+                  message == "자녀 이름을 입력하지 않았습니다." ? (
+                    <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                      {message}
+                    </div>
+                  ) : null
+                }
+              />
+            </div>
           </div>
         </div>
         <div className="ml-[0.4] mr-[16em] gap-x-14 user_parent_name flex items-center justify-center">
@@ -140,33 +191,32 @@ function SignUp() {
                 })}
                 // onChange={onEmailChange}
                 type="text"
-                placeholder={"이메일을 입력해주세요".toString()}
+                placeholder={"부모님 이름을 입력해주세요".toString()}
               />
             </div>
             <div className="relatvie w-full">
               <ErrorMessage
-                name="email"
+                name="user_parent_name"
                 errors={errors}
                 render={({ message }) =>
                   message == "부모님 이름을 입력하지 않았습니다." ? (
                     <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
                       {message}
                     </div>
-                  ) : (
-                    <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
-                      {message}
-                    </div>
-                  )
+                  ) : null
                 }
               />
             </div>
           </div>
         </div>
         <div className="mr-[15.5em] mt-10 birth flex items-center justify-center">
-          <label className="mr-[4.5em] font-chick text-xl" htmlFor="birth">
-            출생
+          <label className="mr-[3em] font-chick text-xl" htmlFor="birthAndSex">
+            출생/성별
           </label>
           <CalenderSelectBox />
+          <div className="ml-[1em]">
+            <Sex />
+          </div>
         </div>
         <div className="mr-[10em] mt-10">
           <GamePlayBtn text="회원가입" color="bg-emerald-300" type="submit" />
