@@ -301,11 +301,24 @@ class VideoRoomComponent extends Component {
     );
   }
 
-  leaveSession() {
+  async leaveSession() {
     const mySession = this.state.session;
 
     if (mySession) {
       mySession.disconnect();
+    }
+
+    const response = await axios.post(
+      APPLICATION_SERVER_URL +
+        "api/sessions/" +
+        this.state.mySessionId +
+        "/disconnect",
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (response.status == 200) {
+      console.log("leaveSession");
     }
 
     // Empty all properties...
@@ -621,18 +634,24 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
-    const sessionId = await this.createSession(this.state.mySessionId);
+    const sessionId = await this.createSession(this.props.email);
+    this.setState({
+      mySessionId: sessionId,
+    });
+
     return await this.createToken(sessionId);
   }
 
-  async createSession(sessionId) {
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions",
-      { customSessionId: sessionId },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  async createSession(email) {
+    const response = await axios({
+      method: "post",
+      url: APPLICATION_SERVER_URL + "api/sessions",
+      data: {
+        email: email,
+        gameType: "face",
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    });
     return response.data; // The sessionId
   }
 
