@@ -9,6 +9,11 @@ import Painting from "../../organism/Painting";
 function HomePage({ children }) {
   let [index, setIndex] = React.useState(0);
 
+  if (self.name != "reload" && index == 0) {
+    self.name = "reload";
+    self.location.reload(true);
+  } else self.name = "";
+
   if (index == 0) {
     return (
       <div className="flex flex-row">
