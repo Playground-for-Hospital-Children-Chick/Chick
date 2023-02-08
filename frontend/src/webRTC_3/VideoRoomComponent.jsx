@@ -39,13 +39,13 @@ const DEEP_AR_LICENSE_KEY =
 const data = [
   { id: 1, img: <ArLion />, path: "/effects/lion" },
   { id: 2, img: <ArFlower />, path: "/effects/flowers" },
-  { id: 3, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
-  { id: 4, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
-  { id: 5, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
-  { id: 6, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
-  { id: 7, img: <ArSnail />, path: "/effects/Snail.deepar" },
-  { id: 8, img: <ArKoala />, path: "/effects/koala" },
-  { id: 9, img: <ArDalmatian />, path: "/effects/dalmatian" },
+  { id: 3, img: <ArKoala />, path: "/effects/koala" },
+  { id: 4, img: <ArDalmatian />, path: "/effects/dalmatian" },
+  { id: 5, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
+  { id: 6, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
+  { id: 7, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
+  { id: 8, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
+  { id: 9, img: <ArSnail />, path: "/effects/Snail.deepar" },
 ];
 
 class VideoRoomComponent extends Component {
