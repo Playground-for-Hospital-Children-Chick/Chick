@@ -1,7 +1,7 @@
-import Video from "./Video";
+// import Video from "./Video";
 
 function PaintingPage(params) {
-  return <Video />;
+  return <></>;
 }
 
 export default PaintingPage;
