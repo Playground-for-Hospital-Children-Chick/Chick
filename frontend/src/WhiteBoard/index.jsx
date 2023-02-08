@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import io from "socket.io-client";
+import Eraser from "../assets/images/board/eraser.png";
 import "./styles/board.css";
 
 const Board = () => {
@@ -144,13 +145,27 @@ const Board = () => {
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
 
+    const onErasingEvent = () => {
+      clearBoard(false);
+    };
+
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+    socketRef.current.on("drawing", onDrawingEvent);
+    socketRef.current.on("erasing", onErasingEvent);
     // socketRef.current = io.connect("wss://i8b207.p.ssafy.io");
     // socketRef.current = io.connect("ws://43.201.16.17:8001");
     // socketRef.current = io.connect("ws://localhost:8001");
-    socketRef.current.on("drawing", onDrawingEvent);
   }, []);
-
+  function clearBoard(emit) {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    if (!emit) {
+      return;
+    }
+    socketRef.current.emit("erasing");
+  }
   // ------------- The Canvas and color elements --------------------------
 
   return (
@@ -163,9 +178,10 @@ const Board = () => {
         <div className="color green" />
         <div className="color blue" />
         <div className="color yellow" />
+        <button onClick={() => clearBoard(true)}>지우기</button>
       </div>
     </div>
   );
 };
-
+/* <img src={Eraser} alt="Eraser" /> */
 export default Board;
