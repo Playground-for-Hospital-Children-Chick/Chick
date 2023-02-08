@@ -85,7 +85,12 @@ class VideoRoomComponent extends Component {
 
   //AR 효과 바꾸기(AR이 실행중이어야 동작)
   changeEffect(effectName) {
-    this.state.deepAR.switchEffect(0, "slot", effectName);
+    if (effectName === "reset") {
+      // console.log("effect reset");
+      this.state.deepAR.clearEffect("slot");
+    } else {
+      this.state.deepAR.switchEffect(0, "slot", effectName);
+    }
   }
 
   async applyDeepAR() {
@@ -94,10 +99,7 @@ class VideoRoomComponent extends Component {
         arEnable: false,
       });
 
-      await this.setState({
-        currentVideoDevice: undefined,
-        deepAR: undefined,
-      });
+      this.changeEffect("reset");
     } else {
       this.setState({
         arEnable: true,
@@ -106,24 +108,26 @@ class VideoRoomComponent extends Component {
       await this.setState({
         currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
       });
+
+      let publisher = this.OV.initPublisher(undefined, {
+        audioSource: undefined,
+        videoSource: this.state.currentVideoDevice,
+        publishAudio: localUser.isAudioActive(),
+        publishVideo: localUser.isVideoActive(),
+        mirror: true,
+        resolution: "555x307",
+        frameRate: 30,
+      });
+
+      await this.state.session.unpublish(
+        this.state.localUser.getStreamManager()
+      );
+      await this.state.session.publish(publisher);
+      this.state.localUser.setStreamManager(publisher);
+      this.setState({
+        localUser: localUser,
+      });
     }
-
-    let publisher = this.OV.initPublisher(undefined, {
-      audioSource: undefined,
-      videoSource: this.state.currentVideoDevice,
-      publishAudio: localUser.isAudioActive(),
-      publishVideo: localUser.isVideoActive(),
-      mirror: true,
-      resolution: "555x307",
-      frameRate: 30,
-    });
-
-    await this.state.session.unpublish(this.state.localUser.getStreamManager());
-    await this.state.session.publish(publisher);
-    this.state.localUser.setStreamManager(publisher);
-    this.setState({
-      localUser: localUser,
-    });
   }
 
   //AR Video Start
@@ -295,6 +299,7 @@ class VideoRoomComponent extends Component {
   }
 
   async leaveSession() {
+    this.state.deepAR.stopVideo();
     const mySession = this.state.session;
 
     if (mySession) {
