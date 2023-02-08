@@ -8,7 +8,10 @@ import HomePage from "./components/pages/HomePage/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
 import { useSelector } from "react-redux";
+
 import SingDance from "./singDance/Video";
+
+import VideoRoomComponent from "./webRTC_3/VideoRoomComponent";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -20,6 +23,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          {/* <Route path="/facepage" element={<VideoRoomComponent />} /> */}
           <Route
             path="/facepage"
             element={<Video myUserName={user["userChName"]} />}
