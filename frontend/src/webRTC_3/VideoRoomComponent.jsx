@@ -86,17 +86,26 @@ class VideoRoomComponent extends Component {
       this.setState({
         arEnable: false,
       });
+      await this.OV.getUserMedia({
+        audioSource: undefined,
+        videoSource: undefined,
+      });
+      var devices = await this.OV.getDevices();
+      var videoDevices = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      await this.setState({
+        currentVideoDevice: videoDevices[0],
+      });
     } else {
       this.setState({
         arEnable: true,
       });
+      this.startDeepAR(this.canvasRef);
+      await this.setState({
+        currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
+      });
     }
-
-    this.startDeepAR(this.canvasRef);
-
-    await this.setState({
-      currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
-    });
 
     var newPublisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
