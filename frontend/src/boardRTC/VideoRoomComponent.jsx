@@ -2,6 +2,7 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import StreamComponent from "./StreamComponent";
+import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
 import WebCamBoard from "../components/atoms/WebCamBoard";
 import FriendIsComing from "../components/atoms/FriendIsComing";
@@ -9,15 +10,6 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import ArDevilHorns from "../components/atoms/ArDevilHorns";
-import ArLElephantTrunk from "../components/atoms/ArElephantTrunk";
-import ArGalaxy from "../components/atoms/ArGalaxy";
-import ArLion from "../components/atoms/ArLion";
-import ArMakeUpSplit from "../components/atoms/ArMakeUpSplit";
-import ArSnail from "../components/atoms/ArSnail";
-import ArFlower from "./../components/atoms/ArFlower/index";
-import ArKoala from "../components/atoms/ArKoala";
-import ArDalmatian from "../components/atoms/ArDalmatian";
 import CommonBtn from "../components/atoms/CommonBtn";
 
 import { Link } from "react-router-dom";
@@ -31,24 +23,8 @@ import IconButton from "@material-ui/core/IconButton";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
-// const APPLICATION_SERVER_URL = import.meta.env.APPLICATION_SERVER_URL;
-const DEEP_AR_LICENSE_KEY =
-  "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea";
-// const DEEP_AR_LICENSE_KEY = import.meta.env.DEEP_AR_LICENSE_KEY;
 
-const data = [
-  { id: 1, img: <ArLion />, path: "/effects/lion" },
-  { id: 2, img: <ArFlower />, path: "/effects/flowers" },
-  { id: 3, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
-  { id: 4, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
-  { id: 5, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
-  { id: 6, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
-  { id: 7, img: <ArSnail />, path: "/effects/Snail.deepar" },
-  { id: 8, img: <ArKoala />, path: "/effects/koala" },
-  { id: 9, img: <ArDalmatian />, path: "/effects/dalmatian" },
-];
-
-class VideoRoomComponent extends Component {
+class SmallVideoRoomComponent extends Component {
   constructor(props) {
     super(props);
     let sessionName = this.props.sessionName
@@ -75,79 +51,8 @@ class VideoRoomComponent extends Component {
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
-    this.nicknameChanged = this.nicknameChanged.bind(this);
+
     this.switchCamera = this.switchCamera.bind(this);
-
-    this.canvasRef = document.createElement("canvas");
-    this.applyDeepAR = this.applyDeepAR.bind(this);
-    this.changeEffect = this.changeEffect.bind(this);
-  }
-
-  //AR 효과 바꾸기(AR이 실행중이어야 동작)
-  changeEffect(effectName) {
-    if (effectName === "reset") {
-      // console.log("effect reset");
-      this.state.deepAR.clearEffect("slot");
-    } else {
-      this.state.deepAR.switchEffect(0, "slot", effectName);
-    }
-  }
-
-  async applyDeepAR() {
-    if (this.state.arEnable) {
-      this.setState({
-        arEnable: false,
-      });
-
-      this.changeEffect("reset");
-    } else {
-      this.setState({
-        arEnable: true,
-      });
-      this.startDeepAR(this.canvasRef);
-      await this.setState({
-        currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
-      });
-
-      let publisher = this.OV.initPublisher(undefined, {
-        audioSource: undefined,
-        videoSource: this.state.currentVideoDevice,
-        publishAudio: localUser.isAudioActive(),
-        publishVideo: localUser.isVideoActive(),
-        mirror: true,
-        resolution: "555x307",
-        frameRate: 30,
-      });
-
-      await this.state.session.unpublish(
-        this.state.localUser.getStreamManager()
-      );
-      await this.state.session.publish(publisher);
-      this.state.localUser.setStreamManager(publisher);
-      this.setState({
-        localUser: localUser,
-      });
-    }
-  }
-
-  //AR Video Start
-  startDeepAR(canvas) {
-    var { DeepAR } = window;
-
-    this.state.deepAR = DeepAR({
-      canvasWidth: 550,
-      canvasHeight: 307,
-      licenseKey: DEEP_AR_LICENSE_KEY,
-      canvas: canvas,
-      numberOfFaces: 3,
-      libPath: "/lib",
-      segmentationInfoZip: "segmentation.zip",
-      onInitialize: () => {
-        this.state.deepAR.startVideo(true);
-      },
-    });
-
-    this.state.deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
   }
 
   componentDidMount() {
@@ -243,7 +148,7 @@ class VideoRoomComponent extends Component {
       videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
-      resolution: "555x307",
+      resolution: "300x200",
       frameRate: 30,
       insertMode: "APPEND",
     });
@@ -299,7 +204,6 @@ class VideoRoomComponent extends Component {
   }
 
   async leaveSession() {
-    this.state.deepAR.stopVideo();
     const mySession = this.state.session;
 
     if (mySession) {
@@ -335,6 +239,7 @@ class VideoRoomComponent extends Component {
       this.props.leaveSession();
     }
   }
+
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
     localUser.getStreamManager().publishVideo(localUser.isVideoActive());
@@ -347,15 +252,6 @@ class VideoRoomComponent extends Component {
     localUser.getStreamManager().publishAudio(localUser.isAudioActive());
     this.sendSignalUserChanged({ isAudioActive: localUser.isAudioActive() });
     this.setState({ localUser: localUser });
-  }
-
-  nicknameChanged(nickname) {
-    let localUser = this.state.localUser;
-    localUser.setNickname(nickname);
-    this.setState({ localUser: localUser });
-    this.sendSignalUserChanged({
-      nickname: this.state.localUser.getNickname(),
-    });
   }
 
   deleteSubscriber(stream) {
@@ -490,131 +386,99 @@ class VideoRoomComponent extends Component {
         ) : null}
         {this.state.session !== undefined ? (
           <div className="flex flex-row w-[90em]">
-            <WebCamBoard>
-              {localUser !== undefined &&
-                localUser.getStreamManager() !== undefined && (
-                  // <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
-                  <div
-                    id="localUser"
-                    className="relative m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center "
-                  >
-                    <StreamComponent
-                      user={localUser}
-                      handleNickname={this.nicknameChanged}
-                    />
-                    <div className="rounded-[30px] absolute bottom-0 right-3 flex flex-row bg-[#ffff]">
-                      <IconButton
-                        color="inherit"
-                        className="navButton"
-                        id="navCamButton"
-                        onClick={this.camStatusChanged}
-                      >
-                        {localUser !== undefined &&
-                        localUser.isVideoActive() ? (
-                          <Videocam />
-                        ) : (
-                          <VideocamOff color="secondary" />
-                        )}
-                      </IconButton>
-
-                      <IconButton
-                        color="inherit"
-                        className="navButton"
-                        id="navMicButton"
-                        onClick={this.micStatusChanged}
-                      >
-                        {localUser !== undefined &&
-                        localUser.isAudioActive() ? (
-                          <Mic />
-                        ) : (
-                          <MicOff color="secondary" />
-                        )}
-                      </IconButton>
-                    </div>
-                    {/* </div>{" "} */}
-                  </div>
-                )}
-
-              {this.state.subscribers.map((sub, i) =>
-                i < 3 ? (
-                  <div
-                    key={i}
-                    className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center"
-                    id="remoteUsers"
-                  >
-                    <StreamComponent
-                      user={sub}
-                      streamId={sub.streamManager.stream.streamId}
-                    />
-                  </div>
-                ) : null
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  id="localUser"
+                  className="relative m-3 rounded-[30px] w-[300px] h-[200px] flex items-center justify-center "
+                >
+                  <StreamComponent
+                    user={localUser}
+                    handleNickname={this.nicknameChanged}
+                  />
+                </div>
               )}
 
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
+            {this.state.subscribers.map((sub, i) =>
+              i < 3 ? (
+                <div
+                  key={i}
+                  className=" m-3 rounded-[30px] w-[300px] h-[200px] flex items-center justify-center"
+                  id="remoteUsers"
+                >
+                  <StreamComponent
+                    user={sub}
+                    streamId={sub.streamManager.stream.streamId}
+                  />
                 </div>
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
+              ) : null
+            )}
 
-              {this.state.subscribers.length === 1 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 1 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-
-              {this.state.subscribers.length === 2 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-            </WebCamBoard>
-
-            <div className="relative w-[9.5em]">
-              <CommonBtn
-                text="얼굴놀이"
-                color={"bg-blue-300"}
-                onClick={this.applyDeepAR}
-              />
-
-              {this.state.arEnable === true ? (
-                <div>
-                  <div
-                    id="slider"
-                    className="justify-between mt-[1em] h-[28em] overflow-y-scroll flex flex-col scrollbar-hide"
-                  >
-                    {data.map((item) => (
-                      <button
-                        key={item.id}
-                        className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
-                        onClick={() => this.changeEffect(item.path)}
-                      >
-                        {item.img}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-
-              <div className="ml-[1em] absolute bottom-0">
-                <Link to="/">
-                  <CommonBtn text="나가기" color={"bg-pink-300"} />
-                </Link>
+            {/* {this.state.subscribers.length === 0 ? (
+              <div>
+                <FriendIsComing />
               </div>
+            ) : null}
+            {this.state.subscribers.length === 0 ? (
+              <div>
+                <FriendIsComing />
+              </div>
+            ) : null}
+            {this.state.subscribers.length === 0 ? (
+              <div>
+                <FriendIsComing />
+              </div>
+            ) : null}
+
+            {this.state.subscribers.length === 1 ? (
+              <div>
+                <FriendIsComing />
+              </div>
+            ) : null}
+            {this.state.subscribers.length === 1 ? (
+              <div>
+                <FriendIsComing />
+              </div>
+            ) : null}
+
+            {this.state.subscribers.length === 2 ? (
+              <div>
+                <FriendIsComing />
+              </div>
+            ) : null} */}
+
+            <div className="rounded-[30px]  flex flex-row bg-emerald-500">
+              <IconButton
+                color="inherit"
+                className="navButton"
+                id="navCamButton"
+                onClick={this.camStatusChanged}
+              >
+                {localUser !== undefined && localUser.isVideoActive() ? (
+                  <Videocam />
+                ) : (
+                  <VideocamOff color="secondary" />
+                )}
+              </IconButton>
+
+              <IconButton
+                color="inherit"
+                className="navButton"
+                id="navMicButton"
+                onClick={this.micStatusChanged}
+              >
+                {localUser !== undefined && localUser.isAudioActive() ? (
+                  <Mic />
+                ) : (
+                  <MicOff color="secondary" />
+                )}
+              </IconButton>
+            </div>
+
+            <div>
+              <Link to="/">
+                <CommonBtn text="나가기" color={"bg-pink-300"} />
+              </Link>
             </div>
           </div>
         ) : null}
@@ -655,4 +519,4 @@ class VideoRoomComponent extends Component {
     return response.data; // The token
   }
 }
-export default VideoRoomComponent;
+export default SmallVideoRoomComponent;
