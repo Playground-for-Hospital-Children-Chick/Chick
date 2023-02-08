@@ -100,7 +100,7 @@ class VideoRoomComponent extends Component {
 
     var newPublisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
-      videoSource: currentVideoDevice,
+      videoSource: this.state.currentVideoDevice,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       mirror: true,
