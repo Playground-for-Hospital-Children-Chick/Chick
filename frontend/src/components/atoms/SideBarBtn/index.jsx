@@ -74,10 +74,8 @@ function SideBarBtn({ type, selected, onClick }) {
     if (selected) {
       return (
         <button onClick={onClick} className="py-2">
-          <img src={Tiger} />
-          <span className={"font-chick text-xl text-blue-500 "}>
-            그림그리기
-          </span>
+          <img src={Painting} />
+          <span className={"font-chick text-xl text-blue-500 "}>그림놀이</span>
         </button>
       );
     } else {
