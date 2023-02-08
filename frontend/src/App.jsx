@@ -7,6 +7,7 @@ import Video from "./webRTC/Video";
 import HomePage from "./components/pages/HomePage/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
+import PwChange from "./components/pages/PwChange/index";
 import { useSelector } from "react-redux";
 
 import SingDance from "./singDance/Video";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
           <Route path="/singdance" element={<SingDance />} />
+          <Route path="/pwchange" element={<PwChange />} />
         </Routes>
       </Router>
     </div>
