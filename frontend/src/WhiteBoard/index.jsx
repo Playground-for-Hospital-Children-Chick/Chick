@@ -5,6 +5,7 @@ import "./styles/board.css";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
 import SmallVideoRoomComponent from "../boardRTC/VideoRoomComponent";
+import TestBox from "../components/atoms/TestBox";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -173,31 +174,29 @@ const Board = () => {
 
   return (
     <>
-      <div>
-        <div>
-          <canvas ref={canvasRef} className="whiteboard" />
+      <TestBox>
+        <div className="relative z-1">
+          <SmallVideoRoomComponent />
         </div>
-
-        <div className="flex flex-row">
-          <div className="absolute left-0">
-            <SmallVideoRoomComponent />
-          </div>
-          <div ref={colorsRef} className="colors absolute right-20">
-            <div className="color black" />
-            <div className="color red" />
-            <div className="color green" />
-            <div className="color blue" />
-            <div className="color yellow" />
-            <button onClick={() => clearBoard(true)}>지우기</button>
-          </div>
+        <canvas
+          ref={canvasRef}
+          className="whiteboard bg-blue-200 relative w-full h-full z-0"
+        />
+        <div ref={colorsRef} className="colors absolute right-20">
+          <div className="color black" />
+          <div className="color red" />
+          <div className="color green" />
+          <div className="color blue" />
+          <div className="color yellow" />
+          <button onClick={() => clearBoard(true)}>지우기</button>
         </div>
+      </TestBox>
 
-        {/* <div className="ml-[1em] absolute top-0 right-20">
+      {/* <div className="ml-[1em] absolute top-0 right-20">
           <Link to="/">
             <CommonBtn text="나가기" color={"bg-pink-300"} />
           </Link>
         </div> */}
-      </div>
     </>
   );
 };
