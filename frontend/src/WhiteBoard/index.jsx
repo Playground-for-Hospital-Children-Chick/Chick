@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from "react";
 import io from "socket.io-client";
 import Eraser from "../assets/images/board/eraser.png";
 import "./styles/board.css";
+import { Link } from "react-router-dom";
+import CommonBtn from "../components/atoms/CommonBtn";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -179,6 +181,12 @@ const Board = () => {
         <div className="color blue" />
         <div className="color yellow" />
         <button onClick={() => clearBoard(true)}>지우기</button>
+      </div>
+
+      <div className="ml-[1em] absolute top-0 right-20">
+        <Link to="/">
+          <CommonBtn text="나가기" color={"bg-pink-300"} />
+        </Link>
       </div>
     </div>
   );
