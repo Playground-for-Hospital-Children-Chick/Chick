@@ -13,6 +13,8 @@ import SingDance from "./singDance/Video";
 import VideoRoomComponent from "./webRTC_3/VideoRoomComponent";
 import PaintingPage from "./components/pages/paintingPage";
 
+import FindEmail from "./components/pages/FindId";
+
 function App() {
   const user = useSelector((state) => state.user);
 
@@ -25,13 +27,19 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route
             path="/facepage"
-            element={<VideoRoomComponent user={user["userChName"]} email={user["userEmail"]} />}
+            element={
+              <VideoRoomComponent
+                user={user["userChName"]}
+                email={user["userEmail"]}
+              />
+            }
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
           <Route path="/singdance" element={<SingDance />} />
           <Route path="/pwchange" element={<PwChange />} />
           <Route path="/painting" element={<PaintingPage />} />
+          <Route path="/findid" element={<FindEmail />} />
         </Routes>
       </Router>
     </div>
