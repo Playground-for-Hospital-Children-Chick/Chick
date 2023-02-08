@@ -3,8 +3,8 @@ import FacePlay from "../../organism/FacePlay/index.";
 import React from "react";
 import RiceEat from "./../../organism/RiceEat/index";
 import FullScreenBtn from "../../atoms/FullScreenBtn/index";
-import Dance from "../../organism/dance";
-import Painting from "../../organism/painting";
+import Dance from "../../organism/Dance";
+import Painting from "../../organism/Painting";
 
 function HomePage({ children }) {
   let [index, setIndex] = React.useState(0);
