@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import React, { Component } from "react";
 import UserVideoComponent from "./UserVideoComponent";
-import ArBottomBarBase from "../components/atoms/ArBottomBarBase";
 import WebCamBoard from "../components/atoms/WebCamBoard";
-import FriendIsComing from "../components/atoms/FriendIsComing";
-import MicBtn from "../components/atoms/MicBtn";
-import VideoBtn from "../components/atoms/VideoBtn";
 
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -15,31 +11,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 // const APPLICATION_SERVER_URL = "http://localhost:5000/";
 // "http://localhost:5000/";
 
-import ArDevilHorns from "../components/atoms/ArDevilHorns";
-import ArLElephantTrunk from "../components/atoms/ArElephantTrunk";
-import ArGalaxy from "../components/atoms/ArGalaxy";
-import ArLion from "../components/atoms/ArLion";
-import ArMakeUpSplit from "../components/atoms/ArMakeUpSplit";
-import ArSnail from "../components/atoms/ArSnail";
-import ArFlower from "./../components/atoms/ArFlower/index";
-import ArKoala from "../components/atoms/ArKoala";
-import ArDalmatian from "../components/atoms/ArDalmatian";
-
 import CommonBtn from "../components/atoms/CommonBtn";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
-const data = [
-  { id: 1, img: <ArLion />, path: "/effects/lion" },
-  { id: 2, img: <ArFlower />, path: "/effects/flowers" },
-  { id: 3, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
-  { id: 4, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
-  { id: 5, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
-  { id: 6, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
-  { id: 7, img: <ArSnail />, path: "/effects/Snail.deepar" },
-  { id: 8, img: <ArKoala />, path: "/effects/koala" },
-  { id: 9, img: <ArDalmatian />, path: "/effects/dalmatian" },
-];
 // var deepAR = null;
 
 class Video extends Component {
@@ -358,20 +333,6 @@ class Video extends Component {
                 <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
                   <div className="relative">
                     <UserVideoComponent streamManager={this.state.publisher} />
-                    <div
-                      className="absolute bottom-0 right-0"
-                      onClick={this.micStatusChanged}
-                      id="mic"
-                    >
-                      <MicBtn />
-                    </div>
-                    <div
-                      className="absolute bottom-0 left-0"
-                      onClick={this.camStatusChanged}
-                      id="cam"
-                    >
-                      <VideoBtn />
-                    </div>
                   </div>
                 </div>
               ) : null}
@@ -381,39 +342,6 @@ class Video extends Component {
                   <UserVideoComponent streamManager={sub} key={i} />
                 ) : null
               )}
-
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-
-              {this.state.subscribers.length === 1 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 1 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-
-              {this.state.subscribers.length === 2 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
             </WebCamBoard>
 
             <div className="relative w-[9.5em]">
