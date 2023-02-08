@@ -5,6 +5,7 @@ import Logout from "./components/pages/LogoutPage";
 import HomePage from "./components/pages/HomePage/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
+import PwChange from "./components/pages/PwChange/index";
 import { useSelector } from "react-redux";
 
 import SingDance from "./singDance/Video";
@@ -24,10 +25,19 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/facepage" element={<VideoRoomComponent user={user["userChName"]} email={user["userEmail"]} />} />
+          <Route
+            path="/facepage"
+            element={
+              <VideoRoomComponent
+                user={user["userChName"]}
+                email={user["userEmail"]}
+              />
+            }
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
           <Route path="/singdance" element={<SingDance />} />
+          <Route path="/pwchange" element={<PwChange />} />
           <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
         </Routes>
