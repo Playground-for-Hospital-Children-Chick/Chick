@@ -94,12 +94,13 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류"),
     })
     public ResponseEntity<? extends BaseResponseBody> findPassword(@RequestParam String email) {
+        User user = userService.getUserByEmail(email);
         if(email!=null && !email.equals("")){
             String[] splitMail = email.split("@");
             String front = splitMail[0].substring(0, splitMail[0].length()-2)+"**";
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", front+"@"+splitMail[1]));
         }
-        return ResponseEntity.status(401).body(BaseResponseBody.of(404, "Failure", null));
+        return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Failure", null));
     }
 
     @GetMapping("/info")
