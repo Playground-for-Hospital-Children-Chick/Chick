@@ -97,7 +97,7 @@ function Login() {
                 <div className="relative">
                   <InputBox
                     register={register("email", {
-                      required: "이메일이 입력하지 않았습니다.",
+                      required: "이메일을 입력하지 않았습니다.",
                       pattern: {
                         message: "이메일형식이 잘못되었습니다.",
                         value:
@@ -113,7 +113,7 @@ function Login() {
                       name="email"
                       errors={errors}
                       render={({ message }) =>
-                        message == "이메일이 입력하지 않았습니다." ? (
+                        message == "이메일을 입력하지 않았습니다." ? (
                           <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
                             {message}
                           </div>
