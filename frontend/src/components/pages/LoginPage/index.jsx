@@ -121,9 +121,9 @@ function Login() {
                 <div className="relative">
                   <InputBox
                     register={register("password", {
-                      required: "암호를 입력하지 않았습니다.",
+                      required: "비밀번호를 입력하지 않았습니다.",
                       // pattern: {
-                      //   message: "암호를 확인해주세요.",
+                      //   message: "비밀번호를 확인해주세요.",
                       //   value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                       // },
                     })}
