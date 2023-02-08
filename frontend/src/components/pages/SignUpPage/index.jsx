@@ -211,7 +211,7 @@ function SignUp() {
         </div>
         <div className="mr-[15.5em] mt-10 birth flex items-center justify-center">
           <label
-            className="mr-[2.9em] font-chick text-xl"
+            className="mr-[2.7em] font-chick text-xl"
             htmlFor="birthAndSex"
           >
             출생/성별
