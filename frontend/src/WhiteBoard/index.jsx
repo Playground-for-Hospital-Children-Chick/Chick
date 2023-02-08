@@ -2,6 +2,9 @@ import React, { useRef, useEffect } from "react";
 import io from "socket.io-client";
 import Eraser from "../assets/images/board/eraser.png";
 import "./styles/board.css";
+import { Link } from "react-router-dom";
+import CommonBtn from "../components/atoms/CommonBtn";
+import SmallVideoRoomComponent from "../boardRTC/VideoRoomComponent";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -169,18 +172,33 @@ const Board = () => {
   // ------------- The Canvas and color elements --------------------------
 
   return (
-    <div>
-      <canvas ref={canvasRef} className="whiteboard" />
+    <>
+      <div>
+        <div>
+          <canvas ref={canvasRef} className="whiteboard" />
+        </div>
 
-      <div ref={colorsRef} className="colors">
-        <div className="color black" />
-        <div className="color red" />
-        <div className="color green" />
-        <div className="color blue" />
-        <div className="color yellow" />
-        <button onClick={() => clearBoard(true)}>지우기</button>
+        <div className="flex flex-row">
+          <div className="absolute left-0">
+            <SmallVideoRoomComponent />
+          </div>
+          <div ref={colorsRef} className="colors absolute right-20">
+            <div className="color black" />
+            <div className="color red" />
+            <div className="color green" />
+            <div className="color blue" />
+            <div className="color yellow" />
+            <button onClick={() => clearBoard(true)}>지우기</button>
+          </div>
+        </div>
+
+        {/* <div className="ml-[1em] absolute top-0 right-20">
+          <Link to="/">
+            <CommonBtn text="나가기" color={"bg-pink-300"} />
+          </Link>
+        </div> */}
       </div>
-    </div>
+    </>
   );
 };
 /* <img src={Eraser} alt="Eraser" /> */
