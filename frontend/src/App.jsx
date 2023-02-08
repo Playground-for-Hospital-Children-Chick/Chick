@@ -24,7 +24,12 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route
             path="/facepage"
-            element={<VideoRoomComponent user={user["userChName"]} />}
+            element={
+              <VideoRoomComponent
+                user={user["userChName"]}
+                email={user["userEmail"]}
+              />
+            }
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
