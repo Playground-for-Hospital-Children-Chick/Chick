@@ -2,7 +2,6 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import StreamComponent from "./StreamComponent";
-import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
 import WebCamBoard from "../components/atoms/WebCamBoard";
 import FriendIsComing from "../components/atoms/FriendIsComing";
@@ -27,15 +26,15 @@ import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
-import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
 
 import IconButton from "@material-ui/core/IconButton";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
-// process.env.NODE_ENV === "production"
-//   ? "https://i8b207.p.ssafy.io/"
-//   : "http://localhost:5000/";
+// const APPLICATION_SERVER_URL = import.meta.env.APPLICATION_SERVER_URL;
+const DEEP_AR_LICENSE_KEY =
+  "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea";
+// const DEEP_AR_LICENSE_KEY = import.meta.env.DEEP_AR_LICENSE_KEY;
 
 const data = [
   { id: 1, img: <ArLion />, path: "/effects/lion" },
@@ -94,16 +93,10 @@ class VideoRoomComponent extends Component {
       this.setState({
         arEnable: false,
       });
-      await this.OV.getUserMedia({
-        audioSource: undefined,
-        videoSource: undefined,
-      });
-      var devices = await this.OV.getDevices();
-      var videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
+
       await this.setState({
-        currentVideoDevice: videoDevices[0],
+        currentVideoDevice: undefined,
+        deepAR: undefined,
       });
     } else {
       this.setState({
@@ -115,18 +108,19 @@ class VideoRoomComponent extends Component {
       });
     }
 
-    var newPublisher = this.OV.initPublisher(undefined, {
+    let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
       videoSource: this.state.currentVideoDevice,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       mirror: true,
+      resolution: "555x307",
+      frameRate: 30,
     });
 
-    //newPublisher.once("accessAllowed", () => {
     await this.state.session.unpublish(this.state.localUser.getStreamManager());
-    await this.state.session.publish(newPublisher);
-    this.state.localUser.setStreamManager(newPublisher);
+    await this.state.session.publish(publisher);
+    this.state.localUser.setStreamManager(publisher);
     this.setState({
       localUser: localUser,
     });
@@ -139,8 +133,7 @@ class VideoRoomComponent extends Component {
     this.state.deepAR = DeepAR({
       canvasWidth: 550,
       canvasHeight: 307,
-      licenseKey:
-        "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
+      licenseKey: DEEP_AR_LICENSE_KEY,
       canvas: canvas,
       numberOfFaces: 3,
       libPath: "/lib",
@@ -492,15 +485,6 @@ class VideoRoomComponent extends Component {
         ) : null}
         {this.state.session !== undefined ? (
           <div className="flex flex-row w-[90em]">
-            {/* <ToolbarComponent
-              sessionId={mySessionId}
-              user={localUser}
-              showNotification={this.state.messageReceived}
-              camStatusChanged={this.camStatusChanged}
-              micStatusChanged={this.micStatusChanged}
-              switchCamera={this.switchCamera}
-              leaveSession={this.leaveSession}
-            /> */}
             <WebCamBoard>
               {localUser !== undefined &&
                 localUser.getStreamManager() !== undefined && (
