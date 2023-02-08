@@ -23,36 +23,23 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   // useForm 사용을 위한 선언
   const { setValue, formState, handleSubmit, register } = useForm();
   const { errors } = formState;
-  const onEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  // const onEmailChange = (e) => {
+  //   setEmail(e.target.value);
+  // };
 
-  const onPasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const test = (e) => {
-    console.log(e);
-  };
+  // const onPasswordChange = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   const onLogin = async (userinput) => {
     console.log(userinput);
     const response = await loginUser(userinput);
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      // setTimeout(() => {
-      //   dispatch(DELETE_TOKEN());
-      //   dispatch(DELETE_TOKEN());
-      // }, 3600000);
-      // setTimeout(() => {
-      //   console.log(user["userEmail"]);
-      // }, 20000);
       console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
