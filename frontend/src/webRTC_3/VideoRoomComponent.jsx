@@ -10,11 +10,36 @@ import FriendIsComing from "../components/atoms/FriendIsComing";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import ArDevilHorns from "../components/atoms/ArDevilHorns";
+import ArLElephantTrunk from "../components/atoms/ArElephantTrunk";
+import ArGalaxy from "../components/atoms/ArGalaxy";
+import ArLion from "../components/atoms/ArLion";
+import ArMakeUpSplit from "../components/atoms/ArMakeUpSplit";
+import ArSnail from "../components/atoms/ArSnail";
+import ArFlower from "./../components/atoms/ArFlower/index";
+import ArKoala from "../components/atoms/ArKoala";
+import ArDalmatian from "../components/atoms/ArDalmatian";
+import CommonBtn from "../components/atoms/CommonBtn";
+
+import { Link } from "react-router-dom";
+
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 // process.env.NODE_ENV === "production"
 //   ? "https://i8b207.p.ssafy.io/"
 //   : "http://localhost:5000/";
+
+const data = [
+  { id: 1, img: <ArLion />, path: "/effects/lion" },
+  { id: 2, img: <ArFlower />, path: "/effects/flowers" },
+  { id: 3, img: <ArDevilHorns />, path: "/effects/Neon_Devil_Horns.deepar" },
+  { id: 4, img: <ArLElephantTrunk />, path: "/effects/Elephant_Trunk.deepar" },
+  { id: 5, img: <ArMakeUpSplit />, path: "/effects/Split_View_Look.deepar" },
+  { id: 6, img: <ArGalaxy />, path: "/effects/galaxy_background_web.deepar" },
+  { id: 7, img: <ArSnail />, path: "/effects/Snail.deepar" },
+  { id: 8, img: <ArKoala />, path: "/effects/koala" },
+  { id: 9, img: <ArDalmatian />, path: "/effects/dalmatian" },
+];
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -34,6 +59,8 @@ class VideoRoomComponent extends Component {
       localUser: undefined,
       subscribers: [],
       currentVideoDevice: undefined,
+      arEnable: false,
+      deepAR: undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -42,8 +69,71 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.switchCamera = this.switchCamera.bind(this);
+
+    this.canvasRef = document.createElement("canvas");
+    this.applyDeepAR = this.applyDeepAR.bind(this);
+    this.changeEffect = this.changeEffect.bind(this);
+  }
+
+  //AR 효과 바꾸기(AR이 실행중이어야 동작)
+  changeEffect(effectName) {
+    this.state.deepAR.switchEffect(0, "slot", effectName);
+  }
+
+  async applyDeepAR() {
+    if (this.state.arEnable) {
+      this.setState({
+        arEnable: false,
+      });
+    } else {
+      this.setState({
+        arEnable: true,
+      });
+    }
+
+    this.startDeepAR(this.canvasRef);
+
+    await this.setState({
+      currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
+    });
+
+    var newPublisher = this.OV.initPublisher(undefined, {
+      audioSource: undefined,
+      videoSource: currentVideoDevice,
+      publishAudio: localUser.isAudioActive(),
+      publishVideo: localUser.isVideoActive(),
+      mirror: true,
+    });
+
+    //newPublisher.once("accessAllowed", () => {
+    await this.state.session.unpublish(this.state.localUser.getStreamManager());
+    await this.state.session.publish(newPublisher);
+    this.state.localUser.setStreamManager(newPublisher);
+    this.setState({
+      localUser: localUser,
+    });
+  }
+
+  //AR Video Start
+  startDeepAR(canvas) {
+    var { DeepAR } = window;
+
+    this.state.deepAR = DeepAR({
+      canvasWidth: 550,
+      canvasHeight: 307,
+      licenseKey:
+        "17b3582869e511e992581d53ee247344cfe4ea5b2787852672d14e03a419c3a887dafb093b8aa3ea",
+      canvas: canvas,
+      numberOfFaces: 3,
+      libPath: "/lib",
+      segmentationInfoZip: "segmentation.zip",
+      onInitialize: () => {
+        this.state.deepAR.startVideo(true);
+      },
+    });
+
+    this.state.deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
   }
 
   componentDidMount() {
@@ -209,6 +299,9 @@ class VideoRoomComponent extends Component {
       mySessionId: "SessionA",
       myUserName: "OpenVidu_User" + Math.floor(Math.random() * 100),
       localUser: undefined,
+      arEnable: false,
+      deepAR: undefined,
+      currentVideoDevice: undefined,
     });
     if (this.props.leaveSession) {
       this.props.leaveSession();
@@ -314,37 +407,6 @@ class VideoRoomComponent extends Component {
     this.state.session.signal(signalOptions);
   }
 
-  toggleFullscreen() {
-    const document = window.document;
-    const fs = document.getElementById("container");
-    if (
-      !document.fullscreenElement &&
-      !document.mozFullScreenElement &&
-      !document.webkitFullscreenElement &&
-      !document.msFullscreenElement
-    ) {
-      if (fs.requestFullscreen) {
-        fs.requestFullscreen();
-      } else if (fs.msRequestFullscreen) {
-        fs.msRequestFullscreen();
-      } else if (fs.mozRequestFullScreen) {
-        fs.mozRequestFullScreen();
-      } else if (fs.webkitRequestFullscreen) {
-        fs.webkitRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-    }
-  }
-
   async switchCamera() {
     try {
       const devices = await this.OV.getDevices();
@@ -406,17 +468,13 @@ class VideoRoomComponent extends Component {
               showNotification={this.state.messageReceived}
               camStatusChanged={this.camStatusChanged}
               micStatusChanged={this.micStatusChanged}
-              toggleFullscreen={this.toggleFullscreen}
               switchCamera={this.switchCamera}
               leaveSession={this.leaveSession}
             />
             <WebCamBoard>
               {localUser !== undefined &&
                 localUser.getStreamManager() !== undefined && (
-                  <div
-                    className="OT_root OT_publisher custom-class"
-                    id="localUser"
-                  >
+                  <div id="localUser">
                     <StreamComponent
                       user={localUser}
                       handleNickname={this.nicknameChanged}
@@ -426,14 +484,16 @@ class VideoRoomComponent extends Component {
 
               {this.state.subscribers.map((sub, i) =>
                 i < 3 ? (
-                  <StreamComponent
-                    user={sub}
-                    streamId={sub.streamManager.stream.streamId}
-                  />
+                  <div key={i} id="remoteUsers">
+                    <StreamComponent
+                      user={sub}
+                      streamId={sub.streamManager.stream.streamId}
+                    />
+                  </div>
                 ) : null
               )}
 
-              {this.state.subscribers.length === 0 ? (
+              {/* {this.state.subscribers.length === 0 ? (
                 <div>
                   <FriendIsComing />
                 </div>
@@ -464,10 +524,10 @@ class VideoRoomComponent extends Component {
                 <div>
                   <FriendIsComing />
                 </div>
-              ) : null}
+              ) : null} */}
             </WebCamBoard>
 
-            {/* <div className="relative w-[9.5em]">
+            <div className="relative w-[9.5em]">
               <CommonBtn
                 text="AR 버튼"
                 color={"bg-blue-300"}
@@ -484,7 +544,7 @@ class VideoRoomComponent extends Component {
                       <button
                         key={item.id}
                         className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
-                        onClick={() => this.changeEffectOne(item.path)}
+                        onClick={() => this.changeEffect(item.path)}
                       >
                         {item.img}
                       </button>
@@ -494,14 +554,10 @@ class VideoRoomComponent extends Component {
               ) : null}
               <div className="ml-[1em] absolute bottom-0">
                 <Link to="/">
-                  <CommonBtn
-                    text="나가기"
-                    color={"bg-pink-300"}
-                    onClick={this.leaveSession}
-                  />
+                  <CommonBtn text="나가기" color={"bg-pink-300"} />
                 </Link>
               </div>
-            </div> */}
+            </div>
           </div>
         ) : null}
       </div>
