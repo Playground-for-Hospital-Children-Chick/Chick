@@ -31,6 +31,7 @@ function App() {
               <VideoRoomComponent
                 user={user["userChName"]}
                 email={user["userEmail"]}
+                userType={user["userType"]}
               />
             }
           />
