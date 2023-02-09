@@ -15,6 +15,7 @@ function SignUp() {
   const { errors } = formState;
   const onSignup = (userInput) => {
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
+    delete userInput["user_password_check"];
     console.log(userInput);
   };
 
