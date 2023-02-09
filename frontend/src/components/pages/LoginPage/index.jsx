@@ -46,6 +46,7 @@ function Login() {
         SET_USER({
           userEmail: response.data.userLoginInfo.userEmail,
           userChName: response.data.userLoginInfo.userChName,
+          userType: "user",
         })
       );
       console.log(user["userEmail"]);

@@ -1,9 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function CalenderSelectBox() {
   const now = new Date();
   let nowMonth = "";
   let nowDay = "";
+  let years = [];
+  for (let yyyy = now.getFullYear(); yyyy >= 2000; yyyy -= 1) {
+    years.push(yyyy.toString());
+  }
+  let months = [];
+  for (let mm = 12; mm >= 1; mm -= 1) {
+    if (mm < 10) {
+      months.push("0" + mm.toString());
+    } else {
+      months.push(mm.toString());
+    }
+  }
+  let days = [];
+
+  const [nowCal, setNowCal] = useState({
+    year: years[0],
+    month: (now.getMonth() + 1).toString(),
+    day: now.getDate().toString(),
+  });
+  let date = new Date(nowCal.year, nowCal.month, 0).getDate();
+  for (let dd = date; dd >= 1; dd -= 1) {
+    if (dd < 10) {
+      days.push("0" + dd.toString());
+    } else {
+      days.push(dd.toString());
+    }
+  }
+  useEffect(() => {
+    setNowCal(nowCal);
+    console.log(nowCal);
+  }, [nowCal]);
   if (now.getMonth() + 1 < 10) {
     nowMonth = "0" + (now.getMonth() + 1).toString();
   } else {
@@ -15,35 +46,6 @@ function CalenderSelectBox() {
     nowDay = now.getDate().toString();
   }
   const [nowDate] = useState([now.getFullYear(), nowMonth, nowDay]);
-
-  let years = [];
-  for (let yyyy = now.getFullYear(); yyyy >= 2000; yyyy -= 1) {
-    years.push(yyyy);
-  }
-  const [nowCal, setNowCal] = useState({
-    year: years[0],
-    month: "01",
-    day: "01",
-  });
-
-  let months = [];
-  for (let mm = 12; mm >= 1; mm -= 1) {
-    if (mm < 10) {
-      months.push("0" + mm.toString());
-    } else {
-      months.push(mm.toString());
-    }
-  }
-
-  let days = [];
-  let date = new Date(nowCal.year, nowCal.month, 0).getDate();
-  for (let dd = date; dd >= 1; dd -= 1) {
-    if (dd < 10) {
-      days.push("0" + dd.toString());
-    } else {
-      days.push(dd.toString());
-    }
-  }
 
   return (
     <>

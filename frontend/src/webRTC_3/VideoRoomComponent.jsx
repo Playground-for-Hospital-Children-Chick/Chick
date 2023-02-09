@@ -632,12 +632,22 @@ class VideoRoomComponent extends Component {
   }
 
   async createSession(email) {
+    let guest = "true";
+
+    // 유저 타입에 따라 매칭되는게 다름
+    if (this.props.userType == "user") {
+      guest = "false";
+    } else if (this.props.userType == "guest") {
+      guest = "true";
+    }
+
     const response = await axios({
       method: "post",
       url: APPLICATION_SERVER_URL + "api/sessions",
       data: {
         email: email,
         gameType: "face",
+        guest: guest,
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     });
