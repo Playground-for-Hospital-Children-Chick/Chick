@@ -23,17 +23,20 @@ import Box from "@mui/material/Box";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+
+import { SET_USER } from "../../../store/reducers/UserReducer";
 
 function FacePlayHomeBox() {
   let [gameStart, setGameStart] = React.useState(false);
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   function playTheFaceGame() {
-    if (user["userEmail"] === null) {
+    if (!user["login"]) {
       Swal.fire({
         icon: "info",
         title: "로그인이 필요한 서비스입니다.",
@@ -46,6 +49,14 @@ function FacePlayHomeBox() {
       }).then((result) => {
         if (result.isConfirmed) {
           console.log("게스트로 로그인");
+
+          dispatch(
+            SET_USER({
+              userEmail: "guest@guest.com",
+              userChName: "Guest",
+              userType: "guest",
+            })
+          );
         } else if (result.isDenied) {
           navigate("/login");
         }
