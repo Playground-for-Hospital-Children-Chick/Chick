@@ -22,7 +22,7 @@ function HomePage({ children }) {
     return (
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
-        <RiceEat />
+        <Painting />
         <FullScreenBtn />
       </div>
     );
@@ -35,14 +35,6 @@ function HomePage({ children }) {
       </div>
     );
   } else if (index == 3) {
-    return (
-      <div className="flex flex-row">
-        <SideBar index={index} setIndex={setIndex} />
-        <Painting />
-        <FullScreenBtn />
-      </div>
-    );
-  } else if (index == 4) {
     return (
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
