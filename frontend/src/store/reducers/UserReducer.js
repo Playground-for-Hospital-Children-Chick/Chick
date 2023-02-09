@@ -3,11 +3,8 @@
 //refreshToken이 만료 되기 전에
 
 //로그아웃이 되면 해당 유저의 개인정보를 포함하는 리덕스를 전부 초기화
-import axios from "axios";
-
 import { createSlice } from "@reduxjs/toolkit";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
 const today = new Date();
 
 export const userSlice = createSlice({
