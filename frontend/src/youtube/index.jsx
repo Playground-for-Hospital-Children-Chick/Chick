@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 function YouTubeVideo() {
   const user = useSelector((state) => state.user);
   const videoOptions = {
+    width: window.innerWidth - 400,
+    height: window.innerHeight,
     playerVars: {
       autoplay: 1,
       controls: 1,
@@ -27,8 +29,6 @@ function YouTubeVideo() {
           userType={user["userType"]}
         />
         <div className="flex items-center justify-center w-full">
-          {/* <YouTube videoId="pU4i0_O6cUo" opts={videoOptions} /> */}
-          <YouTube videoId="KvmnmnqF6dc" opts={videoOptions} />
           <YouTube videoId="j5-mTBP9O7E" opts={videoOptions} />
         </div>
       </div>
