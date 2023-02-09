@@ -14,12 +14,14 @@ export const userSlice = createSlice({
     userChName: null,
     accessToken: null,
     expireTime: null,
+    userType: null,
   },
   reducers: {
     SET_USER: (state, action) => {
       console.log("SET_USER");
       state.userEmail = action.payload.userEmail;
       state.userChName = action.payload.userChName;
+      state.userType = action.payload.userType;
     },
     DELETE_USER: (state) => {
       console.log("DELETE_USER");
