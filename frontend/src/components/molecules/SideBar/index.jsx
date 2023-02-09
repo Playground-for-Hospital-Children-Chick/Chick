@@ -43,10 +43,11 @@ function SideBar({ index, setIndex }) {
           />
         </div>
       )}
+
       {index == 1 ? (
         <div className="inline-flex justify-center w-[100%]">
           <SideBarBtn
-            type={"rice"}
+            type={"painting"}
             selected={true}
             onClick={() => setIndex(1)}
           />
@@ -54,7 +55,7 @@ function SideBar({ index, setIndex }) {
       ) : (
         <div className="inline-flex justify-center w-[100%]">
           <SideBarBtn
-            type={"rice"}
+            type={"painting"}
             selected={false}
             onClick={() => setIndex(1)}
           />
@@ -80,7 +81,7 @@ function SideBar({ index, setIndex }) {
       {index == 3 ? (
         <div className="inline-flex justify-center w-[100%]">
           <SideBarBtn
-            type={"painting"}
+            type={"myPage"}
             selected={true}
             onClick={() => setIndex(3)}
           />
@@ -88,26 +89,9 @@ function SideBar({ index, setIndex }) {
       ) : (
         <div className="inline-flex justify-center w-[100%]">
           <SideBarBtn
-            type={"painting"}
+            type={"myPage"}
             selected={false}
             onClick={() => setIndex(3)}
-          />
-        </div>
-      )}
-      {index == 4 ? (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"myPage"}
-            selected={true}
-            onClick={() => setIndex(4)}
-          />
-        </div>
-      ) : (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"myPage"}
-            selected={false}
-            onClick={() => setIndex(4)}
           />
         </div>
       )}
