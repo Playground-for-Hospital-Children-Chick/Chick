@@ -158,8 +158,8 @@ const Board = () => {
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
-    socketRef.current.on("welcome", function (room) {
-      console.log("방에 입장하였습니다 방이름은              ", room);
+    socketRef.current.on("welcome", (room) => {
+      console.log("방에 입장하였습니다 방이름은  ", room);
       setMyRoomName[room];
       console.log(roomName);
     });
