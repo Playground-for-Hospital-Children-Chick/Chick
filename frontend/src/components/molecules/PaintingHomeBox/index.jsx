@@ -7,26 +7,63 @@ import Box from "@mui/material/Box";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import io from "socket.io-client";
-const socketRef = useRef();
+import { loginUser } from "../../../api/UsersApi";
+import { SET_USER, SET_TOKEN } from "../../../store/reducers/UserReducer";
+
 function PaintingHomeBox() {
   let [gameStart, setGameStart] = React.useState(false);
   const user = useSelector((state) => state.user);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const socketRef = useRef();
+
+  const onLogin = async () => {
+    const response = await loginUser({
+      email: "guest@guest.com",
+      password: "123",
+    });
+
+    if (parseInt(Number(response.status) / 100) === 2) {
+      console.log(response.data.accessToken);
+      dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
+      dispatch(
+        SET_USER({
+          userEmail: response.data.userLoginInfo.userEmail,
+          userChName: response.data.userLoginInfo.userChName,
+          userType: "guest",
+        })
+      );
+    } else {
+      console.log(response);
+    }
+  };
 
   function playThePaintingGame() {
-    if (user["userEmail"] === null) {
+    if (!user["login"]) {
       Swal.fire({
-        icon: "question",
-        title: "로그인 필요",
+        icon: "info",
+        title: "로그인이 필요한 서비스입니다.",
         text: "방에 입장하기 위해서는 로그인이 필요합니다.",
-      }).then(() => navigate("/login"));
+        showDenyButton: true,
+        confirmButtonText: "게스트로 로그인",
+        denyButtonText: `로그인하러가기`,
+        confirmButtonColor: "#8cc8ff",
+        denyButtonColor: "#ff82b3",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("게스트로 로그인");
+          onLogin();
+        } else if (result.isDenied) {
+          navigate("/login");
+        }
+      });
+
       return;
     }
-    socketRef = io.connect("ws://i8b207.p.ssafy.io:8001");
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.emit("join_room", user["userEmail"]);
 
     setGameStart(true);
