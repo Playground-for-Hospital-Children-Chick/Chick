@@ -1,10 +1,12 @@
 import YouTube from "react-youtube";
 import React from "react";
-import SmallVideoRoomComponent from "../boardRTC/VideoRoomComponent";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
+import DanceVideoRoomComponent from "./danceRTC/VideoRoomComponent";
+import { useSelector } from "react-redux";
 
 function YouTubeVideo() {
+  const user = useSelector((state) => state.user);
   const videoOptions = {
     playerVars: {
       autoplay: 1,
@@ -19,7 +21,11 @@ function YouTubeVideo() {
   return (
     <>
       <div className="flex">
-        <SmallVideoRoomComponent />
+        <DanceVideoRoomComponent
+          user={user["userChName"]}
+          email={user["userEmail"]}
+          userType={user["userType"]}
+        />
         <div className="flex items-center justify-center w-full">
           {/* <YouTube videoId="pU4i0_O6cUo" opts={videoOptions} /> */}
           <YouTube videoId="KvmnmnqF6dc" opts={videoOptions} />
