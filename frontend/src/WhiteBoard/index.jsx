@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import io from "socket.io-client";
-import Eraser from "../assets/images/board/eraser.png";
+import Eraser from "../components/atoms/Eraser";
 import "./styles/board.css";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
 import SmallVideoRoomComponent from "../boardRTC/VideoRoomComponent";
+import TestBox from "../components/atoms/TestBox";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -172,33 +173,33 @@ const Board = () => {
   // ------------- The Canvas and color elements --------------------------
 
   return (
-    <>
-      <div>
-        <div>
-          <canvas ref={canvasRef} className="whiteboard" />
-        </div>
+    <div className="flex justify-between">
+      <canvas ref={canvasRef} className="resize-y whiteboard" />
 
-        <div className="flex flex-row">
-          <div className="absolute left-0">
-            <SmallVideoRoomComponent />
-          </div>
-          <div ref={colorsRef} className="colors absolute right-20">
-            <div className="color black" />
-            <div className="color red" />
-            <div className="color green" />
-            <div className="color blue" />
-            <div className="color yellow" />
-            <button onClick={() => clearBoard(true)}>지우기</button>
-          </div>
-        </div>
-
-        {/* <div className="ml-[1em] absolute top-0 right-20">
-          <Link to="/">
-            <CommonBtn text="나가기" color={"bg-pink-300"} />
-          </Link>
-        </div> */}
+      <div className="flex justify end">
+        <SmallVideoRoomComponent />
       </div>
-    </>
+
+      <div ref={colorsRef} className="colors h-[50px] row-span-2">
+        <div className="color black" />
+        <div className="color red" />
+        <div className="color green" />
+        <div className="color blue" />
+        <div className="color yellow" />
+        <button
+          className="text-2xl bg-pink-400"
+          onClick={() => clearBoard(true)}
+        >
+          {Eraser}지우기
+        </button>
+      </div>
+      <div className="ml-[1em] absolute bottom-0 right-20">
+        <Link to="/">
+          {Eraser}
+          <CommonBtn text="나가기" color={"bg-pink-300"} />
+        </Link>
+      </div>
+    </div>
   );
 };
 /* <img src={Eraser} alt="Eraser" /> */
