@@ -43,12 +43,13 @@ public class SessionController {
             throws OpenViduJavaClientException, OpenViduHttpException {
         String email = roomSessionReq.getEmail();
         String gameType = roomSessionReq.getGameType();
+        String guset = roomSessionReq.getGuest();
         System.out.println("세션 요청입니다다");
         System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("params: " +roomSessionReq.toString());
-        String userSession = roomService.getRoomSession(email, gameType); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
-        roomService.createMachingInfo(roomSessionReq, userSession); // 매칭에 대한 로그를 데이터베이스에 저장한다
+        String userSession = roomService.getRoomSession(email, gameType,guset); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
+        roomService.createMachingInfo(roomSessionReq, userSession, guset); // 매칭에 대한 로그를 데이터베이스에 저장한다
         Map<String, Object> sessionParam = new HashMap<>(); // 유저 새션 정보를 저장할 변수
         sessionParam.put("customSessionId", userSession); // // 유저 새션 정보를 저장
         System.out.println("sessionParam: " + sessionParam.toString());

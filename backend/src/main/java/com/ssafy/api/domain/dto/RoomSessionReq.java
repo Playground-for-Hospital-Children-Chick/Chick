@@ -13,4 +13,6 @@ public class RoomSessionReq {
     String email;
     @ApiModelProperty(name="게임종류", example = "face")
     String gameType;
+    @ApiModelProperty(name = "게스트인지", example = "true")
+    String guest;
 }

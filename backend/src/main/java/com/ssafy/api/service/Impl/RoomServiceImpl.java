@@ -27,12 +27,12 @@ public class RoomServiceImpl implements RoomService {
         this.matchingRepository = matchingRepository;
     }
 
-    public String getRoomSession(String email, String gameType) {
+    public String getRoomSession(String email, String gameType, String guest) {
         /*
         방의 종류로 방을 선택 후 인원 기준으로 Order by 해서 가장 인원수가 적은 방을 확안한다.
         해당 방이 없거나 인원수가 4 이상이면 새로운 세션을 만들고 그렇지 않으면 해당 방의 세션을 리턴한다
          */
-        ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeOrderByRoomCntAsc(gameType);
+        ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest);
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
             room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
@@ -49,6 +49,7 @@ public class RoomServiceImpl implements RoomService {
                 .roomType(gameType)
                 .roomSession(newSession)
                 .roomStatus("open")
+                .roomGuest(guest)
                 .roomCreateBy(email)
                 .roomCreateDate(LocalDateTime.now())
                 .roomUpdateBy(email)
@@ -57,7 +58,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void createMachingInfo(RoomSessionReq roomSessionReq, String userSession) {
+    public void createMachingInfo(RoomSessionReq roomSessionReq, String userSession, String guest) {
         /* 데이터베이스에 매칭 정보를 저장한다 */
         String email = roomSessionReq.getEmail();
         String gameType = roomSessionReq.getGameType();
@@ -67,6 +68,7 @@ public class RoomServiceImpl implements RoomService {
                         .matGameType(gameType)
                         .matSession(userSession)
                         .matCreateBy(email)
+                        .matGuest(guest)
                         .matCreateDate(LocalDateTime.now())
                         .build()
         );
