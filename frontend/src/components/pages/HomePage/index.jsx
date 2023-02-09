@@ -5,6 +5,7 @@ import RiceEat from "./../../organism/RiceEat/index";
 import FullScreenBtn from "../../atoms/FullScreenBtn/index";
 import Dance from "../../organism/Dance";
 import Painting from "../../organism/Painting";
+import MyPage from "../MyPage";
 
 function HomePage({ children }) {
   let [index, setIndex] = React.useState(0);
@@ -45,7 +46,7 @@ function HomePage({ children }) {
     return (
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
-        <div>아직 페이지를 만들고 있어요..</div>
+        <MyPage />
         <FullScreenBtn />
       </div>
     );

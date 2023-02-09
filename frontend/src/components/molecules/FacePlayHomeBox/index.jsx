@@ -35,10 +35,22 @@ function FacePlayHomeBox() {
   function playTheFaceGame() {
     if (user["userEmail"] === null) {
       Swal.fire({
-        icon: "question",
-        title: "로그인 필요",
+        icon: "info",
+        title: "로그인이 필요한 서비스입니다.",
         text: "방에 입장하기 위해서는 로그인이 필요합니다.",
-      }).then(() => navigate("/login"));
+        showDenyButton: true,
+        confirmButtonText: "게스트로 로그인",
+        denyButtonText: `로그인하러가기`,
+        confirmButtonColor: "#8cc8ff",
+        denyButtonColor: "#ff82b3",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log("게스트로 로그인");
+        } else if (result.isDenied) {
+          navigate("/login");
+        }
+      });
+
       return;
     }
 
