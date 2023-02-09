@@ -7,16 +7,24 @@ import GamePlayBtn from "../../atoms/GamePlayBtn";
 import Sex from "../../atoms/Sex";
 import { useForm } from "react-hook-form";
 
+import { siginupUser } from "./../../../api/UsersApi";
+
 import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 
 function SignUp() {
   const { setValue, formState, handleSubmit, register } = useForm();
   const { errors } = formState;
-  const onSignup = (userInput) => {
+  const onSignup = async (userInput) => {
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
     delete userInput["user_password_check"];
     console.log(userInput);
+    const response = await siginupUser(userInput);
+    if (parseInt(Number(response.status) / 100) === 2) {
+      console.log("성공");
+    } else {
+      console.log("회원가입 실패");
+    }
   };
 
   return (
