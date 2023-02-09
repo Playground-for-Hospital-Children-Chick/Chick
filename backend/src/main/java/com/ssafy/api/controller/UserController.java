@@ -128,12 +128,4 @@ public class UserController {
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
     }
-
-    @GetMapping("/info")
-    @ApiOperation(value="내정보 가져오기", notes = "유저 정보를 보내준다")
-    public ResponseEntity<UserInfoRes> getUserinfo(@RequestParam String email) {
-        UserInfoRes userInfoRes = userService.getUserInfo(email);
-
-        return ResponseEntity.ok(userInfoRes);
-    }
 }
