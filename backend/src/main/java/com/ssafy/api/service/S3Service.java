@@ -20,6 +20,7 @@ public class S3Service {
     private final AmazonS3 amazonS3;
 
     public String uploadFile(MultipartFile multipartFile) throws IOException {
+        System.out.println(multipartFile);
         System.out.println(multipartFile.getName());
         String fileName = multipartFile.getOriginalFilename();
         System.out.println(fileName);
