@@ -27,7 +27,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { loginUser } from "../../../api/UsersApi";
 
-import { SET_USER } from "../../../store/reducers/UserReducer";
+import { SET_USER, SET_TOKEN } from "../../../store/reducers/UserReducer";
 
 function FacePlayHomeBox() {
   let [gameStart, setGameStart] = React.useState(false);
