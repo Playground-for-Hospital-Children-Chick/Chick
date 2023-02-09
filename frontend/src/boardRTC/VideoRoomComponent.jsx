@@ -398,6 +398,7 @@ class SmallVideoRoomComponent extends Component {
                     user={localUser}
                     handleNickname={this.nicknameChanged}
                   />
+
                   <div className="rounded-[30px] absolute right-0 bottom-0 flex flex-row bg-emerald-500">
                     <IconButton
                       color="inherit"

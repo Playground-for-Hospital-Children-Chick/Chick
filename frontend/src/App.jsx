@@ -14,6 +14,9 @@ import VideoRoomComponent from "./webRTC_3/VideoRoomComponent";
 import PaintingPage from "./components/pages/paintingPage";
 
 import FindEmail from "./components/pages/FindId";
+import FindPassword from "./components/pages/FindPassword";
+
+import YouTubeVideo from "./youtube";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -31,15 +34,17 @@ function App() {
               <VideoRoomComponent
                 user={user["userChName"]}
                 email={user["userEmail"]}
+                userType={user["userType"]}
               />
             }
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
-          <Route path="/singdance" element={<SingDance />} />
+          <Route path="/singdance" element={<YouTubeVideo />} />
           <Route path="/pwchange" element={<PwChange />} />
           <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
+          <Route path="/findpassword" element={<FindPassword />} />
         </Routes>
       </Router>
     </div>
