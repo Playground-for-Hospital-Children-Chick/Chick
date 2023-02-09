@@ -25,6 +25,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { loginUser } from "../../../api/UsersApi";
 
 import { SET_USER } from "../../../store/reducers/UserReducer";
 
@@ -34,6 +35,27 @@ function FacePlayHomeBox() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const onLogin = async () => {
+    const response = await loginUser({
+      email: "guest@guest.com",
+      password: "123",
+    });
+
+    if (parseInt(Number(response.status) / 100) === 2) {
+      console.log(response.data.accessToken);
+      dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
+      dispatch(
+        SET_USER({
+          userEmail: response.data.userLoginInfo.userEmail,
+          userChName: response.data.userLoginInfo.userChName,
+          userType: "guest",
+        })
+      );
+    } else {
+      console.log(response);
+    }
+  };
 
   function playTheFaceGame() {
     if (!user["login"]) {
@@ -49,14 +71,7 @@ function FacePlayHomeBox() {
       }).then((result) => {
         if (result.isConfirmed) {
           console.log("게스트로 로그인");
-
-          dispatch(
-            SET_USER({
-              userEmail: "guest@guest.com",
-              userChName: "Guest",
-              userType: "guest",
-            })
-          );
+          onLogin();
         } else if (result.isDenied) {
           navigate("/login");
         }
