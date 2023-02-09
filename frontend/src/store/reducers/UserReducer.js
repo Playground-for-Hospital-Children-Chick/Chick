@@ -5,32 +5,10 @@
 //로그아웃이 되면 해당 유저의 개인정보를 포함하는 리덕스를 전부 초기화
 import axios from "axios";
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const today = new Date();
-
-const asyncLoginAxios = createAsyncThunk(
-  "/auth/login",
-  async (email, password) => {
-    const resp = await axios.post(
-      BASE_URL + "/auth/login",
-      {
-        email,
-        password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-        withCredentials: true,
-      }
-    );
-    console.log(resp);
-    console.log(resp.data);
-    return resp.data;
-  }
-);
 
 export const userSlice = createSlice({
   name: "user",
@@ -65,24 +43,10 @@ export const userSlice = createSlice({
       builder.addCase(PURGE, () => initialState);
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(asyncLoginAxios.fulfilled, (state, action) => {
-  //     state.userEmail = action.payload.userEmail;
-  //     state.userChName = action.payload.userChName;
-  //     state.accessToken = action.payload.accessToken;
-  //     state.expireTime = action.payload.expireTime;
-  //   });
-  //   builder.addCase(asyncLoginAxios.pending, () => {
-  //     console.log("로그인중");
-  //   });
-  // },
 });
 
 export const { SET_USER, DELETE_USER, SET_TOKEN, DELETE_TOKEN } =
   userSlice.actions;
-
-// export const selectEmail = (state) => state.user.email;
-// export const selectUsername = (state) => state.user.username;
 
 export { asyncLoginAxios };
 export default { userSlice };
