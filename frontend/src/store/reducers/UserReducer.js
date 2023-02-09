@@ -27,6 +27,7 @@ export const userSlice = createSlice({
       console.log("DELETE_USER");
       state.userEmail = null;
       state.userChName = null;
+      state.userType = null;
     },
     SET_TOKEN: (state, action) => {
       console.log("SET_TOKEN");
