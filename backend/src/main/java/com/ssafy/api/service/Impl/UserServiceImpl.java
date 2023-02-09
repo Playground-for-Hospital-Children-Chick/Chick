@@ -151,7 +151,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("보내는 대상 : "+ to);
         System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
-
+        message.setSubject("[병아리] 비밀번호 재설정 안내메일입니다.");
         message.addRecipients(Message.RecipientType.TO, to);//보내는 대상
 
         String msgg="";
