@@ -5,7 +5,7 @@ import StreamComponent from "./StreamComponent";
 import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
 import WebCamBoard from "../components/atoms/WebCamBoard";
-import FriendIsComing from "../components/atoms/FriendIsComing";
+import SmallFriendIsComing from "../components/atoms/SmallFriendIsComing";
 
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -20,6 +20,7 @@ import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
 
 import IconButton from "@material-ui/core/IconButton";
+import SmallWebCamBoard from "../components/atoms/SmallWebCamBoard";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -148,7 +149,7 @@ class SmallVideoRoomComponent extends Component {
       videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
-      resolution: "300x200",
+      resolution: "300x150",
       frameRate: 30,
       insertMode: "APPEND",
     });
@@ -376,7 +377,7 @@ class SmallVideoRoomComponent extends Component {
     const localUser = this.state.localUser;
 
     return (
-      <div>
+      <>
         {this.state.session === undefined ? (
           <div className="p-2 m-2">
             <Box sx={{ width: "50%" }}>
@@ -385,17 +386,45 @@ class SmallVideoRoomComponent extends Component {
           </div>
         ) : null}
         {this.state.session !== undefined ? (
-          <div className="flex flex-row w-[90em]">
+          // <div className="flex flex-row w-[90em]">
+          <SmallWebCamBoard>
             {localUser !== undefined &&
               localUser.getStreamManager() !== undefined && (
                 <div
                   id="localUser"
-                  className="relative m-3 rounded-[30px] w-[300px] h-[200px] flex items-center justify-center "
+                  className="relative m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center "
                 >
                   <StreamComponent
                     user={localUser}
                     handleNickname={this.nicknameChanged}
                   />
+                  <div className="rounded-[30px] absolute right-0 bottom-0 flex flex-row bg-emerald-500">
+                    <IconButton
+                      color="inherit"
+                      className="navButton"
+                      id="navCamButton"
+                      onClick={this.camStatusChanged}
+                    >
+                      {localUser !== undefined && localUser.isVideoActive() ? (
+                        <Videocam />
+                      ) : (
+                        <VideocamOff color="secondary" />
+                      )}
+                    </IconButton>
+
+                    <IconButton
+                      color="inherit"
+                      className="navButton"
+                      id="navMicButton"
+                      onClick={this.micStatusChanged}
+                    >
+                      {localUser !== undefined && localUser.isAudioActive() ? (
+                        <Mic />
+                      ) : (
+                        <MicOff color="secondary" />
+                      )}
+                    </IconButton>
+                  </div>
                 </div>
               )}
 
@@ -403,7 +432,7 @@ class SmallVideoRoomComponent extends Component {
               i < 3 ? (
                 <div
                   key={i}
-                  className=" m-3 rounded-[30px] w-[300px] h-[200px] flex items-center justify-center"
+                  className=" m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center"
                   id="remoteUsers"
                 >
                   <StreamComponent
@@ -414,75 +443,29 @@ class SmallVideoRoomComponent extends Component {
               ) : null
             )}
 
-            {/* {this.state.subscribers.length === 0 ? (
-              <div>
-                <FriendIsComing />
-              </div>
+            {this.state.subscribers.length === 0 ? (
+              <SmallFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 0 ? (
-              <div>
-                <FriendIsComing />
-              </div>
+              <SmallFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 0 ? (
-              <div>
-                <FriendIsComing />
-              </div>
+              <SmallFriendIsComing />
             ) : null}
 
             {this.state.subscribers.length === 1 ? (
-              <div>
-                <FriendIsComing />
-              </div>
+              <SmallFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 1 ? (
-              <div>
-                <FriendIsComing />
-              </div>
+              <SmallFriendIsComing />
             ) : null}
 
             {this.state.subscribers.length === 2 ? (
-              <div>
-                <FriendIsComing />
-              </div>
-            ) : null} */}
-
-            <div className="rounded-[30px]  flex flex-row bg-emerald-500">
-              <IconButton
-                color="inherit"
-                className="navButton"
-                id="navCamButton"
-                onClick={this.camStatusChanged}
-              >
-                {localUser !== undefined && localUser.isVideoActive() ? (
-                  <Videocam />
-                ) : (
-                  <VideocamOff color="secondary" />
-                )}
-              </IconButton>
-
-              <IconButton
-                color="inherit"
-                className="navButton"
-                id="navMicButton"
-                onClick={this.micStatusChanged}
-              >
-                {localUser !== undefined && localUser.isAudioActive() ? (
-                  <Mic />
-                ) : (
-                  <MicOff color="secondary" />
-                )}
-              </IconButton>
-            </div>
-
-            <div>
-              <Link to="/">
-                <CommonBtn text="나가기" color={"bg-pink-300"} />
-              </Link>
-            </div>
-          </div>
+              <SmallFriendIsComing />
+            ) : null}
+          </SmallWebCamBoard>
         ) : null}
-      </div>
+      </>
     );
   }
 
