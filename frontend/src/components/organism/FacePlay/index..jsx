@@ -48,7 +48,7 @@ function FacePlay() {
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
-        {user["accessToken"] == null ? (
+        {user["login"] == false ? (
           <>
             <Link to="/signup">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />
