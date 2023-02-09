@@ -1,17 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import io from "socket.io-client";
-import Eraser from "../components/atoms/Eraser";
 import "./styles/board.css";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
 import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
 import { useSelector } from "react-redux";
 import session from "redux-persist/lib/storage/session";
-import BluePan from "../assets/images/board/blue.svg";
-import PinkPan from "../assets/images/board/pink.svg";
-import PurplePan from "../assets/images/board/purple.svg";
-import RedPan from "../assets/images/board/red.svg";
-import YellowPan from "../assets/images/board/yellow.svg";
+import BluePan from "../assets/images/board/blue_pan.png";
+import BlackPan from "../assets/images/board/black_pan.png";
+import RedPan from "../assets/images/board/red_pan.png";
+import YellowPan from "../assets/images/board/yellow_pan.png";
+import GreenPan from "../assets/images/board/green_pan.png";
 import EraserPNG from "../assets/images/board/eraser.png";
 
 const Board = () => {
@@ -39,6 +38,7 @@ const Board = () => {
 
     // helper that will update the current color
     const onColorUpdate = (e) => {
+      // current.color = color;
       current.color = e.target.className.split(" ")[1];
     };
 
@@ -206,23 +206,18 @@ const Board = () => {
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
-        <div className="color black" />
-        <div className="color red" />
-        <div className="color green" />
-        <div className="color blue" />
-        <div className="color yellow" />
-        {/* <img src={BluePan} />
-        <img src={PinkPan} />
-        <img src={RedPan} />
-        <img src={PurplePan} />
-        <img src={YellowPan} /> */}
+        <img src={BlackPan} width="45" height="45" className="color black" />
+        <img src={RedPan} width="45" height="45" className="color red" />
+        <img src={GreenPan} width="40" height="40" className="color green" />
+        <img src={BluePan} width="45" height="45" className="color blue" />
+        <img src={YellowPan} width="45" height="45" className="color yellow" />
+
         <button onClick={() => clearBoard(true)}>
           <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
         <Link to="/">
-          {Eraser}
           <CommonBtn text="나가기" color={"bg-pink-300"} />
         </Link>
       </div>
