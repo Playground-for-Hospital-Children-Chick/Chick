@@ -19,11 +19,11 @@
 
 .color {
   display: inline-block;
-  height: 100px;
-  width: 100px;
+  /* height: 100px;
+  width: 100px; */
 }
 
-.color.black {
+/* .color.black {
   background-color: black;
 }
 .color.red {
@@ -37,4 +37,4 @@
 }
 .color.yellow {
   background-color: yellow;
-}
+} */
