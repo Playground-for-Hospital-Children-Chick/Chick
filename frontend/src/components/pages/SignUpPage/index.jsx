@@ -13,7 +13,9 @@ import { ErrorMessage } from "@hookform/error-message";
 function SignUp() {
   const { setValue, formState, handleSubmit, register } = useForm();
   const { errors } = formState;
-  const onSignup = async (userInput) => {
+  const onSignup = (userInput) => {
+    userInput["user_birth"] = parseInt(userInput["user_birth"]);
+    delete userInput["user_password_check"];
     console.log(userInput);
   };
 
@@ -113,8 +115,7 @@ function SignUp() {
                 required: "비밀번호를 입력하지 않았습니다.",
                 pattern: {
                   message: "비밀번호형식이 잘못되었습니다.",
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                 },
               })}
               // onChange={onEmailChange}
@@ -183,11 +184,6 @@ function SignUp() {
               <InputBox
                 register={register("user_parent_name", {
                   required: "부모님 이름을 입력하지 않았습니다.",
-                  pattern: {
-                    message: "이메일형식이 잘못되었습니다.",
-                    value:
-                      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
-                  },
                 })}
                 // onChange={onEmailChange}
                 type="text"
@@ -216,9 +212,17 @@ function SignUp() {
           >
             출생/성별
           </label>
-          <CalenderSelectBox />
+          <CalenderSelectBox
+            register={register("user_birth", {
+              required: "생일을 입력하지 않으셨습니다.",
+            })}
+          />
           <div className="ml-[0.5em]">
-            <Sex />
+            <Sex
+              register={register("user_sex", {
+                required: "생일을 입력하지 않으셨습니다.",
+              })}
+            />
           </div>
         </div>
         <div className="mr-[10em] mt-10">
