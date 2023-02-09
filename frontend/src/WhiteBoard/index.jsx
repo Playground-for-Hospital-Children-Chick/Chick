@@ -7,6 +7,12 @@ import CommonBtn from "../components/atoms/CommonBtn";
 import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
 import { useSelector } from "react-redux";
 import session from "redux-persist/lib/storage/session";
+import BluePan from "../assets/images/board/blue.svg";
+import PinkPan from "../assets/images/board/pink.svg";
+import PurplePan from "../assets/images/board/purple.svg";
+import RedPan from "../assets/images/board/red.svg";
+import YellowPan from "../assets/images/board/yellow.svg";
+import EraserPNG from "../assets/images/board/eraser.png";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -192,7 +198,11 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        <BoardVideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
+        <BoardVideoRoomComponent
+          user={user["userChName"]}
+          email={user["userEmail"]}
+          userType={user["userType"]}
+        />
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
@@ -201,8 +211,13 @@ const Board = () => {
         <div className="color green" />
         <div className="color blue" />
         <div className="color yellow" />
-        <button className="text-2xl bg-pink-400" onClick={() => clearBoard(true)}>
-          {Eraser}지우기
+        {/* <img src={BluePan} />
+        <img src={PinkPan} />
+        <img src={RedPan} />
+        <img src={PurplePan} />
+        <img src={YellowPan} /> */}
+        <button onClick={() => clearBoard(true)}>
+          <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
