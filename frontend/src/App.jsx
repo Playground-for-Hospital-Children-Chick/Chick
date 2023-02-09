@@ -14,6 +14,7 @@ import VideoRoomComponent from "./webRTC_3/VideoRoomComponent";
 import PaintingPage from "./components/pages/paintingPage";
 
 import FindEmail from "./components/pages/FindId";
+import FindPassword from "./components/pages/FindPassword";
 
 import YouTubeVideo from "./youtube";
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="/pwchange" element={<PwChange />} />
           <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
+          <Route path="/findpassword" element={<FindPassword />} />
         </Routes>
       </Router>
     </div>
