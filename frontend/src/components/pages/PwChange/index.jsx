@@ -9,7 +9,11 @@ import { useSelector } from "react-redux";
 
 import { ErrorMessage } from "@hookform/error-message";
 
-import { SET_USER, SET_TOKEN, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
+import {
+  SET_USER,
+  SET_TOKEN,
+  DELETE_TOKEN,
+} from "../../../store/reducers/UserReducer";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
 
 function PwChange() {
@@ -39,6 +43,7 @@ function PwChange() {
         SET_USER({
           userEmail: response.data.userLoginInfo.userEmail,
           userChName: response.data.userLoginInfo.userChName,
+          userType: "user",
         })
       );
       console.log(user["userEmail"]);
@@ -55,7 +60,10 @@ function PwChange() {
   return (
     <div className="flex justify-center h-screen items-center ">
       <div>
-        <div className="flex mr-5 justify-start font-chick text-2xl" htmlFor="password">
+        <div
+          className="flex mr-5 justify-start font-chick text-2xl"
+          htmlFor="password"
+        >
           패스워드
         </div>
         <AlertBox>
@@ -63,25 +71,43 @@ function PwChange() {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="flex flex-col gap-y-[1em]  mt-10 mr-[2em]">
               <div className="mt-[3em] mb-10 flex items-center justify-center items-center mr-[5em]">
-                <label className="mr-[3em] font-chick text-lg" htmlFor="password">
+                <label
+                  className="mr-[3em] font-chick text-lg"
+                  htmlFor="password"
+                >
                   기존 비밀번호
                 </label>
-                <InputBox type="text" placeholder={"기존 비밀번호를 입력하세요.".toString()} />
+                <InputBox
+                  type="text"
+                  placeholder={"기존 비밀번호를 입력하세요.".toString()}
+                />
               </div>
 
               <div className="mb-10 flex justify-center items-center mr-[5em]">
-                <label className="mr-[3em] font-chick text-lg" htmlFor="changepassword">
+                <label
+                  className="mr-[3em] font-chick text-lg"
+                  htmlFor="changepassword"
+                >
                   변경 비밀번호
                 </label>
-                <InputBox type="text" placeholder={"새 비밀번호를 입력하세요.".toString()} />
+                <InputBox
+                  type="text"
+                  placeholder={"새 비밀번호를 입력하세요.".toString()}
+                />
               </div>
 
               <div>
                 <div className="mb-10 flex justify-center items-center mr-[5em]">
-                  <label className="mr-[1em] font-chick text-lg" htmlFor="checkpassword">
+                  <label
+                    className="mr-[1em] font-chick text-lg"
+                    htmlFor="checkpassword"
+                  >
                     변경 비밀번호 확인
                   </label>
-                  <InputBox type="text" placeholder={"새 비밀번호를 다시 입력하세요.".toString()} />
+                  <InputBox
+                    type="text"
+                    placeholder={"새 비밀번호를 다시 입력하세요.".toString()}
+                  />
                 </div>
                 <div className="relatvie w-full">
                   <ErrorMessage
