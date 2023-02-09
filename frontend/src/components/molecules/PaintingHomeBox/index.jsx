@@ -18,7 +18,7 @@ function PaintingHomeBox() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const socketRef = useRef();
+  const socketRef = React.useRef();
 
   const onLogin = async () => {
     const response = await loginUser({
