@@ -377,7 +377,7 @@ class SmallVideoRoomComponent extends Component {
     const localUser = this.state.localUser;
 
     return (
-      <div>
+      <>
         {this.state.session === undefined ? (
           <div className="p-2 m-2">
             <Box sx={{ width: "50%" }}>
@@ -386,95 +386,86 @@ class SmallVideoRoomComponent extends Component {
           </div>
         ) : null}
         {this.state.session !== undefined ? (
-          <div className="flex flex-row w-[90em]">
-            <SmallWebCamBoard>
-              {localUser !== undefined &&
-                localUser.getStreamManager() !== undefined && (
-                  <div
-                    id="localUser"
-                    className="relative m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center "
-                  >
-                    <StreamComponent
-                      user={localUser}
-                      handleNickname={this.nicknameChanged}
-                    />
-                    <div className="rounded-[30px] absolute right-0 bottom-0 flex flex-row bg-emerald-500">
-                      <IconButton
-                        color="inherit"
-                        className="navButton"
-                        id="navCamButton"
-                        onClick={this.camStatusChanged}
-                      >
-                        {localUser !== undefined &&
-                        localUser.isVideoActive() ? (
-                          <Videocam />
-                        ) : (
-                          <VideocamOff color="secondary" />
-                        )}
-                      </IconButton>
+          // <div className="flex flex-row w-[90em]">
+          <SmallWebCamBoard>
+            {localUser !== undefined &&
+              localUser.getStreamManager() !== undefined && (
+                <div
+                  id="localUser"
+                  className="relative m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center "
+                >
+                  <StreamComponent
+                    user={localUser}
+                    handleNickname={this.nicknameChanged}
+                  />
+                  <div className="rounded-[30px] absolute right-0 bottom-0 flex flex-row bg-emerald-500">
+                    <IconButton
+                      color="inherit"
+                      className="navButton"
+                      id="navCamButton"
+                      onClick={this.camStatusChanged}
+                    >
+                      {localUser !== undefined && localUser.isVideoActive() ? (
+                        <Videocam />
+                      ) : (
+                        <VideocamOff color="secondary" />
+                      )}
+                    </IconButton>
 
-                      <IconButton
-                        color="inherit"
-                        className="navButton"
-                        id="navMicButton"
-                        onClick={this.micStatusChanged}
-                      >
-                        {localUser !== undefined &&
-                        localUser.isAudioActive() ? (
-                          <Mic />
-                        ) : (
-                          <MicOff color="secondary" />
-                        )}
-                      </IconButton>
-                    </div>
+                    <IconButton
+                      color="inherit"
+                      className="navButton"
+                      id="navMicButton"
+                      onClick={this.micStatusChanged}
+                    >
+                      {localUser !== undefined && localUser.isAudioActive() ? (
+                        <Mic />
+                      ) : (
+                        <MicOff color="secondary" />
+                      )}
+                    </IconButton>
                   </div>
-                )}
-
-              {this.state.subscribers.map((sub, i) =>
-                i < 3 ? (
-                  <div
-                    key={i}
-                    className=" m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center"
-                    id="remoteUsers"
-                  >
-                    <StreamComponent
-                      user={sub}
-                      streamId={sub.streamManager.stream.streamId}
-                    />
-                  </div>
-                ) : null
+                </div>
               )}
 
-              {this.state.subscribers.length === 0 ? (
-                <SmallFriendIsComing />
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <SmallFriendIsComing />
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <SmallFriendIsComing />
-              ) : null}
+            {this.state.subscribers.map((sub, i) =>
+              i < 3 ? (
+                <div
+                  key={i}
+                  className=" m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center"
+                  id="remoteUsers"
+                >
+                  <StreamComponent
+                    user={sub}
+                    streamId={sub.streamManager.stream.streamId}
+                  />
+                </div>
+              ) : null
+            )}
 
-              {this.state.subscribers.length === 1 ? (
-                <SmallFriendIsComing />
-              ) : null}
-              {this.state.subscribers.length === 1 ? (
-                <SmallFriendIsComing />
-              ) : null}
+            {this.state.subscribers.length === 0 ? (
+              <SmallFriendIsComing />
+            ) : null}
+            {this.state.subscribers.length === 0 ? (
+              <SmallFriendIsComing />
+            ) : null}
+            {this.state.subscribers.length === 0 ? (
+              <SmallFriendIsComing />
+            ) : null}
 
-              {this.state.subscribers.length === 2 ? (
-                <SmallFriendIsComing />
-              ) : null}
-            </SmallWebCamBoard>
+            {this.state.subscribers.length === 1 ? (
+              <SmallFriendIsComing />
+            ) : null}
+            {this.state.subscribers.length === 1 ? (
+              <SmallFriendIsComing />
+            ) : null}
 
-            {/* <div>
-              <Link to="/">
-                <CommonBtn text="나가기" color={"bg-pink-300"} />
-              </Link>
-            </div> */}
-          </div>
+            {this.state.subscribers.length === 2 ? (
+              <SmallFriendIsComing />
+            ) : null}
+          </SmallWebCamBoard>
         ) : null}
-      </div>
+      </>
     );
   }
 
