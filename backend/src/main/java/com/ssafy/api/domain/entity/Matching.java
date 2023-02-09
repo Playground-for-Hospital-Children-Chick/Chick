@@ -30,6 +30,7 @@ public class Matching {
     private String matEmail;
     private String matGameType;
     private String matSession;
+    private String matGuest;
 
     @CreatedBy
     @Column(updatable = false)
