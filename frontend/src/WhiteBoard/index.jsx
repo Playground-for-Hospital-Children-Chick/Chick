@@ -58,7 +58,7 @@ const Board = () => {
       }
       const w = canvas.width;
       const h = canvas.height;
-
+      console.log(" 그 리 는 중 입 니 다.   방 이름은 ????", roomName);
       socketRef.current.emit(
         "drawing",
         {
@@ -155,15 +155,11 @@ const Board = () => {
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
 
-    const onErasingEvent = () => {
-      clearBoard(false);
-    };
-
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
     socketRef.current.on("welcome", function (room) {
-      console.log(room);
+      console.log("방에 입장하였습니다 방이름은              ", room);
       setMyRoomName[room];
       console.log(roomName);
     });
@@ -171,6 +167,11 @@ const Board = () => {
     // socketRef.current = io.connect("ws://43.201.16.17:8001");
     // socketRef.current = io.connect("ws://localhost:8001");
   }, []);
+
+  const onErasingEvent = () => {
+    clearBoard(false);
+  };
+
   function clearBoard(emit) {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -179,6 +180,7 @@ const Board = () => {
     if (!emit) {
       return;
     }
+    console.log(" 지 웠 습 니 다   방 이름은 ????", roomName);
     socketRef.current.emit("erasing", roomName);
   }
   const user = useSelector((state) => state.user);
