@@ -176,11 +176,11 @@ const Board = () => {
     <div className="flex justify-between">
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
-      <div className="flex justify end">
+      <div className="flex justify end z-10">
         <SmallVideoRoomComponent />
       </div>
 
-      <div ref={colorsRef} className="colors h-[50px] row-span-2">
+      <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
         <div className="color black" />
         <div className="color red" />
         <div className="color green" />
@@ -193,7 +193,7 @@ const Board = () => {
           {Eraser}지우기
         </button>
       </div>
-      <div className="ml-[1em] absolute bottom-0 right-20">
+      <div className="ml-[1em] absolute bottom-0 right-20 z-10">
         <Link to="/">
           {Eraser}
           <CommonBtn text="나가기" color={"bg-pink-300"} />
