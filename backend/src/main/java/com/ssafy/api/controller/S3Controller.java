@@ -4,6 +4,7 @@ import com.ssafy.api.domain.dto.FileDto;
 import com.ssafy.api.domain.entity.FileEntity;
 import com.ssafy.api.service.FileService;
 import com.ssafy.api.service.S3Service;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Api(value = "S3 image upload download", tags = {"S3"})
 @RequestMapping("/api/s3")
 public class S3Controller {
     @Autowired
