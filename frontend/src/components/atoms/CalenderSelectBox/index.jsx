@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function CalenderSelectBox() {
+function CalenderSelectBox({ register }) {
   const now = new Date();
   let nowMonth = "";
   let nowDay = "";
@@ -20,8 +20,8 @@ function CalenderSelectBox() {
 
   const [nowCal, setNowCal] = useState({
     year: years[0],
-    month: (now.getMonth() + 1).toString(),
-    day: now.getDate().toString(),
+    month: (now.getMonth() + 1).toString().padStart(2, "0"),
+    day: now.getDate().toString().padStart(2, "0"),
   });
   let date = new Date(nowCal.year, nowCal.month, 0).getDate();
   for (let dd = date; dd >= 1; dd -= 1) {
@@ -33,7 +33,11 @@ function CalenderSelectBox() {
   }
   useEffect(() => {
     setNowCal(nowCal);
-    console.log(nowCal);
+    register["user_birth"] =
+      nowCal["year"].toString() +
+      nowCal["month"].toString() +
+      nowCal["day"].toString();
+    console.log(register);
   }, [nowCal]);
   if (now.getMonth() + 1 < 10) {
     nowMonth = "0" + (now.getMonth() + 1).toString();
@@ -49,6 +53,15 @@ function CalenderSelectBox() {
 
   return (
     <>
+      <input
+        {...register}
+        type="hidden"
+        value={parseInt(
+          nowCal["year"].toString() +
+            nowCal["month"].toString() +
+            nowCal["day"].toString()
+        )}
+      />
       <div className="flex gap-x-6 items-center">
         <div
           className="flex text-center font-chick flex justify-center items-center  relative overflow-hidden px-5 py-5 rounded-[30px]"
@@ -58,7 +71,7 @@ function CalenderSelectBox() {
             className="text-xl"
             defaultValue={nowDate[0]}
             onChange={(e) => {
-              setNowCal({ ...nowCal, year: e.target.value });
+              setNowCal({ ...nowCal, year: e.target.value.toString() });
             }}
           >
             {years.map((item) => (
@@ -76,7 +89,7 @@ function CalenderSelectBox() {
             className="text-xl"
             defaultValue={nowDate[1]}
             onChange={(e) => {
-              setNowCal({ ...nowCal, month: e.target.value });
+              setNowCal({ ...nowCal, month: e.target.value.toString() });
             }}
           >
             {months.map((item) => (
@@ -94,7 +107,7 @@ function CalenderSelectBox() {
             className="text-xl"
             defaultValue={nowDate[2]}
             onChange={(e) => {
-              setNowCal({ ...nowCal, day: e.target.value });
+              setNowCal({ ...nowCal, day: e.target.value.toString() });
             }}
           >
             {days.map((item) => (
