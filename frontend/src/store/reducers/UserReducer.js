@@ -45,5 +45,4 @@ export const userSlice = createSlice({
 export const { SET_USER, DELETE_USER, SET_TOKEN, DELETE_TOKEN } =
   userSlice.actions;
 
-export { asyncLoginAxios };
 export default { userSlice };
