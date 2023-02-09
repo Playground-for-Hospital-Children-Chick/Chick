@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import io from "socket.io-client";
 import Eraser from "../components/atoms/Eraser";
 import "./styles/board.css";
@@ -12,7 +12,7 @@ const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-  const roomName = null;
+  const [roomName, setMyRoomName] = useState("SessionA");
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -162,8 +162,9 @@ const Board = () => {
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
-    socketRef.current.on("welcome", (room) => {
-      roomName = room;
+    socketRef.current.on("welcome", function (room) {
+      console.log(room);
+      setMyRoomName[room];
       console.log(roomName);
     });
     // socketRef.current = io.connect("wss://i8b207.p.ssafy.io");
