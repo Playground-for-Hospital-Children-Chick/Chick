@@ -67,8 +67,11 @@ public class UserController {
     }
 
     @PostMapping("/emailConfirm")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "이메일로 토큰 전송"),
+    })
     @ApiOperation(value = "이메일 인증", notes = "이메일에 인증 코드를 보내준다")
-    public String emailConfirm(@RequestParam String email, HttpServletResponse response) throws Exception {
+    public ResponseEntity<? extends BaseResponseBody> emailConfirm(@RequestParam String email, HttpServletResponse response) throws Exception {
         String confirm = emailService.sendSimpleMessage(email);
         Cookie cookie=new Cookie("emailConfirmToken", confirm); // refresh 담긴 쿠키 생성
         cookie.setMaxAge(300); // 쿠키의 유효시간을 refresh 유효시간만큼 설정(5분 설정)
@@ -77,8 +80,22 @@ public class UserController {
         cookie.setPath("/");
         response.addCookie(cookie);
 
-        return confirm;
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
+
+    @PostMapping("/emailToken")
+    @ApiOperation(value = "이메일토큰인증", notes = "이메일로 보낸 토큰으로 이메일을 인증한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "이메일 인증 성공"),
+            @ApiResponse(code = 401, message = "이메일 인증 실패"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> emailConfirm(@CookieValue("emailConfirmToken") String emailConfirmToken, String userToken) {
+        if (emailConfirmToken.equals(userToken)) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Invalid Password"));
+    }
+
     @GetMapping("/find/email")
     @ApiOperation(value="이메일 찾기", notes = "부모이름, 아이이름, 생일로 유저 이메일을 찾는다")
     @ApiResponses({
