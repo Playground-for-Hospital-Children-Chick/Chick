@@ -20,7 +20,9 @@ public class S3Service {
     private final AmazonS3 amazonS3;
 
     public String uploadFile(MultipartFile multipartFile) throws IOException {
+        System.out.println(multipartFile.getName());
         String fileName = multipartFile.getOriginalFilename();
+        System.out.println(fileName);
 
         //파일 형식 구하기
         String ext = fileName.split("\\.")[1];
@@ -30,6 +32,9 @@ public class S3Service {
         switch (ext) {
             case "jpeg":
                 contentType = "image/jpeg";
+                break;
+            case "jpg":
+                contentType = "image/jpg";
                 break;
             case "png":
                 contentType = "image/png";
