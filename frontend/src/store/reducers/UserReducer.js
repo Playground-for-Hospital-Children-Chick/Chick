@@ -1,4 +1,4 @@
-//로그인이 되면 해당 유저의 개인정보를 포함하는 리덕스 상태관리
+E//로그인이 되면 해당 유저의 개인정보를 포함하는 리덕스 상태관리
 
 //refreshToken이 만료 되기 전에
 
@@ -14,17 +14,23 @@ export const userSlice = createSlice({
     userChName: null,
     accessToken: null,
     expireTime: null,
+    userType: null,
+    login: false,
   },
   reducers: {
     SET_USER: (state, action) => {
       console.log("SET_USER");
       state.userEmail = action.payload.userEmail;
       state.userChName = action.payload.userChName;
+      state.userType = action.payload.userType;
+      state.login = true;
     },
     DELETE_USER: (state) => {
       console.log("DELETE_USER");
       state.userEmail = null;
       state.userChName = null;
+      state.userType = null;
+      state.login = false;
     },
     SET_TOKEN: (state, action) => {
       console.log("SET_TOKEN");
