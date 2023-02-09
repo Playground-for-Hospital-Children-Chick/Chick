@@ -21,7 +21,7 @@ import SmallWebCamBoard from "../../components/atoms/SmallWebCamBoard";
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
-class DanceVideoRoomComponent extends Component {
+class BoardVideoRoomComponent extends Component {
   constructor(props) {
     super(props);
     let sessionName = this.props.sessionName
@@ -489,7 +489,7 @@ class DanceVideoRoomComponent extends Component {
       url: APPLICATION_SERVER_URL + "api/sessions",
       data: {
         email: email,
-        gameType: "dance",
+        gameType: "draw",
         guest: guest,
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
@@ -508,4 +508,4 @@ class DanceVideoRoomComponent extends Component {
     return response.data; // The token
   }
 }
-export default DanceVideoRoomComponent;
+export default BoardVideoRoomComponent;

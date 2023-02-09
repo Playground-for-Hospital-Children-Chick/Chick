@@ -4,8 +4,8 @@ import Eraser from "../components/atoms/Eraser";
 import "./styles/board.css";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
-import SmallVideoRoomComponent from "../boardRTC/VideoRoomComponent";
-import TestBox from "../components/atoms/TestBox";
+import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
+import { useSelector } from "react-redux";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -170,6 +170,8 @@ const Board = () => {
     }
     socketRef.current.emit("erasing");
   }
+  const user = useSelector((state) => state.user);
+
   // ------------- The Canvas and color elements --------------------------
 
   return (
@@ -177,7 +179,11 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        <SmallVideoRoomComponent />
+        <BoardVideoRoomComponent
+          user={user["userChName"]}
+          email={user["userEmail"]}
+          userType={user["userType"]}
+        />
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
