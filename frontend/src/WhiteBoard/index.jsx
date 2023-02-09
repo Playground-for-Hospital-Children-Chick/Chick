@@ -161,7 +161,7 @@ const Board = () => {
     socketRef.current.on("welcome", (room) => {
       console.log("방에 입장하였습니다 방이름은  ", room);
       setMyRoomName[room];
-      console.log(roomName);
+      console.log("세션은?", roomName);
     });
     // socketRef.current = io.connect("wss://i8b207.p.ssafy.io");
     // socketRef.current = io.connect("ws://43.201.16.17:8001");
