@@ -26,12 +26,12 @@ public class S3Controller {
     @Autowired
     private final FileService fileService;
 
-    @GetMapping("/api/upload")
+    @GetMapping("/upload")
     public String goToUpload() {
         return "upload";
     }
 
-    @PostMapping("/api/upload")
+    @PostMapping("/upload")
     public String uploadFile(FileDto fileDto) throws IOException {
         String url = s3Service.uploadFile(fileDto.getFile());
 
@@ -41,7 +41,7 @@ public class S3Controller {
         return "redirect:/api/list";
     }
 
-    @GetMapping("/api/list")
+    @GetMapping("/list")
     public String listPage(Model model) {
         List<FileEntity> fileList =fileService.getFiles();
         model.addAttribute("fileList", fileList);
