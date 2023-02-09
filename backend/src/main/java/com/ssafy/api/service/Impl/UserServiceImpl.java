@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    static int getAge(String birth) { // 만 나이를 계산하여 리턴
+    static int calcuAge(String birth) { // 만 나이를 계산하여 리턴
         int userYear = Integer.parseInt(birth.substring(0, 4)); // 회원 출생년도
         int userMonth = Integer.parseInt(birth.substring(4, 6)); // 회원 출생월
         int userDay = Integer.parseInt(birth.substring(6, 8)); // 회원 출생일
@@ -89,6 +89,9 @@ public class UserServiceImpl implements UserService {
         userLoginInfo.setUserEmail(user.getUserEmail());
         userLoginInfo.setUserChName(user.getUserChName());
         userLoginInfo.setUserRole(user.getUserRole());
+        userLoginInfo.setUserAge(calcuAge(user.getUserBirth()));
+        userLoginInfo.setUserBirth(user.getUserBirth());
+        userLoginInfo.setUserSex(user.getUserSex());
         return userLoginInfo;
     }
 
