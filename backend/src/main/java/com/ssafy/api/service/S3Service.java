@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,8 +20,8 @@ public class S3Service {
     private String bucket;
     private final AmazonS3 amazonS3;
 
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
-        System.out.println(multipartFile);
+    public String uploadFile(@RequestParam MultipartFile multipartFile) throws IOException {
+        System.out.println("multipartfile입니다 "+multipartFile);
         System.out.println(multipartFile.getName());
         String fileName = multipartFile.getOriginalFilename();
         System.out.println(fileName);
