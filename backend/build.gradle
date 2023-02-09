@@ -49,6 +49,9 @@ dependencies {
 	// JWT 의존
 	implementation("com.auth0:java-jwt:3.10.3")
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// monitoring 시각화
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 }
 
 tasks.named('test') {
