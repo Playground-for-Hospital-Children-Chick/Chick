@@ -15,6 +15,7 @@ export const userSlice = createSlice({
     accessToken: null,
     expireTime: null,
     userType: null,
+    login: false,
   },
   reducers: {
     SET_USER: (state, action) => {
@@ -22,12 +23,14 @@ export const userSlice = createSlice({
       state.userEmail = action.payload.userEmail;
       state.userChName = action.payload.userChName;
       state.userType = action.payload.userType;
+      state.login = true;
     },
     DELETE_USER: (state) => {
       console.log("DELETE_USER");
       state.userEmail = null;
       state.userChName = null;
       state.userType = null;
+      state.login = false;
     },
     SET_TOKEN: (state, action) => {
       console.log("SET_TOKEN");
