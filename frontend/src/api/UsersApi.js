@@ -137,10 +137,25 @@ export const accessTokenReIssue = async () => {
 };
 
 //회원가입
-export const siginupUser = async function signup(credentials) {
+export const signupUser = async function signup(credentials) {
   const response = await axios({
     method: "POST",
     url: `${BASE_URL}/users/register`,
+    data: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    withCredentials: true,
+  });
+
+  return response;
+};
+
+//회원 탈퇴
+export const signoutUser = async function signout(credentials) {
+  const response = await axios({
+    method: "DELETE",
+    url: `${BASE_URL}/users`,
     data: credentials,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
