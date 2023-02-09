@@ -15,6 +15,8 @@ import PaintingPage from "./components/pages/paintingPage";
 
 import FindEmail from "./components/pages/FindId";
 
+import YouTubeVideo from "./youtube";
+
 function App() {
   const user = useSelector((state) => state.user);
 
@@ -36,7 +38,7 @@ function App() {
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/board" element={<WhiteBoard />} />
-          <Route path="/singdance" element={<SingDance />} />
+          <Route path="/singdance" element={<YouTubeVideo />} />
           <Route path="/pwchange" element={<PwChange />} />
           <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
