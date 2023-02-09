@@ -46,6 +46,9 @@ function Login() {
         SET_USER({
           userEmail: response.data.userLoginInfo.userEmail,
           userChName: response.data.userLoginInfo.userChName,
+          userAge: response.data.userLoginInfo.userAge,
+          userBirth: response.data.userLoginInfo.userBirth,
+          userSex: response.data.userLoginInfo.userSex,
           userType: "user",
         })
       );
