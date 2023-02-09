@@ -13,7 +13,7 @@ import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 
 function SignUp() {
-  const { setValue, formState, handleSubmit, register } = useForm();
+  const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
   const onSignup = async (userInput) => {
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
@@ -86,12 +86,19 @@ function SignUp() {
               register={register("user_password", {
                 required: "비밀번호를 입력하지 않았습니다.",
                 pattern: {
-                  message: "비밀번호를 확인해주세요.",
+                  message: "비밀번호형식이 잘못되었습니다.",
                   value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
+                },
+                validate: {
+                  check: (val) => {
+                    if (getValues("user_password_check") !== val) {
+                      return "비밀번호가 일치하지 않습니다.";
+                    }
+                  },
                 },
               })}
               // onChange={onEmailChange}
-              type="text"
+              type="password"
               placeholder={"비밀번호를 입력해주세요".toString()}
             />
             <div className="relatvie w-full">
@@ -125,9 +132,16 @@ function SignUp() {
                   message: "비밀번호형식이 잘못되었습니다.",
                   value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                 },
+                validate: {
+                  check: (val) => {
+                    if (getValues("user_password") !== val) {
+                      return "비밀번호가 일치하지 않습니다.";
+                    }
+                  },
+                },
               })}
               // onChange={onEmailChange}
-              type="text"
+              type="password"
               placeholder={"비밀번호를 입력해주세요".toString()}
             />
             <div className="relatvie w-full">
