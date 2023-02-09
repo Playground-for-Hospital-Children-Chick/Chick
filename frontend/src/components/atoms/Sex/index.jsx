@@ -5,11 +5,17 @@ function Sex({ register }) {
       style={{ boxShadow: "0px 1px 3px 0 rgba(0,0,0,0.45)" }}
     >
       <select {...register} className="text-xl bg-yellow-200">
-        {["남", "여"].map((item) => (
-          <option value={item} key={item}>
-            {item}
-          </option>
-        ))}
+        {["남", "여"].map((item, i) =>
+          item === "남" ? (
+            <option value="M" key={i}>
+              {item}
+            </option>
+          ) : (
+            <option value="F" key={i}>
+              {item}
+            </option>
+          )
+        )}
       </select>
     </div>
   );
