@@ -55,21 +55,6 @@ public class UserServiceImpl implements UserService {
         return userAge;
     }
 
-    public UserInfoRes getUserInfo(String email) {
-        User user = userRepository.findByUserEmail(email);
-        if (user != null) { // 회원이 존재하면
-            // 회원 정보 넣기
-            UserInfoRes userInfoRes = new UserInfoRes(); // Response 객체 생성
-            userInfoRes.setUserName(user.getUserChName()); // 회원 이름
-            userInfoRes.setUserAge(getAge(user.getUserBirth())); // 회원 만나이
-            userInfoRes.setUserBirth(user.getUserBirth()); // 회원 출생일
-            userInfoRes.setUserSex(user.getUserSex()); // 회원 성별
-            userInfoRes.setUserEmail(user.getUserEmail()); // 회원 이메일
-            return userInfoRes; // 회원 정보 Response 리턴
-        }
-        return null;
-    }
-
     public boolean createUser(UserRegisterPostReq userRegisterInfo) {
         String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
         if ((userRepository.findByUserEmail(userRegisterInfo.getUser_email()) != null)
