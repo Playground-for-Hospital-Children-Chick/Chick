@@ -7,11 +7,9 @@ import com.ssafy.api.service.S3Service;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,20 +24,31 @@ public class S3Controller {
     @Autowired
     private final FileService fileService;
 
-    @GetMapping("/upload")
-    public String goToUpload() {
-        return "upload";
-    }
-
+    // 1. 업로드 파일경로 추가
+    // 2. upload한 파일보기
+    // 3. delete
+    // https://green-joo.tistory.com/2
     @PostMapping("/upload")
-    public String uploadFile(FileDto fileDto) throws IOException {
-        String url = s3Service.uploadFile(fileDto.getFile());
+    public String uploadFile(FileDto fileDto, String email) throws IOException {
+        String url = s3Service.uploadFile(fileDto.getFile(), email);
 
         fileDto.setUrl(url);
         fileService.save(fileDto);
 
-        return "redirect:/api/list";
+        return "redirect:/";
     }
+
+//    @DeleteMapping
+//    public ResponseEntity<?> delete(String filePath){
+//        return fileService.delete(filePath);
+//    }
+//
+//    @GetMapping("/download")
+//    public ResponseEntity<?> download(String fileUrl) throws IOException{
+//        String filePath = fileUrl.substring(52);
+//        System.out.println(filePath);
+//        return fileService.download(filePath);
+//    }
 
     @GetMapping("/list")
     public String listPage(Model model) {
@@ -47,4 +56,5 @@ public class S3Controller {
         model.addAttribute("fileList", fileList);
         return "list";
     }
+
 }

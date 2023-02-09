@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -20,9 +23,7 @@ public class S3Service {
     private String bucket;
     private final AmazonS3 amazonS3;
 
-    public String uploadFile(@RequestPart MultipartFile multipartFile) throws IOException {
-        System.out.println("multipartfile입니다 "+multipartFile);
-        System.out.println(multipartFile.getName());
+    public String uploadFile(@RequestPart MultipartFile multipartFile, String dirName) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
         System.out.println(fileName);
 
@@ -51,9 +52,10 @@ public class S3Service {
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
+            System.out.println(contentType);
             metadata.setContentType(contentType);
-
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, multipartFile.getInputStream(), metadata)
+            String formDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("/yyyy-MM-dd HH:mm"));
+            amazonS3.putObject(new PutObjectRequest(bucket, dirName+formDate+fileName, multipartFile.getInputStream(), metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (AmazonServiceException e) {
             e.printStackTrace();
@@ -69,5 +71,9 @@ public class S3Service {
             System.out.println("object = " + object.toString());
         }
         return amazonS3.getUrl(bucket, fileName).toString();
+    }
+
+    private void putS3(File uploadFile, String fileName){// S3업로드
+
     }
 }
