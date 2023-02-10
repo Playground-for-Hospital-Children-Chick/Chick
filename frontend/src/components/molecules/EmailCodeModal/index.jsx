@@ -7,22 +7,20 @@ import { useEffect, useState } from "react";
 
 function CodeModal() {
   const [count, setCount] = useState(179);
-  const [min, setMit] = useState();
-  const [sec, setSec] = useState();
+  const [min, setMit] = useState(2);
+  const [sec, setSec] = useState(59);
 
   useEffect(() => {
     const id = setInterval(() => {
       setCount(count - 1);
-      setMit(parseInt(count / 60));
-      setSec(parseInt(count % 60));
+      setMit(parseInt((count - 1) / 60));
+      setSec(parseInt((count - 1) % 60));
+      return () => {};
     }, 1000);
     return () => clearInterval(id);
   }, [count]);
   return (
     <>
-      <div>{min}</div>
-      <div>{sec}</div>
-      <div>{count}</div>
       <AlertBox>
         <div className="mt-[2.5em] flex flex-col justify-center items-center">
           <div className="font-chick text-3xl">
@@ -31,7 +29,9 @@ function CodeModal() {
           <div className="font-chick text-3xl mt-[0.5em]">
             코드를 입력해주세요.
           </div>
-          <div className="font-chick text-3xl mt-[0.5em]">남은 시간 {} </div>
+          <div className="font-chick text-3xl mt-[0.5em]">
+            남은 시간 {min == 0 ? "00" : min} : {sec == 0 ? "00" : sec}
+          </div>
           <div className="mt-[1em] flex justify-center items-center">
             <label className="font-chick text-lg mr-[2em]" htmlFor="email">
               {"이메일"}
@@ -60,7 +60,7 @@ function CodeModal() {
               />
             </div>
             <div className="mt-[2em]">
-              <CommonBtn text="확인" color="bg-emerald-300" />
+              <CommonBtn option={true} text="확인" color="bg-emerald-300" />
             </div>
           </div>
         </div>
