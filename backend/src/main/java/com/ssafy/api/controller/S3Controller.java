@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.domain.dto.BaseResponseBody;
 import com.ssafy.api.domain.dto.FileDto;
+import com.ssafy.api.domain.dto.S3ImagesRes;
 import com.ssafy.api.domain.entity.FileEntity;
 import com.ssafy.api.service.FileService;
 import com.ssafy.api.service.S3Service;
@@ -41,25 +42,13 @@ public class S3Controller {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<BaseResponseBody> listPage(Model model, String email) {
+    public ResponseEntity<S3ImagesRes> listPage(String email) {
         List<FileEntity> fileList =fileService.getFiles(email);
         if(fileList.size()!=0){
-            model.addAttribute("fileList", fileList);
-            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+            return ResponseEntity.ok(S3ImagesRes.of(200, "Success", fileList));
         }
-        return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
+        return ResponseEntity.ok(S3ImagesRes.of(404, "Failure", null));
     }
 
-//    @DeleteMapping
-//    public ResponseEntity<?> delete(String filePath){
-//        return fileService.delete(filePath);
-//    }
-//
-//    @GetMapping("/download")
-//    public ResponseEntity<?> download(String fileUrl) throws IOException{
-//        String filePath = fileUrl.substring(52);
-//        System.out.println(filePath);
-//        return fileService.download(filePath);
-//    }
 
 }
