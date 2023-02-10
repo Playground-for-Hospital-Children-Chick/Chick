@@ -503,6 +503,9 @@ class VideoRoomComponent extends Component {
                       handleNickname={this.nicknameChanged}
                     />
                     <div className="rounded-[30px] absolute bottom-0 right-3 flex flex-row bg-[#ffff]">
+                      {/* <div className="font-chick text-white">
+                        {this.state.myUserName}
+                      </div> */}
                       <IconButton
                         color="inherit"
                         className="navButton"
@@ -546,6 +549,9 @@ class VideoRoomComponent extends Component {
                       user={sub}
                       streamId={sub.streamManager.stream.streamId}
                     />
+                    {/* <div className="font-chick text-white">
+                      {sub.streamManager.stream.streamId}
+                    </div> */}
                   </div>
                 ) : null
               )}
@@ -585,6 +591,7 @@ class VideoRoomComponent extends Component {
             </WebCamBoard>
 
             <div className="relative w-[9.5em]">
+              <div className="font-chick ">{this.state.mySessionId}</div>
               <CommonBtn
                 text="얼굴놀이"
                 color={"bg-blue-300"}
