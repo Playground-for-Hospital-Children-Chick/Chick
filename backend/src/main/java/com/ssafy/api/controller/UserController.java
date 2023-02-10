@@ -70,7 +70,7 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "이메일로 토큰 전송"),
     })
-    @ApiOperation(value = "이메일 인증", notes = "이메일에 인증 코드를 보내준다")
+    @ApiOperation(value = "이메일토큰발송", notes = "이메일에 인증 코드를 보내준다")
     public ResponseEntity<? extends BaseResponseBody> emailConfirm(@RequestParam String email, HttpServletResponse response) throws Exception {
         String confirm = emailService.sendSimpleMessage(email);
         Cookie cookie=new Cookie("emailConfirmToken", confirm); // refresh 담긴 쿠키 생성
