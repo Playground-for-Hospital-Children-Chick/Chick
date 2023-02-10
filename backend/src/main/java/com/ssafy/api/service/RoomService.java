@@ -8,5 +8,5 @@ import java.util.Map;
 public interface RoomService {
     public String getRoomSession(String email, String gameType, String guest);
     public void createMachingInfo(RoomSessionReq roomSessionReq, String userSession);
-    public boolean disconnect(String sessionId);
+    public boolean disconnect(String email, String session);
 }
