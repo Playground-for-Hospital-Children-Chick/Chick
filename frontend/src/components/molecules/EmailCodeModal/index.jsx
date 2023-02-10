@@ -80,7 +80,7 @@ function CodeModal() {
     }
   }, [count]);
   return (
-    <>
+    <div visibility="true">
       <AlertBox>
         <div className="mt-[2.5em] flex flex-col justify-center items-center">
           <div className="font-chick text-3xl">이메일로 코드가 발급해서,</div>
@@ -143,7 +143,7 @@ function CodeModal() {
           </div>
         </div>
       </AlertBox>
-    </>
+    </div>
   );
 }
 

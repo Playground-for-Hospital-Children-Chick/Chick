@@ -11,6 +11,7 @@ import { signupUser } from "./../../../api/UsersApi";
 
 import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
+import CodeModal from "./../../molecules/EmailCodeModal/index";
 
 function SignUp() {
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
@@ -36,6 +37,9 @@ function SignUp() {
         <Link to="/login">
           <CommonBtn text="로그인" color="bg-blue-300" />
         </Link>
+      </div>
+      <div className="invisible">
+        <CodeModal />
       </div>
       <form className=" space-y-8" onSubmit={handleSubmit(onSignup)}>
         <div className="gap-x-14 email flex items-center justify-center">
