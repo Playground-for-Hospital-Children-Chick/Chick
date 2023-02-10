@@ -156,6 +156,7 @@ class VideoRoomComponent extends Component {
   }
 
   componentWillUnmount() {
+    this.state.deepAR.stopVideo();
     window.removeEventListener("beforeunload", this.onbeforeunload);
     this.leaveSession();
   }
@@ -299,24 +300,30 @@ class VideoRoomComponent extends Component {
   }
 
   async leaveSession() {
-    this.state.deepAR.stopVideo();
+    // this.state.deepAR.stopVideo();
+    console.log("**********leaveSession**********");
     const mySession = this.state.session;
 
     if (mySession) {
       mySession.disconnect();
     }
 
-    const response = await axios.post(
-      APPLICATION_SERVER_URL +
+    const response = await axios({
+      method: "post",
+      url:
+        APPLICATION_SERVER_URL +
         "api/sessions/" +
         this.state.mySessionId +
         "/disconnect",
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+      data: {
+        email: this.props.email,
+        sessionId: this.state.mySessionId,
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    });
+
     if (response.status == 200) {
-      console.log("leaveSession");
+      console.log("**********leaveSession Success**********");
     }
 
     // Empty all properties...
