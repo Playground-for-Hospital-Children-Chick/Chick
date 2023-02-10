@@ -19,6 +19,7 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
   const [roomName, setMyRoomName] = useState();
+  const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
   async function getSessionId(email) {
     const sessionId = await createSession(email);
