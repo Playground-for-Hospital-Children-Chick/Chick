@@ -22,13 +22,14 @@ default="blue"
 */
 }
 
-function CommonBtn({ onClick, type, text = "Button", color }) {
+function CommonBtn({ option, onClick, type, text = "Button", color }) {
   const classStr = classnames(
     `font-chick  p-3 mx-2 mt-3 mb-3 h-[70px] overflow-hidden rounded-[30px]`,
     color
   );
   return (
     <button
+      disabled={option}
       type={type}
       className={classStr}
       style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}

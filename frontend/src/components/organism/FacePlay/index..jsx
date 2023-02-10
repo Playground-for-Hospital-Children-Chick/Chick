@@ -24,6 +24,12 @@ import { logoutUser } from "./../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 
 function FacePlay() {
+  //새로고침으로 카메라 off
+  if (self.name != "reload") {
+    self.name = "reload";
+    self.location.reload(true);
+  } else self.name = "";
+
   const user = useSelector((state) => state.user);
   // const [loginState, setLoginState] = useState(user);
   const dispatch = useDispatch();
