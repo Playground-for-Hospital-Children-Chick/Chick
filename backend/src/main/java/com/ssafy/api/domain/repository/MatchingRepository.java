@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface MatchingRepository extends JpaRepository<Matching, Integer> {
+    Matching findByMatEmailAndMatSession(String matEmail, String matSession);
 }
