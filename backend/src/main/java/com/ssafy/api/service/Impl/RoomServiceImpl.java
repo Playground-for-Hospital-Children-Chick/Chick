@@ -42,7 +42,7 @@ public class RoomServiceImpl implements RoomService {
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         // newSession := [회원/게스트][게임종류]Session[방번호]
-        String newSession = guest + gameType + "Session" + roomRepository.count();
+        String newSession = guest.equals("true") ? "guest"+ gameType + "Session" + roomRepository.count() : "user" + gameType + "Session" + roomRepository.count();
 
         // 새로운 게임방 생성
         roomRepository.save(Room.builder()
