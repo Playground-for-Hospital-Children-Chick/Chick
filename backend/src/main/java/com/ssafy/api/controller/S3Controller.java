@@ -49,6 +49,5 @@ public class S3Controller {
         }
         return ResponseEntity.ok(S3ImagesRes.of(404, "Failure", null));
     }
-
-
+    
 }
