@@ -31,6 +31,7 @@ public class Matching {
     private String matGameType;
     private String matSession;
     private String matGuest;
+    private String matVisit;
 
     @CreatedBy
     @Column(updatable = false)

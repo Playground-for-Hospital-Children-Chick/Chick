@@ -30,6 +30,10 @@ public class RoomServiceImpl implements RoomService {
         방의 종류로 방을 선택 후 인원 기준으로 Order by 해서 가장 인원수가 적은 방을 확인한다.
         해당 방이 없거나 인원수가 4 이상이면 새로운 세션을 만들고 그렇지 않으면 해당 방의 세션을 리턴한다
          */
+//        ArrayList<Matching> matchingArrayList = matchingRepository.findByMatEmailAndMatVisit(email, "true");
+//        if (matchingArrayList != null) { // 이전에 참가한 방이 있으면
+//            return "visited";
+//        }
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest); // 참가할려는 게임방의 정보를 가져온다
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
@@ -70,16 +74,20 @@ public class RoomServiceImpl implements RoomService {
                         .matGameType(roomSessionReq.getGameType())
                         .matSession(userSession)
                         .matGuest(roomSessionReq.getGuest())
+                        .matVisit("true")
                         .matCreateBy(roomSessionReq.getEmail())
                         .matCreateDate(LocalDateTime.now())
                         .build());
     }
 
-    public boolean disconnect(String sessionId) {
-        Room room = roomRepository.findRoomByRoomSession(sessionId);
-        if (room == null || room.getRoomCnt() <= 0) return false;
-        room.setRoomCnt(room.getRoomCnt() - 1);
-        roomRepository.save(room);
+    public boolean disconnect(String email, String session) {
+        Room room = roomRepository.findRoomByRoomSession(session); // session에 해당하는 방 정보
+        if (room == null || room.getRoomCnt() <= 0) return false; // 방이 없으면
+        room.setRoomCnt(room.getRoomCnt() - 1); // 방의 인원수 감소
+        roomRepository.save(room); // 방 정보 업데이트
+        Matching matching = matchingRepository.findByMatEmailAndMatSession(email, session); // 회원의 매칭 정보
+        matching.setMatVisit("false"); // 회원은 해당방에 입장중이 아니다
+        matchingRepository.save(matching); // 매칭 정보 업데이트
         return true;
     }
 }
