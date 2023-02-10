@@ -10,6 +10,6 @@ import java.util.List;
 
 @Component
 public interface FileRepository extends JpaRepository<FileEntity, Long> {
-    @Query(nativeQuery = true, value = "SELECT * FROM FILE_ENTITY AS f WHERE f.EMAIL IN (:email)")
-    List<FileEntity> findImagesByEmail(@Param("email") String email);
+    @Query(value = "SELECT f FROM FileEntity f WHERE f.email=?1")
+    List<FileEntity> findImagesByEmail(String email);
 }
