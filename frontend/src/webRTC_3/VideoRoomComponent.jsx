@@ -205,7 +205,7 @@ class VideoRoomComponent extends Component {
             status: error.status,
           });
         }
-        alert("There was an error getting the token:", error.message);
+        alert("같은 계정이 방에 입장해 있어요..!", error.message);
         window.location.href = "/";
       }
     }
