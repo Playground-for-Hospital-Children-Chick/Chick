@@ -19,6 +19,7 @@ function PaintingHomeBox() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const socketRef = React.useRef();
+  const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
   const onLogin = async () => {
     const response = await loginUser({
