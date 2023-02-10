@@ -9,5 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileDto {
     private String title;
     private String url;
+    private String email;
     private MultipartFile file;
 }
