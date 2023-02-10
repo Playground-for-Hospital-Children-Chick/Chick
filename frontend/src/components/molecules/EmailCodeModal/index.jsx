@@ -3,30 +3,87 @@ import GamePlayBtn from "../../atoms/GamePlayBtn";
 import InputBox from "../../atoms/Input";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import chick_02 from "../../../assets/characters/chick_02.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
 
 function CodeModal() {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
-  const [disabled, setDisabed] = useState(false);
-
+  const [emailCheck, setEmailCheck] = useState("");
+  const [codeCheck, setCodeCheck] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const sendEmail = async () => {
+    setCount(179);
+    setMit(2);
+    setSec(59);
+    const response = await sendCodeUser({ email: emailCheck });
+    if (parseInt(Number(response.status) / 100) === 2) {
+      console.log("발송성공");
+    } else {
+      console.log("실패");
+    }
+  };
+  const sendCode = async () => {
+    console.log("코드전송");
+    const response = await sendCheckCodeUser({ userToken: codeCheck });
+    if (parseInt(Number(response.status) / 100) === 2) {
+      console.log("발송성공");
+    } else {
+      console.log("실패");
+    }
+  };
+  const handleChange = useCallback(
+    (e) => {
+      setEmailCheck(e.target.value);
+    },
+    [emailCheck]
+  );
+  const handleChangeCode = useCallback(
+    (e) => {
+      setCodeCheck(e.target.value);
+    },
+    [codeCheck]
+  );
   useEffect(() => {
-    const id = setInterval(() => {
-      setCount(count - 1);
-      setMit(parseInt((count - 1) / 60));
-      setSec(parseInt((count - 1) % 60));
-      return () => {};
-    }, 1000);
-    return () => clearInterval(id);
+    const getCodeResponse = async () => {
+      try {
+        // api 요청
+        console.log(codeCheck);
+      } catch (e) {
+        console.error(e.response);
+      }
+    };
+    getCodeResponse();
+  }, [codeCheck]);
+  useEffect(() => {
+    const getResponse = async () => {
+      try {
+        // api 요청
+        console.log(emailCheck);
+      } catch (e) {
+        console.error(e.response);
+      }
+    };
+    getResponse();
+  }, [emailCheck]);
+  useEffect(() => {
+    if (count != 0) {
+      const id = setInterval(() => {
+        setCount(count - 1);
+        setMit(parseInt((count - 1) / 60));
+        setSec(parseInt((count - 1) % 60));
+      }, 1000);
+      return () => clearInterval(id);
+    } else {
+      setCount(0);
+    }
   }, [count]);
   return (
     <>
       <AlertBox>
         <div className="mt-[2.5em] flex flex-col justify-center items-center">
-          <div className="font-chick text-3xl">
-            이메일로 코드가 발급되었습니다.
-          </div>
+          <div className="font-chick text-3xl">이메일로 코드가 발급해서,</div>
           <div className="font-chick text-3xl mt-[0.5em]">
             코드를 입력해주세요.
           </div>
@@ -39,10 +96,17 @@ function CodeModal() {
               {"이메일"}
             </label>
             <div>
-              <InputBox placeholder={"이메일을 입력해주세요."} />
+              <InputBox
+                onChange={handleChange}
+                placeholder={"이메일을 입력해주세요."}
+              />
             </div>
             <div className="ml-[2em] p-0">
-              <CommonBtn text="코드 발송" color="bg-emerald-300" />
+              <CommonBtn
+                text="코드 발송"
+                onClick={sendEmail}
+                color="bg-emerald-300"
+              />
             </div>
           </div>
           <div className="mt-[2em] mr-[11.4em] flex justify-center items-center">
@@ -50,23 +114,27 @@ function CodeModal() {
               {"코드"}
             </label>
             <div>
-              <InputBox placeholder={"코드를 입력해주세요."} />
+              <InputBox
+                onChange={handleChangeCode}
+                placeholder={"코드를 입력해주세요."}
+              />
             </div>
           </div>
           <div className="flex flex-row mr-[15em]">
             <div>
               <img
-                className="right-[3em] inline after:mr-5 w-[11.5em]"
+                className="right-[3em] inline after:mr-5 w-[9em]"
                 src={chick_02}
                 alt="병아리캐릭터"
               />
             </div>
-            <div className="mt-[2em]">
+            <div>
               {min == 0 && sec == 0 ? (
-                <CommonBtn option={disabled} text="확인" color="bg-gray-100" />
+                <CommonBtn option={true} text="확인" color="bg-gray-100" />
               ) : (
                 <CommonBtn
-                  option={disabled}
+                  onClick={sendCode}
+                  option={false}
                   text="확인"
                   color="bg-emerald-300"
                 />
