@@ -15,4 +15,5 @@ public interface UserService {
         public boolean deleteUser(UserLoginPostReq deleteInfo);
 
         public String sendPwdMessage(String to)throws Exception;
+        public UserLoginInfo createGuest();
 }
