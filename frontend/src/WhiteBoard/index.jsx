@@ -31,6 +31,8 @@ const Board = () => {
       console.log("sessionId", sessionId);
 
       setMyRoomName(sessionId);
+      socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+      socketRef.current.emit("join_room", sessionId);
     }
 
     async function createSession(email) {
@@ -189,17 +191,9 @@ const Board = () => {
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
-    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+    // socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
-    socketRef.current.on("welcome", async (room) => {
-      console.log("front 방에 입장하였습니다 방이름은    ", room);
-      setMyRoomName[room];
-      console.log("세션은?", roomName);
-    });
-    // socketRef.current = io.connect("wss://i8b207.p.ssafy.io");
-    // socketRef.current = io.connect("ws://43.201.16.17:8001");
-    // socketRef.current = io.connect("ws://localhost:8001");
   }, []);
 
   const onErasingEvent = () => {
