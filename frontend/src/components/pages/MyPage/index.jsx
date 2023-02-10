@@ -3,7 +3,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { loginUser } from "../../../api/UsersApi";
+import { loginGuest } from "../../../api/UsersApi";
 import { SET_USER, SET_TOKEN } from "../../../store/reducers/UserReducer";
 import { useEffect } from "react";
 
@@ -17,10 +17,7 @@ function MyPage() {
   useEffect(checkLogin, []);
 
   const onLogin = async () => {
-    const response = await loginUser({
-      email: "guest@guest.com",
-      password: "123",
-    });
+    const response = await loginGuest();
 
     if (parseInt(Number(response.status) / 100) === 2) {
       console.log(response.data.accessToken);
