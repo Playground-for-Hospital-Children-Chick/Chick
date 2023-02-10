@@ -30,8 +30,8 @@ public class S3Controller {
     // 3. delete
     // https://green-joo.tistory.com/2
     @PostMapping("/upload")
-    public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto, String email) throws IOException {
-        String url = s3Service.uploadFile(fileDto.getFile(), email);
+    public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto) throws IOException {
+        String url = s3Service.uploadFile(fileDto.getFile(), fileDto.getEmail()+"/");
         if(url != null){
             fileDto.setUrl(url);
             fileService.save(fileDto);
@@ -41,10 +41,13 @@ public class S3Controller {
     }
 
     @GetMapping("/list")
-    public String listPage(Model model) {
-        List<FileEntity> fileList =fileService.getFiles();
-        model.addAttribute("fileList", fileList);
-        return "list";
+    public ResponseEntity<BaseResponseBody> listPage(Model model, String email) {
+        List<FileEntity> fileList =fileService.getFiles(email);
+        if(fileList.size()!=0){
+            model.addAttribute("fileList", fileList);
+            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
     }
 
 //    @DeleteMapping
