@@ -194,7 +194,7 @@ const Board = () => {
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
-    // socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
   }, [roomName]);
