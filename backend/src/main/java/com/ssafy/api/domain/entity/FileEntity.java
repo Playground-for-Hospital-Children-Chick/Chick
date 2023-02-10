@@ -18,11 +18,15 @@ public class FileEntity {
     private String title;
 
     @Column
+    private String email;
+
+    @Column
     private String s3Url;
 
-    public FileEntity(String title, String s3Url) {
+    public FileEntity(String title, String s3Url, String email) {
         this.title = title;
         this.s3Url = s3Url;
+        this.email = email;
     }
 
     @Override
@@ -31,6 +35,7 @@ public class FileEntity {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", s3Url='" + s3Url + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

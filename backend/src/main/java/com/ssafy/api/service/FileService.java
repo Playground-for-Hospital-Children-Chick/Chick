@@ -14,12 +14,12 @@ public class FileService {
     private final FileRepository fileRepository;
 
     public void save(FileDto fileDto) {
-        FileEntity fileEntity = new FileEntity(fileDto.getTitle(), fileDto.getUrl());
+        FileEntity fileEntity = new FileEntity(fileDto.getTitle(), fileDto.getUrl(), fileDto.getEmail());
         fileRepository.save(fileEntity);
     }
 
-    public List<FileEntity> getFiles() {
-        List<FileEntity> all = fileRepository.findAll();
+    public List<FileEntity> getFiles(String email) {
+        List<FileEntity> all = fileRepository.findImagesByEmail(email);
         return all;
     }
 }
