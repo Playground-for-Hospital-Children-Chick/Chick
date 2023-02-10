@@ -6,7 +6,6 @@ import CommonBtn from "../components/atoms/CommonBtn";
 import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import session from "redux-persist/lib/storage/session";
 import BluePan from "../assets/images/board/blue_pan.png";
 import BlackPan from "../assets/images/board/black_pan.png";
 import RedPan from "../assets/images/board/red_pan.png";
@@ -18,8 +17,20 @@ const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-  // const [SessionName, setMyRoomName] = useState();
+  const [myRoomName, setMyRoomName] = useState();
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+
+  function clearBoard(emit, sessionName) {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    if (!emit) {
+      return;
+    }
+    console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
+    socketRef.current.emit("erasing", sessionName);
+  }
 
   useEffect(() => {
     let SessionName = "";
@@ -29,6 +40,7 @@ const Board = () => {
       console.log("getSessionId");
       const sessionId = await createSession(email);
       SessionName = sessionId;
+      setMyRoomName(sessionId);
 
       console.log("sessionId", sessionId);
       console.log("SessionName", SessionName);
@@ -192,28 +204,17 @@ const Board = () => {
     onResize();
 
     // ----------------------- socket.io connection ----------------------------
+    let onErasingEvent = () => {
+      clearBoard(false, SessionName);
+    };
+
     const onDrawingEvent = (data) => {
       const w = canvas.width;
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
 
-    const onErasingEvent = () => {
-      clearBoard(false);
-    };
-
-    function clearBoard(emit) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.beginPath();
-      if (!emit) {
-        return;
-      }
-      console.log(" 지 웠 습 니 다   방 이름은 ????", SessionName);
-      socketRef.current.emit("erasing", SessionName);
-    }
-
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
   }, []);
@@ -237,7 +238,7 @@ const Board = () => {
         <img src={BluePan} width="45" height="45" className="color blue" />
         <img src={YellowPan} width="45" height="45" className="color yellow" />
 
-        <button onClick={() => clearBoard(true)}>
+        <button onClick={() => clearBoard(true, { myRoomName })}>
           <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
