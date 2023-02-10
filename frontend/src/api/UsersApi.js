@@ -49,6 +49,17 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 // const getPromise = async (url, option) => {
 //   return await Promise.race([requestPromise(url, option), timeoutPromise()]);
 // };
+// 게스트 로그인 요청
+export const loginGuest = async function guestLogin() {
+  const response = await axios({
+    method: "get",
+    url: BASE_URL + "/auth/loginGuest",
+    headers: { "Content-Type": "application/json;charset=UTF-8" },
+    withCredentials: true,
+  });
+  console.log(cookie.load("refreshToken"));
+  return response;
+};
 
 // 백으로 로그인 요청
 export const loginUser = async function login(credentials) {
