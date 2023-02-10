@@ -160,12 +160,11 @@ const Board = () => {
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
-
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
-    socketRef.current.on("welcome", function (room) {
-      console.log("방에 입장하였습니다 방이름은              ", room);
+    socketRef.current.on("welcome", async (room) => {
+      console.log("방에 입장하였습니다 방이름은    ", room);
       setMyRoomName[room];
       console.log(roomName);
     });
@@ -198,11 +197,7 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        <BoardVideoRoomComponent
-          user={user["userChName"]}
-          email={user["userEmail"]}
-          userType={user["userType"]}
-        />
+        <BoardVideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
