@@ -34,6 +34,7 @@ public class RoomServiceImpl implements RoomService {
 //        if (matchingArrayList != null) { // 이전에 참가한 방이 있으면
 //            return "visited";
 //        }
+        guest = guest.equals("true") ? "guest" : "user";
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest); // 참가할려는 게임방의 정보를 가져온다
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
@@ -48,7 +49,6 @@ public class RoomServiceImpl implements RoomService {
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         // newSession := [회원/게스트][게임종류]Session[방번호]
-        guest = guest.equals("true") ? "guest" : "user";
         String newSession = guest + gameType + "Session" + roomRepository.count();
 
         // 새로운 게임방 생성
