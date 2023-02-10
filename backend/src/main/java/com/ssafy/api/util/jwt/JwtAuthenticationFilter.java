@@ -29,7 +29,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterchain) throws IOException, ServletException {
         // JWT Token 헤더 인증정보
         String header = request.getHeader(JwtTokenUtil.HEADER_STRING);
-
         if(header == null || !header.startsWith(JwtTokenUtil.TOKEN_PRIFIX)) {
             filterchain.doFilter(request, response);
             return;
