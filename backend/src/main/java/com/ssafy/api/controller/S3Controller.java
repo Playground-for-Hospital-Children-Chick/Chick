@@ -31,7 +31,7 @@ public class S3Controller {
     // https://green-joo.tistory.com/2
     @PostMapping("/upload")
     public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto) throws IOException {
-        String url = s3Service.uploadFile(fileDto.getFile(), fileDto.getEmail()+"/");
+        String url = s3Service.uploadFile(fileDto.getFile(), fileDto.getEmail());
         if(url != null){
             fileDto.setUrl(url);
             fileService.save(fileDto);
