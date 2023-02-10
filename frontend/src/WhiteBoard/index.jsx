@@ -6,7 +6,6 @@ import CommonBtn from "../components/atoms/CommonBtn";
 import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import session from "redux-persist/lib/storage/session";
 import BluePan from "../assets/images/board/blue_pan.png";
 import BlackPan from "../assets/images/board/black_pan.png";
 import RedPan from "../assets/images/board/red_pan.png";
@@ -205,7 +204,7 @@ const Board = () => {
     onResize();
 
     // ----------------------- socket.io connection ----------------------------
-    const onErasingEvent = () => {
+    let onErasingEvent = () => {
       clearBoard(false, SessionName);
     };
 
@@ -215,22 +214,7 @@ const Board = () => {
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
 
-    const onErasingEvent = () => {
-      clearBoard(false);
-    };
-
-    function clearBoard(emit) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.beginPath();
-      if (!emit) {
-        return;
-      }
-      console.log(" 지 웠 습 니 다   방 이름은 ????", SessionName);
-      socketRef.current.emit("erasing", SessionName);
-    }
-
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
   }, []);
