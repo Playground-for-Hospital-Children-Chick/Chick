@@ -18,9 +18,11 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender emailSender;
 
-    public static final String ePw = createKey();
+//    public static final String ePw = createKey();
+    static String ePw;
 
     private MimeMessage createMessage(String to)throws Exception{
+        ePw = createKey();
         System.out.println("보내는 대상 : "+ to);
         System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
