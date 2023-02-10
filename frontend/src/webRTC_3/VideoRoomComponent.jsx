@@ -206,7 +206,7 @@ class VideoRoomComponent extends Component {
           });
         }
         alert("There was an error getting the token:", error.message);
-        window.location.href = "";
+        window.location.href = "/";
       }
     }
   }
