@@ -30,19 +30,22 @@ public class RoomServiceImpl implements RoomService {
         방의 종류로 방을 선택 후 인원 기준으로 Order by 해서 가장 인원수가 적은 방을 확인한다.
         해당 방이 없거나 인원수가 4 이상이면 새로운 세션을 만들고 그렇지 않으면 해당 방의 세션을 리턴한다
          */
-        ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest);
+        ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest); // 참가할려는 게임방의 정보를 가져온다
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
-//            Matching matchingInfo = matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession());
-            room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
-            room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
-            room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
-            roomRepository.save(room); // 방 정보 업데이트
-            return room.getRoomSession(); // 참가할 방 세션 리턴
+            Matching matching = matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession()); // 회원의 기존방 참가 정보
+            if (matching == null) { // 기존 방이 참가 했던 방이 아니라면
+                room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
+                room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
+                room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
+                roomRepository.save(room); // 방 정보 업데이트
+                return room.getRoomSession(); // 참가할 방 세션 리턴
+            }
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         // newSession := [회원/게스트][게임종류]Session[방번호]
-        String newSession = guest.equals("true") ? "guest"+ gameType + "Session" + roomRepository.count() : "user" + gameType + "Session" + roomRepository.count();
+        guest = guest.equals("true") ? "guest" : "user";
+        String newSession = guest + gameType + "Session" + roomRepository.count();
 
         // 새로운 게임방 생성
         roomRepository.save(Room.builder()
