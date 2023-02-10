@@ -12,9 +12,12 @@ export const userSlice = createSlice({
   initialState: {
     userEmail: null,
     userChName: null,
+    userType: null,
+    userAge: null,
+    userBirth: null,
+    userSex: null,
     accessToken: null,
     expireTime: null,
-    userType: null,
     login: false,
   },
   reducers: {
@@ -23,6 +26,9 @@ export const userSlice = createSlice({
       state.userEmail = action.payload.userEmail;
       state.userChName = action.payload.userChName;
       state.userType = action.payload.userType;
+      state.userAge = action.payload.userAge;
+      state.userBirth = action.payload.userBirth;
+      state.userSex = action.payload.userSex;
       state.login = true;
     },
     DELETE_USER: (state) => {
@@ -30,6 +36,9 @@ export const userSlice = createSlice({
       state.userEmail = null;
       state.userChName = null;
       state.userType = null;
+      state.userAge = null;
+      state.userBirth = null;
+      state.userSex = null;
       state.login = false;
     },
     SET_TOKEN: (state, action) => {
