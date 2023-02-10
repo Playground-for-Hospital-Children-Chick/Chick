@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/pages/LoginPage";
 import Logout from "./components/pages/LogoutPage";
 import HomePage from "./components/pages/HomePage/index";
+import CodeModal from "./components/molecules/EmailCodeModal/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
 import PwChange from "./components/pages/PwChange/index";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
           <Route path="/findpassword" element={<FindPassword />} />
+          <Route path="/test" element={<CodeModal />} />
         </Routes>
       </Router>
     </div>
