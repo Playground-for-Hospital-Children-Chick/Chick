@@ -31,7 +31,7 @@ public class RoomServiceImpl implements RoomService {
         해당 방이 없거나 인원수가 4 이상이면 새로운 세션을 만들고 그렇지 않으면 해당 방의 세션을 리턴한다
          */
         ArrayList<Matching> matchingArrayList = matchingRepository.findByMatEmailAndMatVisit(email, "true");
-        if (matchingArrayList != null) { // 이전에 참가한 방이 있으면
+        if (matchingArrayList.size() > 0) { // 이전에 참가한 방이 있으면
             return "visited";
         }
         guest = guest.equals("true") ? "guest" : "user";
