@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
 import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import session from "redux-persist/lib/storage/session";
 import BluePan from "../assets/images/board/blue_pan.png";
 import BlackPan from "../assets/images/board/black_pan.png";
@@ -17,9 +18,34 @@ const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-  const [roomName, setMyRoomName] = useState("SessionA");
+  const [roomName, setMyRoomName] = useState();
+
+  async function getSessionId(email) {
+    const sessionId = await createSession(email);
+
+    console.log("sessionId", sessionId);
+
+    setMyRoomName(sessionId);
+  }
+
+  async function createSession(email) {
+    const response = await axios({
+      method: "post",
+      url: APPLICATION_SERVER_URL + "api/sessions",
+      data: {
+        email: email,
+        gameType: "draw",
+        guest: "guest",
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    });
+    console.info("세션 연결");
+    return response.data; // The sessionId
+  }
 
   useEffect(() => {
+    getSessionId(user["userEmail"]);
+
     // --------------- getContext() method returns a drawing context on the canvas-----
 
     const canvas = canvasRef.current;
@@ -197,7 +223,11 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        <BoardVideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
+        <BoardVideoRoomComponent
+          user={user["userChName"]}
+          email={user["userEmail"]}
+          userType={user["userType"]}
+        />
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
