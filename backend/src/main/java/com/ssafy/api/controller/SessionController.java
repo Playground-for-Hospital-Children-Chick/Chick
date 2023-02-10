@@ -50,9 +50,9 @@ public class SessionController {
         System.out.println("세션 요청입니다");
         System.out.println("params: " +roomSessionReq.toString());
         String userSession = roomService.getRoomSession(email, gameType,guest); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
-//        if (userSession.equals("visited"))  { // 유저가 참여하고 있는 방이 있으면
-//            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403 error
-//        }
+        if (userSession.equals("visited"))  { // 유저가 참여하고 있는 방이 있으면
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403 error
+        }
         roomService.createMachingInfo(roomSessionReq, userSession); // 매칭에 대한 로그를 데이터베이스에 저장한다
         Map<String, Object> sessionParam = new HashMap<>();
         sessionParam.put("customSessionId", userSession); // 방 연결을 위해 세션 정보 저장
