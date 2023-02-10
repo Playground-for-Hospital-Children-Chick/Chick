@@ -18,20 +18,23 @@ const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-  const [roomName, setMyRoomName] = useState();
+  // const [SessionName, setMyRoomName] = useState();
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
   useEffect(() => {
+    let SessionName = "";
     getSessionId(user["userEmail"]);
 
     async function getSessionId(email) {
       console.log("getSessionId");
       const sessionId = await createSession(email);
+      SessionName = sessionId;
 
       console.log("sessionId", sessionId);
+      console.log("SessionName", SessionName);
 
-      setMyRoomName(sessionId);
-      console.log("roomName", { roomName });
+      // setMyRoomName(sessionId);
+      // console.log("SessionName", { SessionName });
       socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
       socketRef.current.emit("join_room", sessionId);
     }
@@ -51,9 +54,7 @@ const Board = () => {
       console.info("세션 연결");
       return response.data; // The sessionId
     }
-  }, []);
 
-  useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
 
     const canvas = canvasRef.current;
@@ -98,7 +99,7 @@ const Board = () => {
       }
       const w = canvas.width;
       const h = canvas.height;
-      console.log(" 그 리 는 중 입 니 다.   방 이름은 ????", roomName);
+      console.log(" 그 리 는 중 입 니 다.   방 이름은 ????", SessionName);
       socketRef.current.emit(
         "drawing",
         {
@@ -108,7 +109,7 @@ const Board = () => {
           y1: y1 / h,
           color,
         },
-        roomName
+        SessionName
       );
     };
 
@@ -124,6 +125,7 @@ const Board = () => {
       if (!drawing) {
         return;
       }
+      console.log("onMouseMove");
       drawLine(
         current.x,
         current.y,
@@ -140,6 +142,7 @@ const Board = () => {
       if (!drawing) {
         return;
       }
+      console.log("onMouseUp");
       drawing = false;
       drawLine(
         current.x,
@@ -197,7 +200,7 @@ const Board = () => {
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
-  }, [roomName]);
+  }, []);
 
   const onErasingEvent = () => {
     clearBoard(false);
@@ -211,8 +214,8 @@ const Board = () => {
     if (!emit) {
       return;
     }
-    console.log(" 지 웠 습 니 다   방 이름은 ????", roomName);
-    socketRef.current.emit("erasing", roomName);
+    console.log(" 지 웠 습 니 다   방 이름은 ????", SessionName);
+    socketRef.current.emit("erasing", SessionName);
   }
   const user = useSelector((state) => state.user);
 
