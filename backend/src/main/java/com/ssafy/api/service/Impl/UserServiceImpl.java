@@ -41,20 +41,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    static int calcuAge(String birth) { // 만 나이를 계산하여 리턴
-        int userYear = Integer.parseInt(birth.substring(0, 4)); // 회원 출생년도
-        int userMonth = Integer.parseInt(birth.substring(4, 6)); // 회원 출생월
-        int userDay = Integer.parseInt(birth.substring(6, 8)); // 회원 출생일
-        LocalDateTime now = LocalDateTime.now(); // 현재 시간
-        int userAge = now.getYear() - userYear; // 회원 나이 := 현재년도 - 출생년도
-        if (userMonth < now.getMonthValue()) { // 달이 지났으면
-            userAge++; // 회원 나이 한살 추가
-        } else if (userMonth == now.getMonthValue() && userDay >= now.getDayOfMonth()) { // 달은 같고 일이 지났으면
-            userAge++; // 회원 나이 한살 추가
-        }
-        return userAge;
-    }
-
     public boolean createUser(UserRegisterPostReq userRegisterInfo) {
         String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
         if ((userRepository.findByUserEmail(userRegisterInfo.getUser_email()) != null)
@@ -81,6 +67,35 @@ public class UserServiceImpl implements UserService {
                 .build());
 
         return true;
+    }
+
+    /* 게스트 회원 가입 */
+    public UserLoginInfo createGuest() {
+        String guestEmail = "guest"+userRepository.count()+"@guest.com"; // 게스트 이메일
+        String guestPassword = getRandomPassword(); // 게스트 비밀번호
+        String guestChName = "guest" + userRepository.count(); // 게스트 이름
+        String guestPrName = "guestParent" + userRepository.count(); // 게스트 부모님 이름
+        String guestSex = getRandomSex(); // 게스트 성별
+        String guestBirth = getRandomBirth(); // 게스트 생일
+        User guest = User.builder()
+                .userEmail(guestEmail)
+                .userPwd(guestPassword)
+                .userChName(guestChName)
+                .userParentName(guestPrName)
+                .userSex(guestSex)
+                .userBirth(guestBirth)
+                .userState("0")
+                .userNumberOfReports(0)
+                .userServiceTerm("Y")
+                .userPrivacyTerm("Y")
+                .userRole(UserRole.ROLE_GUEST)
+                .userCreateBy(guestEmail)
+                .userCreateDate(LocalDateTime.now())
+                .userUpdateBy(guestEmail)
+                .userUpdateDate(LocalDateTime.now())
+                .build(); // 게스트 회원 가입 정보 생성
+        userRepository.save(guest); // 게스트로 회원 가입
+        return getUserLoginInfo(guest); // 로그인 정보 리턴
     }
 
     @Override
@@ -179,4 +194,42 @@ public class UserServiceImpl implements UserService {
         }
         return "";
     }
+    static int calcuAge(String birth) { // 만 나이를 계산하여 리턴
+        int userYear = Integer.parseInt(birth.substring(0, 4)); // 회원 출생년도
+        int userMonth = Integer.parseInt(birth.substring(4, 6)); // 회원 출생월
+        int userDay = Integer.parseInt(birth.substring(6, 8)); // 회원 출생일
+        LocalDateTime now = LocalDateTime.now(); // 현재 시간
+        int userAge = now.getYear() - userYear; // 회원 나이 := 현재년도 - 출생년도
+        if (userMonth < now.getMonthValue()) { // 달이 지났으면
+            userAge++; // 회원 나이 한살 추가
+        } else if (userMonth == now.getMonthValue() && userDay >= now.getDayOfMonth()) { // 달은 같고 일이 지났으면
+            userAge++; // 회원 나이 한살 추가
+        }
+        return userAge;
+    }
+
+    static String getRandomPassword() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10; // 길이
+        Random random = new Random();
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
+
+    static String getRandomSex() {
+        Random random = new Random();
+        return random.nextInt() % 2 == 0 ? "M" : "F";
+    }
+
+    static String getRandomBirth() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 8; i++) sb.append(random.nextInt(10));
+        return sb.toString();
+    }
+
 }

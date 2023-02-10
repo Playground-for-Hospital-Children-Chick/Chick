@@ -15,10 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -185,6 +182,36 @@ public class AuthController {
 
         // DB에 refreshToken 이 없으면 토큰 없음 에러
         return ResponseEntity.status(401).body(ReAccessPostRes.of(401, "Invalid Token", null, null));
+    }
+
+    @GetMapping("/loginGuest")
+    @ApiOperation(value="게스트 로그인", notes = "게스트로 회원 가입하고 로그인 한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+    })
+    public ResponseEntity<UserLoginPostRes> findPassword(HttpServletResponse response) throws Exception{
+        System.out.println("게스트 로그인입니다");
+        UserLoginInfo userLoginInfo = userService.createGuest();
+        String guestEmail = userLoginInfo.getUserEmail();
+        String refreshToken = JwtTokenUtil.getRefreshToken(guestEmail);
+        AuthRefreshSave tokenDto = new AuthRefreshSave();
+        tokenDto.setRefreshToken(refreshToken);
+        tokenDto.setAuthEmail(guestEmail);
+        tokenDto.setAuthCreateBy(guestEmail);
+        tokenDto.setAuthCreateDate(LocalDateTime.now());
+        tokenDto.setAuthUpdateBy(guestEmail);
+        tokenDto.setAuthUpdateDate(LocalDateTime.now());
+        authRefreshSaveRepository.save(tokenDto);
+
+        Cookie cookie=new Cookie("refreshToken", refreshToken); // refresh 담긴 쿠키 생성
+        cookie.setMaxAge(JwtTokenUtil.refreshExpirationTime); // 쿠키의 유효시간을 refresh 유효시간만큼 설정
+        cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
+        cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        // 게스트로 로그인 성공
+        return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(guestEmail), userLoginInfo));
     }
 
 }

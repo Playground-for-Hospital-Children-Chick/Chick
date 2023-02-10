@@ -120,9 +120,9 @@ public class UserController {
             @ApiResponse(code = 404, message = "회원정보 없음"),
             @ApiResponse(code = 500, message = "서버 오류"),
     })
-    public ResponseEntity<? extends BaseResponseBody> findPassword(@RequestParam String email) throws Exception{
+    public ResponseEntity<? extends BaseResponseBody> findPassword(@RequestParam String email) throws Exception {
         User user = userService.getUserByEmail(email);
-        if(user!=null){
+        if (user != null) {
             String result = userService.sendPwdMessage(email);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
