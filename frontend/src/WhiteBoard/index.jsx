@@ -24,7 +24,7 @@ const Board = () => {
   useEffect(() => {
     let SessionName = "";
     getSessionId(user["userEmail"]);
-
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     async function getSessionId(email) {
       console.log("getSessionId");
       const sessionId = await createSession(email);
@@ -35,7 +35,7 @@ const Board = () => {
 
       // setMyRoomName(sessionId);
       // console.log("SessionName", { SessionName });
-      socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+
       socketRef.current.emit("join_room", sessionId);
     }
 
@@ -197,26 +197,27 @@ const Board = () => {
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
-    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+
+    const onErasingEvent = () => {
+      clearBoard(false);
+    };
+
+    function clearBoard(emit) {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.beginPath();
+      if (!emit) {
+        return;
+      }
+      console.log(" 지 웠 습 니 다   방 이름은 ????", SessionName);
+      socketRef.current.emit("erasing", SessionName);
+    }
+
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
   }, []);
 
-  const onErasingEvent = () => {
-    clearBoard(false);
-  };
-
-  function clearBoard(emit) {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.beginPath();
-    if (!emit) {
-      return;
-    }
-    console.log(" 지 웠 습 니 다   방 이름은 ????", SessionName);
-    socketRef.current.emit("erasing", SessionName);
-  }
   const user = useSelector((state) => state.user);
 
   // ------------- The Canvas and color elements --------------------------
@@ -226,11 +227,7 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        <BoardVideoRoomComponent
-          user={user["userChName"]}
-          email={user["userEmail"]}
-          userType={user["userType"]}
-        />
+        <BoardVideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
