@@ -9,6 +9,7 @@ function CodeModal() {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
+  const [disabled, setDisabed] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -30,7 +31,8 @@ function CodeModal() {
             코드를 입력해주세요.
           </div>
           <div className="font-chick text-3xl mt-[0.5em]">
-            남은 시간 {min == 0 ? "00" : min} : {sec == 0 ? "00" : sec}
+            남은 시간 {String(min).padStart(2, "0")} :{" "}
+            {String(sec).padStart(2, "0")}
           </div>
           <div className="mt-[1em] flex justify-center items-center">
             <label className="font-chick text-lg mr-[2em]" htmlFor="email">
@@ -60,7 +62,15 @@ function CodeModal() {
               />
             </div>
             <div className="mt-[2em]">
-              <CommonBtn option={true} text="확인" color="bg-emerald-300" />
+              {min == 0 && sec == 0 ? (
+                <CommonBtn option={disabled} text="확인" color="bg-gray-100" />
+              ) : (
+                <CommonBtn
+                  option={disabled}
+                  text="확인"
+                  color="bg-emerald-300"
+                />
+              )}
             </div>
           </div>
         </div>
