@@ -20,7 +20,7 @@ import ArKoala from "../components/atoms/ArKoala";
 import ArDalmatian from "../components/atoms/ArDalmatian";
 import CommonBtn from "../components/atoms/CommonBtn";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
@@ -51,6 +51,7 @@ const data = [
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
+
     let sessionName = this.props.sessionName
       ? this.props.sessionName
       : "SessionA";
@@ -189,11 +190,13 @@ class VideoRoomComponent extends Component {
         console.log(token);
         this.connect(token);
       } catch (error) {
+        console.log("리다이렉트해줘");
         console.error(
           "There was an error getting the token:",
           error.code,
           error.message
         );
+
         if (this.props.error) {
           this.props.error({
             error: error.error,
@@ -203,6 +206,7 @@ class VideoRoomComponent extends Component {
           });
         }
         alert("There was an error getting the token:", error.message);
+        window.location.href = "https//:i8b207.p.ssafy.io/";
       }
     }
   }
@@ -321,6 +325,7 @@ class VideoRoomComponent extends Component {
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     });
+    console.log(response.status);
 
     if (response.status == 200) {
       console.log("**********leaveSession Success**********");
