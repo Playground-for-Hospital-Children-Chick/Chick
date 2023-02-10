@@ -25,11 +25,11 @@ public class S3Service {
 
     public String uploadFile(@RequestPart MultipartFile multipartFile, String dirName) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
-        System.out.println(fileName);
 
         //파일 형식 구하기
         String ext = fileName.split("\\.")[1];
         String contentType = "";
+        String uploadFileName = "";
 
         //content type을 지정해서 올려주지 않으면 자동으로 "application/octet-stream"으로 고정이 되서 링크 클릭시 웹에서 열리는게 아니라 자동 다운이 시작됨.
         switch (ext) {
@@ -55,7 +55,8 @@ public class S3Service {
             System.out.println(contentType);
             metadata.setContentType(contentType);
             String formDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("/yyyy-MM-dd HH:mm"));
-            amazonS3.putObject(new PutObjectRequest(bucket, dirName+formDate+fileName, multipartFile.getInputStream(), metadata)
+            uploadFileName = dirName+formDate+fileName;
+            amazonS3.putObject(new PutObjectRequest(bucket, uploadFileName, multipartFile.getInputStream(), metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (AmazonServiceException e) {
             e.printStackTrace();
@@ -70,10 +71,7 @@ public class S3Service {
         for (S3ObjectSummary object: objectSummaries) {
             System.out.println("object = " + object.toString());
         }
-        return amazonS3.getUrl(bucket, fileName).toString();
+        return amazonS3.getUrl(bucket, uploadFileName).toString();
     }
 
-    private void putS3(File uploadFile, String fileName){// S3업로드
-
-    }
 }

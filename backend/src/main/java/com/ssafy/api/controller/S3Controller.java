@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.domain.dto.BaseResponseBody;
 import com.ssafy.api.domain.dto.FileDto;
 import com.ssafy.api.domain.entity.FileEntity;
 import com.ssafy.api.service.FileService;
@@ -29,13 +30,21 @@ public class S3Controller {
     // 3. delete
     // https://green-joo.tistory.com/2
     @PostMapping("/upload")
-    public String uploadFile(FileDto fileDto, String email) throws IOException {
+    public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto, String email) throws IOException {
         String url = s3Service.uploadFile(fileDto.getFile(), email);
+        if(url != null){
+            fileDto.setUrl(url);
+            fileService.save(fileDto);
+            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
+    }
 
-        fileDto.setUrl(url);
-        fileService.save(fileDto);
-
-        return "redirect:/";
+    @GetMapping("/list")
+    public String listPage(Model model) {
+        List<FileEntity> fileList =fileService.getFiles();
+        model.addAttribute("fileList", fileList);
+        return "list";
     }
 
 //    @DeleteMapping
@@ -49,12 +58,5 @@ public class S3Controller {
 //        System.out.println(filePath);
 //        return fileService.download(filePath);
 //    }
-
-    @GetMapping("/list")
-    public String listPage(Model model) {
-        List<FileEntity> fileList =fileService.getFiles();
-        model.addAttribute("fileList", fileList);
-        return "list";
-    }
 
 }
