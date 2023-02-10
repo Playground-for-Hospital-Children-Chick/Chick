@@ -82,7 +82,7 @@ public class RoomServiceImpl implements RoomService {
         if (room == null || room.getRoomCnt() <= 0) return false; // 방이 없으면
         room.setRoomCnt(room.getRoomCnt() - 1); // 방의 인원수 감소
         roomRepository.save(room); // 방 정보 업데이트
-        ArrayList<Matching> matchingArrayList = matchingRepository.findByMatEmailAndMatVisitOrderByMatCreateDateDesc(email, session); // 회원의 매칭 정보
+        ArrayList<Matching> matchingArrayList = matchingRepository.findByMatEmailAndMatVisit(email, "true"); // 회원의 매칭 정보
         Matching matching = matchingArrayList.get(0); // 가장 최근에 접속한 매칭 정보
         matching.setMatVisit("false"); // 회원은 해당 방에 입장중이 아니다
         matchingRepository.save(matching); // 매칭 정보 업데이트
