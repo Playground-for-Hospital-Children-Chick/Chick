@@ -13,7 +13,6 @@ const httpsServer = require("https").createServer(options, (request, response) =
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Origin", APPLICATION_SERVER_URL);
   response.setHeader("Access-Control-Allow-Credentials", "true");
-  console.log("Received request for " + request.url);
   response.writeHead(404);
   response.end();
 });
@@ -23,18 +22,15 @@ const port = 8001;
 
 io.on("connection", (socket) => {
   socket.on("join_room", (roomName) => {
-    console.log("방입장  노드에서 front로 보내기 ", roomName);
     socket.join(roomName);
-    socket.to(roomName).emit("welcome", roomName);
   });
 
   socket.on("drawing", (data, roomName) => {
     //Let every user know of the current drawing data, except current user who is drawing
-    console.log("sessionId ", roomName);
-    socket.broadcast.to(roomName).emit("drawing", data);
+    socket.to(roomName).emit("drawing", data);
   });
   socket.on("erasing", (roomName) => {
-    socket.broadcast.to(roomName).emit("erasing");
+    socket.to(roomName["myRoomName"]).emit("erasing");
   });
 });
 
