@@ -176,6 +176,43 @@ export const signoutUser = async function signout(credentials) {
 
   return response;
 };
+//이메일 코드 발송
+export const sendCodeUser = async function sendcode(credentials) {
+  console.log("이메일코드발송", credentials);
+
+  const response = await axios({
+    method: "POST",
+    url: `${BASE_URL}/users/emailConfirm`,
+    params: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    withCredentials: true,
+  }).catch((error) => {
+    console.dir(error);
+  });
+
+  return response;
+};
+
+//코드확인 로직
+export const sendCheckCodeUser = async function codecheck(credentials) {
+  console.log("코드발송", credentials);
+
+  const response = await axios({
+    method: "POST",
+    url: `${BASE_URL}/users/emailToken`,
+    params: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    withCredentials: true,
+  }).catch((error) => {
+    console.dir(error);
+  });
+
+  return response;
+};
 
 // export const loginUser = async (credentials) => {
 //   const option = {
