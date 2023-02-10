@@ -18,8 +18,20 @@ const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-  // const [SessionName, setMyRoomName] = useState();
+  const [myRoomName, setMyRoomName] = useState();
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+
+  function clearBoard(emit, sessionName) {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    if (!emit) {
+      return;
+    }
+    console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
+    socketRef.current.emit("erasing", sessionName);
+  }
 
   useEffect(() => {
     let SessionName = "";
@@ -29,6 +41,7 @@ const Board = () => {
       console.log("getSessionId");
       const sessionId = await createSession(email);
       SessionName = sessionId;
+      setMyRoomName(sessionId);
 
       console.log("sessionId", sessionId);
       console.log("SessionName", SessionName);
@@ -192,6 +205,10 @@ const Board = () => {
     onResize();
 
     // ----------------------- socket.io connection ----------------------------
+    const onErasingEvent = () => {
+      clearBoard(false, SessionName);
+    };
+
     const onDrawingEvent = (data) => {
       const w = canvas.width;
       const h = canvas.height;
@@ -237,7 +254,7 @@ const Board = () => {
         <img src={BluePan} width="45" height="45" className="color blue" />
         <img src={YellowPan} width="45" height="45" className="color yellow" />
 
-        <button onClick={() => clearBoard(true)}>
+        <button onClick={() => clearBoard(true, { myRoomName })}>
           <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
