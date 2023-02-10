@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 @Component
 public interface MatchingRepository extends JpaRepository<Matching, Integer> {
-    ArrayList<Matching> findByMatEmailAndMatSession(String matEmail, String matSession);
+    ArrayList<Matching> findByMatEmailAndMatVisit(String matEmail, String matVisit);
     ArrayList<Matching> findByMatEmailAndMatVisitOrderByMatCreateDateDesc(String matEmail, String matVisit);
 }
