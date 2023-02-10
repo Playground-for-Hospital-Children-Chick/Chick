@@ -21,31 +21,33 @@ const Board = () => {
   const [roomName, setMyRoomName] = useState();
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
-  async function getSessionId(email) {
-    const sessionId = await createSession(email);
-
-    console.log("sessionId", sessionId);
-
-    setMyRoomName(sessionId);
-  }
-
-  async function createSession(email) {
-    const response = await axios({
-      method: "post",
-      url: APPLICATION_SERVER_URL + "api/sessions",
-      data: {
-        email: email,
-        gameType: "draw",
-        guest: "guest",
-      },
-      headers: { "Content-Type": "application/json;charset=UTF-8" },
-    });
-    console.info("세션 연결");
-    return response.data; // The sessionId
-  }
-
   useEffect(() => {
     getSessionId(user["userEmail"]);
+
+    async function getSessionId(email) {
+      console.log("getSessionId");
+      const sessionId = await createSession(email);
+
+      console.log("sessionId", sessionId);
+
+      setMyRoomName(sessionId);
+    }
+
+    async function createSession(email) {
+      console.log("createSession");
+      const response = await axios({
+        method: "post",
+        url: APPLICATION_SERVER_URL + "api/sessions",
+        data: {
+          email: email,
+          gameType: "draw",
+          guest: "guest",
+        },
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
+      });
+      console.info("세션 연결");
+      return response.data; // The sessionId
+    }
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 
