@@ -467,12 +467,13 @@ class BoardVideoRoomComponent extends Component {
   }
 
   async getToken() {
-    const sessionId = await this.createSession(this.props.email);
+    // console.log("sessionName", this.props.sessionName);
+
     this.setState({
-      mySessionId: sessionId,
+      mySessionId: this.props.sessionName,
     });
 
-    return await this.createToken(sessionId);
+    return await this.createToken(this.props.sessionName);
   }
 
   async createSession(email) {

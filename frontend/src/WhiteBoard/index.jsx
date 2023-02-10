@@ -28,7 +28,7 @@ const Board = () => {
     if (!emit) {
       return;
     }
-    console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
+    // console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
     socketRef.current.emit("erasing", sessionName);
   }
 
@@ -42,11 +42,6 @@ const Board = () => {
       SessionName = sessionId;
       setMyRoomName(sessionId);
 
-      console.log("sessionId", sessionId);
-      console.log("SessionName", SessionName);
-
-      // setMyRoomName(sessionId);
-      // console.log("SessionName", { SessionName });
       socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
       socketRef.current.emit("join_room", sessionId);
     }
@@ -111,7 +106,7 @@ const Board = () => {
       }
       const w = canvas.width;
       const h = canvas.height;
-      console.log(" 그 리 는 중 입 니 다.   방 이름은 ????", SessionName);
+      // console.log(" 그 리 는 중 입 니 다.   방 이름은 ????", SessionName);
       socketRef.current.emit(
         "drawing",
         {
@@ -228,11 +223,14 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        <BoardVideoRoomComponent
-          user={user["userChName"]}
-          email={user["userEmail"]}
-          userType={user["userType"]}
-        />
+        {myRoomName != null ? (
+          <BoardVideoRoomComponent
+            user={user["userChName"]}
+            email={user["userEmail"]}
+            userType={user["userType"]}
+            sessionName={myRoomName}
+          />
+        ) : null}
       </div>
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
