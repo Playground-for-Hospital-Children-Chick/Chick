@@ -38,14 +38,6 @@ public class RoomServiceImpl implements RoomService {
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest); // 참가할려는 게임방의 정보를 가져온다
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
-            Matching matching = matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession()); // 회원의 기존방 참가 정보
-//            if (matching == null) { // 기존 방이 참가 했던 방이 아니라면
-//                room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
-//                room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
-//                room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
-//                roomRepository.save(room); // 방 정보 업데이트
-//                return room.getRoomSession(); // 참가할 방 세션 리턴
-//            }
             room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
             room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
             room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
@@ -90,8 +82,9 @@ public class RoomServiceImpl implements RoomService {
         if (room == null || room.getRoomCnt() <= 0) return false; // 방이 없으면
         room.setRoomCnt(room.getRoomCnt() - 1); // 방의 인원수 감소
         roomRepository.save(room); // 방 정보 업데이트
-        Matching matching = matchingRepository.findByMatEmailAndMatSession(email, session); // 회원의 매칭 정보
-        matching.setMatVisit("false"); // 회원은 해당방에 입장중이 아니다
+        ArrayList<Matching> matchingArrayList = matchingRepository.findByMatEmailAndMatVisitOrderByMatCreateDateDesc(email, session); // 회원의 매칭 정보
+        Matching matching = matchingArrayList.get(0); // 가장 최근에 접속한 매칭 정보
+        matching.setMatVisit("false"); // 회원은 해당 방에 입장중이 아니다
         matchingRepository.save(matching); // 매칭 정보 업데이트
         return true;
     }
