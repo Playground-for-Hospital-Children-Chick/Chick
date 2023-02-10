@@ -31,6 +31,7 @@ const Board = () => {
       console.log("sessionId", sessionId);
 
       setMyRoomName(sessionId);
+      console.log("roomName", { roomName });
       socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
       socketRef.current.emit("join_room", sessionId);
     }
@@ -50,7 +51,9 @@ const Board = () => {
       console.info("세션 연결");
       return response.data; // The sessionId
     }
+  }, []);
 
+  useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
 
     const canvas = canvasRef.current;
@@ -191,10 +194,10 @@ const Board = () => {
       const h = canvas.height;
       drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
     };
-    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+    // socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
-  }, []);
+  }, [roomName]);
 
   const onErasingEvent = () => {
     clearBoard(false);
