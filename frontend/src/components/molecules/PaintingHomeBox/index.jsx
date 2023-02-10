@@ -4,7 +4,7 @@ import HomeBox from "../../atoms/HomeBox";
 import LinearProgress from "@mui/material/LinearProgress";
 import GamePlayBtn from "./../../atoms/GamePlayBtn/index";
 import Box from "@mui/material/Box";
-
+import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -88,7 +88,7 @@ function PaintingHomeBox() {
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     const sessionId = await getSessionId(user["userEmail"]);
     console.log("room Name 서버로 넘기기. ", sessionId);
-    socketRef.current.emit("join_room", user["userEmail"], sessionId);
+    socketRef.current.emit("join_room", sessionId);
 
     setGameStart(true);
 
