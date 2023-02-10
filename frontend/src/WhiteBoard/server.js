@@ -1,4 +1,3 @@
-const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 const dir = "/etc/letsencrypt/live/i8b207.p.ssafy.io/";
@@ -40,4 +39,3 @@ io.on("connection", (socket) => {
 });
 
 httpsServer.listen(port, () => console.log(`server is running on port ${port}`));
-// Create Session
