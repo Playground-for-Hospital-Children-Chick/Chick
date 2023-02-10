@@ -35,14 +35,19 @@ const Board = () => {
   useEffect(() => {
     let SessionName = "";
     getSessionId(user["userEmail"]);
-
+    socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     async function getSessionId(email) {
       console.log("getSessionId");
       const sessionId = await createSession(email);
       SessionName = sessionId;
       setMyRoomName(sessionId);
 
-      socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
+      console.log("sessionId", sessionId);
+      console.log("SessionName", SessionName);
+
+      // setMyRoomName(sessionId);
+      // console.log("SessionName", { SessionName });
+
       socketRef.current.emit("join_room", sessionId);
     }
 
