@@ -164,7 +164,7 @@ const Board = () => {
     socketRef.current.on("drawing", onDrawingEvent);
     socketRef.current.on("erasing", onErasingEvent);
     socketRef.current.on("welcome", async (room) => {
-      console.log("방에 입장하였습니다 방이름은    ", room);
+      console.log("front 방에 입장하였습니다 방이름은    ", room);
       setMyRoomName[room];
       console.log("세션은?", roomName);
     });
