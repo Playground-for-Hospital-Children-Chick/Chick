@@ -15,11 +15,8 @@ import java.util.Map;
 
 @Service
 public class RoomServiceImpl implements RoomService {
-//    private final MatchingRepository matchingRepository;
     private final RoomRepository roomRepository;
     private final MatchingRepository matchingRepository;
-
-
 
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository, MatchingRepository matchingRepository) {
@@ -29,17 +26,20 @@ public class RoomServiceImpl implements RoomService {
 
     public String getRoomSession(String email, String gameType, String guest) {
         /*
-        방의 종류로 방을 선택 후 인원 기준으로 Order by 해서 가장 인원수가 적은 방을 확안한다.
+        해당 방에 유저가 이미 참여했으면 새로운 세션을 리턴한다
+        방의 종류로 방을 선택 후 인원 기준으로 Order by 해서 가장 인원수가 적은 방을 확인한다.
         해당 방이 없거나 인원수가 4 이상이면 새로운 세션을 만들고 그렇지 않으면 해당 방의 세션을 리턴한다
          */
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest);
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
-            room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
-            room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
-            room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
-            roomRepository.save(room); // 방 정보 업데이트
-            return room.getRoomSession(); // 참가할 방 세션 리턴
+            if (matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession()) == null) { // 회원이 해당 방에 들어온 적이 없을때
+                room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
+                room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
+                room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
+                roomRepository.save(room); // 방 정보 업데이트
+                return room.getRoomSession(); // 참가할 방 세션 리턴
+            }
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         String newSession =  "Session"+roomRepository.count();
@@ -58,20 +58,17 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void createMachingInfo(RoomSessionReq roomSessionReq, String userSession, String guest) {
-        /* 데이터베이스에 매칭 정보를 저장한다 */
-        String email = roomSessionReq.getEmail();
-        String gameType = roomSessionReq.getGameType();
+    public void createMachingInfo(RoomSessionReq roomSessionReq, String userSession) {
+        /* 매칭 정보를 저장한다 */
         matchingRepository.save(
                 Matching.builder()
-                        .matEmail(email)
-                        .matGameType(gameType)
+                        .matEmail(roomSessionReq.getEmail())
+                        .matGameType(roomSessionReq.getGameType())
                         .matSession(userSession)
-                        .matCreateBy(email)
-                        .matGuest(guest)
+                        .matGuest(roomSessionReq.getGuest())
+                        .matCreateBy(roomSessionReq.getEmail())
                         .matCreateDate(LocalDateTime.now())
-                        .build()
-        );
+                        .build());
     }
 
     public boolean disconnect(String sessionId) {
