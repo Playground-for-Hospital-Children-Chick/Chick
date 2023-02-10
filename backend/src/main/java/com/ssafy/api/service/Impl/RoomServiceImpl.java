@@ -33,14 +33,12 @@ public class RoomServiceImpl implements RoomService {
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest);
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
-            Matching matchingInfo = matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession());
-            if (matchingInfo == null) { // 회원이 해당 방에 들어온 적이 없을때
-                room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
-                room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
-                room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
-                roomRepository.save(room); // 방 정보 업데이트
-                return room.getRoomSession(); // 참가할 방 세션 리턴
-            }
+//            Matching matchingInfo = matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession());
+            room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
+            room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
+            room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
+            roomRepository.save(room); // 방 정보 업데이트
+            return room.getRoomSession(); // 참가할 방 세션 리턴
         }
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         String newSession = gameType + "Session" + roomRepository.count(); // [게임종류]Session[방번호]
