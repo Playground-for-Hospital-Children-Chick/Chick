@@ -33,7 +33,8 @@ public class RoomServiceImpl implements RoomService {
         ArrayList<Room> roomArrayList = roomRepository.findByRoomTypeAndRoomGuestOrderByRoomCntAsc(gameType, guest);
         if(!roomArrayList.isEmpty() && roomArrayList.get(0).getRoomCnt() < 4) { // 참가할 수 있는 게임방이 있으면 기존 방에 참가
             Room room = roomArrayList.get(0);
-            if (matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession()) == null) { // 회원이 해당 방에 들어온 적이 없을때
+            Matching matchingInfo = matchingRepository.findByMatEmailAndMatSession(email, room.getRoomSession());
+            if (matchingInfo == null) { // 회원이 해당 방에 들어온 적이 없을때
                 room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
                 room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일
                 room.setRoomUpdateDate(LocalDateTime.now()); // 마지막으로 들어온 회원의 접속 시간
