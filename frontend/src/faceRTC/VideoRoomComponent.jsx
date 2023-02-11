@@ -68,7 +68,7 @@ class VideoRoomComponent extends Component {
       localUser: undefined,
       subscribers: [],
       currentVideoDevice: undefined,
-      arEnable: true,
+      arEnable: false,
       deepAR: undefined,
     };
 
@@ -234,7 +234,9 @@ class VideoRoomComponent extends Component {
     this.state.session
       .connect(token, { clientData: this.state.myUserName })
       .then(() => {
-        this.connectWebCam();
+        this.connectWebCam().then(() => {
+          this.applyDeepAR();
+        });
       })
       .catch((error) => {
         if (this.props.error) {
@@ -255,20 +257,22 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
-    this.startDeepAR(this.canvasRef);
-    await this.setState({
-      currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
+    await this.OV.getUserMedia({
+      audioSource: undefined,
+      videoSource: undefined,
     });
+    var devices = await this.OV.getDevices();
+    var videoDevices = devices.filter((device) => device.kind === "videoinput");
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
-      videoSource: this.state.currentVideoDevice,
+      videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
-      mirror: true,
       resolution: "555x307",
       frameRate: 30,
       insertMode: "APPEND",
+      mirror: true,
     });
 
     if (this.state.session.capabilities.publish) {
