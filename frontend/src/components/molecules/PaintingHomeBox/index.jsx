@@ -12,6 +12,15 @@ import { loginGuest } from "../../../api/UsersApi";
 import { SET_USER, SET_TOKEN } from "../../../store/reducers/UserReducer";
 
 function PaintingHomeBox() {
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
   let [gameStart, setGameStart] = React.useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -65,6 +74,8 @@ function PaintingHomeBox() {
     setTimeout(() => {
       return navigate("/board");
     }, 1500);
+
+    toggleFullScreen();
   }
   return (
     <HomeBox>
