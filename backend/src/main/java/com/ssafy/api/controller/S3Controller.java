@@ -50,5 +50,11 @@ public class S3Controller {
         }
         return ResponseEntity.ok(S3ImagesRes.of(404, "Failure", null));
     }
-    
+    @DeleteMapping("/delete")
+    public ResponseEntity<BaseResponseBody> deleteImage(@RequestParam String filePath){
+        if(s3Service.deleteFile(filePath)){
+            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
+    }
 }
