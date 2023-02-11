@@ -16,6 +16,8 @@ import VideocamOff from "@material-ui/icons/VideocamOff";
 
 import IconButton from "@material-ui/core/IconButton";
 import SmallWebCamBoard from "../../components/atoms/SmallWebCamBoard";
+import WhiteBoardWebCamBoard from "./../../components/atoms/WhiteBoardWebCamBoard/index";
+import WhiteBoardFriendIsComing from "./../../components/atoms/WhiteBoardFriendIsComing/index";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -145,7 +147,7 @@ class BoardVideoRoomComponent extends Component {
       videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
-      resolution: "300x150",
+      resolution: "200x100",
       frameRate: 30,
       insertMode: "APPEND",
     });
@@ -388,12 +390,12 @@ class BoardVideoRoomComponent extends Component {
         ) : null}
         {this.state.session !== undefined ? (
           // <div className="flex flex-row w-[90em]">
-          <SmallWebCamBoard>
+          <WhiteBoardWebCamBoard>
             {localUser !== undefined &&
               localUser.getStreamManager() !== undefined && (
                 <div
                   id="localUser"
-                  className="relative m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center "
+                  className="relative m-3 rounded-[30px] w-[200px] h-[100px] flex items-center justify-center "
                 >
                   <StreamComponent
                     user={localUser}
@@ -434,7 +436,7 @@ class BoardVideoRoomComponent extends Component {
               i < 3 ? (
                 <div
                   key={i}
-                  className=" m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center"
+                  className=" m-3 rounded-[30px] w-[200px] h-[100px] flex items-center justify-center"
                   id="remoteUsers"
                 >
                   <StreamComponent
@@ -446,26 +448,26 @@ class BoardVideoRoomComponent extends Component {
             )}
 
             {this.state.subscribers.length === 0 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 0 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 0 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
 
             {this.state.subscribers.length === 1 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 1 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
 
             {this.state.subscribers.length === 2 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
-          </SmallWebCamBoard>
+          </WhiteBoardWebCamBoard>
         ) : null}
       </>
     );
