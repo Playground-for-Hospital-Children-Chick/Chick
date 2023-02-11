@@ -66,6 +66,19 @@ public class UserController {
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Not Exist"));
     }
 
+    @GetMapping("/emailduplicatecheck")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "이메일이 db에 없음"),
+            @ApiResponse(code = 401, message = "이메일이 db에 존재"),
+    })
+    @ApiOperation(value = "중복된 이메일 확인", notes = "db에 저장된 이메일인지 확인한다.")
+    public ResponseEntity<? extends BaseResponseBody> EmailDuplicteCheck(@RequestParam String email, HttpServletResponse response) throws Exception {
+        User user = userService.getUserByEmail(email);
+        if(user ==null){
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
+    }
     @PostMapping("/emailConfirm")
     @ApiResponses({
             @ApiResponse(code = 200, message = "이메일로 토큰 전송"),
