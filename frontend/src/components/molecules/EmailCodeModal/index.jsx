@@ -6,20 +6,19 @@ import chick_02 from "../../../assets/characters/chick_02.svg";
 import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
 
-function CodeModal() {
+function CodeModal({ setCheckedEmail }) {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
   const [emailCheck, setEmailCheck] = useState("");
   const [codeCheck, setCodeCheck] = useState("");
-  const [inputEmail, setInputEmail] = useState("");
   const sendEmail = async () => {
     setCount(179);
     setMit(2);
     setSec(59);
     const response = await sendCodeUser({ email: emailCheck });
     if (parseInt(Number(response.status) / 100) === 2) {
-      console.log("발송성공");
+      setCheckedEmail(emailCheck);
     } else {
       console.log("실패");
     }
