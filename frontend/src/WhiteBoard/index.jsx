@@ -242,6 +242,9 @@ const Board = () => {
         ref={colorsRef}
         className="colors h-[350px] w-[400px] row-span-2 z-10"
       >
+        {myRoomName != null ? (
+          <div className="font-chick ">{myRoomName}</div>
+        ) : null}
         <img src={BlackPan} width="25" height="25" className="color black" />
         <img src={RedPan} width="25" height="25" className="color red" />
         <img src={GreenPan} width="22.5" height="21" className="color green" />
