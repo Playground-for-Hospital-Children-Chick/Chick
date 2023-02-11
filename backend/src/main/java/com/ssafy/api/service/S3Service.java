@@ -73,5 +73,17 @@ public class S3Service {
         }
         return amazonS3.getUrl(bucket, uploadFileName).toString();
     }
-
+    public boolean deleteFile(String filePath){
+        try {
+            // S3에서 삭제
+            amazonS3.deleteObject(new DeleteObjectRequest(bucket, filePath));
+            System.out.println(String.format("[%s] deletion complete", filePath));
+            return true;
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
