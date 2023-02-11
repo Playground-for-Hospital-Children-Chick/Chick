@@ -28,15 +28,15 @@ public class SwaggerConfiguration {
 //	http://localhost[:8080]/{your-app-root}/swagger-ui/index.html
 
     private String version = "V1";
-    private String title = "SSAFY Member-Values API " + version;
+    private String title = "병아리 Member-Values API " + version;
 
     private ApiInfo apiInfo() {
-        String descript = "SSAFY React API Reference for Developers<br>";
-        descript += "<img src=\"http://localhost:9000/api/static/assets/img/chick.jpg\">";
+        String descript = "병아리 React API Reference for Developers<br>";
+        descript += "<img src=\"/assets/img/chick.jpg\">";
         return new ApiInfoBuilder().title(title).description(descript)
 //				.termsOfServiceUrl("https://edu.ssafy.com")
-                .contact(new Contact("병아리", "https://i8b207.p.ssafy.com", "ssafy@ssafy.com")).license("chick License")
-                .licenseUrl("ssafy@ssafy.com").version("1.0").build();
+                .contact(new Contact("병아리", "http://i8b207.p.ssafy.io/", "kimchick207@gmail.com")).license("chick License")
+                .licenseUrl("http://i8b207.p.ssafy.io/").version("1.0").build();
     }
 
     // API마다 구분짓기 위한 설정.

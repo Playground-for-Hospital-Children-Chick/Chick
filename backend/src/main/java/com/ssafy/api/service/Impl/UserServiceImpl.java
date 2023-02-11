@@ -107,6 +107,7 @@ public class UserServiceImpl implements UserService {
         userLoginInfo.setUserAge(calcuAge(user.getUserBirth()));
         userLoginInfo.setUserBirth(user.getUserBirth());
         userLoginInfo.setUserSex(user.getUserSex());
+        userLoginInfo.setAttendanceDay(userRepository.getAttendanceDay(user.getUserEmail()));
         return userLoginInfo;
     }
 
