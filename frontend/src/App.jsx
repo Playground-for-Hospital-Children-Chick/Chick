@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 import SingDance from "./singDance/Video";
 
-import VideoRoomComponent from "./webRTC_3/VideoRoomComponent";
+import VideoRoomComponent from "./faceRTC/VideoRoomComponent";
 import PaintingPage from "./components/pages/paintingPage";
 
 import FindEmail from "./components/pages/FindId";
