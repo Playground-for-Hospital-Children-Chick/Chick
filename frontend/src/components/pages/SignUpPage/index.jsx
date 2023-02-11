@@ -17,15 +17,16 @@ function SignUp() {
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
   const [modal, setModal] = useState(false);
+  const [checkedEmail, setCheckedEmail] = useState("");
 
   //회원가입 버튼 누를 시 실행
-  const test = async (input) => {
-    console.log(input);
-  };
+
   const onSignup = async (userInput) => {
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
     delete userInput["user_password_check"];
     console.log(userInput);
+    //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
+
     const response = await signupUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
       console.log("성공");
@@ -42,7 +43,7 @@ function SignUp() {
           <CommonBtn text="로그인" color="bg-blue-300" />
         </Link>
       </div>
-      {modal === true ? <CodeModal /> : null}
+      {modal === true ? <CodeModal setCheckedEmail={setCheckedEmail} /> : null}
       <div className="form-entire w-full mb-[7em] justify-center flex flex-row">
         <form
           className="flex flex-col justify-center w-[640px] space-y-8"
@@ -63,6 +64,13 @@ function SignUp() {
                     message: "이메일형식이 잘못되었습니다.",
                     value:
                       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                  },
+                  validate: {
+                    check: (val) => {
+                      if (checkedEmail !== val) {
+                        return "유효한 이메일이 아닙니다.";
+                      }
+                    },
                   },
                 })}
                 // onChange={onEmailChange}
