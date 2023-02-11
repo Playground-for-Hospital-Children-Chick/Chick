@@ -52,11 +52,13 @@ function SignUp() {
         </Link>
       </div>
       {modal === true ? (
-        <CodeModal
-          inputEmail={inputEmail}
-          checkedEmail={checkedEmail}
-          setCheckedEmail={setCheckedEmail}
-        />
+        <div className="absolute  -translate-x-[50%] -translate-y-[50%] z-[1000] top-[60%] left-[50%]">
+          <CodeModal
+            inputEmail={inputEmail}
+            checkedEmail={checkedEmail}
+            setCheckedEmail={setCheckedEmail}
+          />
+        </div>
       ) : null}
       <div className="form-entire w-full mb-[7em] justify-center flex flex-row">
         <form
