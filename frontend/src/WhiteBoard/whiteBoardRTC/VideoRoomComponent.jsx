@@ -2,7 +2,6 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import StreamComponent from "./StreamComponent";
-import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
 
 import SmallFriendIsComing from "../../components/atoms/SmallFriendIsComing";

@@ -6,7 +6,7 @@ import chick_02 from "../../../assets/characters/chick_02.svg";
 import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
 
-function CodeModal({ setCheckedEmail }) {
+function CodeModal({ setCheckedEmail, checkedEmail }) {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
@@ -19,6 +19,7 @@ function CodeModal({ setCheckedEmail }) {
     const response = await sendCodeUser({ email: emailCheck });
     if (parseInt(Number(response.status) / 100) === 2) {
       setCheckedEmail(emailCheck);
+      console.log(checkedEmail);
     } else {
       console.log("실패");
     }
