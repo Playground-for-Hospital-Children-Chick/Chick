@@ -92,6 +92,8 @@ public class SessionController {
     @ApiOperation(value="게임방 나가기", notes = "게임방에서 나간다")
     public ResponseEntity<String> disconnect(@RequestBody(required = true) RoomDisconnectReq roomDisconnectReq) {
         if (roomService.disconnect(roomDisconnectReq.getEmail(), roomDisconnectReq.getSessionId())) {
+            System.out.println("종료 요청입니다");
+            System.out.println("이메일 및 세션 아이디 "+roomDisconnectReq.getEmail()+" "+roomDisconnectReq.getSessionId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
