@@ -81,16 +81,18 @@ public class RoomServiceImpl implements RoomService {
     public boolean disconnect(String email, String session) {
         Room room = roomRepository.findRoomByRoomSession(session); // session에 해당하는 방 정보
         if (room == null || room.getRoomCnt() <= 0) return false; // 방이 없으면
-        if (room.getRoomCnt() - 1 == 0) { // 방의 인원수가 0명이면
-            roomRepository.delete(room); // 방을 삭제한다
-            return true;
-        }
-        room.setRoomCnt(room.getRoomCnt() - 1); // 방의 인원수 감소
-        roomRepository.save(room); // 방 정보 업데이트
+
         ArrayList<Matching> matchingArrayList = matchingRepository.findByMatEmailAndMatVisit(email, "true"); // 회원의 매칭 정보
         Matching matching = matchingArrayList.get(0); // 가장 최근에 접속한 매칭 정보
         matching.setMatVisit("false"); // 회원은 해당 방에 입장중이 아니다
         matchingRepository.save(matching); // 매칭 정보 업데이트
+
+        if (room.getRoomCnt() - 1 == 0) { // 방의 인원수가 0명이면
+            roomRepository.delete(room); // 방을 삭제한다
+        } else {
+            room.setRoomCnt(room.getRoomCnt() - 1); // 방의 인원수 감소
+            roomRepository.save(room); // 방 정보 업데이트
+        }
         return true;
     }
 }
