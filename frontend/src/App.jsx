@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/pages/LoginPage";
 import Logout from "./components/pages/LogoutPage";
 import HomePage from "./components/pages/HomePage/index";
+import SignUpComplete from "./components/pages/SignUpComplete/index";
 import CodeModal from "./components/molecules/EmailCodeModal/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
@@ -23,7 +24,7 @@ function App() {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="App">
+    <div className="App h-full w-full">
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -46,6 +47,7 @@ function App() {
           <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
           <Route path="/findpassword" element={<FindPassword />} />
+          <Route path="/signupComplete" element={<SignUpComplete />} />
           <Route path="/test" element={<CodeModal />} />
         </Routes>
       </Router>
