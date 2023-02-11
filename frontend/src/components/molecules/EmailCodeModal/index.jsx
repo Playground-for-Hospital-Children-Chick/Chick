@@ -82,9 +82,12 @@ function CodeModal({ setCheckedEmail, checkedEmail, inputEmail }) {
     }
   }, [count]);
   return (
-    <div visibility="true">
+    <div>
       <AlertBox>
-        <div className="mt-[2.5em] flex flex-col justify-center items-center">
+        <div className="absolute left-[90%] top-[10%] -translate-y-[50%] -translate-x-[50%]">
+          <CommonBtn text="X" padding="p-[2em]" color="bg-pink-100" />
+        </div>
+        <div className="mt-[3em] flex flex-col justify-center items-center">
           <div className="font-chick text-3xl">이메일로 코드가 발급해서,</div>
           <div className="font-chick text-3xl mt-[0.5em]">
             코드를 입력해주세요.
