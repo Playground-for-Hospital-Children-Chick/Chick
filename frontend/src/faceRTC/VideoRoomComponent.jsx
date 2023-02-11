@@ -161,9 +161,7 @@ class VideoRoomComponent extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
-    this.joinSession().then(() => {
-      this.applyDeepAR();
-    });
+    this.joinSession();
   }
 
   componentWillUnmount() {
@@ -186,6 +184,7 @@ class VideoRoomComponent extends Component {
       async () => {
         this.subscribeToStreamCreated();
         await this.connectToSession();
+        await this.applyDeepAR();
       }
     );
   }
