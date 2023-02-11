@@ -19,6 +19,7 @@ import ArFlower from "./../components/atoms/ArFlower/index";
 import ArKoala from "../components/atoms/ArKoala";
 import ArDalmatian from "../components/atoms/ArDalmatian";
 import CommonBtn from "../components/atoms/CommonBtn";
+import Swal from "sweetalert2";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -205,8 +206,19 @@ class VideoRoomComponent extends Component {
             status: error.status,
           });
         }
-        alert("같은 계정이 방에 입장해 있어요..!", error.message);
-        window.location.href = "/";
+
+        Swal.fire({
+          icon: "info",
+          title: "중복 접속",
+          text: "같은 계정이 방에 입장해 있어요..!.",
+          confirmButtonText: "홈 화면으로 돌아가기",
+          confirmButtonColor: "#8cc8ff",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/";
+            return;
+          }
+        });
       }
     }
   }
