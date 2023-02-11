@@ -68,7 +68,7 @@ class VideoRoomComponent extends Component {
       localUser: undefined,
       subscribers: [],
       currentVideoDevice: undefined,
-      arEnable: false,
+      arEnable: true,
       deepAR: undefined,
     };
 
@@ -146,10 +146,17 @@ class VideoRoomComponent extends Component {
       segmentationInfoZip: "segmentation.zip",
       onInitialize: () => {
         this.state.deepAR.startVideo(true);
+
+        this.state.deepAR.switchEffect(0, "slot", "/effects/dalmatian");
       },
     });
 
-    this.state.deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
+    this.state.deepAR.downloadFaceTrackingModel(
+      "/lib/models-68-extreme.bin",
+      () => {
+        console.log("AR 효과 적용");
+      }
+    );
   }
 
   componentDidMount() {
@@ -248,18 +255,17 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
-    await this.OV.getUserMedia({
-      audioSource: undefined,
-      videoSource: undefined,
+    this.startDeepAR(this.canvasRef);
+    await this.setState({
+      currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
     });
-    var devices = await this.OV.getDevices();
-    var videoDevices = devices.filter((device) => device.kind === "videoinput");
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
-      videoSource: videoDevices[0].deviceId,
+      videoSource: this.state.currentVideoDevice,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
+      mirror: true,
       resolution: "555x307",
       frameRate: 30,
       insertMode: "APPEND",
