@@ -2,7 +2,7 @@ import CommonBtn from "../../atoms/CommonBtn";
 import Logo from "../../atoms/Logo/index";
 import InputBox from "../../atoms/Input";
 import CalenderSelectBox from "../../atoms/CalenderSelectBox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
 import Sex from "../../atoms/Sex";
 import { useForm } from "react-hook-form";
@@ -18,8 +18,13 @@ function SignUp() {
   const { errors } = formState;
   const [modal, setModal] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
+  const { inputEmail, setInputEmail } = useState("");
+  const navigate = useNavigate();
 
   //회원가입 버튼 누를 시 실행
+  const emailInput = (e) => {
+    setInputEmail(e.target.value);
+  };
 
   const onSignup = async (userInput) => {
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
@@ -29,7 +34,8 @@ function SignUp() {
 
     const response = await signupUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
-      console.log("성공");
+      console.log("회원가입 성공");
+      navigate("/login");
     } else {
       console.log("회원가입 실패");
     }
@@ -45,6 +51,7 @@ function SignUp() {
       </div>
       {modal === true ? (
         <CodeModal
+          inputEmail={inputEmail}
           checkedEmail={checkedEmail}
           setCheckedEmail={setCheckedEmail}
         />
@@ -63,6 +70,7 @@ function SignUp() {
             </label>
             <div className="relative">
               <InputBox
+                onChange={emailInput}
                 register={register("user_email", {
                   required: "이메일을 입력하지 않았습니다.",
                   pattern: {
