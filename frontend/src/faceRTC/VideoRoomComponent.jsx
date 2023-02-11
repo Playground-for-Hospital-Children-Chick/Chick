@@ -161,8 +161,9 @@ class VideoRoomComponent extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
-    this.startDeepAR(this.canvasRef);
-    this.joinSession();
+    this.joinSession().then(() => {
+      this.applyDeepAR();
+    });
   }
 
   componentWillUnmount() {
@@ -260,16 +261,12 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
     });
-    // var devices = await this.OV.getDevices();
-    // var videoDevices = devices.filter((device) => device.kind === "videoinput");
-
-    await this.setState({
-      currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
-    });
+    var devices = await this.OV.getDevices();
+    var videoDevices = devices.filter((device) => device.kind === "videoinput");
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
-      videoSource: this.state.currentVideoDevice,
+      videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "555x307",
@@ -298,13 +295,16 @@ class VideoRoomComponent extends Component {
     //   isScreenShareActive: localUser.isScreenShareActive(),
     // });
 
-    this.setState({ localUser: localUser }, () => {
-      this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
-        publisher.videos[0].video.parentElement.classList.remove(
-          "custom-class"
-        );
-      });
-    });
+    this.setState(
+      { currentVideoDevice: videoDevices[0], localUser: localUser },
+      () => {
+        this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
+          publisher.videos[0].video.parentElement.classList.remove(
+            "custom-class"
+          );
+        });
+      }
+    );
   }
 
   updateSubscribers() {
