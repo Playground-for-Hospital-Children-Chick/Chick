@@ -12,7 +12,12 @@ import java.util.List;
 @Setter
 @ApiModel("S3ImagesRes")
 public class S3ImagesRes extends BaseResponseBody{
-    @ApiModelProperty(name="JWT access 인증 토큰", example = "ekdif123SDKVIdf1231...")
+    @ApiModelProperty(name="업로드된 파일리스트", example = " {" +
+            "            \"id\": 1,\n" +
+            "            \"title\": \"jaeuk\",\n" +
+            "            \"email\": \"hju9707@naver.com\",\n" +
+            "            \"s3Url\": \"https://ssafy-chick.s3.ap-northeast-2.amazonaws.com/hju9707%40naver.com/2023-02-11%2005%3A15%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C.png\"\n" +
+            "        }")
     List<FileEntity> filelist;
 
     public static S3ImagesRes of(Integer statusCode, String message, List<FileEntity> filelist) {
