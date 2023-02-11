@@ -477,6 +477,7 @@ class DanceVideoRoomComponent extends Component {
             {this.state.subscribers.length === 2 ? (
               <SmallFriendIsComing />
             ) : null}
+            <div className="font-chick ">{this.state.mySessionId}</div>
           </SmallWebCamBoard>
         ) : null}
       </>
