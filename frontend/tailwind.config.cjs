@@ -78,9 +78,8 @@ module.exports = {
         800: "#686a00",
         900: "#474800",
       },
-      gray: {
-        100: "#B0ADAD",
-      },
+      gray: "#B0ADAD",
+      white: "#FFFFFF",
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],
