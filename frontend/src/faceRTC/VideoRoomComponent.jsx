@@ -78,7 +78,7 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-    this.switchCamera = this.switchCamera.bind(this);
+    // this.switchCamera = this.switchCamera.bind(this);
 
     this.canvasRef = document.createElement("canvas");
     this.applyDeepAR = this.applyDeepAR.bind(this);
@@ -161,6 +161,7 @@ class VideoRoomComponent extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
+    this.startDeepAR(this.canvasRef);
     this.joinSession();
   }
 
@@ -234,9 +235,7 @@ class VideoRoomComponent extends Component {
     this.state.session
       .connect(token, { clientData: this.state.myUserName })
       .then(() => {
-        this.connectWebCam().then(() => {
-          this.applyDeepAR();
-        });
+        this.connectWebCam();
       })
       .catch((error) => {
         if (this.props.error) {
@@ -261,12 +260,16 @@ class VideoRoomComponent extends Component {
       audioSource: undefined,
       videoSource: undefined,
     });
-    var devices = await this.OV.getDevices();
-    var videoDevices = devices.filter((device) => device.kind === "videoinput");
+    // var devices = await this.OV.getDevices();
+    // var videoDevices = devices.filter((device) => device.kind === "videoinput");
+
+    await this.setState({
+      currentVideoDevice: this.canvasRef.captureStream().getVideoTracks()[0],
+    });
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
-      videoSource: videoDevices[0].deviceId,
+      videoSource: this.state.currentVideoDevice,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
       resolution: "555x307",
@@ -295,16 +298,13 @@ class VideoRoomComponent extends Component {
     //   isScreenShareActive: localUser.isScreenShareActive(),
     // });
 
-    this.setState(
-      { currentVideoDevice: videoDevices[0], localUser: localUser },
-      () => {
-        this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
-          publisher.videos[0].video.parentElement.classList.remove(
-            "custom-class"
-          );
-        });
-      }
-    );
+    this.setState({ localUser: localUser }, () => {
+      this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
+        publisher.videos[0].video.parentElement.classList.remove(
+          "custom-class"
+        );
+      });
+    });
   }
 
   updateSubscribers() {
@@ -469,45 +469,45 @@ class VideoRoomComponent extends Component {
     this.state.session.signal(signalOptions);
   }
 
-  async switchCamera() {
-    try {
-      const devices = await this.OV.getDevices();
-      var videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
+  // async switchCamera() {
+  //   try {
+  //     const devices = await this.OV.getDevices();
+  //     var videoDevices = devices.filter(
+  //       (device) => device.kind === "videoinput"
+  //     );
 
-      if (videoDevices && videoDevices.length > 1) {
-        var newVideoDevice = videoDevices.filter(
-          (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
-        );
+  //     if (videoDevices && videoDevices.length > 1) {
+  //       var newVideoDevice = videoDevices.filter(
+  //         (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
+  //       );
 
-        if (newVideoDevice.length > 0) {
-          // Creating a new publisher with specific videoSource
-          // In mobile devices the default and first camera is the front one
-          var newPublisher = this.OV.initPublisher(undefined, {
-            audioSource: undefined,
-            videoSource: newVideoDevice[0].deviceId,
-            publishAudio: localUser.isAudioActive(),
-            publishVideo: localUser.isVideoActive(),
-            mirror: true,
-          });
+  //       if (newVideoDevice.length > 0) {
+  //         // Creating a new publisher with specific videoSource
+  //         // In mobile devices the default and first camera is the front one
+  //         var newPublisher = this.OV.initPublisher(undefined, {
+  //           audioSource: undefined,
+  //           videoSource: newVideoDevice[0].deviceId,
+  //           publishAudio: localUser.isAudioActive(),
+  //           publishVideo: localUser.isVideoActive(),
+  //           mirror: true,
+  //         });
 
-          //newPublisher.once("accessAllowed", () => {
-          await this.state.session.unpublish(
-            this.state.localUser.getStreamManager()
-          );
-          await this.state.session.publish(newPublisher);
-          this.state.localUser.setStreamManager(newPublisher);
-          this.setState({
-            currentVideoDevice: newVideoDevice,
-            localUser: localUser,
-          });
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  //         //newPublisher.once("accessAllowed", () => {
+  //         await this.state.session.unpublish(
+  //           this.state.localUser.getStreamManager()
+  //         );
+  //         await this.state.session.publish(newPublisher);
+  //         this.state.localUser.setStreamManager(newPublisher);
+  //         this.setState({
+  //           currentVideoDevice: newVideoDevice,
+  //           localUser: localUser,
+  //         });
+  //       }
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
   render() {
     const mySessionId = this.state.mySessionId;
