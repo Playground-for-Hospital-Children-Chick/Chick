@@ -23,7 +23,7 @@ function App() {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="App">
+    <div className="App h-full w-full">
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
