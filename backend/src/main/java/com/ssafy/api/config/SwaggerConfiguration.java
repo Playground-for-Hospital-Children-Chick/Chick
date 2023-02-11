@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
 //	http://localhost[:8080]/{your-app-root}/swagger-ui/index.html
 
     private String version = "V1";
-    private String title = "병아리 Member-Values API " + version;
+    private String title = "병아리 Swagger API " + version;
 
     private ApiInfo apiInfo() {
         String descript = "병아리 React API Reference for Developers<br>";
@@ -37,12 +37,6 @@ public class SwaggerConfiguration {
 //				.termsOfServiceUrl("https://edu.ssafy.com")
                 .contact(new Contact("병아리", "http://i8b207.p.ssafy.io/", "kimchick207@gmail.com")).license("chick License")
                 .licenseUrl("http://i8b207.p.ssafy.io/").version("1.0").build();
-    }
-
-    // API마다 구분짓기 위한 설정.
-    @Bean
-    public Docket userApi() {
-        return getDocket("회원", Predicates.or(PathSelectors.regex("/member.*")));
     }
 
     public Docket getDocket(String groupName, Predicate<String> predicate) {
@@ -65,6 +59,27 @@ public class SwaggerConfiguration {
     @Bean
     public UiConfiguration uiConfig() {
         return UiConfigurationBuilder.builder().displayRequestDuration(true).validatorUrl("").build();
+    }
+
+    // API마다 구분짓기 위한 설정.
+    @Bean
+    public Docket userApi() {
+        return getDocket("회원관리", Predicates.or(PathSelectors.regex("/api/users.*")));
+    }
+    @Bean
+    public Docket loginApi() {
+        return getDocket("로그인 및 토큰 재발급", Predicates.or(PathSelectors.regex("/api/auth.*")));
+    }
+    @Bean
+    public Docket reportApi() {
+        return getDocket("차단관리", Predicates.or(PathSelectors.regex("/api/report.*")));
+    }
+    @Bean
+    public Docket S3Api() {
+        return getDocket("S3파일관리", Predicates.or(PathSelectors.regex("/api/s3.*")));
+    }
+    public Docket sessionsApi() {
+        return getDocket("매칭세션관리", Predicates.or(PathSelectors.regex("/api/sessions.*")));
     }
 
 }
