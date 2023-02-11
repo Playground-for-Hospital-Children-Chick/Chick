@@ -15,10 +15,17 @@ Ver 1.0.0
 default="yellow"
 */
 }
-function AlertBox({ children, color = "bg-[#fcff83]" }) {
+function AlertBox({
+  children,
+  color = "bg-[#fcff83]",
+  overflow = "overflow-hidden",
+  scrollbar,
+}) {
   const classStr = classnames(
-    `w-[817px] h-[561px] overflow-hidden rounded-[30px]  border border-black/30`,
-    color
+    `w-[817px] h-[561px]  rounded-[30px]  border border-black/30`,
+    color,
+    overflow,
+    scrollbar
   );
   return (
     <div
