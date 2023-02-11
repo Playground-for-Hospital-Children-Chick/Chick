@@ -43,7 +43,12 @@ function SignUp() {
           <CommonBtn text="로그인" color="bg-blue-300" />
         </Link>
       </div>
-      {modal === true ? <CodeModal setCheckedEmail={setCheckedEmail} /> : null}
+      {modal === true ? (
+        <CodeModal
+          checkedEmail={checkedEmail}
+          setCheckedEmail={setCheckedEmail}
+        />
+      ) : null}
       <div className="form-entire w-full mb-[7em] justify-center flex flex-row">
         <form
           className="flex flex-col justify-center w-[640px] space-y-8"
