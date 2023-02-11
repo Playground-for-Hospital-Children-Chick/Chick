@@ -2,7 +2,6 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import StreamComponent from "./StreamComponent";
-import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
 
 import SmallFriendIsComing from "../../components/atoms/SmallFriendIsComing";
@@ -14,9 +13,12 @@ import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
+import Swal from "sweetalert2";
 
 import IconButton from "@material-ui/core/IconButton";
 import SmallWebCamBoard from "../../components/atoms/SmallWebCamBoard";
+import WhiteBoardWebCamBoard from "./../../components/atoms/WhiteBoardWebCamBoard/index";
+import WhiteBoardFriendIsComing from "./../../components/atoms/WhiteBoardFriendIsComing/index";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -103,8 +105,19 @@ class BoardVideoRoomComponent extends Component {
             status: error.status,
           });
         }
-        alert("같은 계정이 방에 입장해 있어요..!", error.message);
-        window.location.href = "/";
+
+        Swal.fire({
+          icon: "info",
+          title: "중복 접속",
+          text: "같은 계정이 방에 입장해 있어요..!.",
+          confirmButtonText: "홈 화면으로 돌아가기",
+          confirmButtonColor: "#8cc8ff",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/";
+            return;
+          }
+        });
       }
     }
   }
@@ -146,7 +159,7 @@ class BoardVideoRoomComponent extends Component {
       videoSource: videoDevices[0].deviceId,
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
-      resolution: "300x150",
+      resolution: "200x100",
       frameRate: 30,
       insertMode: "APPEND",
     });
@@ -389,12 +402,12 @@ class BoardVideoRoomComponent extends Component {
         ) : null}
         {this.state.session !== undefined ? (
           // <div className="flex flex-row w-[90em]">
-          <SmallWebCamBoard>
+          <WhiteBoardWebCamBoard>
             {localUser !== undefined &&
               localUser.getStreamManager() !== undefined && (
                 <div
                   id="localUser"
-                  className="relative m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center "
+                  className="relative m-3 rounded-[30px] w-[200px] h-[100px] flex items-center justify-center "
                 >
                   <StreamComponent
                     user={localUser}
@@ -435,7 +448,7 @@ class BoardVideoRoomComponent extends Component {
               i < 3 ? (
                 <div
                   key={i}
-                  className=" m-3 rounded-[30px] w-[300px] h-[150px] flex items-center justify-center"
+                  className=" m-3 rounded-[30px] w-[200px] h-[100px] flex items-center justify-center"
                   id="remoteUsers"
                 >
                   <StreamComponent
@@ -447,26 +460,26 @@ class BoardVideoRoomComponent extends Component {
             )}
 
             {this.state.subscribers.length === 0 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 0 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 0 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
 
             {this.state.subscribers.length === 1 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
             {this.state.subscribers.length === 1 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
 
             {this.state.subscribers.length === 2 ? (
-              <SmallFriendIsComing />
+              <WhiteBoardFriendIsComing />
             ) : null}
-          </SmallWebCamBoard>
+          </WhiteBoardWebCamBoard>
         ) : null}
       </>
     );

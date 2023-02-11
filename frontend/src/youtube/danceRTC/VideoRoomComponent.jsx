@@ -2,7 +2,6 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import StreamComponent from "./StreamComponent";
-import ToolbarComponent from "./ToolbarComponent";
 import UserModel from "./models/user-model";
 
 import SmallFriendIsComing from "../../components/atoms/SmallFriendIsComing";
@@ -14,6 +13,7 @@ import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
 import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
+import Swal from "sweetalert2";
 
 import IconButton from "@material-ui/core/IconButton";
 import SmallWebCamBoard from "../../components/atoms/SmallWebCamBoard";
@@ -103,8 +103,19 @@ class DanceVideoRoomComponent extends Component {
             status: error.status,
           });
         }
-        alert("같은 계정이 방에 입장해 있어요..!", error.message);
-        window.location.href = "/";
+
+        Swal.fire({
+          icon: "info",
+          title: "중복 접속",
+          text: "같은 계정이 방에 입장해 있어요..!.",
+          confirmButtonText: "홈 화면으로 돌아가기",
+          confirmButtonColor: "#8cc8ff",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/";
+            return;
+          }
+        });
       }
     }
   }
@@ -466,6 +477,7 @@ class DanceVideoRoomComponent extends Component {
             {this.state.subscribers.length === 2 ? (
               <SmallFriendIsComing />
             ) : null}
+            <div className="font-chick ">{this.state.mySessionId}</div>
           </SmallWebCamBoard>
         ) : null}
       </>
