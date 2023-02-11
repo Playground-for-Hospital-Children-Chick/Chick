@@ -230,7 +230,7 @@ const Board = () => {
     <div className="flex justify-between">
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
-      <div className="flex justify end z-10">
+      {/* <div className="flex justify end z-10">
         {myRoomName != null ? (
           <BoardVideoRoomComponent
             user={user["userChName"]}
@@ -239,7 +239,7 @@ const Board = () => {
             sessionName={myRoomName}
           />
         ) : null}
-      </div>
+      </div> */}
 
       <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
         <img src={BlackPan} width="45" height="45" className="color black" />
