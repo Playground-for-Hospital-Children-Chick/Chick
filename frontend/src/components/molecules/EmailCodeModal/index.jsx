@@ -6,7 +6,7 @@ import chick_02 from "../../../assets/characters/chick_02.svg";
 import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
 
-function CodeModal({ setCheckedEmail, checkedEmail, hello }) {
+function CodeModal({ setCheckedEmail, checkedEmail, inputEmail }) {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
@@ -67,6 +67,9 @@ function CodeModal({ setCheckedEmail, checkedEmail, hello }) {
     getResponse();
   }, [emailCheck]);
   useEffect(() => {
+    setEmailCheck(inputEmail);
+  }, []);
+  useEffect(() => {
     if (count != 0) {
       const id = setInterval(() => {
         setCount(count - 1);
@@ -96,6 +99,7 @@ function CodeModal({ setCheckedEmail, checkedEmail, hello }) {
             </label>
             <div>
               <InputBox
+                text={inputEmail}
                 onChange={handleChange}
                 placeholder={"이메일을 입력해주세요."}
               />
