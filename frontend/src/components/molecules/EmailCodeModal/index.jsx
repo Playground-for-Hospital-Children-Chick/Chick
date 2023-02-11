@@ -130,7 +130,7 @@ function CodeModal() {
             </div>
             <div>
               {min == 0 && sec == 0 ? (
-                <CommonBtn option={true} text="확인" color="bg-gray-100" />
+                <CommonBtn option={true} text="확인" color="bg-gray" />
               ) : (
                 <CommonBtn
                   onClick={sendCode}

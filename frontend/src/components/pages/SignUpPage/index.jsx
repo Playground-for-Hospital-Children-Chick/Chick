@@ -38,7 +38,7 @@ function SignUp() {
           <CommonBtn text="로그인" color="bg-blue-300" />
         </Link>
       </div>
-      <div className="invisible">
+      <div className="absolute top-[5eminvisible">
         <CodeModal />
       </div>
       <form className=" space-y-8" onSubmit={handleSubmit(onSignup)}>
