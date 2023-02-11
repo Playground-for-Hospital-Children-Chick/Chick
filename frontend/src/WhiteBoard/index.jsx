@@ -241,14 +241,20 @@ const Board = () => {
         ) : null}
       </div>
 
-      <div ref={colorsRef} className="colors h-[50px] row-span-2 z-10">
-        <img src={BlackPan} width="45" height="45" className="color black" />
-        <img src={RedPan} width="45" height="45" className="color red" />
-        <img src={GreenPan} width="40" height="40" className="color green" />
-        <img src={BluePan} width="45" height="45" className="color blue" />
-        <img src={YellowPan} width="45" height="45" className="color yellow" />
+      <div
+        ref={colorsRef}
+        className="colors h-[350px] w-[400px] row-span-2 z-10"
+      >
+        <img src={BlackPan} width="25" height="25" className="color black" />
+        <img src={RedPan} width="25" height="25" className="color red" />
+        <img src={GreenPan} width="22.5" height="21" className="color green" />
+        <img src={BluePan} width="25" height="25" className="color blue" />
+        <img src={YellowPan} width="25" height="25" className="color yellow" />
 
-        <button onClick={() => clearBoard(true, { myRoomName })}>
+        <button
+          className="absolute top-1.5"
+          onClick={() => clearBoard(true, { myRoomName })}
+        >
           <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
