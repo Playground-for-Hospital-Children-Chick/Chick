@@ -66,7 +66,7 @@ public class UserController {
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Not Exist"));
     }
 
-    @GetMapping("/emailduplicatecheck")
+    @GetMapping("/distinctemail")
     @ApiResponses({
             @ApiResponse(code = 200, message = "이메일이 db에 없음"),
             @ApiResponse(code = 401, message = "이메일이 db에 존재"),
