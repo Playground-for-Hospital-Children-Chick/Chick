@@ -24,14 +24,14 @@ function FullScreenBtn() {
 
   return (
     <div className="absolute bottom-6 right-6">
-      <div>
-        <span className="text-xl font-chick">전체화면</span>
-      </div>
-      <div>
-        <button onClick={toggleFullScreen}>
+      <button onClick={toggleFullScreen} className="flex flex-col items-center">
+        <div>
+          <span className="text-xl font-chick">전체화면</span>
+        </div>
+        <div>
           <GoScreenFull size={50} />
-        </button>
-      </div>
+        </div>
+      </button>
     </div>
   );
 }
