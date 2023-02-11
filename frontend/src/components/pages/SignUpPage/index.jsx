@@ -44,7 +44,9 @@ function SignUp() {
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <Link to="/login">
           <CommonBtn text="로그인" color="bg-blue-300" />
         </Link>
