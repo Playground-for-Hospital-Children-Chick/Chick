@@ -157,7 +157,7 @@ class VideoRoomComponent extends Component {
   }
 
   componentWillUnmount() {
-    this.state.deepAR.stopVideo();
+    // this.state.deepAR.stopVideo();
     window.removeEventListener("beforeunload", this.onbeforeunload);
     this.leaveSession();
   }
