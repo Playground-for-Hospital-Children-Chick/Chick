@@ -45,6 +45,7 @@ public class S3Controller {
     public ResponseEntity<S3ImagesRes> listPage(String email) {
         List<FileEntity> fileList =fileService.getFiles(email);
         if(fileList.size()!=0){
+            System.out.println(fileList.get(0).toString());
             return ResponseEntity.ok(S3ImagesRes.of(200, "Success", fileList));
         }
         return ResponseEntity.ok(S3ImagesRes.of(404, "Failure", null));
