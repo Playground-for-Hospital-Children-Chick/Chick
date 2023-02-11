@@ -6,7 +6,13 @@ import chick_02 from "../../../assets/characters/chick_02.svg";
 import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
 
-function CodeModal({ setCheckedEmail, checkedEmail, inputEmail }) {
+function CodeModal({
+  setCheckedEmail,
+  checkedEmail,
+  inputEmail,
+  setModal,
+  modal,
+}) {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
@@ -85,7 +91,12 @@ function CodeModal({ setCheckedEmail, checkedEmail, inputEmail }) {
     <div>
       <AlertBox>
         <div className="absolute left-[90%] top-[10%] -translate-y-[50%] -translate-x-[50%]">
-          <CommonBtn text="X" padding="p-[2em]" color="bg-pink-100" />
+          <CommonBtn
+            onClick={() => setModal(!modal)}
+            text="X"
+            padding="p-[2em]"
+            color="bg-pink-100"
+          />
         </div>
         <div className="mt-[3em] flex flex-col justify-center items-center">
           <div className="font-chick text-3xl">이메일로 코드가 발급해서,</div>
