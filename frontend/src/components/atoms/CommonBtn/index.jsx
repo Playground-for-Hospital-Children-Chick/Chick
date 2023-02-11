@@ -22,10 +22,20 @@ default="blue"
 */
 }
 
-function CommonBtn({ option, onClick, type, text = "Button", color }) {
+function CommonBtn({
+  option,
+  round = "rounded-[30px]",
+  padding = "p-3",
+  onClick,
+  type,
+  text = "Button",
+  color,
+}) {
   const classStr = classnames(
-    `font-chick  p-3 mx-2 mt-3 mb-3 h-[70px] overflow-hidden rounded-[30px]`,
-    color
+    `font-chick  mx-2 mt-3 mb-3 h-[70px] overflow-hidden flex items-center`,
+    padding,
+    color,
+    round
   );
   return (
     <button
