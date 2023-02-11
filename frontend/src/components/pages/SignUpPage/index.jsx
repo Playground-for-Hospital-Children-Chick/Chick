@@ -19,7 +19,7 @@ function SignUp() {
   const [modal, setModal] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
   const { inputEmail, setInputEmail } = useState("");
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   //회원가입 버튼 누를 시 실행
   const emailInput = (e) => {
