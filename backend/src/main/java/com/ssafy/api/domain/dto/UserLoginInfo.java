@@ -25,6 +25,8 @@ public class UserLoginInfo {
     String userBirth;
     @ApiModelProperty(value = "회원 성별")
     String userSex;
+    @ApiModelProperty(value = "출석일")
+    int attendanceDay;
     //(예정)게임플레이비중
     //(예정)누적출석일
 
