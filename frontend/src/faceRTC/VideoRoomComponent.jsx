@@ -19,6 +19,7 @@ import ArFlower from "./../components/atoms/ArFlower/index";
 import ArKoala from "../components/atoms/ArKoala";
 import ArDalmatian from "../components/atoms/ArDalmatian";
 import CommonBtn from "../components/atoms/CommonBtn";
+import Swal from "sweetalert2";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -77,7 +78,7 @@ class VideoRoomComponent extends Component {
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.nicknameChanged = this.nicknameChanged.bind(this);
-    this.switchCamera = this.switchCamera.bind(this);
+    // this.switchCamera = this.switchCamera.bind(this);
 
     this.canvasRef = document.createElement("canvas");
     this.applyDeepAR = this.applyDeepAR.bind(this);
@@ -145,15 +146,24 @@ class VideoRoomComponent extends Component {
       segmentationInfoZip: "segmentation.zip",
       onInitialize: () => {
         this.state.deepAR.startVideo(true);
+
+        this.state.deepAR.switchEffect(0, "slot", "/effects/dalmatian");
       },
     });
 
-    this.state.deepAR.downloadFaceTrackingModel("/lib/models-68-extreme.bin");
+    this.state.deepAR.downloadFaceTrackingModel(
+      "/lib/models-68-extreme.bin",
+      () => {
+        console.log("AR 효과 적용");
+      }
+    );
   }
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
-    this.joinSession();
+    this.joinSession().then(() => {
+      this.applyDeepAR();
+    });
   }
 
   componentWillUnmount() {
@@ -205,8 +215,19 @@ class VideoRoomComponent extends Component {
             status: error.status,
           });
         }
-        alert("같은 계정이 방에 입장해 있어요..!", error.message);
-        window.location.href = "/";
+
+        Swal.fire({
+          icon: "info",
+          title: "중복 접속",
+          text: "같은 계정이 방에 입장해 있어요..!.",
+          confirmButtonText: "홈 화면으로 돌아가기",
+          confirmButtonColor: "#8cc8ff",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/";
+            return;
+          }
+        });
       }
     }
   }
@@ -251,6 +272,7 @@ class VideoRoomComponent extends Component {
       resolution: "555x307",
       frameRate: 30,
       insertMode: "APPEND",
+      mirror: true,
     });
 
     if (this.state.session.capabilities.publish) {
@@ -447,45 +469,45 @@ class VideoRoomComponent extends Component {
     this.state.session.signal(signalOptions);
   }
 
-  async switchCamera() {
-    try {
-      const devices = await this.OV.getDevices();
-      var videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
+  // async switchCamera() {
+  //   try {
+  //     const devices = await this.OV.getDevices();
+  //     var videoDevices = devices.filter(
+  //       (device) => device.kind === "videoinput"
+  //     );
 
-      if (videoDevices && videoDevices.length > 1) {
-        var newVideoDevice = videoDevices.filter(
-          (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
-        );
+  //     if (videoDevices && videoDevices.length > 1) {
+  //       var newVideoDevice = videoDevices.filter(
+  //         (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
+  //       );
 
-        if (newVideoDevice.length > 0) {
-          // Creating a new publisher with specific videoSource
-          // In mobile devices the default and first camera is the front one
-          var newPublisher = this.OV.initPublisher(undefined, {
-            audioSource: undefined,
-            videoSource: newVideoDevice[0].deviceId,
-            publishAudio: localUser.isAudioActive(),
-            publishVideo: localUser.isVideoActive(),
-            mirror: true,
-          });
+  //       if (newVideoDevice.length > 0) {
+  //         // Creating a new publisher with specific videoSource
+  //         // In mobile devices the default and first camera is the front one
+  //         var newPublisher = this.OV.initPublisher(undefined, {
+  //           audioSource: undefined,
+  //           videoSource: newVideoDevice[0].deviceId,
+  //           publishAudio: localUser.isAudioActive(),
+  //           publishVideo: localUser.isVideoActive(),
+  //           mirror: true,
+  //         });
 
-          //newPublisher.once("accessAllowed", () => {
-          await this.state.session.unpublish(
-            this.state.localUser.getStreamManager()
-          );
-          await this.state.session.publish(newPublisher);
-          this.state.localUser.setStreamManager(newPublisher);
-          this.setState({
-            currentVideoDevice: newVideoDevice,
-            localUser: localUser,
-          });
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  //         //newPublisher.once("accessAllowed", () => {
+  //         await this.state.session.unpublish(
+  //           this.state.localUser.getStreamManager()
+  //         );
+  //         await this.state.session.publish(newPublisher);
+  //         this.state.localUser.setStreamManager(newPublisher);
+  //         this.setState({
+  //           currentVideoDevice: newVideoDevice,
+  //           localUser: localUser,
+  //         });
+  //       }
+  //     }
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }
 
   render() {
     const mySessionId = this.state.mySessionId;
