@@ -18,7 +18,7 @@ function SignUp() {
   const { errors } = formState;
   const [modal, setModal] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
-  const { inputEmail, setInputEmail } = useState("");
+  const [inputEmail, setInputEmail] = useState("");
   const navigate = useNavigate();
 
   //회원가입 버튼 누를 시 실행
@@ -35,7 +35,7 @@ function SignUp() {
     const response = await signupUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
       console.log("회원가입 성공");
-      navigate("/login");
+      navigate("/signupComplete");
     } else {
       console.log("회원가입 실패");
     }
