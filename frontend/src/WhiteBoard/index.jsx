@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import "./styles/board.css";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
@@ -30,6 +30,9 @@ const Board = () => {
     }
     // console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
     socketRef.current.emit("erasing", sessionName);
+  }
+  function leaveSession() {
+    socketRef.current.emit("leave_room", myRoomName);
   }
 
   useEffect(() => {
@@ -251,7 +254,7 @@ const Board = () => {
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
         <Link to="/">
-          <CommonBtn text="나가기" color={"bg-pink-300"} />
+          <CommonBtn text="나가기" color={"bg-pink-300"} onClick={leaveSession} />
         </Link>
       </div>
     </div>
