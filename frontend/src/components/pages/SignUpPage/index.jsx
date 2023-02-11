@@ -54,6 +54,8 @@ function SignUp() {
       {modal === true ? (
         <div className="absolute  -translate-x-[50%] -translate-y-[50%] z-[1000] top-[60%] left-[50%]">
           <CodeModal
+            modal={modal}
+            setModal={setModal}
             inputEmail={inputEmail}
             checkedEmail={checkedEmail}
             setCheckedEmail={setCheckedEmail}
