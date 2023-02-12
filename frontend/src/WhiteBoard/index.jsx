@@ -238,14 +238,14 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        {/* {myRoomName != null ? ( */}
-        <BoardVideoRoomComponent
-          user={user["userChName"]}
-          email={user["userEmail"]}
-          userType={user["userType"]}
-          sessionName={myRoomName}
-        />
-        {/*) : null} */}
+        {myRoomName != null ? (
+          <BoardVideoRoomComponent
+            user={user["userChName"]}
+            email={user["userEmail"]}
+            userType={user["userType"]}
+            sessionName={myRoomName}
+          />
+        ) : null}
       </div>
 
       <div ref={colorsRef} className="colors h-[350px] w-[400px] row-span-2 z-10">
