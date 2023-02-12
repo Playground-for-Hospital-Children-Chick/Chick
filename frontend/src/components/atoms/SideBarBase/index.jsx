@@ -21,7 +21,7 @@
 function SideBarBase({ children }) {
   return (
     <div
-      className="container absolute ml-3 top-0 left-0 pt-6 w-[95px] h-[100%] overflow-hidden rounded-[40px] bg-white"
+      className="container absolute ml-3 top-0 left-0 pt-6 w-[95px] h-screen overflow-hidden rounded-[40px] bg-white"
       style={{ boxShadow: "0px 4px 4px 4px rgba(0,0,0,0.25)" }}
     >
       {children}
