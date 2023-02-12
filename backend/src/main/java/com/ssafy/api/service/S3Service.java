@@ -4,7 +4,10 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
+import com.ssafy.api.domain.entity.YoutubeKey;
+import com.ssafy.api.domain.repository.YoutubeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -21,6 +24,9 @@ import java.util.List;
 public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+    private final YoutubeRepository youtubeRepository;
+
     private final AmazonS3 amazonS3;
 
     public String uploadFile(@RequestPart MultipartFile multipartFile, String dirName) throws IOException {
@@ -85,5 +91,8 @@ public class S3Service {
             e.printStackTrace();
         }
         return false;
+    }
+    public List<YoutubeKey> getYKey(){
+        return youtubeRepository.findAll();
     }
 }

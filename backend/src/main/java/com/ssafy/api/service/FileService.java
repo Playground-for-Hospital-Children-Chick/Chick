@@ -14,7 +14,7 @@ public class FileService {
     private final FileRepository fileRepository;
 
     public void save(FileDto fileDto) {
-        FileEntity fileEntity = new FileEntity(fileDto.getTitle(), fileDto.getUrl(), fileDto.getEmail());
+        FileEntity fileEntity = new FileEntity(fileDto.getUrl(), fileDto.getEmail());
         fileRepository.save(fileEntity);
     }
 
