@@ -5,6 +5,7 @@ import CommonBtn from "./../../atoms/CommonBtn/index";
 import chick_02 from "../../../assets/characters/chick_02.svg";
 import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
+import Swal from "sweetalert2";
 
 function CodeModal({
   emailVari,
