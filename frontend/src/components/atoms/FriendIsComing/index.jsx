@@ -17,7 +17,7 @@ default="pink"
 
 function FriendIsComing() {
   return (
-    <div className=" bg-pink-200 m-3 rounded-[30px] w-[575px] h-[325px] flex items-center justify-center">
+    <div className=" bg-pink-200 m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center">
       <div className="text-3xl font-chick">친구가 오고 있어요!</div>
     </div>
   );
