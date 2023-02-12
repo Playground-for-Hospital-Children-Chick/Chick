@@ -68,7 +68,7 @@ class VideoRoomComponent extends Component {
       localUser: undefined,
       subscribers: [],
       currentVideoDevice: undefined,
-      arEnable: false,
+      arEnable: true,
       deepAR: undefined,
     };
 
