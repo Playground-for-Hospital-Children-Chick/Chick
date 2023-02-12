@@ -92,8 +92,8 @@ function MyPage() {
         </div>
       </div>
       <div className="absolute left-44 top-64">
-        <div className="text-start inline mt-8 mb-4">
-          <div className="font-chick text-xl">저장한 사진</div>
+        <div className="text-start inline mt-8 mb-6">
+          <div className="font-chick text-xl mb-2">저장한 사진</div>
         </div>
         {imageList.length > 0 ? (
           <ImageList sx={{ width: 600, height: 190 }} cols={2} rowHeight={170}>
