@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import "./styles/board.css";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
@@ -18,6 +18,7 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
   const [myRoomName, setMyRoomName] = useState();
+  const user = useSelector((state) => state.user);
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
   function clearBoard(emit, sessionName) {
@@ -30,6 +31,9 @@ const Board = () => {
     }
     // console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
     socketRef.current.emit("erasing", sessionName);
+  }
+  function leaveSession() {
+    socketRef.current.emit("leave_room", myRoomName);
   }
 
   useEffect(() => {
@@ -52,6 +56,14 @@ const Board = () => {
     }
 
     async function createSession(email) {
+      let guest = "true";
+
+      // 유저 타입에 따라 매칭되는게 다름
+      if (user["userType"] == "user") {
+        guest = "false";
+      } else if (user["userType"] == "guest") {
+        guest = "true";
+      }
       console.log("createSession");
       const response = await axios({
         method: "post",
@@ -59,7 +71,7 @@ const Board = () => {
         data: {
           email: email,
           gameType: "draw",
-          guest: "guest",
+          guest: guest,
         },
         headers: { "Content-Type": "application/json;charset=UTF-8" },
       });
@@ -219,8 +231,6 @@ const Board = () => {
     socketRef.current.on("erasing", onErasingEvent);
   }, []);
 
-  const user = useSelector((state) => state.user);
-
   // ------------- The Canvas and color elements --------------------------
 
   return (
@@ -251,16 +261,13 @@ const Board = () => {
         <img src={BluePan} width="25" height="25" className="color blue" />
         <img src={YellowPan} width="25" height="25" className="color yellow" />
 
-        <button
-          className="absolute top-1.5"
-          onClick={() => clearBoard(true, { myRoomName })}
-        >
+        <button className="absolute top-1.5" onClick={() => clearBoard(true, { myRoomName })}>
           <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
         <Link to="/">
-          <CommonBtn text="나가기" color={"bg-pink-300"} />
+          <CommonBtn text="나가기" color={"bg-pink-300"} onClick={leaveSession} />
         </Link>
       </div>
     </div>
