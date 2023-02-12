@@ -695,11 +695,14 @@ class VideoRoomComponent extends Component {
 
             <div className="relative w-[9.5em]">
               <div className="font-chick ">{this.state.mySessionId}</div>
-              <CommonBtn
-                text="사진찍기"
-                color={"bg-emerald-300"}
-                onClick={this.handleCapture}
-              />
+
+              {this.props.userType == "guest" ? null : (
+                <CommonBtn
+                  text="사진찍기"
+                  color={"bg-emerald-300"}
+                  onClick={this.handleCapture}
+                />
+              )}
               <CommonBtn
                 text="얼굴놀이"
                 color={"bg-blue-300"}
