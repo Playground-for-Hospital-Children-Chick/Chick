@@ -7,7 +7,11 @@ import GamePlayBtn from "../../atoms/GamePlayBtn";
 import Sex from "../../atoms/Sex";
 import { useForm } from "react-hook-form";
 
-import { signupUser } from "./../../../api/UsersApi";
+import {
+  signupUser,
+  checkVaildEmail,
+  sendCodeUser,
+} from "./../../../api/UsersApi";
 
 import { useState } from "react";
 import { ErrorMessage } from "@hookform/error-message";
@@ -19,14 +23,70 @@ function SignUp() {
   const [modal, setModal] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
   const [inputEmail, setInputEmail] = useState("");
+  const [emailVari, setEmailVari] = useState("");
   const navigate = useNavigate();
+  let regex = new RegExp(
+    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
+  );
+  const reDB = async () => {
+    const resDB = await checkVaildEmail({ email: inputEmail });
+    if (parseInt(Number(resDB.status) / 100) === 2) {
+      console.log("DB성공");
+      return "DBsuccess";
+    } else {
+      return "DBfail";
+    }
+  };
+  const reCode = async () => {
+    const resCode = await sendCodeUser({ email: inputEmail });
+    if (parseInt(Number(resCode.status) / 100) === 2) {
+      return "codeSuccess";
+    } else {
+      return "codeFail";
+    }
+  };
+  const reEmail = () => {
+    if (regex.test(inputEmail)) {
+      console.log("테스트성공");
+      return "regsuccess";
+    }
+    //정규표현식 실패
+    else {
+      return "regfail";
+    }
+  };
 
-  //회원가입 버튼 누를 시 실행
+  const turnOnModal = async () => {
+    //해당 이메일이 이메일 형식이 맞는지 확인
+
+    //정규표현식 통과
+    console.log("테스트이메일", inputEmail);
+    console.log(regex.test(inputEmail));
+    reEmail();
+    //DB조회
+    if (reEmail() == "regsuccess") {
+      console.log("DB테스트시작");
+      reDB();
+    } else {
+      console.log("머");
+    }
+    //코드 발급
+    if (reDB() === "DBsuccess") {
+      reCode();
+    }
+    if (reCode() === "codeSuccess") {
+      setEmailVari("codeSuccess");
+    } else {
+      setEmailVari("codeFail");
+    }
+  };
+
   const emailInput = (e) => {
     setInputEmail(e.target.value);
   };
-
+  //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
+    console.log(userInput);
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
     delete userInput["user_password_check"];
     console.log(userInput);
@@ -54,6 +114,9 @@ function SignUp() {
       {modal === true ? (
         <div className="absolute  -translate-x-[50%] -translate-y-[50%] z-[1000] top-[60%] left-[50%]">
           <CodeModal
+            setInputEmail={setInputEmail}
+            emailVari={emailVari}
+            turnOnModal={turnOnModal}
             modal={modal}
             setModal={setModal}
             inputEmail={inputEmail}
@@ -67,6 +130,7 @@ function SignUp() {
           className="flex flex-col justify-center w-[640px] space-y-8"
           onSubmit={handleSubmit(onSignup)}
         >
+          <label htmlFor="test"></label>
           <div className="gap-x-5 mt-[1.2em] password flex items-center">
             <label
               className="mr-[2.5em] font-chick text-xl"
@@ -87,7 +151,7 @@ function SignUp() {
                   validate: {
                     check: (val) => {
                       if (checkedEmail !== val) {
-                        return "유효한 이메일이 아닙니다.";
+                        return "이메일을 인증하지 않았습니다.";
                       }
                     },
                   },
@@ -294,7 +358,11 @@ function SignUp() {
         </form>
         <div className="w-[12em]">
           <CommonBtn
-            onClick={() => setModal(!modal)}
+            onClick={() => {
+              setModal(!modal);
+              turnOnModal();
+            }}
+            // onClick={() => setModal(!modal)}
             text="이메일 확인"
             color="bg-emerald-300"
           />
