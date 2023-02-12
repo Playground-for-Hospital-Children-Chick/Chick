@@ -82,18 +82,26 @@ public class UserController {
     @PostMapping("/emailConfirm")
     @ApiResponses({
             @ApiResponse(code = 200, message = "이메일로 토큰 전송"),
+            @ApiResponse(code = 401, message = "탈퇴한 이메일 입니다."),
+            @ApiResponse(code = 404, message = "중복된 이메일이 존재합니다."),
     })
     @ApiOperation(value = "이메일토큰발송", notes = "이메일에 인증 코드를 보내준다")
     public ResponseEntity<? extends BaseResponseBody> emailConfirm(@RequestParam String email, HttpServletResponse response) throws Exception {
-        String confirm = emailService.sendSimpleMessage(email);
-        Cookie cookie=new Cookie("emailConfirmToken", confirm); // refresh 담긴 쿠키 생성
-        cookie.setMaxAge(180); // 쿠키의 유효시간을 refresh 유효시간만큼 설정(3분 설정)
-        cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
-        cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        User user = userService.getUserByEmail(email);
+        if(user==null){
+            String confirm = emailService.sendSimpleMessage(email);
+            Cookie cookie=new Cookie("emailConfirmToken", confirm); // refresh 담긴 쿠키 생성
+            cookie.setMaxAge(180); // 쿠키의 유효시간을 refresh 유효시간만큼 설정(3분 설정)
+            cookie.setSecure(true); // 클라이언트가 HTTPS가 아닌 통신에서는 해당 쿠키를 전송하지 않도록 하는 설정
+            cookie.setHttpOnly(true); // 브라우저에서 쿠키에 접근할 수 없도록 하는 설정
+            cookie.setPath("/");
+            response.addCookie(cookie);
 
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }
+        if(user.getUserState().equals("1"))
+            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
+        return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Failure"));
     }
 
     @PostMapping("/emailToken")
