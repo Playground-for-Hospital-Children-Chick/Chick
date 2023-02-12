@@ -30,6 +30,7 @@ import VideocamOff from "@material-ui/icons/VideocamOff";
 import IconButton from "@material-ui/core/IconButton";
 import html2canvas from "html2canvas";
 import Swal from "sweetalert2";
+import ReportBtn from "../components/atoms/ReportBtn";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -84,6 +85,31 @@ class VideoRoomComponent extends Component {
     this.canvasRef = document.createElement("canvas");
     this.applyDeepAR = this.applyDeepAR.bind(this);
     this.changeEffect = this.changeEffect.bind(this);
+
+    this.block = this.block.bind(this);
+  }
+
+  async block(sub) {
+    console.log("차단 가즈아아아아아아아아앙아111111111");
+    console.log(sub);
+    console.log(this.props);
+
+    const response = await axios({
+      method: "post",
+      url: APPLICATION_SERVER_URL + "api/report/declare",
+      data: {
+        category: "미정",
+        content: "미정",
+        reportedPeople: sub.nickname,
+        reporter: this.props.email,
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    });
+    console.log(response.status);
+
+    if (response.status == 200) {
+      console.log("**********leaveSession Success**********");
+    }
   }
 
   //AR 효과 바꾸기(AR이 실행중이어야 동작)
@@ -353,7 +379,7 @@ class VideoRoomComponent extends Component {
         });
       });
     }
-    localUser.setNickname(this.state.myUserName);
+    localUser.setNickname(this.props.email);
     localUser.setConnectionId(this.state.session.connection.connectionId);
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
@@ -644,13 +670,28 @@ class VideoRoomComponent extends Component {
                   i < 3 ? (
                     <div
                       key={i}
-                      className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center"
+                      className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center relative"
                       id="remoteUsers"
                     >
                       <StreamComponent
                         user={sub}
                         streamId={sub.streamManager.stream.streamId}
                       />
+
+                      {this.props.userType !== "guest" ? (
+                        <div className="absolute right-0 top-0">
+                          <button onClick={() => this.block(sub)}>
+                            <ReportBtn />
+                          </button>
+                        </div>
+                      ) : null}
+
+                      {/* <div className="absolute right-0 top-0">
+                        <button onClick={() => this.block(sub)}>
+                          <ReportBtn />
+                        </button>
+                      </div> */}
+
                       {/* <div className="font-chick text-white">
                       {sub.streamManager.stream.streamId}
                     </div> */}
