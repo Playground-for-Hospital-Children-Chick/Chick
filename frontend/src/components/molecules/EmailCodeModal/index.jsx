@@ -51,7 +51,7 @@ function CodeModal({
     console.log("코드전송");
     const response = await sendCheckCodeUser({ userToken: codeInput });
     console.log(response);
-    if (!response) {
+    if (response === "error") {
       setCodeError(true);
     } else if (parseInt(Number(response.status) / 100) === 2) {
       setCheckedEmail(emailInput);
