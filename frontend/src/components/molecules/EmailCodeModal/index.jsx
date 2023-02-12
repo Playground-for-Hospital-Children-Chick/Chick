@@ -19,8 +19,9 @@ function CodeModal({
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
   const [sec, setSec] = useState(59);
-  const [emailCheck, setEmailCheck] = useState("");
-  const [codeCheck, setCodeCheck] = useState("");
+  const [emailInput, setemailInput] = useState("");
+  const [codeInput, setcodeInput] = useState("");
+  const [codeError, setCodeError] = useState(false);
   const startModal = () => {
     if (!inputEmail) {
       return <p>이메일 작성해주세요.</p>;
@@ -45,52 +46,53 @@ function CodeModal({
   };
   const sendCode = async () => {
     console.log("코드전송");
-    const response = await sendCheckCodeUser({ userToken: codeCheck });
+    const response = await sendCheckCodeUser({ userToken: codeInput });
     console.log(response);
-    if (parseInt(Number(response.status) / 100) === 2) {
-      setCheckedEmail(emailCheck);
+    if (!response) {
+      setCodeError(true);
+    } else if (parseInt(Number(response.status) / 100) === 2) {
+      setCheckedEmail(emailInput);
       console.log(checkedEmail);
-      () => setModal(!modal);
-    } else {
-      return <p>잘못된 코드 입니다.</p>;
+      setModal(!modal);
+      setCodeError(false);
     }
   };
   const handleChange = useCallback(
     (e) => {
       setInputEmail(e.target.value);
     },
-    [emailCheck]
+    [emailInput]
   );
   const handleChangeCode = useCallback(
     (e) => {
-      setCodeCheck(e.target.value);
+      setcodeInput(e.target.value);
     },
-    [codeCheck]
+    [codeInput]
   );
   useEffect(() => {
     const getCodeResponse = async () => {
       try {
         // api 요청
-        console.log(codeCheck);
+        console.log(codeInput);
       } catch (e) {
         console.error(e.response);
       }
     };
     getCodeResponse();
-  }, [codeCheck]);
+  }, [codeInput]);
   useEffect(() => {
     const getResponse = async () => {
       try {
         // api 요청
-        console.log(emailCheck);
+        console.log(emailInput);
       } catch (e) {
         console.error(e.response);
       }
     };
     getResponse();
-  }, [emailCheck]);
+  }, [emailInput]);
   useEffect(() => {
-    setEmailCheck(inputEmail);
+    setemailInput(inputEmail);
   }, []);
   useEffect(() => {
     if (count != 0) {
@@ -144,37 +146,47 @@ function CodeModal({
               />
             </div>
           </div>
-          <div className="mt-[2em] mr-[11.4em] flex justify-center items-center">
+          <div className="mt-[0.5em] mr-[11.4em] flex justify-center items-center">
             <label className="font-chick text-lg mr-[3.2em]" htmlFor="email">
               {"코드"}
             </label>
-            <div>
+            <div className="flex flex-col items-center">
               <InputBox
                 onChange={handleChangeCode}
                 placeholder={"코드를 입력해주세요."}
               />
             </div>
           </div>
-          <div className="flex flex-row mr-[15em]">
-            <div>
-              <img
-                className="right-[3em] inline after:mr-5 w-[9em]"
-                src={chick_02}
-                alt="병아리캐릭터"
+        </div>
+        {codeError === false ? (
+          <div className="invisible text-md font-chick right-[32%]  text-center text-pink-600">
+            코드가 틀렸습니다.
+          </div>
+        ) : (
+          <div className="text-md font-chick right-[32%]  text-center text-pink-600">
+            코드가 틀렸습니다.
+          </div>
+        )}
+
+        <div className="flex flex-row mr-[15em]">
+          <div>
+            <img
+              className="right-[3em] inline after:mr-5 w-[9em]"
+              src={chick_02}
+              alt="병아리캐릭터"
+            />
+          </div>
+          <div>
+            {min == 0 && sec == 0 ? (
+              <CommonBtn option={true} text="확인" color="bg-gray" />
+            ) : (
+              <CommonBtn
+                onClick={sendCode}
+                option={false}
+                text="확인"
+                color="bg-emerald-300"
               />
-            </div>
-            <div>
-              {min == 0 && sec == 0 ? (
-                <CommonBtn option={true} text="확인" color="bg-gray" />
-              ) : (
-                <CommonBtn
-                  onClick={sendCode}
-                  option={false}
-                  text="확인"
-                  color="bg-emerald-300"
-                />
-              )}
-            </div>
+            )}
           </div>
         </div>
       </AlertBox>
