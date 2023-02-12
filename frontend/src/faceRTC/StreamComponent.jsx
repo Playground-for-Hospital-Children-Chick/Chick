@@ -7,6 +7,8 @@ import VideocamOff from "@material-ui/icons/VideocamOff";
 import VolumeUp from "@material-ui/icons/VolumeUp";
 import VolumeOff from "@material-ui/icons/VolumeOff";
 import IconButton from "@material-ui/core/IconButton";
+import DanceVideoRoomComponent from "./../youtube/danceRTC/VideoRoomComponent";
+import ReportBtn from "./../components/atoms/ReportBtn/index";
 
 export default class StreamComponent extends Component {
   constructor(props) {
@@ -17,7 +19,14 @@ export default class StreamComponent extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.toggleSound = this.toggleSound.bind(this);
+    // this.block = this.block.bind(this);
   }
+
+  // block() {
+  //   console.log("차단 가즈아앙아아아ㅏㅇ아아아아ㅏ아아아아아아아");
+  //   console.log(this.props.user);
+  //   console.log(this.user);
+  // }
 
   handleChange(event) {
     this.setState({ nickname: event.target.value });
@@ -38,12 +47,12 @@ export default class StreamComponent extends Component {
 
         {this.props.user !== undefined &&
         this.props.user.getStreamManager() !== undefined ? (
-          <div className="streamComponent">
+          <div className="streamComponent relative">
             <OvVideoComponent
               user={this.props.user}
               mutedSound={this.state.mutedSound}
             />
-            <div id="statusIcons">
+            {/* <div id="statusIcons">
               {!this.props.user.isVideoActive() ? (
                 <div id="camIcon">
                   <VideocamOff id="statusCam" />
@@ -55,7 +64,7 @@ export default class StreamComponent extends Component {
                   <MicOff id="statusMic" />
                 </div>
               ) : null}
-            </div>
+            </div> */}
             <div>
               {!this.props.user.isLocal() && (
                 <IconButton id="volumeButton" onClick={this.toggleSound}>
@@ -67,6 +76,15 @@ export default class StreamComponent extends Component {
                 </IconButton>
               )}
             </div>
+
+            {/* <div className="absolute top-0">
+              {!this.props.user.isLocal() && (
+                // <span>여기에 신고버튼 넣을건데 되는거냐이거</span>
+                <button onClick={this.block}>
+                  <ReportBtn />
+                </button>
+              )}
+            </div> */}
           </div>
         ) : null}
       </div>
