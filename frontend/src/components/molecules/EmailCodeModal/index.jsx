@@ -54,9 +54,6 @@ function CodeModal({
     if (response === "error") {
       setCodeError(true);
     } else if (parseInt(Number(response.status) / 100) === 2) {
-      setCheckedEmail(emailInput);
-      setModal(!modal);
-      setCodeError(false);
       Swal.fire({
         icon: "info",
         title: "이메일 인증 성공",
@@ -67,6 +64,9 @@ function CodeModal({
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
       });
+      setCheckedEmail(emailInput);
+      setModal(!modal);
+      setCodeError(false);
     }
   };
   const handleChange = useCallback(
