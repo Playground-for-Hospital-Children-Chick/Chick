@@ -3,14 +3,41 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import axios from "axios";
 
+const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 function MyPage() {
   const user = useSelector((state) => state.user);
+  const [imageList, setImageList] = useState([]);
 
   const navigate = useNavigate();
 
-  useEffect(checkLogin, []);
+  useEffect(() => {
+    checkLogin();
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/s3/list",
+      params: {
+        email: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log("response", response);
+      console.log("response.data", response.data);
+      if (response.status == 200) {
+        const fileList = response.data.filelist;
+        if (fileList != null) {
+          setImageList((old) => [...old, ...fileList]);
+        }
+      }
+    });
+  }, []);
+
+  // useEffect(() => {
+  // }, [imageList]);
 
   function checkLogin() {
     if (!user["login"]) {
@@ -63,6 +90,24 @@ function MyPage() {
             <div className="font-chick text-base">
               이메일: {user["userEmail"]}
             </div>
+          </div>
+          <div className="mt-12">
+            {imageList.length > 0 ? (
+              <ImageList
+                sx={{ width: 1194, height: 370 }}
+                cols={2}
+                rowHeight={340}
+              >
+                {imageList.map((item) => (
+                  <ImageListItem key={item.s3Url}>
+                    <img
+                      src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            ) : null}
           </div>
         </div>
         <div>
