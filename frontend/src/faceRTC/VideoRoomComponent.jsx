@@ -229,7 +229,7 @@ class VideoRoomComponent extends Component {
         publishAudio: localUser.isAudioActive(),
         publishVideo: localUser.isVideoActive(),
         mirror: true,
-        resolution: "555x307",
+        resolution: "500x307",
         frameRate: 30,
       });
 
@@ -249,7 +249,7 @@ class VideoRoomComponent extends Component {
     var { DeepAR } = window;
 
     this.state.deepAR = DeepAR({
-      canvasWidth: 550,
+      canvasWidth: 500,
       canvasHeight: 307,
       licenseKey: DEEP_AR_LICENSE_KEY,
       canvas: canvas,
@@ -637,15 +637,15 @@ class VideoRoomComponent extends Component {
           </div>
         ) : null}
         {this.state.session !== undefined ? (
-          <div className="flex flex-row w-[90em]">
+          <div className="flex flex-row w-[80em]">
             <div id="webcamboard">
               <WebCamBoard>
                 {localUser !== undefined &&
                   localUser.getStreamManager() !== undefined && (
-                    // <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
+                    // <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center">
                     <div
                       id="localUser"
-                      className="relative m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center "
+                      className="relative m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center "
                     >
                       <StreamComponent
                         user={localUser}
@@ -691,7 +691,7 @@ class VideoRoomComponent extends Component {
                   i < 3 ? (
                     <div
                       key={i}
-                      className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center relative"
+                      className=" m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center relative"
                       id="remoteUsers"
                     >
                       <StreamComponent
