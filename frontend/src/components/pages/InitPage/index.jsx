@@ -20,20 +20,20 @@ function InitPage() {
       <div className="flex h-64 justify-center align-center">
         <div className="text-center">
           <div className="inline-flex justify-center w-[100%] mt-3">
-            <img src={Logo} style={{ height: 100 }} />
+            <img src={Logo} className="w-2/12" />
           </div>
           <div className="inline-flex justify-center w-[100%] mt-7 mb-7">
             <img
-              className="w-3/12 border-2 border-black border-opacity-75"
+              className="w-4/12 border-2 border-black border-opacity-75"
               src={CartoonOne}
               //   style={{ height: 450 }}
             />
           </div>
           <div className="inline-flex justify-center w-[100%]">
-            <img src={ChildOne} style={{ height: 60 }} />
-            <img src={ChildTwo} style={{ height: 60 }} />
-            <img src={ChildThree} style={{ height: 60 }} />
-            <img src={ChildFour} style={{ height: 60 }} />
+            <img src={ChildOne} className="w-1/12" />
+            <img src={ChildTwo} className="w-1/12" />
+            <img src={ChildThree} className="w-1/12" />
+            <img src={ChildFour} className="w-1/12" />
           </div>
         </div>
       </div>
