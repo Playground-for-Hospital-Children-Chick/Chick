@@ -17,9 +17,6 @@ function MyPage() {
 
   useEffect(() => {
     checkLogin();
-  }, []);
-
-  useEffect(() => {
     axios({
       method: "get",
       url: APPLICATION_SERVER_URL + "api/s3/list",
@@ -37,7 +34,10 @@ function MyPage() {
         }
       }
     });
-  }, [imageList]);
+  }, []);
+
+  // useEffect(() => {
+  // }, [imageList]);
 
   function checkLogin() {
     if (!user["login"]) {
@@ -91,22 +91,24 @@ function MyPage() {
               이메일: {user["userEmail"]}
             </div>
           </div>
-          {imageList.length > 0 ? (
-            <ImageList
-              sx={{ width: 500, height: 450 }}
-              cols={3}
-              rowHeight={164}
-            >
-              {imageList.map((item) => (
-                <ImageListItem key={item.s3Url}>
-                  <img
-                    src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          ) : null}
+          <div className="mt-12">
+            {imageList.length > 0 ? (
+              <ImageList
+                sx={{ width: 1194, height: 370 }}
+                cols={2}
+                rowHeight={340}
+              >
+                {imageList.map((item) => (
+                  <ImageListItem key={item.s3Url}>
+                    <img
+                      src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            ) : null}
+          </div>
         </div>
         <div>
           <AiOutlineSetting size={60} />
