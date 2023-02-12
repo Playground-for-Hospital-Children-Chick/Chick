@@ -162,7 +162,7 @@ class VideoRoomComponent extends Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
     this.joinSession();
-    this.applyDeepAR();
+    // this.applyDeepAR();
   }
 
   componentWillUnmount() {
@@ -176,6 +176,7 @@ class VideoRoomComponent extends Component {
   }
 
   joinSession() {
+    console.log("joinSession");
     this.OV = new OpenVidu();
 
     this.setState(
@@ -190,6 +191,7 @@ class VideoRoomComponent extends Component {
   }
 
   async connectToSession() {
+    console.log("connectToSession");
     if (this.props.token !== undefined) {
       console.log("token received: ", this.props.token);
       this.connect(this.props.token);
@@ -232,10 +234,12 @@ class VideoRoomComponent extends Component {
   }
 
   connect(token) {
+    console.log("connect");
     this.state.session
       .connect(token, { clientData: this.state.myUserName })
-      .then(() => {
-        this.connectWebCam();
+      .then(async () => {
+        await this.connectWebCam();
+        await this.applyDeepAR();
       })
       .catch((error) => {
         if (this.props.error) {
@@ -256,6 +260,7 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
+    console.log("connectWebCam");
     await this.OV.getUserMedia({
       audioSource: undefined,
       videoSource: undefined,
@@ -663,6 +668,8 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
+    console.log("getToken");
+
     const sessionId = await this.createSession(this.props.email);
     this.setState({
       mySessionId: sessionId,
@@ -672,6 +679,8 @@ class VideoRoomComponent extends Component {
   }
 
   async createSession(email) {
+    console.log("createSession");
+
     let guest = "true";
 
     // 유저 타입에 따라 매칭되는게 다름
@@ -695,6 +704,8 @@ class VideoRoomComponent extends Component {
   }
 
   async createToken(sessionId) {
+    console.log("createToken");
+
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
       {},
