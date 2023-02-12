@@ -15,16 +15,12 @@ public class FileEntity {
     private Long id;
 
     @Column
-    private String title;
-
-    @Column
     private String email;
 
     @Column
     private String s3Url;
 
-    public FileEntity(String title, String s3Url, String email) {
-        this.title = title;
+    public FileEntity(String s3Url, String email) {
         this.s3Url = s3Url;
         this.email = email;
     }
@@ -33,7 +29,6 @@ public class FileEntity {
     public String toString() {
         return "FileEntity{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
                 ", s3Url='" + s3Url + '\'' +
                 ", email='" + email + '\'' +
                 '}';

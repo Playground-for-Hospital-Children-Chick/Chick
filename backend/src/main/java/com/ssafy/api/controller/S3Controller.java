@@ -3,7 +3,9 @@ package com.ssafy.api.controller;
 import com.ssafy.api.domain.dto.BaseResponseBody;
 import com.ssafy.api.domain.dto.FileDto;
 import com.ssafy.api.domain.dto.S3ImagesRes;
+import com.ssafy.api.domain.dto.YoutubeRes;
 import com.ssafy.api.domain.entity.FileEntity;
+import com.ssafy.api.domain.entity.YoutubeKey;
 import com.ssafy.api.service.FileService;
 import com.ssafy.api.service.S3Service;
 import io.swagger.annotations.Api;
@@ -32,6 +34,7 @@ public class S3Controller {
     // https://green-joo.tistory.com/2
     @PostMapping("/upload")
     public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto) throws IOException {
+        System.out.println("upload 합니다"+" "+fileDto.toString());
         String url = s3Service.uploadFile(fileDto.getFile(), fileDto.getEmail());
         if(url != null){
             fileDto.setUrl(url);
@@ -45,7 +48,6 @@ public class S3Controller {
     public ResponseEntity<S3ImagesRes> listPage(String email) {
         List<FileEntity> fileList =fileService.getFiles(email);
         if(fileList.size()!=0){
-            System.out.println(fileList.get(0).toString());
             return ResponseEntity.ok(S3ImagesRes.of(200, "Success", fileList));
         }
         return ResponseEntity.ok(S3ImagesRes.of(404, "Failure", null));
@@ -56,5 +58,14 @@ public class S3Controller {
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
         }
         return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
+    }
+    @GetMapping("/youtubekey")
+    public ResponseEntity<YoutubeRes> getKey() {
+        List<YoutubeKey> keyList =s3Service.getYKey();
+        if(keyList.size()!=0){
+            System.out.println(keyList.get(0).toString());
+            return ResponseEntity.ok(YoutubeRes.of(200, "Success", keyList));
+        }
+        return ResponseEntity.ok(YoutubeRes.of(404, "Failure", null));
     }
 }
