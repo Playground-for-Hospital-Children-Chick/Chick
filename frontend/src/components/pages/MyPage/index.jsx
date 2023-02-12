@@ -76,43 +76,41 @@ function MyPage() {
   }
 
   return (
-    <div className="absolute left-40 top-14">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="grid grid-cols-2">
-          <CircleBox />
-          <div className="text-start inline ml-4 mt-8">
-            <span className="font-chick text-lg">{user["userChName"]}</span>
-            <div className="font-chick text-base">나이: {user["userAge"]}</div>
-            <div className="font-chick text-base">
-              생일: {user["userBirth"]}
-            </div>
-            <div className="font-chick text-base">성별: {user["userSex"]}</div>
-            <div className="font-chick text-base">
-              이메일: {user["userEmail"]}
-            </div>
-          </div>
-          <div className="mt-12">
-            {imageList.length > 0 ? (
-              <ImageList
-                sx={{ width: 1194, height: 370 }}
-                cols={2}
-                rowHeight={340}
-              >
-                {imageList.map((item) => (
-                  <ImageListItem key={item.s3Url}>
-                    <img
-                      src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
-                      loading="lazy"
-                    />
-                  </ImageListItem>
-                ))}
-              </ImageList>
-            ) : null}
+    <div>
+      <div className="absolute left-44 top-14">
+        <CircleBox />
+      </div>
+      <div className="absolute left-96 top-14">
+        <div className="text-start inline mt-8">
+          <div className="font-chick text-lg">{user["userChName"]}</div>
+          <div className="font-chick text-base">나이: {user["userAge"]}</div>
+          <div className="font-chick text-base">생일: {user["userBirth"]}</div>
+          <div className="font-chick text-base">성별: {user["userSex"]}</div>
+          <div className="font-chick text-base">
+            이메일: {user["userEmail"]}
           </div>
         </div>
-        <div>
-          <AiOutlineSetting size={60} />
+      </div>
+      <div className="absolute left-44 top-64">
+        <div className="text-start inline mt-8 mb-4">
+          <div className="font-chick text-xl">저장한 사진</div>
         </div>
+        {imageList.length > 0 ? (
+          <ImageList sx={{ width: 600, height: 190 }} cols={2} rowHeight={170}>
+            {imageList.map((item) => (
+              <ImageListItem key={item.s3Url}>
+                <img
+                  src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        ) : null}
+      </div>
+
+      <div className="absolute right-5 top-14">
+        <AiOutlineSetting size={60} />
       </div>
     </div>
   );
