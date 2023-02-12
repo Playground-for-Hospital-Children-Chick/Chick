@@ -68,6 +68,8 @@ export const loginUser = async function login(credentials) {
     data: credentials,
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
+  }).catch((e) => {
+    return "errors";
   });
   return response;
 };

@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 function SideBar({ index, setIndex }) {
   return (
     <SideBarBase>
-      <Link to="/">
+      <Link to="/home">
         <img className="inline-flex justify-center w-[100%]" src={LogoText} />
       </Link>
       {index == 0 ? (

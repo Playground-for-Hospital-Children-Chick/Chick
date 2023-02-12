@@ -98,7 +98,7 @@ function SignUp() {
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
-        <Link to="/">
+        <Link to="/home">
           <Logo />
         </Link>
         <Link to="/login">
@@ -144,7 +144,7 @@ function SignUp() {
                   },
                   validate: {
                     check: (val) => {
-                      if (checkedEmail !== val) {
+                      if (!checkedEmail && checkedEmail !== val) {
                         return "이메일을 인증하지 않았습니다.";
                       }
                     },
