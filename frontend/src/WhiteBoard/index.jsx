@@ -228,14 +228,14 @@ const Board = () => {
       <canvas ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
-        {/* {myRoomName != null ? ( */}
-        <BoardVideoRoomComponent
-          user={user["userChName"]}
-          email={user["userEmail"]}
-          userType={user["userType"]}
-          sessionName={myRoomName}
-        />
-        {/*) : null} */}
+        {myRoomName != null ? (
+          <BoardVideoRoomComponent
+            user={user["userChName"]}
+            email={user["userEmail"]}
+            userType={user["userType"]}
+            sessionName={myRoomName}
+          />
+        ) : null}
       </div>
 
       <div
