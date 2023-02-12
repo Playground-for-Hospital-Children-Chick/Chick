@@ -31,7 +31,6 @@ function SignUp() {
   const reDB = async () => {
     const resDB = await checkVaildEmail({ email: inputEmail });
     if (parseInt(Number(resDB.status) / 100) === 2) {
-      console.log("DB성공");
       return "DBsuccess";
     } else {
       return "DBfail";
@@ -47,7 +46,6 @@ function SignUp() {
   };
   const reEmail = () => {
     if (regex.test(inputEmail)) {
-      console.log("테스트성공");
       return "regsuccess";
     }
     //정규표현식 실패
@@ -60,24 +58,24 @@ function SignUp() {
     //해당 이메일이 이메일 형식이 맞는지 확인
 
     //정규표현식 통과
-    console.log("테스트이메일", inputEmail);
-    console.log(regex.test(inputEmail));
-    reEmail();
     //DB조회
     if (reEmail() == "regsuccess") {
-      console.log("DB테스트시작");
-      reDB();
+      setEmailVari("regsuccess");
+      const resultDB = await reDB();
+      if (resultDB == "DBsuccess") {
+        setEmailVari("");
+        setEmailVari("DBsuccess");
+        const resultCODE = await reCode();
+        if (resultCODE == "codeSuccess") {
+          setEmailVari("success");
+        } else {
+          setEmailVari("codeFail");
+        }
+      } else {
+        setEmailVari("DBfail");
+      }
     } else {
-      console.log("머");
-    }
-    //코드 발급
-    if (reDB() === "DBsuccess") {
-      reCode();
-    }
-    if (reCode() === "codeSuccess") {
-      setEmailVari("codeSuccess");
-    } else {
-      setEmailVari("codeFail");
+      setEmailVari("regfail");
     }
   };
 
@@ -86,18 +84,14 @@ function SignUp() {
   };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
-    console.log(userInput);
     userInput["user_birth"] = parseInt(userInput["user_birth"]);
     delete userInput["user_password_check"];
-    console.log(userInput);
     //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
 
     const response = await signupUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
-      console.log("회원가입 성공");
       navigate("/signupComplete");
     } else {
-      console.log("회원가입 실패");
     }
   };
 
