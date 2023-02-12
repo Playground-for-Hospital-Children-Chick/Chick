@@ -19,7 +19,6 @@ import ArFlower from "./../components/atoms/ArFlower/index";
 import ArKoala from "../components/atoms/ArKoala";
 import ArDalmatian from "../components/atoms/ArDalmatian";
 import CommonBtn from "../components/atoms/CommonBtn";
-import Swal from "sweetalert2";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -29,6 +28,8 @@ import Videocam from "@material-ui/icons/Videocam";
 import VideocamOff from "@material-ui/icons/VideocamOff";
 
 import IconButton from "@material-ui/core/IconButton";
+import html2canvas from "html2canvas";
+import Swal from "sweetalert2";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -94,6 +95,70 @@ class VideoRoomComponent extends Component {
       this.state.deepAR.switchEffect(0, "slot", effectName);
     }
   }
+
+  handleCapture = () => {
+    const targetNode = document.getElementById("webcamboard");
+
+    html2canvas(targetNode).then((canvas) => {
+      const imageData = canvas.toDataURL("image/png");
+
+      const currentTime = Date.now();
+
+      const fileName = currentTime + ".png";
+
+      const formData = new FormData();
+      formData.append("file", this.dataURLtoBlob(imageData), fileName);
+      formData.append("email", this.props.email);
+
+      axios
+        .post(APPLICATION_SERVER_URL + "api/s3/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "이미지 저장 성공",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          console.log("Image and form data saved successfully", response.data);
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "이미지 저장 실패",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.error("Error saving image and form data", error);
+        });
+    });
+  };
+
+  dataURLtoBlob(dataURL) {
+    const binary = atob(dataURL.split(",")[1]);
+    const array = [];
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: "image/png",
+    });
+  }
+
+  // 이미지 저장 메소드
+  // onSaveAS = (url, filename) => {
+  //   console.log("onSaveAS");
+  //   var link = document.createElement("a");
+  //   document.body.appendChild(link);
+  //   link.href = url;
+  //   link.download = filename;
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   async applyDeepAR() {
     if (this.state.arEnable) {
@@ -162,7 +227,6 @@ class VideoRoomComponent extends Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
     this.joinSession();
-    this.applyDeepAR();
   }
 
   componentWillUnmount() {
@@ -176,6 +240,7 @@ class VideoRoomComponent extends Component {
   }
 
   joinSession() {
+    console.log("joinSession");
     this.OV = new OpenVidu();
 
     this.setState(
@@ -190,6 +255,7 @@ class VideoRoomComponent extends Component {
   }
 
   async connectToSession() {
+    console.log("connectToSession");
     if (this.props.token !== undefined) {
       console.log("token received: ", this.props.token);
       this.connect(this.props.token);
@@ -232,10 +298,11 @@ class VideoRoomComponent extends Component {
   }
 
   connect(token) {
+    console.log("connect");
     this.state.session
       .connect(token, { clientData: this.state.myUserName })
-      .then(() => {
-        this.connectWebCam();
+      .then(async () => {
+        await this.connectWebCam();
       })
       .catch((error) => {
         if (this.props.error) {
@@ -256,6 +323,7 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
+    console.log("connectWebCam");
     await this.OV.getUserMedia({
       audioSource: undefined,
       videoSource: undefined,
@@ -523,108 +591,118 @@ class VideoRoomComponent extends Component {
         ) : null}
         {this.state.session !== undefined ? (
           <div className="flex flex-row w-[90em]">
-            <WebCamBoard>
-              {localUser !== undefined &&
-                localUser.getStreamManager() !== undefined && (
-                  // <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
-                  <div
-                    id="localUser"
-                    className="relative m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center "
-                  >
-                    <StreamComponent
-                      user={localUser}
-                      handleNickname={this.nicknameChanged}
-                    />
-                    <div className="rounded-[30px] absolute bottom-0 right-3 flex flex-row bg-[#ffff]">
-                      {/* <div className="font-chick text-white">
+            <div id="webcamboard">
+              <WebCamBoard>
+                {localUser !== undefined &&
+                  localUser.getStreamManager() !== undefined && (
+                    // <div className="mt-3 mb-3 mr-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center">
+                    <div
+                      id="localUser"
+                      className="relative m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center "
+                    >
+                      <StreamComponent
+                        user={localUser}
+                        handleNickname={this.nicknameChanged}
+                      />
+                      <div className="rounded-[30px] absolute bottom-0 right-3 flex flex-row bg-[#ffff]">
+                        {/* <div className="font-chick text-white">
                         {this.state.myUserName}
                       </div> */}
-                      <IconButton
-                        color="inherit"
-                        className="navButton"
-                        id="navCamButton"
-                        onClick={this.camStatusChanged}
-                      >
-                        {localUser !== undefined &&
-                        localUser.isVideoActive() ? (
-                          <Videocam />
-                        ) : (
-                          <VideocamOff color="secondary" />
-                        )}
-                      </IconButton>
+                        <IconButton
+                          color="inherit"
+                          className="navButton"
+                          id="navCamButton"
+                          onClick={this.camStatusChanged}
+                        >
+                          {localUser !== undefined &&
+                          localUser.isVideoActive() ? (
+                            <Videocam />
+                          ) : (
+                            <VideocamOff color="secondary" />
+                          )}
+                        </IconButton>
 
-                      <IconButton
-                        color="inherit"
-                        className="navButton"
-                        id="navMicButton"
-                        onClick={this.micStatusChanged}
-                      >
-                        {localUser !== undefined &&
-                        localUser.isAudioActive() ? (
-                          <Mic />
-                        ) : (
-                          <MicOff color="secondary" />
-                        )}
-                      </IconButton>
+                        <IconButton
+                          color="inherit"
+                          className="navButton"
+                          id="navMicButton"
+                          onClick={this.micStatusChanged}
+                        >
+                          {localUser !== undefined &&
+                          localUser.isAudioActive() ? (
+                            <Mic />
+                          ) : (
+                            <MicOff color="secondary" />
+                          )}
+                        </IconButton>
+                      </div>
+                      {/* </div>{" "} */}
                     </div>
-                    {/* </div>{" "} */}
-                  </div>
-                )}
+                  )}
 
-              {this.state.subscribers.map((sub, i) =>
-                i < 3 ? (
-                  <div
-                    key={i}
-                    className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center"
-                    id="remoteUsers"
-                  >
-                    <StreamComponent
-                      user={sub}
-                      streamId={sub.streamManager.stream.streamId}
-                    />
-                    {/* <div className="font-chick text-white">
+                {this.state.subscribers.map((sub, i) =>
+                  i < 3 ? (
+                    <div
+                      key={i}
+                      className=" m-3 rounded-[30px] w-[570px] h-[307px] flex items-center justify-center"
+                      id="remoteUsers"
+                    >
+                      <StreamComponent
+                        user={sub}
+                        streamId={sub.streamManager.stream.streamId}
+                      />
+                      {/* <div className="font-chick text-white">
                       {sub.streamManager.stream.streamId}
                     </div> */}
+                    </div>
+                  ) : null
+                )}
+
+                {this.state.subscribers.length === 0 ? (
+                  <div>
+                    <FriendIsComing />
                   </div>
-                ) : null
-              )}
+                ) : null}
+                {this.state.subscribers.length === 0 ? (
+                  <div>
+                    <FriendIsComing />
+                  </div>
+                ) : null}
+                {this.state.subscribers.length === 0 ? (
+                  <div>
+                    <FriendIsComing />
+                  </div>
+                ) : null}
 
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 0 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
+                {this.state.subscribers.length === 1 ? (
+                  <div>
+                    <FriendIsComing />
+                  </div>
+                ) : null}
+                {this.state.subscribers.length === 1 ? (
+                  <div>
+                    <FriendIsComing />
+                  </div>
+                ) : null}
 
-              {this.state.subscribers.length === 1 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-              {this.state.subscribers.length === 1 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-
-              {this.state.subscribers.length === 2 ? (
-                <div>
-                  <FriendIsComing />
-                </div>
-              ) : null}
-            </WebCamBoard>
+                {this.state.subscribers.length === 2 ? (
+                  <div>
+                    <FriendIsComing />
+                  </div>
+                ) : null}
+              </WebCamBoard>
+            </div>
 
             <div className="relative w-[9.5em]">
               <div className="font-chick ">{this.state.mySessionId}</div>
+
+              {this.props.userType == "guest" ? null : (
+                <CommonBtn
+                  text="사진찍기"
+                  color={"bg-emerald-300"}
+                  onClick={this.handleCapture}
+                />
+              )}
               <CommonBtn
                 text="얼굴놀이"
                 color={"bg-blue-300"}
@@ -663,6 +741,8 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
+    console.log("getToken");
+
     const sessionId = await this.createSession(this.props.email);
     this.setState({
       mySessionId: sessionId,
@@ -672,6 +752,8 @@ class VideoRoomComponent extends Component {
   }
 
   async createSession(email) {
+    console.log("createSession");
+
     let guest = "true";
 
     // 유저 타입에 따라 매칭되는게 다름
@@ -695,6 +777,8 @@ class VideoRoomComponent extends Component {
   }
 
   async createToken(sessionId) {
+    console.log("createToken");
+
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
       {},
