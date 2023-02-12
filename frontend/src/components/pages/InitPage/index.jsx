@@ -25,7 +25,7 @@ function InitPage() {
             </div>
             <div className="inline-flex justify-center w-[100%] mt-7 mb-4">
               <img
-                className="w-3/12 border-2 border-black border-opacity-75"
+                className="w-4/12 border-2 border-black border-opacity-75"
                 src={CartoonOne}
               />
             </div>
