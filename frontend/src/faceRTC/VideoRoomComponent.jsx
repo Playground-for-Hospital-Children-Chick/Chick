@@ -19,7 +19,6 @@ import ArFlower from "./../components/atoms/ArFlower/index";
 import ArKoala from "../components/atoms/ArKoala";
 import ArDalmatian from "../components/atoms/ArDalmatian";
 import CommonBtn from "../components/atoms/CommonBtn";
-import Swal from "sweetalert2";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -30,6 +29,7 @@ import VideocamOff from "@material-ui/icons/VideocamOff";
 
 import IconButton from "@material-ui/core/IconButton";
 import html2canvas from "html2canvas";
+import Swal from "sweetalert2";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -100,30 +100,65 @@ class VideoRoomComponent extends Component {
     const targetNode = document.getElementById("webcamboard");
 
     html2canvas(targetNode).then((canvas) => {
-      const imageData = canvas.toDataURL("image/png").split(",")[1];
+      const imageData = canvas.toDataURL("image/png");
 
-      console.log("imageData", imageData);
+      const currentTime = Date.now();
+
+      const fileName = currentTime + ".png";
 
       const formData = new FormData();
-      formData.append("file", imageData);
+      formData.append("file", this.dataURLtoBlob(imageData), fileName);
       formData.append("email", this.props.email);
-      formData.append("title", this.props.user);
 
-      axios({
-        method: "post",
-        url: APPLICATION_SERVER_URL + "api/s3/upload",
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("이미지 업로드 성공", data);
+      axios
+        .post(APPLICATION_SERVER_URL + "api/s3/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "이미지 저장 성공",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          console.log("Image and form data saved successfully", response.data);
         })
         .catch((error) => {
-          console.error("이미지 저장 실패", error);
+          Swal.fire({
+            icon: "error",
+            title: "이미지 저장 실패",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.error("Error saving image and form data", error);
         });
     });
   };
+
+  dataURLtoBlob(dataURL) {
+    const binary = atob(dataURL.split(",")[1]);
+    const array = [];
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: "image/png",
+    });
+  }
+
+  // 이미지 저장 메소드
+  // onSaveAS = (url, filename) => {
+  //   console.log("onSaveAS");
+  //   var link = document.createElement("a");
+  //   document.body.appendChild(link);
+  //   link.href = url;
+  //   link.download = filename;
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   async applyDeepAR() {
     if (this.state.arEnable) {
@@ -660,11 +695,14 @@ class VideoRoomComponent extends Component {
 
             <div className="relative w-[9.5em]">
               <div className="font-chick ">{this.state.mySessionId}</div>
-              <CommonBtn
-                text="사진찍기"
-                color={"bg-emerald-300"}
-                onClick={this.handleCapture}
-              />
+
+              {this.props.userType == "guest" ? null : (
+                <CommonBtn
+                  text="사진찍기"
+                  color={"bg-emerald-300"}
+                  onClick={this.handleCapture}
+                />
+              )}
               <CommonBtn
                 text="얼굴놀이"
                 color={"bg-blue-300"}
