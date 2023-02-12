@@ -146,8 +146,6 @@ function SignUp() {
                     check: (val) => {
                       if (!checkedEmail && checkedEmail !== val) {
                         return "이메일을 인증하지 않았습니다.";
-                      } else if (!checkedEmail && checkedEmail === val) {
-                        return "메일이 인증되었습니다!";
                       }
                     },
                   },

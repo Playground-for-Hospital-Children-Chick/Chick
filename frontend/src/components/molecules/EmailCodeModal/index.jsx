@@ -57,6 +57,16 @@ function CodeModal({
       setCheckedEmail(emailInput);
       setModal(!modal);
       setCodeError(false);
+      Swal.fire({
+        icon: "info",
+        title: "이메일 인증 성공",
+        text: "인증이 성공하였습니다!",
+        showDenyButton: false,
+        confirmButtonText: "확인",
+        denyButtonText: undefined,
+        confirmButtonColor: "#8cc8ff",
+        denyButtonColor: undefined,
+      });
     }
   };
   const handleChange = useCallback(
