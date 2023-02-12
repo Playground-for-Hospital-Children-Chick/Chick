@@ -791,7 +791,7 @@ class VideoRoomComponent extends Component {
               ) : null}
 
               <div className="ml-[1em] absolute bottom-0">
-                <Link to="/">
+                <Link to="/home">
                   <CommonBtn text="나가기" color={"bg-pink-300"} />
                 </Link>
               </div>
