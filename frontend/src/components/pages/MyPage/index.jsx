@@ -3,14 +3,35 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import axios from "axios";
 
+const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 function MyPage() {
   const user = useSelector((state) => state.user);
+  const [imageList, setImageList] = useState([]);
 
   const navigate = useNavigate();
 
-  useEffect(checkLogin, []);
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/s3/list",
+      params: {
+        email: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log("response", response);
+      console.log("response.data", response.data);
+    });
+  }, [imageList]);
 
   function checkLogin() {
     if (!user["login"]) {
