@@ -261,13 +261,20 @@ const Board = () => {
         <img src={BluePan} width="25" height="25" className="color blue" />
         <img src={YellowPan} width="25" height="25" className="color yellow" />
 
-        <button className="absolute top-1.5" onClick={() => clearBoard(true, { myRoomName })}>
+        <button
+          className="absolute top-1.5"
+          onClick={() => clearBoard(true, { myRoomName })}
+        >
           <img src={EraserPNG} width="150" height="150" />
         </button>
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
-        <Link to="/">
-          <CommonBtn text="나가기" color={"bg-pink-300"} onClick={leaveSession} />
+        <Link to="/home">
+          <CommonBtn
+            text="나가기"
+            color={"bg-pink-300"}
+            onClick={leaveSession}
+          />
         </Link>
       </div>
     </div>
