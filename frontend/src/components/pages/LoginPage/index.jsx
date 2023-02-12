@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertBox from "../../atoms/AlertBox";
 import InputBox from "../../atoms/Input";
-import CommonBtn from "../../atoms/CommonBtn/index";
-import { useState } from "react";
 import { loginUser } from "./../../../api/UsersApi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import Logo from "../../atoms/Logo/index";
 
 import { ErrorMessage } from "@hookform/error-message";
@@ -57,8 +57,19 @@ function Login() {
       console.log(user["userChName"]);
       console.log(user["userEmail"]);
 
-      return navigate("/");
+      return navigate("/home");
     } else {
+      Swal.fire({
+        icon: "info",
+        title: "로그인 실패.",
+        text: "아이디 혹은 비밀번호를 확인해주세요!",
+        showDenyButton: false,
+        confirmButtonText: "확인",
+        denyButtonText: undefined,
+        confirmButtonColor: "#8cc8ff",
+        denyButtonColor: undefined,
+      });
+
       console.log(response);
     }
     // input 태그 값 비워주는 코드
@@ -67,7 +78,7 @@ function Login() {
   return (
     <>
       <div className="absolute top-3 left-3 ml-3">
-        <Link to="/">
+        <Link to="/home">
           <Logo />
         </Link>
       </div>

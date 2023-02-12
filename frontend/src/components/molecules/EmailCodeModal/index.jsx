@@ -5,6 +5,7 @@ import CommonBtn from "./../../atoms/CommonBtn/index";
 import chick_02 from "../../../assets/characters/chick_02.svg";
 import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
+import Swal from "sweetalert2";
 
 function CodeModal({
   emailVari,
@@ -51,9 +52,19 @@ function CodeModal({
     console.log("코드전송");
     const response = await sendCheckCodeUser({ userToken: codeInput });
     console.log(response);
-    if (!response) {
+    if (response === "error") {
       setCodeError(true);
     } else if (parseInt(Number(response.status) / 100) === 2) {
+      Swal.fire({
+        icon: "info",
+        title: "이메일 인증 성공",
+        text: "인증이 성공하였습니다!",
+        showDenyButton: false,
+        confirmButtonText: "확인",
+        denyButtonText: undefined,
+        confirmButtonColor: "#8cc8ff",
+        denyButtonColor: undefined,
+      });
       setCheckedEmail(emailInput);
       setModal(!modal);
       setCodeError(false);

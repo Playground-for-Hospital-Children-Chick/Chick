@@ -49,7 +49,7 @@ function YouTubeVideo() {
         </div>
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
-        <Link to="/">
+        <Link to="/home">
           <CommonBtn text="나가기" color={"bg-pink-300"} />
         </Link>
       </div>
