@@ -370,7 +370,7 @@ class Video extends Component {
                 </div>
               ) : null}
               <div className="ml-[1em] absolute bottom-0">
-                <Link to="/">
+                <Link to="/home">
                   <CommonBtn
                     text="나가기"
                     color={"bg-pink-300"}

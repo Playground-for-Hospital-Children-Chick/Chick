@@ -53,7 +53,7 @@ function PwChange() {
       console.log(user["userChName"]);
       console.log(user["userEmail"]);
 
-      return navigate("/");
+      return navigate("/home");
     } else {
       console.log(response);
     }
