@@ -240,7 +240,7 @@ const Board = () => {
 
       <div
         ref={colorsRef}
-        className="colors h-[350px] w-[400px] row-span-2 z-10"
+        className="colors h-[200px] w-[400px] row-span-2 z-10 border-2 flex justify-between"
       >
         {myRoomName != null ? (
           <div className="font-chick ">{myRoomName}</div>
