@@ -26,7 +26,7 @@ function SignUpComplete() {
                 text="확인"
                 color="bg-emerald-300"
                 onClick={() => {
-                  navigate("/");
+                  navigate("/home");
                 }}
               />
             </div>

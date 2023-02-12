@@ -57,7 +57,7 @@ function Login() {
       console.log(user["userChName"]);
       console.log(user["userEmail"]);
 
-      return navigate("/");
+      return navigate("/home");
     } else {
       Swal.fire({
         icon: "info",
@@ -78,7 +78,7 @@ function Login() {
   return (
     <>
       <div className="absolute top-3 left-3 ml-3">
-        <Link to="/">
+        <Link to="/home">
           <Logo />
         </Link>
       </div>

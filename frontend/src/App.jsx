@@ -20,6 +20,7 @@ import FindEmail from "./components/pages/FindId";
 import FindPassword from "./components/pages/FindPassword";
 
 import YouTubeVideo from "./youtube";
+import InitPage from "./components/pages/InitPage/index";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -28,7 +29,8 @@ function App() {
     <div className="App h-full w-full">
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<InitPage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route
