@@ -68,10 +68,9 @@ function PaintingHomeBox() {
     setGameStart(true);
 
     setTimeout(() => {
+      toggleFullScreen();
       return navigate("/board");
     }, 1500);
-
-    toggleFullScreen();
   }
   return (
     <HomeBox>
