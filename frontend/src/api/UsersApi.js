@@ -57,7 +57,6 @@ export const loginGuest = async function guestLogin() {
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
   });
-  console.log(cookie.load("refreshToken"));
   return response;
 };
 
@@ -70,7 +69,6 @@ export const loginUser = async function login(credentials) {
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
   });
-  console.log(cookie.load("refreshToken"));
   return response;
 };
 
@@ -85,7 +83,6 @@ export const logoutUser = async function logout() {
     withCredentials: true,
   });
 
-  console.log("로그아웃", response);
   return response;
 };
 
@@ -178,8 +175,6 @@ export const signoutUser = async function signout(credentials) {
 };
 //이메일 코드 발송
 export const sendCodeUser = async function sendcode(credentials) {
-  console.log("이메일코드발송", credentials);
-
   const response = await axios({
     method: "POST",
     url: `${BASE_URL}/users/emailConfirm`,
@@ -189,7 +184,7 @@ export const sendCodeUser = async function sendcode(credentials) {
     },
     withCredentials: true,
   }).catch((error) => {
-    console.dir(error);
+    return "error";
   });
 
   return response;
@@ -207,7 +202,9 @@ export const sendCheckCodeUser = async function codecheck(credentials) {
       "Content-Type": "application/json;charset=UTF-8",
     },
     withCredentials: true,
-  }).catch((e) => console.dir(e));
+  }).catch((error) => {
+    return "error";
+  });
 
   return response;
 };
@@ -225,7 +222,7 @@ export const checkVaildEmail = async function validemail(credentials) {
     },
     withCredentials: true,
   }).catch((error) => {
-    console.dir(error);
+    return "error";
   });
 
   return response;
