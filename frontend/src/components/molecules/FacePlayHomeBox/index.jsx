@@ -88,11 +88,10 @@ function FacePlayHomeBox() {
     setGameStart(true);
 
     setTimeout(() => {
+      toggleFullScreen();
       return navigate("/facepage");
     }, 1500);
   }
-
-  toggleFullScreen();
 
   return (
     <HomeBox>

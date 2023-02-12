@@ -70,9 +70,9 @@ function DanceHomeBox() {
     setGameStart(true);
 
     setTimeout(() => {
+      toggleFullScreen();
       return navigate("/singdance");
     }, 1500);
-    toggleFullScreen();
   }
   return (
     <HomeBox>
