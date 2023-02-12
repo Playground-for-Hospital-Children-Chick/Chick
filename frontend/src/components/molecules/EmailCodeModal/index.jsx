@@ -22,7 +22,10 @@ function CodeModal({
   const [emailInput, setemailInput] = useState("");
   const [codeInput, setcodeInput] = useState("");
   const [codeError, setCodeError] = useState(false);
+  const [timeTrigger, setTimeTrigger] = useState(false);
   const startModal = () => {
+    console.log(inputEmail);
+    console.log(emailVari);
     if (!inputEmail) {
       return <p>이메일 작성해주세요.</p>;
     } else if (emailVari == "regfail") {
@@ -52,7 +55,6 @@ function CodeModal({
       setCodeError(true);
     } else if (parseInt(Number(response.status) / 100) === 2) {
       setCheckedEmail(emailInput);
-      console.log(checkedEmail);
       setModal(!modal);
       setCodeError(false);
     }
@@ -84,10 +86,7 @@ function CodeModal({
     const getResponse = async () => {
       try {
         // api 요청
-        console.log(emailInput);
-      } catch (e) {
-        console.error(e.response);
-      }
+      } catch (e) {}
     };
     getResponse();
   }, [emailInput]);
@@ -95,17 +94,25 @@ function CodeModal({
     setemailInput(inputEmail);
   }, []);
   useEffect(() => {
-    if (count != 0) {
+    if (emailVari == "success") {
+      setCount(179);
+      setMit(2);
+      setSec(59);
+      setTimeTrigger(true);
+    } else {
+      setTimeTrigger(false);
+    }
+  }, [emailVari]);
+  useEffect(() => {
+    if (timeTrigger === true && count != 0) {
       const id = setInterval(() => {
         setCount(count - 1);
         setMit(parseInt((count - 1) / 60));
         setSec(parseInt((count - 1) % 60));
       }, 1000);
       return () => clearInterval(id);
-    } else {
-      setCount(0);
     }
-  }, [count]);
+  }, [count, timeTrigger]);
   return (
     <div>
       <AlertBox>
@@ -130,14 +137,48 @@ function CodeModal({
             <label className="font-chick text-lg mr-[2em]" htmlFor="email">
               {"이메일"}
             </label>
-            <div>
-              <InputBox
-                text={inputEmail}
-                onChange={handleChange}
-                placeholder={"이메일을 입력해주세요."}
-              />
+            <div className="flex flex-col justify-center">
+              <div>
+                <InputBox
+                  text={inputEmail}
+                  onChange={handleChange}
+                  placeholder={"이메일을 입력해주세요."}
+                />
+              </div>
+              {(() => {
+                if (!inputEmail) {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      이메일 작성해주세요.
+                    </p>
+                  );
+                } else if (emailVari == "regfail") {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      이메일 형식에 맞지 않습니다.
+                    </p>
+                  );
+                } else if (emailVari == "DBfail") {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      가입된 이메일입니다.
+                    </p>
+                  );
+                } else if (emailVari == "codeFail") {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      서버에 문의해주세요.
+                    </p>
+                  );
+                } else {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      코드 보내기 성공!
+                    </p>
+                  );
+                }
+              })()}
             </div>
-            {memoizedCallback()}
             <div className="ml-[2em] p-0">
               <CommonBtn
                 text="코드 발송"
@@ -150,25 +191,27 @@ function CodeModal({
             <label className="font-chick text-lg mr-[3.2em]" htmlFor="email">
               {"코드"}
             </label>
-            <div className="flex flex-col items-center">
-              <InputBox
-                onChange={handleChangeCode}
-                placeholder={"코드를 입력해주세요."}
-              />
+            <div className="flex flex-col justify-center">
+              <div>
+                <InputBox
+                  onChange={handleChangeCode}
+                  placeholder={"코드를 입력해주세요."}
+                />
+              </div>
+              {codeError === false ? (
+                <div className="text-md font-chick right-[32%]  text-center text-emerald-600">
+                  코드를 입력해주세요
+                </div>
+              ) : (
+                <div className="text-md font-chick right-[32%]  text-center text-pink-600">
+                  코드가 틀렸습니다.
+                </div>
+              )}
             </div>
           </div>
         </div>
-        {codeError === false ? (
-          <div className="invisible text-md font-chick right-[32%]  text-center text-pink-600">
-            코드가 틀렸습니다.
-          </div>
-        ) : (
-          <div className="text-md font-chick right-[32%]  text-center text-pink-600">
-            코드가 틀렸습니다.
-          </div>
-        )}
 
-        <div className="flex flex-row mr-[15em]">
+        <div className="flex flex-row justify-center mr-[1em]">
           <div>
             <img
               className="right-[3em] inline after:mr-5 w-[9em]"
