@@ -30,6 +30,12 @@ function MyPage() {
     }).then((response) => {
       console.log("response", response);
       console.log("response.data", response.data);
+      if (response.status == 200) {
+        const fileList = response.data.filelist;
+        if (fileList != null) {
+          setImageList((old) => [...old, ...fileList]);
+        }
+      }
     });
   }, [imageList]);
 
@@ -85,6 +91,22 @@ function MyPage() {
               이메일: {user["userEmail"]}
             </div>
           </div>
+          {imageList.length > 0 ? (
+            <ImageList
+              sx={{ width: 500, height: 450 }}
+              cols={3}
+              rowHeight={164}
+            >
+              {imageList.map((item) => (
+                <ImageListItem key={item.s3Url}>
+                  <img
+                    src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          ) : null}
         </div>
         <div>
           <AiOutlineSetting size={60} />
