@@ -87,6 +87,25 @@ class VideoRoomComponent extends Component {
     this.changeEffect = this.changeEffect.bind(this);
 
     this.block = this.block.bind(this);
+    this.askBlock = this.askBlock.bind(this);
+  }
+
+  askBlock(sub) {
+    Swal.fire({
+      icon: "info",
+      title: "상대를 차단하시겠습니까?",
+      text: "차단 후 홈 화면으로 이동합니다.",
+      showDenyButton: false,
+      confirmButtonText: "차단",
+      denyButtonText: ``,
+      confirmButtonColor: "#ff82b3",
+      denyButtonColor: "#8cc8ff",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.block(sub);
+      } else if (result.isDenied) {
+      }
+    });
   }
 
   async block(sub) {
@@ -110,6 +129,8 @@ class VideoRoomComponent extends Component {
     if (response.status == 200) {
       console.log("**********leaveSession Success**********");
     }
+
+    window.location.href = "/";
   }
 
   //AR 효과 바꾸기(AR이 실행중이어야 동작)
@@ -680,7 +701,7 @@ class VideoRoomComponent extends Component {
 
                       {this.props.userType !== "guest" ? (
                         <div className="absolute right-0 top-0">
-                          <button onClick={() => this.block(sub)}>
+                          <button onClick={() => this.askBlock(sub)}>
                             <ReportBtn />
                           </button>
                         </div>
