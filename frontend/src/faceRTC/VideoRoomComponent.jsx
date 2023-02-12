@@ -68,7 +68,7 @@ class VideoRoomComponent extends Component {
       localUser: undefined,
       subscribers: [],
       currentVideoDevice: undefined,
-      arEnable: false,
+      arEnable: true,
       deepAR: undefined,
     };
 
@@ -161,6 +161,8 @@ class VideoRoomComponent extends Component {
 
   componentDidMount() {
     window.addEventListener("beforeunload", this.onbeforeunload);
+    var canvasContext = this.canvasRef.getContext("webgl");
+    this.startDeepAR(this.canvasRef);
     this.joinSession();
     // this.applyDeepAR();
   }
@@ -239,7 +241,6 @@ class VideoRoomComponent extends Component {
       .connect(token, { clientData: this.state.myUserName })
       .then(async () => {
         await this.connectWebCam();
-        await this.applyDeepAR();
       })
       .catch((error) => {
         if (this.props.error) {
@@ -270,14 +271,34 @@ class VideoRoomComponent extends Component {
 
     let publisher = this.OV.initPublisher(undefined, {
       audioSource: undefined,
-      videoSource: videoDevices[0].deviceId,
+      videoSource: this.canvasRef.captureStream().getVideoTracks()[0],
       publishAudio: localUser.isAudioActive(),
       publishVideo: localUser.isVideoActive(),
+      mirror: true,
       resolution: "555x307",
       frameRate: 30,
       insertMode: "APPEND",
-      mirror: true,
     });
+
+    var currentVideoDeviceId = publisher.stream
+      .getMediaStream()
+      .getVideoTracks()[0]
+      .getSettings().deviceId;
+
+    var currentVideoDevice = videoDevices.find(
+      (device) => device.deviceId === currentVideoDeviceId
+    );
+
+    // let publisher = this.OV.initPublisher(undefined, {
+    //   audioSource: undefined,
+    //   videoSource: videoDevices[0].deviceId,
+    //   publishAudio: localUser.isAudioActive(),
+    //   publishVideo: localUser.isVideoActive(),
+    //   resolution: "555x307",
+    //   frameRate: 30,
+    //   insertMode: "APPEND",
+    //   mirror: true,
+    // });
 
     if (this.state.session.capabilities.publish) {
       publisher.on("accessAllowed", () => {
@@ -300,7 +321,7 @@ class VideoRoomComponent extends Component {
     // });
 
     this.setState(
-      { currentVideoDevice: videoDevices[0], localUser: localUser },
+      { currentVideoDevice: currentVideoDevice, localUser: localUser },
       () => {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
           publisher.videos[0].video.parentElement.classList.remove(
