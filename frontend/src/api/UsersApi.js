@@ -207,6 +207,23 @@ export const sendCheckCodeUser = async function codecheck(credentials) {
       "Content-Type": "application/json;charset=UTF-8",
     },
     withCredentials: true,
+  }).catch((e) => console.dir(e));
+
+  return response;
+};
+
+//가입된 이메일 확인 로직
+export const checkVaildEmail = async function validemail(credentials) {
+  console.log("회원가입 가능한 이메일인지", credentials);
+
+  const response = await axios({
+    method: "GET",
+    url: `${BASE_URL}/users/distinctemail`,
+    params: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    withCredentials: true,
   }).catch((error) => {
     console.dir(error);
   });

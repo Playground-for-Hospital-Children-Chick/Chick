@@ -7,7 +7,10 @@ import { useEffect, useState, useCallback } from "react";
 import { sendCodeUser, sendCheckCodeUser } from "./../../../api/UsersApi";
 
 function CodeModal({
+  emailVari,
+  turnOnModal,
   setCheckedEmail,
+  setInputEmail,
   checkedEmail,
   inputEmail,
   setModal,
@@ -18,29 +21,43 @@ function CodeModal({
   const [sec, setSec] = useState(59);
   const [emailCheck, setEmailCheck] = useState("");
   const [codeCheck, setCodeCheck] = useState("");
+  const startModal = () => {
+    if (!inputEmail) {
+      return <p>이메일 작성해주세요.</p>;
+    } else if (emailVari == "regfail") {
+      return <p>이메일 형식에 맞지 않습니다.</p>;
+    } else if (emailVari == "DBfail") {
+      return <p>가입된 이메일입니다.</p>;
+    } else if (emailVari == "codeFail") {
+      return <p>서버에 문의해주세요.</p>;
+    } else {
+      return <p>코드 보내기 성공!</p>;
+    }
+  };
+  const memoizedCallback = useCallback(() => {
+    startModal();
+  }, []);
   const sendEmail = async () => {
     setCount(179);
     setMit(2);
     setSec(59);
-    const response = await sendCodeUser({ email: emailCheck });
-    if (parseInt(Number(response.status) / 100) === 2) {
-    } else {
-      console.log("실패");
-    }
+    turnOnModal();
   };
   const sendCode = async () => {
     console.log("코드전송");
     const response = await sendCheckCodeUser({ userToken: codeCheck });
+    console.log(response);
     if (parseInt(Number(response.status) / 100) === 2) {
       setCheckedEmail(emailCheck);
       console.log(checkedEmail);
+      () => setModal(!modal);
     } else {
-      console.log("실패");
+      return <p>잘못된 코드 입니다.</p>;
     }
   };
   const handleChange = useCallback(
     (e) => {
-      setEmailCheck(e.target.value);
+      setInputEmail(e.target.value);
     },
     [emailCheck]
   );
@@ -118,6 +135,7 @@ function CodeModal({
                 placeholder={"이메일을 입력해주세요."}
               />
             </div>
+            {memoizedCallback()}
             <div className="ml-[2em] p-0">
               <CommonBtn
                 text="코드 발송"
