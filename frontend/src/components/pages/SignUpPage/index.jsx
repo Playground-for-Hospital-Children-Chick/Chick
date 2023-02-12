@@ -98,7 +98,7 @@ function SignUp() {
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
-        <Link to="/">
+        <Link to="/home">
           <Logo />
         </Link>
         <Link to="/login">
