@@ -34,7 +34,6 @@ public class S3Controller {
     // https://green-joo.tistory.com/2
     @PostMapping("/upload")
     public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto) throws IOException {
-        System.out.println("upload 합니다"+" "+fileDto.toString());
         String url = s3Service.uploadFile(fileDto.getFile(), fileDto.getEmail());
         if(url != null){
             fileDto.setUrl(url);
@@ -63,7 +62,6 @@ public class S3Controller {
     public ResponseEntity<YoutubeRes> getKey() {
         List<YoutubeKey> keyList =s3Service.getYKey();
         if(keyList.size()!=0){
-            System.out.println(keyList.get(0).toString());
             return ResponseEntity.ok(YoutubeRes.of(200, "Success", keyList));
         }
         return ResponseEntity.ok(YoutubeRes.of(404, "Failure", null));

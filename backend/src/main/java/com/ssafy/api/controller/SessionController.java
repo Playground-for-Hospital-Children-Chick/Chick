@@ -45,8 +45,6 @@ public class SessionController {
         String email = roomSessionReq.getEmail();
         String gameType = roomSessionReq.getGameType();
         String guest = roomSessionReq.getGuest();
-        System.out.println("세션 요청입니다다");
-        System.out.println("세션 요청입니다");
         System.out.println("세션 요청입니다");
         System.out.println("params: " +roomSessionReq.toString());
         String userSession = roomService.getRoomSession(email, gameType,guest); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
@@ -72,8 +70,6 @@ public class SessionController {
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        System.out.println("연결 요청입니다다");
-        System.out.println("연결 요청입니다");
         System.out.println("연결 요청입니다");
         System.out.println("sessionId :" + sessionId);
         System.out.println("params: " + params.toString());

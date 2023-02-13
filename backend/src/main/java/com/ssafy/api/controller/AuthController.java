@@ -44,7 +44,6 @@ public class AuthController {
     })
     public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo, HttpServletResponse response) {
         System.out.println("로그인입니다");
-        System.out.println(loginInfo.toString());
         String email = loginInfo.getEmail();
         String password = loginInfo.getPassword();
         User user = userService.getUserByEmail(email);
@@ -120,7 +119,6 @@ public class AuthController {
         for(Cookie cookie : cookies){
             if("refreshToken".equals(cookie.getName())){
                 refreshToken=cookie.getValue();
-                System.out.println("refreshToken: "+ refreshToken);
             }
         }
 
