@@ -46,6 +46,7 @@ function PwChange() {
           userAge: response.data.userLoginInfo.userAge,
           userBirth: response.data.userLoginInfo.userBirth,
           userSex: response.data.userLoginInfo.userSex,
+          attendanceDay: response.data.userLoginInfo.attendanceDay,
           userType: "user",
         })
       );

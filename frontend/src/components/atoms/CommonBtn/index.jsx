@@ -3,9 +3,9 @@ import classnames from "classnames";
 {
   /* 
 최초 작성자: 최정온
-수정 작성자: 최정온
+수정 작성자: 김민준
 최초 작성일: 23.01.29
-수정 작성일: 23.01.29
+수정 작성일: 23.02.13
 
 Ver 1.0.0
 
@@ -30,12 +30,14 @@ function CommonBtn({
   type,
   text = "Button",
   color,
+  margin = "mx-2 mt-3 mb-3",
 }) {
   const classStr = classnames(
-    `font-chick  mx-2 mt-3 mb-3 h-[70px] overflow-hidden flex items-center`,
+    `font-chick  h-[70px] overflow-hidden flex items-center`,
     padding,
     color,
-    round
+    round,
+    margin
   );
   return (
     <button
