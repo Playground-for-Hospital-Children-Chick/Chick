@@ -16,4 +16,6 @@ public interface UserService {
 
         public String sendPwdMessage(String to)throws Exception;
         public UserLoginInfo createGuest();
+
+        public void profileUpdate(String email,  String fileName) throws Exception;
 }
