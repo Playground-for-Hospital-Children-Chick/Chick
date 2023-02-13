@@ -18,6 +18,7 @@ export const userSlice = createSlice({
     userSex: null,
     accessToken: null,
     expireTime: null,
+    attendanceDay: null,
     login: false,
   },
   reducers: {
@@ -29,6 +30,7 @@ export const userSlice = createSlice({
       state.userAge = action.payload.userAge;
       state.userBirth = action.payload.userBirth;
       state.userSex = action.payload.userSex;
+      state.attendanceDay = action.payload.attendanceDay;
       state.login = true;
     },
     DELETE_USER: (state) => {
@@ -39,6 +41,7 @@ export const userSlice = createSlice({
       state.userAge = null;
       state.userBirth = null;
       state.userSex = null;
+      state.attendanceDay = null;
       state.login = false;
     },
     SET_TOKEN: (state, action) => {
