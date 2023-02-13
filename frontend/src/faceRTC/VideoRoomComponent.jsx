@@ -780,7 +780,7 @@ class VideoRoomComponent extends Component {
                     {data.map((item) => (
                       <button
                         key={item.id}
-                        className=" ml-[3em] inline-block p-[3px] cursor-pointer  duration-300 "
+                        className=" ml-[3em] inline-block p-[3px] transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150 "
                         onClick={() => this.changeEffect(item.path)}
                       >
                         {item.img}
