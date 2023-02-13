@@ -73,7 +73,7 @@ function DanceHomeBox() {
     setTimeout(() => {
       toggleFullScreen();
       return navigate("/singdance");
-    }, 1500);
+    }, 2000);
   }
   return (
     <HomeBox>
