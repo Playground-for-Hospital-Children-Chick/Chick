@@ -1,7 +1,6 @@
 import SideBar from "../../molecules/SideBar";
 import FacePlay from "../../organism/FacePlay/index.";
 import React from "react";
-import RiceEat from "./../../organism/RiceEat/index";
 import FullScreenBtn from "../../atoms/FullScreenBtn/index";
 import Dance from "../../organism/Dance";
 import Painting from "../../organism/Painting";
