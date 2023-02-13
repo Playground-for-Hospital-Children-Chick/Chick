@@ -13,10 +13,10 @@ import Chick from "../../../assets/characters/chick_01.svg";
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 function MyPage() {
   const user = useSelector((state) => state.user);
+  const [unblockUser, setUnblockUser] = useState(undefined);
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
-  const [unreported, setUnreported] = useState(undefined);
 
   const navigate = useNavigate();
 
@@ -26,6 +26,7 @@ function MyPage() {
 
   useEffect(() => {
     checkLogin();
+
     axios({
       method: "get",
       url: APPLICATION_SERVER_URL + "api/s3/list",
@@ -40,6 +41,30 @@ function MyPage() {
         const fileList = response.data.filelist;
         if (fileList != null) {
           setImageList((old) => [...old, ...fileList]);
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    //차단 유저 리스트 불러오기
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/report/blockList",
+      params: {
+        userEmail: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log(
+        "response!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        response.data[0].email
+      );
+      if (response.status == 200) {
+        const blockedList = response.data;
+        if (blockedList != null) {
+          setBlockList((old) => [...old, ...blockedList]);
+          console.log("blocklist~~~~~~~~~~~~~", blockedList);
         }
       }
     });
@@ -85,6 +110,7 @@ function MyPage() {
     }
   }
 
+  console.log("user~!~!~!!~!~!~!!~~!", user);
   return (
     <div>
       <button
@@ -116,6 +142,7 @@ function MyPage() {
           </div>
         </div>
       </div>
+
       <div className="absolute left-44 top-64">
         <div className="text-start inline mt-8 mb-6">
           <div className="font-chick text-xl mb-2">저장한 사진</div>
@@ -138,9 +165,27 @@ function MyPage() {
       {/* 차단 유저 리스트 */}
       <div className="absolute right-44 top-64">
         <div className="text-start inline mt-8 mb-6">
-          <div className="font-chick text-xl mb-2">정온's 차단 유저 리스트</div>
+          <div className="font-chick text-xl mb-2">
+            {user["userChName"]}'s 차단 유저 리스트
+          </div>
         </div>
-        <div className="flex justify-center"></div>
+        {blockList.length > 0 ? (
+          <div className="flex justify-center h-[230px] overflow-y-scroll flex-col scrollbar-hide">
+            {blockList.map((item, i) => (
+              <div
+                key={i}
+                className=" font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm"
+              >
+                <div className="font-chick text-gray-900 text-xl leading-tight font-medium mb-2">
+                  {item.name}
+                </div>
+                {item.reportDate}
+              </div>
+            ))}
+
+            {/* <div>{blockList[0].email}</div> */}
+          </div>
+        ) : null}
       </div>
 
       <div className="absolute right-5 top-14">
