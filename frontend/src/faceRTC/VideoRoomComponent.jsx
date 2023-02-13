@@ -115,7 +115,7 @@ class VideoRoomComponent extends Component {
 
     const response = await axios({
       method: "post",
-      url: APPLICATION_SERVER_URL + "api/report/declare",
+      url: APPLICATION_SERVER_URL + "api/report/block",
       data: {
         category: "미정",
         content: "미정",
