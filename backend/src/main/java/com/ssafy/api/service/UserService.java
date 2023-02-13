@@ -18,4 +18,5 @@ public interface UserService {
         public UserLoginInfo createGuest();
 
         public void profileUpdate(String email,  String fileName) throws Exception;
+        public String getProfile(String email);
 }

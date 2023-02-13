@@ -149,7 +149,7 @@ public class UserController {
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
     }
-    @PutMapping("/profchange")
+    @PutMapping("/profile/change")
     @ApiOperation(value="프로필 변경", notes = "프로필을 변경한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공 및 이메일 반환"),
@@ -164,6 +164,22 @@ public class UserController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
+    }
+
+    @GetMapping("/profile")
+    @ApiOperation(value="프로필 사진 가져오기", notes = "설정된 프로필 사진을 가져온다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "프로필 사진 가져오기 성공"),
+            @ApiResponse(code = 404, message = "등록된 회원이 아닙니다"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
+    public ResponseEntity<UserProfileRes> getProfile(@RequestParam @ApiParam(value="사용자를 찾기 위한 이메일 정보", required = true) String email) {
+        User user = userService.getUserByEmail(email);
+        if (user != null) {
+            String filePath = userService.getProfile(email);
+            return ResponseEntity.status(200).body(UserProfileRes.of(200, "Success", filePath));
+        }
+        return ResponseEntity.status(404).body(UserProfileRes.of(404, "회원정보 없음", null));
     }
 
 }
