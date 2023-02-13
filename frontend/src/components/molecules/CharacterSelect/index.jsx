@@ -12,7 +12,7 @@ function SelectCharacter({ setModal }) {
   return (
     <>
       <AlertBox
-        color="bg-emerald-300"
+        color="bg-white"
         scrollbar="scrollbar-hide"
         overflow="overflow-y-auto"
       >
