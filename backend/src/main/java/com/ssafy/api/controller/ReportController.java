@@ -42,7 +42,7 @@ public class ReportController {
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Failure"));
     }
-    @PostMapping("/block")
+    @GetMapping("/blockList")
     @ApiResponses({
             @ApiResponse(code = 200, message = "차단한 유저 전송"),
     })
