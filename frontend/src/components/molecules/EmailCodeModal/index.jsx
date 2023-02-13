@@ -144,11 +144,14 @@ function CodeModal({
             남은 시간 {String(min).padStart(2, "0")} :{" "}
             {String(sec).padStart(2, "0")}
           </div>
-          <div className="mt-[1em] flex justify-center items-center">
-            <label className="font-chick text-lg mr-[2em]" htmlFor="email">
+          <div className="flex justify-center items-center">
+            <label
+              className="mb-[1em] font-chick text-lg mr-[2em]"
+              htmlFor="email"
+            >
               {"이메일"}
             </label>
-            <div className="flex flex-col justify-center">
+            <div className="mt-[0.5em] flex flex-col justify-center">
               <div>
                 <InputBox
                   text={inputEmail}
@@ -190,7 +193,7 @@ function CodeModal({
                 }
               })()}
             </div>
-            <div className="ml-[2em] p-0">
+            <div className="mb-[1em] ml-[2em] p-0">
               <CommonBtn
                 text="코드 발송"
                 onClick={sendEmail}
@@ -199,7 +202,10 @@ function CodeModal({
             </div>
           </div>
           <div className="mt-[0.5em] mr-[11.4em] flex justify-center items-center">
-            <label className="font-chick text-lg mr-[3.2em]" htmlFor="email">
+            <label
+              className="mb-[0.6em] font-chick text-lg mr-[3.2em]"
+              htmlFor="email"
+            >
               {"코드"}
             </label>
             <div className="flex flex-col justify-center">
