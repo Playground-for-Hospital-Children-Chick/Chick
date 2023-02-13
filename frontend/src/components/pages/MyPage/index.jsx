@@ -48,6 +48,8 @@ function MyPage() {
         text: "내 정보를 확인하려면 로그인이 필요합니다.",
         confirmButtonText: "로그인하러가기",
         confirmButtonColor: "#8cc8ff",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
@@ -65,6 +67,8 @@ function MyPage() {
         text: "내 정보를 확인하려면 사용자 로그인이 필요합니다.",
         confirmButtonText: "로그인하러가기",
         confirmButtonColor: "#8cc8ff",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
