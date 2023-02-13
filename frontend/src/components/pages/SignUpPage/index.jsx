@@ -350,7 +350,7 @@ function SignUp() {
             <GamePlayBtn text="회원가입" color="bg-emerald-300" type="submit" />
           </div>
         </form>
-        <div className="w-[12em]">
+        <div className="mt-[0.8em] w-[12em]">
           <CommonBtn
             onClick={() => {
               setModal(!modal);
