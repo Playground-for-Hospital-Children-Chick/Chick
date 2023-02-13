@@ -123,6 +123,24 @@ function MyPage() {
           </ImageList>
         ) : null}
       </div>
+      {/* 차단 유저 리스트 */}
+      <div className="absolute right-44 top-64">
+        <div className="text-start inline mt-8 mb-6">
+          <div className="font-chick text-xl mb-2">정온's 차단 유저 리스트</div>
+        </div>
+        <div class="flex justify-center">
+          <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+            <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
+              엄희원
+            </li>
+            <li class="px-6 py-2 border-b border-gray-200 w-full">김주성</li>
+            <li class="px-6 py-2 border-b border-gray-200 w-full">한재욱</li>
+            <li class="px-6 py-2 border-b border-gray-200 w-full">김민준</li>
+            <li class="px-6 py-2 w-full rounded-b-lg">ex-girlfriend</li>
+          </ul>
+        </div>
+      </div>
+
       <div className="absolute right-5 top-14">
         <AiOutlineSetting size={60} />
       </div>
