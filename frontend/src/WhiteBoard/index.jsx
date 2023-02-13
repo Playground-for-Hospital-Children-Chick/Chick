@@ -255,14 +255,39 @@ const Board = () => {
         {myRoomName != null ? (
           <div className="font-chick ">{myRoomName}</div>
         ) : null}
-        <img src={BlackPan} width="25" height="25" className="color black" />
-        <img src={RedPan} width="25" height="25" className="color red" />
-        <img src={GreenPan} width="22.5" height="21" className="color green" />
-        <img src={BluePan} width="25" height="25" className="color blue" />
-        <img src={YellowPan} width="25" height="25" className="color yellow" />
+        <img
+          src={BlackPan}
+          width="25"
+          height="25"
+          className="color black transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+        />
+        <img
+          src={RedPan}
+          width="25"
+          height="25"
+          className="color red transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+        />
+        <img
+          src={GreenPan}
+          width="22.5"
+          height="21"
+          className="color green transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+        />
+        <img
+          src={BluePan}
+          width="25"
+          height="25"
+          className="color blue transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+        />
+        <img
+          src={YellowPan}
+          width="25"
+          height="25"
+          className="color yellow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+        />
 
         <button
-          className="absolute top-1.5"
+          className="absolute top-1.5 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
           onClick={() => clearBoard(true, { myRoomName })}
         >
           <img src={EraserPNG} width="150" height="150" />
