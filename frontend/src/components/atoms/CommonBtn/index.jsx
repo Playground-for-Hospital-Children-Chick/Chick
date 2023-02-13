@@ -33,7 +33,7 @@ function CommonBtn({
   margin = "mx-2 mt-3 mb-3",
 }) {
   const classStr = classnames(
-    `font-chick  h-[70px] overflow-hidden flex items-center`,
+    `font-chick mx-2 mt-3 mb-3 h-[70px] overflow-hidden flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150`,
     padding,
     color,
     round,
