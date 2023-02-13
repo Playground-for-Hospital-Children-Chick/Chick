@@ -8,7 +8,7 @@ import chick5 from "./../../../assets/characters/chick_05.svg";
 import chick6 from "./../../../assets/characters/chick_06.svg";
 import chick7 from "./../../../assets/characters/chick_07.svg";
 
-function SelectCharacter() {
+function SelectCharacter({ setModal }) {
   return (
     <>
       <AlertBox
@@ -20,11 +20,17 @@ function SelectCharacter() {
           <div className="ml-[0.5em] mt-[0.5em] font-chick text-3xl">
             보유 캐릭터
           </div>
-          <img
-            className="inline after:mr-5 w-[3em]"
-            src={CloseMark}
-            alt="x표시"
-          />
+          <button
+            onClick={() => {
+              setModal();
+            }}
+          >
+            <img
+              className="inline after:mr-5 w-[3em]"
+              src={CloseMark}
+              alt="x표시"
+            />
+          </button>
         </div>
         <hr className="" />
         <div className="h-42 w-full character">
