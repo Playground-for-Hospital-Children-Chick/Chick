@@ -21,7 +21,7 @@ public class ReportController {
     @Autowired
     private final ReportService resportService;
 
-    @PostMapping("/declare")
+    @PostMapping("/block")
     @ApiResponses({
             @ApiResponse(code = 200, message = "차단 성공"),
     })
@@ -30,7 +30,7 @@ public class ReportController {
         resportService.createReport(reportReq);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
-    @PostMapping("/unblock")
+    @DeleteMapping("/unblock")
     @ApiResponses({
             @ApiResponse(code = 200, message = "차단 해제 성공"),
             @ApiResponse(code = 404, message = "차단해제 실패"),
