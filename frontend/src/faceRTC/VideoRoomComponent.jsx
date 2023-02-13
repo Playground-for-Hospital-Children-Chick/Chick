@@ -130,7 +130,7 @@ class VideoRoomComponent extends Component {
       console.log("**********leaveSession Success**********");
     }
 
-    window.location.href = "/";
+    window.location.href = "/home";
   }
 
   //AR 효과 바꾸기(AR이 실행중이어야 동작)
@@ -336,7 +336,7 @@ class VideoRoomComponent extends Component {
           confirmButtonColor: "#8cc8ff",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/";
+            window.location.href = "/home";
             return;
           }
         });
