@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Component
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     Profile findById(int profid);//Null을 반환할때 Optional을 많이쓴다
-    Profile findByProfName(String profName);
+    Profile findByProfPath(String profPath);
     @Modifying
     @Transactional
     @Query(value = "update User u SET  u.profile.id=?1 where u.userEmail=?2")
