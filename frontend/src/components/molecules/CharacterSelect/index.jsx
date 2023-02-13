@@ -10,10 +10,55 @@ import chick7 from "./../../../assets/characters/chick_07.svg";
 import chick8 from "./../../../assets/characters/chick_08.svg";
 import chick9 from "./../../../assets/characters/chick_09.svg";
 import chick10 from "./../../../assets/characters/chick_10.svg";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-function SelectCharacter({ setModal }) {
+const characterList = [
+  "/assets/characters/chick_01.svg",
+  "/assets/characters/chick_02.svg",
+  "/assets/characters/chick_03.svg",
+  "/assets/characters/chick_04.svg",
+  "/assets/characters/chick_05.svg",
+  "/assets/characters/chick_06.svg",
+  "/assets/characters/chick_07.svg",
+  "/assets/characters/chick_08.svg",
+  "/assets/characters/chick_09.svg",
+  "/assets/characters/chick_10.svg",
+];
+
+const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+
+function SelectCharacter({ setModal, email, setProfilePath }) {
   function updateCharacter(index) {
     console.log(index);
+
+    axios({
+      method: "put",
+      url: APPLICATION_SERVER_URL + "api/users/profile/change",
+      params: {
+        email: email,
+        filePath: characterList[index],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      if (response.status == 200) {
+        setProfilePath(characterList[index]);
+
+        Swal.fire({
+          icon: "success",
+          title: "프로필 변경 성공",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#8cc8ff",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setModal();
+            return;
+          }
+        });
+      }
+    });
   }
 
   return (
@@ -81,7 +126,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(2)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick8} alt="8번병아리" />
+                  <img className="w-[180px]" src={chick3} alt="8번병아리" />
                   <div class="flex flex-col justify-center">
                     <p className="text-2xl">루루</p>
                     <p>
@@ -98,7 +143,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(3)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick9} alt="9번병아리" />
+                  <img className="w-[180px]" src={chick4} alt="9번병아리" />
                   <div className="flex flex-col justify-center">
                     <p className="text-2xl">코코</p>
                     <p>
@@ -117,7 +162,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(4)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick10} alt="10번병아리" />
+                  <img className="w-[180px]" src={chick5} alt="10번병아리" />
                   <div class="flex flex-col justify-center">
                     <p className="text-2xl">아리</p>
                     <p>
@@ -134,7 +179,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(5)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick3} alt="3번병아리" />
+                  <img className="w-[180px]" src={chick6} alt="3번병아리" />
                   <div className="flex flex-col justify-center">
                     <p className="text-2xl">입원한 병아리</p>
                     <p>
@@ -170,7 +215,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(7)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick4} alt="4번병아리" />
+                  <img className="w-[180px]" src={chick8} alt="4번병아리" />
                   <div className="flex flex-col justify-center">
                     <p className="text-2xl">어린이 병아리</p>
                     <p>
@@ -189,7 +234,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(8)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick5} alt="5번병아리" />
+                  <img className="w-[180px]" src={chick9} alt="5번병아리" />
                   <div class="flex flex-col justify-center">
                     <p className="text-2xl">동그란 병아리</p>
                     <p>
@@ -206,7 +251,7 @@ function SelectCharacter({ setModal }) {
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
               <button onClick={() => updateCharacter(9)}>
                 <div className="w-[390px] flex flex-row font-chick">
-                  <img className="w-[180px]" src={chick6} alt="6번병아리" />
+                  <img className="w-[180px]" src={chick10} alt="6번병아리" />
                   <div className="flex flex-col justify-center">
                     <p className="text-2xl">똑똑한 병아리</p>
                     <p>

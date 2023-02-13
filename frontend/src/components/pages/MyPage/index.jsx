@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
-import Chick from "../../../assets/characters/chick_01.svg";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
@@ -186,7 +185,12 @@ function MyPage() {
       </button>
       {modal === true ? (
         <div className="-translate-x-[50%] -translate-y-[50%] left-[50%] top-[45%] absolute z-10">
-          <SelectCharacter modal={modal} setModal={setModal} />
+          <SelectCharacter
+            modal={modal}
+            setModal={setModal}
+            email={user["userEmail"]}
+            setProfilePath={setProfilePath}
+          />
         </div>
       ) : null}
       <div className="absolute left-96 top-14">
