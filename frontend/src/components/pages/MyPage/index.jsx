@@ -18,6 +18,10 @@ function MyPage() {
 
   const navigate = useNavigate();
 
+  const modalOnOff = () => {
+    setModal(!modal);
+  };
+
   useEffect(() => {
     checkLogin();
     axios({
@@ -84,14 +88,21 @@ function MyPage() {
 
   return (
     <div>
-      <button className="absolute left-44 top-14">
+      <button
+        onClick={() => {
+          modalOnOff();
+        }}
+        className="absolute left-44 top-14"
+      >
         <CircleBox>
           <img src={Chick} />
         </CircleBox>
       </button>
-      <div className="invisible left -translate-x-[50%] -translate-y-[50%] left-[40%] height-[10%] absolute z-10">
-        <SelectCharacter />
-      </div>
+      {modal === true ? (
+        <div className="-translate-x-[50%] -translate-y-[50%] left-[50%] top-[45%] absolute z-10">
+          <SelectCharacter modal={modal} setModal={setModal} />
+        </div>
+      ) : null}
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
           <div className="font-chick text-lg">{user["userChName"]}</div>
