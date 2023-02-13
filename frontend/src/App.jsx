@@ -51,7 +51,6 @@ function App() {
           <Route path="/findid" element={<FindEmail />} />
           <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/signupComplete" element={<SignUpComplete />} />
-          <Route path="/character" element={<SelectCharacter />} />
         </Routes>
       </Router>
     </div>
