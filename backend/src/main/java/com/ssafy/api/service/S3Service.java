@@ -72,7 +72,7 @@ public class S3Service {
         //object 정보 가져오기
         ListObjectsV2Result listObjectsV2Result = amazonS3.listObjectsV2(bucket);
         List<S3ObjectSummary> objectSummaries = listObjectsV2Result.getObjectSummaries();
-        
+
         return amazonS3.getUrl(bucket, uploadFileName).toString();
     }
     public boolean deleteFile(String filePath){
