@@ -1,10 +1,13 @@
 package com.ssafy.api.service.Impl;
 
 import com.ssafy.api.domain.dto.*;
+import com.ssafy.api.domain.entity.Profile;
 import com.ssafy.api.domain.entity.User;
+import com.ssafy.api.domain.repository.ProfileRepository;
 import com.ssafy.api.domain.repository.UserRepository;
 import com.ssafy.api.service.UserService;
 import io.swagger.models.auth.In;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -28,12 +32,12 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final ProfileRepository profileRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private PasswordEncoder passwordEncoder;
+
+
 
     @Override
     public User getUserByEmail(String email) {
@@ -47,8 +51,7 @@ public class UserServiceImpl implements UserService {
         ||(!userRegisterInfo.getUser_email().matches(pattern))) {
             return false;
         }
-
-        userRepository.save(User.builder()
+        User user = User.builder()
                 .userEmail(userRegisterInfo.getUser_email().toString())
                 .userPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()).toString())
                 .userChName(userRegisterInfo.getUser_child_name().toString())
@@ -64,8 +67,10 @@ public class UserServiceImpl implements UserService {
                 .userCreateDate(LocalDateTime.now())
                 .userUpdateBy(userRegisterInfo.getUser_email())
                 .userUpdateDate(LocalDateTime.now())
-                .build());
-
+                .build();
+        Profile profile = profileRepository.findById(0);
+        user.setProfile(profile);
+        userRepository.save(user);
         return true;
     }
 
@@ -94,6 +99,8 @@ public class UserServiceImpl implements UserService {
                 .userUpdateBy(guestEmail)
                 .userUpdateDate(LocalDateTime.now())
                 .build(); // 게스트 회원 가입 정보 생성
+        Profile profile = profileRepository.findById(0);
+        guest.setProfile(profile);
         userRepository.save(guest); // 게스트로 회원 가입
         return getUserLoginInfo(guest); // 로그인 정보 리턴
     }
