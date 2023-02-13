@@ -51,14 +51,6 @@ public class SwaggerConfiguration {
 //				.globalResponseMessage(RequestMethod.GET,responseMessages);
     }
 
-    public Docket getDefaultDocket(String groupName, Predicate<String> predicate) {
-        return new Docket(DocumentationType.SWAGGER_2).groupName(groupName).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.api.controller")).paths(predicate)
-                .apis(RequestHandlerSelectors.any()).build();
-//				.useDefaultResponseMessages(false)
-//				.globalResponseMessage(RequestMethod.GET,responseMessages);
-    }
-
     // swagger ui 설정.
     @Bean
     public Docket allApi() {
@@ -66,26 +58,26 @@ public class SwaggerConfiguration {
     }
     @Bean
     public UiConfiguration uiConfig() {
-        return UiConfigurationBuilder.builder().displayRequestDuration(true).validatorUrl("").build();
+        return UiConfigurationBuilder.builder().displayRequestDuration(true).validatorUrl("/*.*").build();
     }
 
     // API마다 구분짓기 위한 설정.
-//    @Bean
-//    public Docket userApi() {
-//        return getDocket("회원관리", Predicates.or(PathSelectors.regex("/api/users.*")));
-//    }
-//    @Bean
-//    public Docket loginApi() {
-//        return getDocket("로그인 및 토큰 재발급", Predicates.or(PathSelectors.regex("/api/auth.*")));
-//    }
-//    @Bean
-//    public Docket reportApi() {
-//        return getDocket("차단관리", Predicates.or(PathSelectors.regex("/api/report.*")));
-//    }
-//    @Bean
-//    public Docket S3Api() {
-//        return getDocket("S3관리 및 유튜브", Predicates.or(PathSelectors.regex("/api/s3.*")));
-//    }
+    @Bean
+    public Docket userApi() {
+        return getDocket("회원관리", Predicates.or(PathSelectors.regex("/api/users.*")));
+    }
+    @Bean
+    public Docket loginApi() {
+        return getDocket("로그인 및 토큰 재발급", Predicates.or(PathSelectors.regex("/api/auth.*")));
+    }
+    @Bean
+    public Docket reportApi() {
+        return getDocket("차단관리", Predicates.or(PathSelectors.regex("/api/report.*")));
+    }
+    @Bean
+    public Docket S3Api() {
+        return getDocket("S3관리 및 유튜브", Predicates.or(PathSelectors.regex("/api/s3.*")));
+    }
 
 
 }

@@ -64,7 +64,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                     // 식별된 정상 유저인 경우, 요청 context 내에서 참조 가능한 인증 정보(jwtAuthentication) 생성
                     ChickUserDetails userDetails = new ChickUserDetails(user);
                     UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(email, null, userDetails.getAuthorities());
-                    System.out.println("jwtAuthentication : "+ jwtAuthentication);
                     return jwtAuthentication;
                 }
             }
