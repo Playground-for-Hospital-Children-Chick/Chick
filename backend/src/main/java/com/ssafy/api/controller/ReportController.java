@@ -47,9 +47,9 @@ public class ReportController {
             @ApiResponse(code = 200, message = "차단한 유저 전송"),
     })
     @ApiOperation(value="차단한 유저 가져오기", notes = "차단한 유저의 정보를 보내준다.")
-    public ResponseEntity<ArrayList<ReportBlock>> findBlock(@RequestBody String userEmail) throws Exception {
-        System.out.println("차단한 유저 가져오기: " + userEmail);
-        ArrayList<ReportBlock> reportBlocks = resportService.getBlockPeople(userEmail);
+    public ResponseEntity<ArrayList<ReportBlock>> findBlock(@RequestBody ReportBlockReq reportBlockReq) throws Exception {
+        System.out.println("차단한 유저 가져오기: " + reportBlockReq.getUserEmail());
+        ArrayList<ReportBlock> reportBlocks = resportService.getBlockPeople(reportBlockReq.getUserEmail());
         return ResponseEntity.status(200).body(ReportBlockRes.of(200 , "Success", reportBlocks));
     }
 }
