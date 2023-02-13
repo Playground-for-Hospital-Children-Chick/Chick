@@ -70,6 +70,41 @@ function MyPage() {
     });
   }, []);
 
+  const unblock = (email) => {
+    Swal.fire({
+      icon: "info",
+      title: "차단 해제.",
+      text: "차단을 해제할까요?.",
+      showDenyButton: true,
+
+      confirmButtonText: "차단 해제",
+      denyButtonText: `취소`,
+      confirmButtonColor: "#8cc8ff",
+      denyButtonColor: "#ff82b3",
+
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("delete 요청 메일", email);
+        axios({
+          method: "delete",
+          url: APPLICATION_SERVER_URL + "api/report/unblock",
+          data: {
+            reportedPeople: email,
+            reporter: user["userEmail"],
+          },
+          // headers: { "Content-Type": "application/json;charset=UTF-8" },
+        }).then(() => {
+          window.location.reload;
+        });
+      } else if (result.isDenied) {
+        return;
+      }
+    });
+    return;
+  };
+
   function checkLogin() {
     if (!user["login"]) {
       Swal.fire({
@@ -177,6 +212,9 @@ function MyPage() {
               <div
                 key={i}
                 className=" font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm"
+                onClick={() => {
+                  unblock(item.email);
+                }}
               >
                 <div className="font-chick text-gray-900 text-xl leading-tight font-medium mb-2">
                   {item.name}
@@ -184,8 +222,6 @@ function MyPage() {
                 {item.reportDate}
               </div>
             ))}
-
-            {/* <div>{blockList[0].email}</div> */}
           </div>
         ) : null}
       </div>
