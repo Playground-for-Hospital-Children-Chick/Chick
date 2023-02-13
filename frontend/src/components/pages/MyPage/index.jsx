@@ -127,6 +127,7 @@ function MyPage() {
               <ImageListItem key={item.s3Url}>
                 <img
                   src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                  className="border-2 border-black border-opacity-75"
                   loading="lazy"
                 />
               </ImageListItem>
