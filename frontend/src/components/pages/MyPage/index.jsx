@@ -15,6 +15,8 @@ function MyPage() {
   const user = useSelector((state) => state.user);
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
+  const [blockList, setBlockList] = useState([]);
+  const [unreported, setUnreported] = useState(undefined);
 
   const navigate = useNavigate();
 
@@ -42,9 +44,6 @@ function MyPage() {
       }
     });
   }, []);
-
-  // useEffect(() => {
-  // }, [imageList]);
 
   function checkLogin() {
     if (!user["login"]) {
@@ -108,9 +107,11 @@ function MyPage() {
           <div className="font-chick text-lg">{user["userChName"]}</div>
           <div className="font-chick text-base">나이: {user["userAge"]}</div>
           <div className="font-chick text-base">생일: {user["userBirth"]}</div>
-          <div className="font-chick text-base">성별: {user["userSex"]}</div>
           <div className="font-chick text-base">
-            출석일수: {user["attendanceDay"]}
+            성별: {user["userSex"] == "M" ? "남자" : "여자"}
+          </div>
+          <div className="font-chick text-base">
+            출석일수: {user["attendanceDay"]}일
           </div>
           <div className="font-chick text-base">
             이메일: {user["userEmail"]}
@@ -135,22 +136,13 @@ function MyPage() {
           </ImageList>
         ) : null}
       </div>
+
       {/* 차단 유저 리스트 */}
       <div className="absolute right-44 top-64">
         <div className="text-start inline mt-8 mb-6">
           <div className="font-chick text-xl mb-2">정온's 차단 유저 리스트</div>
         </div>
-        <div class="flex justify-center">
-          <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-            <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">
-              엄희원
-            </li>
-            <li class="px-6 py-2 border-b border-gray-200 w-full">김주성</li>
-            <li class="px-6 py-2 border-b border-gray-200 w-full">한재욱</li>
-            <li class="px-6 py-2 border-b border-gray-200 w-full">김민준</li>
-            <li class="px-6 py-2 w-full rounded-b-lg">ex-girlfriend</li>
-          </ul>
-        </div>
+        <div className="flex justify-center"></div>
       </div>
 
       <div className="absolute right-5 top-14">

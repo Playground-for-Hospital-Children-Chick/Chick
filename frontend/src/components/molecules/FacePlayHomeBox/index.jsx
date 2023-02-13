@@ -91,7 +91,7 @@ function FacePlayHomeBox() {
     setTimeout(() => {
       toggleFullScreen();
       return navigate("/facepage");
-    }, 1500);
+    }, 2000);
   }
 
   return (

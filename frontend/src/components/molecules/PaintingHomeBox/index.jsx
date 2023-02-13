@@ -71,7 +71,7 @@ function PaintingHomeBox() {
     setTimeout(() => {
       toggleFullScreen();
       return navigate("/board");
-    }, 1500);
+    }, 2000);
   }
   return (
     <HomeBox>
