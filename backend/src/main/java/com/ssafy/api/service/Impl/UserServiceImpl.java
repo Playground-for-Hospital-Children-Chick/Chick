@@ -113,6 +113,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String getProfile(String email) {
+        return profileRepository.getProfileImages(email);
+    }
+
+    @Override
     public UserLoginInfo getUserLoginInfo(User user) {
         UserLoginInfo userLoginInfo = new UserLoginInfo();
         userLoginInfo.setUserEmail(user.getUserEmail());

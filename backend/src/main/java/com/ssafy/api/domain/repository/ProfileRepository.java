@@ -18,4 +18,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     @Query(value = "update User u SET  u.profile.id=?1 where u.userEmail=?2")
     void updateProfile(int profId, String userEmail);
 
+    @Query(nativeQuery = true, value ="select prof_path from profile as pf join  user_info as ui on pf.id = ui.prof_id where ui.user_email= :userEmail" )
+    String getProfileImages(String userEmail);
+
 }
