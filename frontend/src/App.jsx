@@ -8,6 +8,7 @@ import CodeModal from "./components/molecules/EmailCodeModal/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
 import PwChange from "./components/pages/PwChange/index";
+import NotFound from "./components/pages/404Page/index";
 import SelectCharacter from "./components/molecules/CharacterSelect/index";
 import { useSelector } from "react-redux";
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/findid" element={<FindEmail />} />
           <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/signupComplete" element={<SignUpComplete />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
     </div>
