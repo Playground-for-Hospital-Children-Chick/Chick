@@ -69,10 +69,10 @@ public class UserController {
     @GetMapping("/distinctemail")
     @ApiResponses({
             @ApiResponse(code = 200, message = "이메일이 db에 없음"),
-            @ApiResponse(code = 401, message = "이메일이 db에 존재"),
+            @ApiResponse(code = 401, message = "인증실패,db에 이메일 존재"),
     })
     @ApiOperation(value = "중복된 이메일 확인", notes = "db에 저장된 이메일인지 확인한다.")
-    public ResponseEntity<? extends BaseResponseBody> EmailDuplicteCheck(@RequestParam String email, HttpServletResponse response) throws Exception {
+    public ResponseEntity<? extends BaseResponseBody> EmailDuplicteCheck(@RequestParam String email) throws Exception {
         User user = userService.getUserByEmail(email);
         if(user ==null){
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
@@ -82,8 +82,8 @@ public class UserController {
     @PostMapping("/emailConfirm")
     @ApiResponses({
             @ApiResponse(code = 200, message = "이메일로 토큰 전송"),
-            @ApiResponse(code = 401, message = "탈퇴한 이메일 입니다."),
-            @ApiResponse(code = 404, message = "중복된 이메일이 존재합니다."),
+            @ApiResponse(code = 405, message = "탈퇴한 이메일 입니다."),
+            @ApiResponse(code = 401, message = "인증실패, 중복된 이메일이 존재합니다."),
     })
     @ApiOperation(value = "이메일토큰발송", notes = "이메일에 인증 코드를 보내준다")
     public ResponseEntity<? extends BaseResponseBody> emailConfirm(@RequestParam String email, HttpServletResponse response) throws Exception {
@@ -100,8 +100,8 @@ public class UserController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
         if(user.getUserState().equals("1"))
-            return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
-        return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Failure"));
+            return ResponseEntity.status(405).body(BaseResponseBody.of(405, "Failure"));
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
     }
 
     @PostMapping("/emailToken")
