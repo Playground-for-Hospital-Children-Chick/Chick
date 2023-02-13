@@ -1,23 +1,25 @@
 package com.ssafy.api.service.Impl;
 
+import com.ssafy.api.domain.dto.ReportBlock;
+import com.ssafy.api.domain.dto.ReportBlockRes;
 import com.ssafy.api.domain.dto.ReportReq;
 import com.ssafy.api.domain.dto.UnblockReq;
 import com.ssafy.api.domain.entity.Report;
 import com.ssafy.api.domain.repository.ReportRepository;
+import com.ssafy.api.domain.repository.UserRepository;
 import com.ssafy.api.service.ReportService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
+@AllArgsConstructor
 public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
-
-    @Autowired
-    public ReportServiceImpl(ReportRepository reportRepository) {
-        this.reportRepository = reportRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public void createReport(ReportReq reportReq) {
@@ -39,5 +41,24 @@ public class ReportServiceImpl implements ReportService {
         return true;
         }
         return false;
+    }
+
+    @Override
+    public ArrayList<ReportBlock> getBlockPeople(String rpReporter) {
+        System.out.println("rpReporter: " + rpReporter);
+        ArrayList<Report> reports = reportRepository.findByRpReporter(rpReporter); // rpReporter가 신고한 목록을 가져온다
+        System.out.println("차단한 사람 명수: " + reports.size());
+        ArrayList<ReportBlock> reportBlocks = new ArrayList<ReportBlock>(); // Response에 보낼 객체 리스트
+        for (Report report: reports) {
+            System.out.println("차단한 사람 목록: " + report.toString());
+            ReportBlock reportBlock = new ReportBlock(); // 차단한 사람
+            String email = report.getRpReportedPeople(); // 차단한 사람의 이메일
+            reportBlock.setEmail(email); // 차단한 사람의 이메일
+            System.out.println("이메일: " + email);
+            reportBlock.setName(userRepository.findByUserEmail(email).getUserChName()); // 차단한 사람의 이름
+            System.out.println(reportBlock.toString());
+            reportBlocks.add(reportBlock);
+        }
+        return reportBlocks;
     }
 }
