@@ -45,6 +45,9 @@ function Dance() {
           </>
         ) : (
           <>
+            <span className="font-chick text-lg mt-7 mr-4">
+              {user["userChName"]}님 안녕하세요!
+            </span>
             <CommonBtn
               onClick={onLogout}
               text={"로그아웃"}
