@@ -45,18 +45,14 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ArrayList<ReportBlock> getBlockPeople(String rpReporter) {
-        System.out.println("rpReporter: " + rpReporter);
         ArrayList<Report> reports = reportRepository.findByRpReporter(rpReporter); // rpReporter가 신고한 목록을 가져온다
-        System.out.println("차단한 사람 명수: " + reports.size());
         ArrayList<ReportBlock> reportBlocks = new ArrayList<ReportBlock>(); // Response에 보낼 객체 리스트
         for (Report report: reports) {
-            System.out.println("차단한 사람 목록: " + report.toString());
             ReportBlock reportBlock = new ReportBlock(); // 차단한 사람
             String email = report.getRpReportedPeople(); // 차단한 사람의 이메일
             reportBlock.setEmail(email); // 차단한 사람의 이메일
-            System.out.println("이메일: " + email);
             reportBlock.setName(userRepository.findByUserEmail(email).getUserChName()); // 차단한 사람의 이름
-            System.out.println(reportBlock.toString());
+            reportBlock.setReportDate(report.getRpCreateDate().toString().substring(0, 10)); // 년도-월-일
             reportBlocks.add(reportBlock);
         }
         return reportBlocks;
