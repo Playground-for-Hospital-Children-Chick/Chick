@@ -5,13 +5,17 @@ import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
 import BoardVideoRoomComponent from "./whiteBoardRTC/VideoRoomComponent";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import BluePan from "../assets/images/board/blue_pan.png";
 import BlackPan from "../assets/images/board/black_pan.png";
 import RedPan from "../assets/images/board/red_pan.png";
 import YellowPan from "../assets/images/board/yellow_pan.png";
 import GreenPan from "../assets/images/board/green_pan.png";
 import EraserPNG from "../assets/images/board/eraser.png";
+
+import html2canvas from "html2canvas";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { FcCompactCamera } from "react-icons/fc";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -20,6 +24,59 @@ const Board = () => {
   const [myRoomName, setMyRoomName] = useState();
   const user = useSelector((state) => state.user);
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+
+  function handleCapture() {
+    const targetNode = document.getElementById("myCanvas");
+
+    html2canvas(targetNode).then((canvas) => {
+      const imageData = canvas.toDataURL("image/png");
+
+      const currentTime = Date.now();
+
+      const fileName = currentTime + ".png";
+
+      const formData = new FormData();
+      formData.append("file", dataURLtoBlob(imageData), fileName);
+      formData.append("email", user["userEmail"]);
+
+      axios
+        .post(APPLICATION_SERVER_URL + "api/s3/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "이미지 저장 성공",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          console.log("Image and form data saved successfully", response.data);
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "이미지 저장 실패",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.error("Error saving image and form data", error);
+        });
+    });
+  }
+
+  function dataURLtoBlob(dataURL) {
+    const binary = atob(dataURL.split(",")[1]);
+    const array = [];
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: "image/png",
+    });
+  }
 
   function clearBoard(emit, sessionName) {
     const canvas = canvasRef.current;
@@ -235,7 +292,7 @@ const Board = () => {
 
   return (
     <div className="flex justify-between">
-      <canvas ref={canvasRef} className="resize-y whiteboard" />
+      <canvas id="myCanvas" ref={canvasRef} className="resize-y whiteboard" />
 
       <div className="flex justify end z-10">
         {myRoomName != null ? (
@@ -292,6 +349,14 @@ const Board = () => {
         >
           <img src={EraserPNG} width="150" height="150" />
         </button>
+        {user["userType"] == "user" ? (
+          <button
+            className="absolute top-5 left-56 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+            onClick={() => handleCapture()}
+          >
+            <FcCompactCamera size={90} />
+          </button>
+        ) : null}
       </div>
       <div className="ml-[1em] absolute bottom-0 right-20 z-10">
         <Link to="/home">
