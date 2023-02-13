@@ -23,9 +23,13 @@ import { Link } from "react-router-dom";
 function SideBar({ index, setIndex }) {
   return (
     <SideBarBase>
-      <Link to="/home">
+      <button
+        onClick={() => {
+          setIndex(0);
+        }}
+      >
         <img className="inline-flex justify-center w-[100%]" src={LogoText} />
-      </Link>
+      </button>
       <div
         id="slider"
         className="justify-between mt-[1em] h-[585px] overflow-y-scroll flex flex-col scrollbar-hide"
