@@ -1,8 +1,6 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.domain.dto.BaseResponseBody;
-import com.ssafy.api.domain.dto.ReportReq;
-import com.ssafy.api.domain.dto.UnblockReq;
+import com.ssafy.api.domain.dto.*;
 import com.ssafy.api.service.ReportService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Api(value = "신고 기능 API", tags = {"Report"})
 @RestController
@@ -41,5 +41,15 @@ public class ReportController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Failure"));
+    }
+    @PostMapping("/block")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "차단한 유저 전송"),
+    })
+    @ApiOperation(value="차단한 유저 가져오기", notes = "차단한 유저의 정보를 보내준다.")
+    public ResponseEntity<ArrayList<ReportBlock>> findBlock(@RequestBody String userEmail) throws Exception {
+        System.out.println("차단한 유저 가져오기: " + userEmail);
+        ArrayList<ReportBlock> reportBlocks = resportService.getBlockPeople(userEmail);
+        return ResponseEntity.status(200).body(ReportBlockRes.of(200 , "Success", reportBlocks));
     }
 }

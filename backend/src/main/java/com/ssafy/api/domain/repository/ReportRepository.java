@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
@@ -17,4 +18,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     void unblockPeople(String rpReporter, String rpReportedPeople);
 
     Report findByRpReporterAndRpReportedPeople(String rpReporter, String rpReportedPeople);
+
+    ArrayList<Report> findByRpReporter(String rpReporter);
+
 }
