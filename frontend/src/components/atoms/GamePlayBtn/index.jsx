@@ -29,7 +29,7 @@ function GamePlayBtn({
   type,
 }) {
   const classStr = classnames(
-    `font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px]`,
+    `font-chick justify-center items-center w-[439px] h-[75px] overflow-hidden gap-1 px-16 py-5 rounded-[30px] transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150`,
     color
   );
 
