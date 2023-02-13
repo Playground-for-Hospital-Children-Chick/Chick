@@ -62,22 +62,22 @@ public class SwaggerConfiguration {
     }
 
     // API마다 구분짓기 위한 설정.
-    @Bean
-    public Docket userApi() {
-        return getDocket("회원관리", Predicates.or(PathSelectors.regex("/api/users.*")));
-    }
-    @Bean
-    public Docket loginApi() {
-        return getDocket("로그인 및 토큰 재발급", Predicates.or(PathSelectors.regex("/api/auth.*")));
-    }
-    @Bean
-    public Docket reportApi() {
-        return getDocket("차단관리", Predicates.or(PathSelectors.regex("/api/report.*")));
-    }
-    @Bean
-    public Docket S3Api() {
-        return getDocket("S3관리 및 유튜브", Predicates.or(PathSelectors.regex("/api/s3.*")));
-    }
+//    @Bean
+//    public Docket userApi() {
+//        return getDocket("회원관리", Predicates.or(PathSelectors.regex("/api/users.*")));
+//    }
+//    @Bean
+//    public Docket loginApi() {
+//        return getDocket("로그인 및 토큰 재발급", Predicates.or(PathSelectors.regex("/api/auth.*")));
+//    }
+//    @Bean
+//    public Docket reportApi() {
+//        return getDocket("차단관리", Predicates.or(PathSelectors.regex("/api/report.*")));
+//    }
+//    @Bean
+//    public Docket S3Api() {
+//        return getDocket("S3관리 및 유튜브", Predicates.or(PathSelectors.regex("/api/s3.*")));
+//    }
 
 
 }
