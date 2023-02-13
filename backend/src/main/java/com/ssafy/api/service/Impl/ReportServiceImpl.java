@@ -1,6 +1,7 @@
 package com.ssafy.api.service.Impl;
 
 import com.ssafy.api.domain.dto.ReportReq;
+import com.ssafy.api.domain.dto.UnblockReq;
 import com.ssafy.api.domain.entity.Report;
 import com.ssafy.api.domain.repository.ReportRepository;
 import com.ssafy.api.service.ReportService;
@@ -29,5 +30,14 @@ public class ReportServiceImpl implements ReportService {
                         .rpReportedPeople(reportReq.getReportedPeople())
                         .rpUpdateBy(reportReq.getReporter()).rpUpdateDate(LocalDateTime.now())
                 .build());
+    }
+    @Override
+    public boolean unblockPeople(UnblockReq unblockReq){
+        if(reportRepository.findByRpReporterAndRpReportedPeople(unblockReq.getReporter(), unblockReq.getReportedPeople())!=null){
+            System.out.println("삭제 합시다");
+            reportRepository.unblockPeople(unblockReq.getReporter(), unblockReq.getReportedPeople());
+        return true;
+        }
+        return false;
     }
 }
