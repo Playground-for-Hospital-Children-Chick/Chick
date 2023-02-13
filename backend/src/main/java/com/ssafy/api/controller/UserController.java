@@ -149,4 +149,21 @@ public class UserController {
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
     }
+    @PutMapping("/profchange")
+    @ApiOperation(value="프로필 변경", notes = "프로필을 변경한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공 및 이메일 반환"),
+            @ApiResponse(code = 404, message = "회원정보 없음"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> changeProfile(@RequestParam @ApiParam(value="사용자를 찾기 위한 이메일 정보", required = true) String email, @RequestParam @ApiParam(value="파일이름, chick_01.svg", required = true) String fileName) throws Exception {
+        User user = userService.getUserByEmail(email);
+        if (user != null) {
+            System.out.println(email +" "+fileName);
+            userService.profileUpdate(email, fileName);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
+    }
+
 }
