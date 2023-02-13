@@ -1,11 +1,11 @@
 import SideBar from "../../molecules/SideBar";
 import FacePlay from "../../organism/FacePlay/index.";
 import React from "react";
-import RiceEat from "./../../organism/RiceEat/index";
 import FullScreenBtn from "../../atoms/FullScreenBtn/index";
 import Dance from "../../organism/Dance";
 import Painting from "../../organism/Painting";
 import MyPage from "../MyPage";
+import CartoonPage from "../CartoonPage";
 
 function HomePage({ children }) {
   let [index, setIndex] = React.useState(0);
@@ -35,6 +35,14 @@ function HomePage({ children }) {
       </div>
     );
   } else if (index == 3) {
+    return (
+      <div className="flex flex-row">
+        <SideBar index={index} setIndex={setIndex} />
+        <CartoonPage />
+        <FullScreenBtn />
+      </div>
+    );
+  } else if (index == 4) {
     return (
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />

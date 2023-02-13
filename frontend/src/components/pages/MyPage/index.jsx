@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
+import Chick from "../../../assets/characters/chick_01.svg";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 function MyPage() {
@@ -47,6 +48,8 @@ function MyPage() {
         text: "내 정보를 확인하려면 로그인이 필요합니다.",
         confirmButtonText: "로그인하러가기",
         confirmButtonColor: "#8cc8ff",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
@@ -64,6 +67,8 @@ function MyPage() {
         text: "내 정보를 확인하려면 사용자 로그인이 필요합니다.",
         confirmButtonText: "로그인하러가기",
         confirmButtonColor: "#8cc8ff",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
@@ -78,7 +83,9 @@ function MyPage() {
   return (
     <div>
       <div className="absolute left-44 top-14">
-        <CircleBox />
+        <CircleBox>
+          <img src={Chick} />
+        </CircleBox>
       </div>
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
@@ -86,6 +93,9 @@ function MyPage() {
           <div className="font-chick text-base">나이: {user["userAge"]}</div>
           <div className="font-chick text-base">생일: {user["userBirth"]}</div>
           <div className="font-chick text-base">성별: {user["userSex"]}</div>
+          <div className="font-chick text-base">
+            출석일수: {user["attendanceDay"]}
+          </div>
           <div className="font-chick text-base">
             이메일: {user["userEmail"]}
           </div>
