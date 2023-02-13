@@ -90,14 +90,14 @@ function SideBarBtn({ type, selected, onClick }) {
   } else if (type === "myPage") {
     if (selected) {
       return (
-        <button onClick={onClick} className="py-2">
+        <button onClick={onClick} className="py-2 mb-5">
           <img src={MyPage} />
           <span className={"font-chick text-xl text-blue-500 "}>내정보</span>
         </button>
       );
     } else {
       return (
-        <button onClick={onClick} className="py-2">
+        <button onClick={onClick} className="py-2 mb-5">
           <img src={MyPage} />
           <span className={"font-chick text-xl "}>내정보</span>
         </button>

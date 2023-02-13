@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
+import Chick from "../../../assets/characters/chick_01.svg";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 function MyPage() {
@@ -78,7 +79,9 @@ function MyPage() {
   return (
     <div>
       <div className="absolute left-44 top-14">
-        <CircleBox />
+        <CircleBox>
+          <img src={Chick} />
+        </CircleBox>
       </div>
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
