@@ -766,7 +766,7 @@ class VideoRoomComponent extends Component {
                 />
               )}
               <CommonBtn
-                text="얼굴놀이"
+                text="변신놀이"
                 color={"bg-blue-300"}
                 onClick={this.applyDeepAR}
               />
