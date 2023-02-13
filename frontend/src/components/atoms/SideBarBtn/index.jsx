@@ -53,7 +53,7 @@ function SideBarBtn({ type, selected, onClick }) {
           className="py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
         >
           <img src={Tiger} />
-          <span className={"font-chick text-xl text-blue-500 "}>얼굴놀이</span>
+          <span className={"font-chick text-xl text-blue-500 "}>변신놀이</span>
         </button>
       );
     } else {
@@ -63,7 +63,7 @@ function SideBarBtn({ type, selected, onClick }) {
           className="py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
         >
           <img src={Tiger} />
-          <span className={"font-chick text-xl "}>얼굴놀이</span>
+          <span className={"font-chick text-xl "}>변신놀이</span>
         </button>
       );
     }
