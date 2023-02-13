@@ -28,7 +28,7 @@ function SideBar({ index, setIndex }) {
       </Link>
       <div
         id="slider"
-        className="justify-between mt-[1em] h-[550px] overflow-y-scroll flex flex-col scrollbar-hide"
+        className="justify-between mt-[1em] h-[585px] overflow-y-scroll flex flex-col scrollbar-hide"
       >
         {index == 0 ? (
           <div className="inline-flex justify-center w-[100%]">
