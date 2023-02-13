@@ -114,7 +114,7 @@ class BoardVideoRoomComponent extends Component {
           confirmButtonColor: "#8cc8ff",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/";
+            window.location.href = "/home";
             return;
           }
         });
