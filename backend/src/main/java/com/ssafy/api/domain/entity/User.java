@@ -28,6 +28,10 @@ public class User {
     @ApiModelProperty(name = "USER_ID", value = "매칭 번호")
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "PROF_ID")
+    private Profile profile;
+
     private String userPwd;
     private String userChName;
     private String userParentName;
