@@ -33,7 +33,9 @@ function NotFound() {
                 <img className="w-[200px]" src={chick7} alt="병아리7" />
               </div>
             </div>
-            <GamePlayBtn text="메인 화면으로 가기" color="bg-emerald-300" />
+            <Link to="/">
+              <GamePlayBtn text="메인 화면으로 가기" color="bg-emerald-300" />
+            </Link>
           </div>
         </AlertBox>
       </div>
