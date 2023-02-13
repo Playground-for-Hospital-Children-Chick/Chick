@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import FacePlayHomeBox from "../../molecules/FacePlayHomeBox";
 import CommonBtn from "./../../atoms/CommonBtn/index";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "./../../../main";
 
@@ -24,11 +24,13 @@ import { logoutUser } from "./../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 
 function FacePlay() {
-  //새로고침으로 카메라 off
-  if (self.name != "reload") {
-    self.name = "reload";
-    self.location.reload(true);
-  } else self.name = "";
+  useEffect(() => {
+    //새로고침으로 카메라 off
+    if (self.name != "reload") {
+      self.name = "reload";
+      self.location.reload(true);
+    } else self.name = "";
+  }, []);
 
   const user = useSelector((state) => state.user);
   // const [loginState, setLoginState] = useState(user);
