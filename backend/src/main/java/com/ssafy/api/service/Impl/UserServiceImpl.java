@@ -106,6 +106,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void profileUpdate(String email, String fileName) throws Exception{
+            Profile profile = profileRepository.findByProfName(fileName);
+            System.out.println("프로필 가져오기 "+profile.getId());
+            profileRepository.updateProfile(profile.getId(), email);
+    }
+
+    @Override
     public UserLoginInfo getUserLoginInfo(User user) {
         UserLoginInfo userLoginInfo = new UserLoginInfo();
         userLoginInfo.setUserEmail(user.getUserEmail());
