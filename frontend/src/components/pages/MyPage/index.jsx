@@ -1,4 +1,5 @@
 import CircleBox from "../../atoms/CircleBox";
+import SelectCharacter from "./../../molecules/CharacterSelect/index";
 import { AiOutlineSetting } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +14,7 @@ const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 function MyPage() {
   const user = useSelector((state) => state.user);
   const [imageList, setImageList] = useState([]);
+  const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -82,10 +84,13 @@ function MyPage() {
 
   return (
     <div>
-      <div className="absolute left-44 top-14">
+      <button className="absolute left-44 top-14">
         <CircleBox>
           <img src={Chick} />
         </CircleBox>
+      </button>
+      <div className="invisible left -translate-x-[50%] -translate-y-[50%] left-[40%] height-[10%] absolute z-10">
+        <SelectCharacter />
       </div>
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
@@ -118,7 +123,6 @@ function MyPage() {
           </ImageList>
         ) : null}
       </div>
-
       <div className="absolute right-5 top-14">
         <AiOutlineSetting size={60} />
       </div>
