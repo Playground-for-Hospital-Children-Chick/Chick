@@ -20,6 +20,7 @@ import Rice from "../../../assets/images/sidebar/rice.svg";
 import Dance from "../../../assets/images/sidebar/dance.svg";
 import Painting from "../../../assets/images/sidebar/painting.svg";
 import MyPage from "../../../assets/images/sidebar/chick_01.svg";
+import Cartoon from "../../../assets/images/sidebar/book.svg";
 
 function SideBarBtn({ type, selected, onClick }) {
   if (type === "rice") {
@@ -99,6 +100,22 @@ function SideBarBtn({ type, selected, onClick }) {
         <button onClick={onClick} className="py-2">
           <img src={MyPage} />
           <span className={"font-chick text-xl "}>내정보</span>
+        </button>
+      );
+    }
+  } else if (type === "cartoon") {
+    if (selected) {
+      return (
+        <button onClick={onClick} className="py-2">
+          <img src={Cartoon} />
+          <span className={"font-chick text-xl text-blue-500 "}>만화보기</span>
+        </button>
+      );
+    } else {
+      return (
+        <button onClick={onClick} className="py-2">
+          <img src={Cartoon} />
+          <span className={"font-chick text-xl "}>만화보기</span>
         </button>
       );
     }
