@@ -26,92 +26,97 @@ function SideBar({ index, setIndex }) {
       <Link to="/home">
         <img className="inline-flex justify-center w-[100%]" src={LogoText} />
       </Link>
-      {index == 0 ? (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"tiger"}
-            selected={true}
-            onClick={() => setIndex(0)}
-          />
-        </div>
-      ) : (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"tiger"}
-            selected={false}
-            onClick={() => setIndex(0)}
-          />
-        </div>
-      )}
+      <div
+        id="slider"
+        className="justify-between mt-[1em] h-[550px] overflow-y-scroll flex flex-col scrollbar-hide"
+      >
+        {index == 0 ? (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"tiger"}
+              selected={true}
+              onClick={() => setIndex(0)}
+            />
+          </div>
+        ) : (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"tiger"}
+              selected={false}
+              onClick={() => setIndex(0)}
+            />
+          </div>
+        )}
 
-      {index == 1 ? (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"painting"}
-            selected={true}
-            onClick={() => setIndex(1)}
-          />
-        </div>
-      ) : (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"painting"}
-            selected={false}
-            onClick={() => setIndex(1)}
-          />
-        </div>
-      )}
-      {index == 2 ? (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"dance"}
-            selected={true}
-            onClick={() => setIndex(2)}
-          />
-        </div>
-      ) : (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"dance"}
-            selected={false}
-            onClick={() => setIndex(2)}
-          />
-        </div>
-      )}
-      {index == 3 ? (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"cartoon"}
-            selected={true}
-            onClick={() => setIndex(3)}
-          />
-        </div>
-      ) : (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"cartoon"}
-            selected={false}
-            onClick={() => setIndex(3)}
-          />
-        </div>
-      )}
-      {index == 4 ? (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"myPage"}
-            selected={true}
-            onClick={() => setIndex(4)}
-          />
-        </div>
-      ) : (
-        <div className="inline-flex justify-center w-[100%]">
-          <SideBarBtn
-            type={"myPage"}
-            selected={false}
-            onClick={() => setIndex(4)}
-          />
-        </div>
-      )}
+        {index == 1 ? (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"painting"}
+              selected={true}
+              onClick={() => setIndex(1)}
+            />
+          </div>
+        ) : (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"painting"}
+              selected={false}
+              onClick={() => setIndex(1)}
+            />
+          </div>
+        )}
+        {index == 2 ? (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"dance"}
+              selected={true}
+              onClick={() => setIndex(2)}
+            />
+          </div>
+        ) : (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"dance"}
+              selected={false}
+              onClick={() => setIndex(2)}
+            />
+          </div>
+        )}
+        {index == 3 ? (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"cartoon"}
+              selected={true}
+              onClick={() => setIndex(3)}
+            />
+          </div>
+        ) : (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"cartoon"}
+              selected={false}
+              onClick={() => setIndex(3)}
+            />
+          </div>
+        )}
+        {index == 4 ? (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"myPage"}
+              selected={true}
+              onClick={() => setIndex(4)}
+            />
+          </div>
+        ) : (
+          <div className="inline-flex justify-center w-[100%]">
+            <SideBarBtn
+              type={"myPage"}
+              selected={false}
+              onClick={() => setIndex(4)}
+            />
+          </div>
+        )}
+      </div>
     </SideBarBase>
   );
 }
