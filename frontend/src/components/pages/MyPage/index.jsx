@@ -11,12 +11,16 @@ import axios from "axios";
 import Chick from "../../../assets/characters/chick_01.svg";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+
 function MyPage() {
   const user = useSelector((state) => state.user);
   const [unblockUser, setUnblockUser] = useState(undefined);
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
+  const [profilePath, setProfilePath] = useState(
+    "/assets/characters/chick_01.svg"
+  );
 
   const navigate = useNavigate();
 
@@ -26,48 +30,9 @@ function MyPage() {
 
   useEffect(() => {
     checkLogin();
-
-    axios({
-      method: "get",
-      url: APPLICATION_SERVER_URL + "api/s3/list",
-      params: {
-        email: user["userEmail"],
-      },
-      headers: { "Content-Type": "application/json;charset=UTF-8" },
-    }).then((response) => {
-      console.log("response", response);
-      console.log("response.data", response.data);
-      if (response.status == 200) {
-        const fileList = response.data.filelist;
-        if (fileList != null) {
-          setImageList((old) => [...old, ...fileList]);
-        }
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    //차단 유저 리스트 불러오기
-    axios({
-      method: "get",
-      url: APPLICATION_SERVER_URL + "api/report/blockList",
-      params: {
-        userEmail: user["userEmail"],
-      },
-      headers: { "Content-Type": "application/json;charset=UTF-8" },
-    }).then((response) => {
-      console.log(
-        "response!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-        response.data[0].email
-      );
-      if (response.status == 200) {
-        const blockedList = response.data;
-        if (blockedList != null) {
-          setBlockList((old) => [...old, ...blockedList]);
-          console.log("blocklist~~~~~~~~~~~~~", blockedList);
-        }
-      }
-    });
+    getPictureList();
+    getBlockList();
+    getProfile();
   }, []);
 
   const unblock = (email) => {
@@ -104,6 +69,67 @@ function MyPage() {
     });
     return;
   };
+
+  function getProfile() {
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/users/profile",
+      params: {
+        email: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log("response", response);
+      console.log("response.data", response.data);
+      if (response.status == 200) {
+        const filePath = response.data.filePath;
+        setProfilePath(filePath);
+      }
+    });
+  }
+
+  function getPictureList() {
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/s3/list",
+      params: {
+        email: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log("response", response);
+      console.log("response.data", response.data);
+      if (response.status == 200) {
+        const fileList = response.data.filelist;
+        if (fileList != null) {
+          setImageList((old) => [...old, ...fileList]);
+        }
+      }
+    });
+  }
+
+  function getBlockList() {
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/report/blockList",
+      params: {
+        userEmail: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log(
+        "response!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        response.data[0].email
+      );
+      if (response.status == 200) {
+        const blockedList = response.data;
+        if (blockedList != null) {
+          setBlockList((old) => [...old, ...blockedList]);
+          console.log("blocklist~~~~~~~~~~~~~", blockedList);
+        }
+      }
+    });
+  }
 
   function checkLogin() {
     if (!user["login"]) {
@@ -155,7 +181,7 @@ function MyPage() {
         className="absolute left-44 top-14"
       >
         <CircleBox>
-          <img src={Chick} />
+          <img src={profilePath} />
         </CircleBox>
       </button>
       {modal === true ? (
@@ -166,7 +192,7 @@ function MyPage() {
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
           <div className="font-chick text-lg">{user["userChName"]}</div>
-          <div className="font-chick text-base">나이: {user["userAge"]}</div>
+          <div className="font-chick text-base">나이: {user["userAge"]}살</div>
           <div className="font-chick text-base">생일: {user["userBirth"]}</div>
           <div className="font-chick text-base">
             성별: {user["userSex"] == "M" ? "남자" : "여자"}
@@ -182,7 +208,7 @@ function MyPage() {
 
       <div className="absolute left-44 top-64">
         <div className="text-start inline mt-8 mb-6">
-          <div className="font-chick text-xl mb-2">저장한 사진</div>
+          <div className="font-chick text-xl mb-2">사진 보관함</div>
         </div>
         {imageList.length > 0 ? (
           <ImageList sx={{ width: 600, height: 190 }} cols={2} rowHeight={170}>
