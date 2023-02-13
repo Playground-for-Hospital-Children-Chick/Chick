@@ -13,7 +13,7 @@ public class ReportBlock {
     String email;
     @ApiModelProperty(name="차단한 유저 이름", example = "ssafy")
     String name;
-    @ApiModelProperty(name="차단한 유저 이름", example = "ssafy")
+    @ApiModelProperty(name="차단한 유저 이름", example = "2016-01-01")
     String reportDate;
 
 }
