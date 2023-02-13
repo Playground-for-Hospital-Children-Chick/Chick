@@ -17,8 +17,8 @@ default="pink"
 
 function FriendIsComing() {
   return (
-    // <div className=" bg-pink-200 m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center">
-    <div className=" bg-pink-200 m-3 rounded-[30px] w-[200px] h-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px] 2xl:w-[650px] flex items-center justify-center">
+    <div className=" bg-pink-200 m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center">
+      {/* <div className=" bg-pink-200 m-3 rounded-[30px] w-[200px] h-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px] 2xl:w-[650px] flex items-center justify-center"> */}
       <div className="text-3xl font-chick">친구가 오고 있어요!</div>
     </div>
   );
