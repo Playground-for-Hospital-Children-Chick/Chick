@@ -49,9 +49,7 @@ function CodeModal({
     turnOnModal();
   };
   const sendCode = async () => {
-    console.log("코드전송");
     const response = await sendCheckCodeUser({ userToken: codeInput });
-    console.log(response);
     if (response === "error") {
       setCodeError(true);
     } else if (parseInt(Number(response.status) / 100) === 2) {
@@ -86,10 +84,7 @@ function CodeModal({
     const getCodeResponse = async () => {
       try {
         // api 요청
-        console.log(codeInput);
-      } catch (e) {
-        console.error(e.response);
-      }
+      } catch (e) {}
     };
     getCodeResponse();
   }, [codeInput]);
@@ -136,15 +131,13 @@ function CodeModal({
           />
         </div>
         <div className="mt-[3em] flex flex-col justify-center items-center">
-          <div className="font-chick text-3xl">이메일로 코드가 발급해서,</div>
-          <div className="font-chick text-3xl mt-[0.5em]">
-            코드를 입력해주세요.
-          </div>
-          <div className="font-chick text-3xl mt-[0.5em]">
+          <div className="font-chick text-3xl">이메일로 발송한</div>
+          <div className="font-chick text-3xl ">코드를 입력해주세요.</div>
+          <div className="font-chick text-2xl mt-[0.5em]">
             남은 시간 {String(min).padStart(2, "0")} :{" "}
             {String(sec).padStart(2, "0")}
           </div>
-          <div className="flex justify-center items-center">
+          <div className="mt-[1em] flex justify-center items-center">
             <label
               className="mb-[1em] font-chick text-lg mr-[2em]"
               htmlFor="email"
@@ -193,11 +186,12 @@ function CodeModal({
                 }
               })()}
             </div>
-            <div className="mb-[1em] ml-[2em] p-0">
+            <div className="mb-[1em] ml-[2em] p-0 text-sm">
               <CommonBtn
-                text="코드 발송"
+                text="재발송"
                 onClick={sendEmail}
                 color="bg-emerald-300"
+                textsize="text-xl"
               />
             </div>
           </div>
