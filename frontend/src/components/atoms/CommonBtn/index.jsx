@@ -31,23 +31,25 @@ function CommonBtn({
   text = "Button",
   color,
   margin = "mx-2 mt-3 mb-3",
+  textsize = "text-2xl",
 }) {
-  const classStr = classnames(
+  const classStr1 = classnames(
     `font-chick mx-2 mt-3 mb-3 h-[70px] overflow-hidden flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150`,
     padding,
     color,
     round,
     margin
   );
+  const classStr2 = classnames(`text-center text-black/[0.66]`, textsize);
   return (
     <button
       disabled={option}
       type={type}
-      className={classStr}
+      className={classStr1}
       style={{ boxShadow: "0px 4px 4px 0 rgba(0,0,0,0.25)" }}
       onClick={onClick}
     >
-      <p className="text-2xl text-center text-black/[0.66]">{text}</p>
+      <p className={classStr2}>{text}</p>
     </button>
   );
 }
