@@ -6,6 +6,9 @@ import CartoonFive from "../../../assets/cartoon/cartoon_05.png";
 import CartoonSix from "../../../assets/cartoon/cartoon_06.png";
 import CartoonSeven from "../../../assets/cartoon/cartoon_07.png";
 import CartoonEight from "../../../assets/cartoon/cartoon_08.png";
+import CartoonNine from "../../../assets/cartoon/cartoon_09.png";
+import CartoonTen from "../../../assets/cartoon/cartoon_10.png";
+import CartoonEleven from "../../../assets/cartoon/cartoon_11.png";
 
 function Cartoon({ index }) {
   if (index == 0) {
@@ -62,6 +65,27 @@ function Cartoon({ index }) {
       <img
         className="w-5/12 border-2 border-black border-opacity-75"
         src={CartoonEight}
+      />
+    );
+  } else if (index == 8) {
+    return (
+      <img
+        className="w-5/12 border-2 border-black border-opacity-75"
+        src={CartoonNine}
+      />
+    );
+  } else if (index == 9) {
+    return (
+      <img
+        className="w-5/12 border-2 border-black border-opacity-75"
+        src={CartoonTen}
+      />
+    );
+  } else if (index == 10) {
+    return (
+      <img
+        className="w-5/12 border-2 border-black border-opacity-75"
+        src={CartoonEleven}
       />
     );
   }
