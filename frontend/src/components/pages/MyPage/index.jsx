@@ -109,7 +109,7 @@ function MyPage() {
           <div className="font-chick text-base">생일: {user["userBirth"]}</div>
           <div className="font-chick text-base">성별: {user["userSex"]}</div>
           <div className="font-chick text-base">
-            출석일수: {user["attendanceDay"]}
+            출석일수: {user["attendanceDay"]}일
           </div>
           <div className="font-chick text-base">
             이메일: {user["userEmail"]}
