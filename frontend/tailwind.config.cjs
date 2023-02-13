@@ -80,6 +80,11 @@ module.exports = {
       },
       gray: "#B0ADAD",
       white: "#FFFFFF",
+      terms: {
+        50: "#23b886",
+        100: "#a2d3c5",
+        200: "#90bbaf",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],
