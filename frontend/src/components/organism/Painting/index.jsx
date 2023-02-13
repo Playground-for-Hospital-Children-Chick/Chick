@@ -36,7 +36,7 @@ function Painting() {
       <div className="flex justify-end">
         {user["login"] == false ? (
           <>
-            <Link to="/signup">
+            <Link to="/termsofuse">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />
             </Link>
             <Link to="/login">
