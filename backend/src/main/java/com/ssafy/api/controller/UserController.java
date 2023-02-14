@@ -4,7 +4,6 @@ import com.ssafy.api.domain.dto.*;
 import com.ssafy.api.domain.entity.User;
 import com.ssafy.api.service.EmailService;
 import com.ssafy.api.service.UserService;
-import com.ssafy.api.util.jwt.JwtTokenUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -181,4 +180,17 @@ public class UserController {
         return ResponseEntity.status(404).body(UserProfileRes.of(404, "회원정보 없음", null));
     }
 
+    @PostMapping("/updateUserInfo")
+    @ApiOperation(value="회원 정보 수정", notes = "회원의 이름과 출생을 변경한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 404, message = "등록한 회원이 아닙니다")
+    })
+    public ResponseEntity<UserUpdatePostRes> getProfile(@RequestBody @ApiParam(value="업데이트할 유저 정보", required = true) UserUpdatePostReq userUpdatePostReq) {
+        UserLoginInfo userLoginInfo = userService.updateUser(userUpdatePostReq);
+        if (userLoginInfo != null) {
+            return ResponseEntity.status(200).body(UserUpdatePostRes.of(200, "회원 정보 수정 성공", userLoginInfo));
+        }
+        return ResponseEntity.status(404).body(UserUpdatePostRes.of(404, "회원정보 없음", null));
+    }
 }
