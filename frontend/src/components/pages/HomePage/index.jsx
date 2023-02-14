@@ -6,46 +6,47 @@ import Dance from "../../organism/Dance";
 import Painting from "../../organism/Painting";
 import MyPage from "../MyPage";
 import CartoonPage from "../CartoonPage";
+import { useSelector, useDispatch } from "react-redux";
 
 function HomePage({ children }) {
-  let [index, setIndex] = React.useState(0);
+  const page = useSelector((state) => state.page);
 
-  if (index == 0) {
+  if (page["pageIndex"] == 0) {
     return (
       <div className="flex flex-row">
-        <SideBar index={index} setIndex={setIndex} />
+        <SideBar />
         <FacePlay />
         {/* <FullScreenBtn /> */}
       </div>
     );
-  } else if (index == 1) {
+  } else if (page["pageIndex"] == 1) {
     return (
       <div className="flex flex-row">
-        <SideBar index={index} setIndex={setIndex} />
+        <SideBar />
         <Painting />
         {/* <FullScreenBtn /> */}
       </div>
     );
-  } else if (index == 2) {
+  } else if (page["pageIndex"] == 2) {
     return (
       <div className="flex flex-row">
-        <SideBar index={index} setIndex={setIndex} />
+        <SideBar />
         <Dance />
         {/* <FullScreenBtn /> */}
       </div>
     );
-  } else if (index == 3) {
+  } else if (page["pageIndex"] == 3) {
     return (
       <div className="flex flex-row">
-        <SideBar index={index} setIndex={setIndex} />
+        <SideBar />
         <CartoonPage />
         {/* <FullScreenBtn /> */}
       </div>
     );
-  } else if (index == 4) {
+  } else if (page["pageIndex"] == 4) {
     return (
       <div className="flex flex-row">
-        <SideBar index={index} setIndex={setIndex} />
+        <SideBar />
         <MyPage />
         {/* <FullScreenBtn /> */}
       </div>

@@ -23,6 +23,7 @@ import { persistor } from "./../../../main";
 import { logoutUser } from "./../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 import CircleBox from "../../atoms/CircleBox";
+import { SET_PAGE } from "../../../store/reducers/PageReducer";
 
 function FacePlay() {
   useEffect(() => {
@@ -69,9 +70,12 @@ function FacePlay() {
         ) : (
           <>
             <CircleBox size={"small"}>
-              <div className="pl-3 w-[70px]">
+              <button
+                className="pl-3 w-[70px]"
+                onClick={() => dispatch(SET_PAGE({ pageIndex: 4 }))}
+              >
                 <img src={user["profilePath"]} />
-              </div>
+              </button>
             </CircleBox>
             <span className="font-chick text-lg mt-9 mr-4">님 안녕하세요!</span>
             <CommonBtn
