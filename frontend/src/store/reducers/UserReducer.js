@@ -57,13 +57,21 @@ export const userSlice = createSlice({
       state.accessToken = null;
       state.expireTime = null;
     },
+    SET_PROFILE_PATH: (state, action) => {
+      state.profilePath = action.payload.profilePath;
+    },
     extraReducers: (builder) => {
       builder.addCase(PURGE, () => initialState);
     },
   },
 });
 
-export const { SET_USER, DELETE_USER, SET_TOKEN, DELETE_TOKEN } =
-  userSlice.actions;
+export const {
+  SET_USER,
+  DELETE_USER,
+  SET_TOKEN,
+  DELETE_TOKEN,
+  SET_PROFILE_PATH,
+} = userSlice.actions;
 
 export default { userSlice };

@@ -17,9 +17,6 @@ function MyPage() {
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
-  const [profilePath, setProfilePath] = useState(
-    "/assets/characters/chick_01.svg"
-  );
 
   const dispatch = useDispatch();
 
@@ -33,7 +30,6 @@ function MyPage() {
     checkLogin();
     getPictureList();
     getBlockList();
-    getProfile();
   }, []);
 
   const unblock = (email) => {
@@ -72,24 +68,6 @@ function MyPage() {
     });
     return;
   };
-
-  function getProfile() {
-    axios({
-      method: "get",
-      url: APPLICATION_SERVER_URL + "api/users/profile",
-      params: {
-        email: user["userEmail"],
-      },
-      headers: { "Content-Type": "application/json;charset=UTF-8" },
-    }).then((response) => {
-      console.log("response", response);
-      console.log("response.data", response.data);
-      if (response.status == 200) {
-        const filePath = response.data.filePath;
-        setProfilePath(filePath);
-      }
-    });
-  }
 
   function getPictureList() {
     axios({
@@ -225,7 +203,7 @@ function MyPage() {
         className="absolute left-44 top-14"
       >
         <CircleBox>
-          <img src={profilePath} />
+          <img src={user["profilePath"]} />
         </CircleBox>
       </button>
       {modal === true ? (
@@ -234,7 +212,6 @@ function MyPage() {
             modal={modal}
             setModal={setModal}
             email={user["userEmail"]}
-            setProfilePath={setProfilePath}
           />
         </div>
       ) : null}

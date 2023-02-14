@@ -22,6 +22,7 @@ import { persistor } from "./../../../main";
 
 import { logoutUser } from "./../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
+import CircleBox from "../../atoms/CircleBox";
 
 function FacePlay() {
   useEffect(() => {
@@ -70,6 +71,9 @@ function FacePlay() {
             <span className="font-chick text-lg mt-7 mr-4">
               {user["userChName"]}님 안녕하세요!
             </span>
+            <CircleBox>
+              <img src={user["profilePath"]} />
+            </CircleBox>
             <CommonBtn
               onClick={onLogout}
               text={"로그아웃"}
