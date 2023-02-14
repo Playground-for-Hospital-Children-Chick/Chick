@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
         String email = userInfo.getEmail();
         if(passwordEncoder.matches(userInfo.getPassword(), userRepository.findByUserEmail(email).getUserPwd())){
             User user = userRepository.findByUserEmail(userInfo.getEmail());
-            user.setUserPwd(passwordEncoder.encode(userInfo.getPassword()));
+            user.setUserPwd(passwordEncoder.encode(userInfo.getNewPassword()));
             userRepository.save(user);
             return true;
         }
