@@ -138,6 +138,24 @@ export const changePWUser = async function changepw(credentials) {
   return response;
 };
 
+//내 정보 변경
+export const updateMyInfo = async function updateinfo(credentials) {
+  const response = await axios({
+    method: "POST",
+    url: `${BASE_URL}/users/updateUserInfo`,
+    data: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+
+    withCredentials: true,
+  }).catch((error) => {
+    return error;
+  });
+
+  return response;
+};
+
 //일정 시간마다 accessToken 재발행 하는 코드만들려고 하는 시도
 // useQuery([queryKey.REFRESH], authAPI.silentRefresh, {
 //   refetchOnWindowFocus: false,

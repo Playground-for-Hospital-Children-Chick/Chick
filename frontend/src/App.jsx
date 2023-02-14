@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/pages/LoginPage";
 import Logout from "./components/pages/LogoutPage";
 import HomePage from "./components/pages/HomePage/index";
+import UserInfoChangePage from "./components/pages/UserInfoChangePage/index";
 import SignUpComplete from "./components/pages/SignUpComplete/index";
 import TermsOfPage from "./components/pages/TermsOfPage/index";
 import CodeModal from "./components/molecules/EmailCodeModal/index";
@@ -38,7 +39,11 @@ function App() {
           <Route
             path="/facepage"
             element={
-              <VideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
+              <VideoRoomComponent
+                user={user["userChName"]}
+                email={user["userEmail"]}
+                userType={user["userType"]}
+              />
             }
           />
           <Route path="/signup" element={<SignUp />} />
@@ -50,7 +55,6 @@ function App() {
           <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/signupComplete" element={<SignUpComplete />} />
           <Route path="/termsofuse" element={<TermsOfPage />} />
-          <Route path="/pwchange" element={<PwChange />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
