@@ -18,28 +18,35 @@
 import LogoText from "../../../assets/logo/logo-text.svg";
 import SideBarBase from "../../atoms/SideBarBase";
 import SideBarBtn from "./../../atoms/SideBarBtn/index";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_PAGE } from "../../../store/reducers/PageReducer";
 
 function SideBar({ index, setIndex }) {
+  const page = useSelector((state) => state.page);
+  const dispatch = useDispatch();
+
   return (
     <SideBarBase>
       <button
         onClick={() => {
-          setIndex(0);
+          dispatch(SET_PAGE({ pageIndex: 0 }));
         }}
       >
-        <img className="inline-flex justify-center w-[100%]" src={LogoText} />
+        <img
+          className="inline-flex justify-center w-[100%] transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+          src={LogoText}
+        />
       </button>
       <div
         id="slider"
         className="justify-between mt-[1em] h-[585px] overflow-y-scroll flex flex-col scrollbar-hide"
       >
-        {index == 0 ? (
+        {page["pageIndex"] == 0 ? (
           <div className="inline-flex justify-center w-[100%]">
             <SideBarBtn
               type={"tiger"}
               selected={true}
-              onClick={() => setIndex(0)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 0 }))}
             />
           </div>
         ) : (
@@ -47,17 +54,17 @@ function SideBar({ index, setIndex }) {
             <SideBarBtn
               type={"tiger"}
               selected={false}
-              onClick={() => setIndex(0)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 0 }))}
             />
           </div>
         )}
 
-        {index == 1 ? (
+        {page["pageIndex"] == 1 ? (
           <div className="inline-flex justify-center w-[100%]">
             <SideBarBtn
               type={"painting"}
               selected={true}
-              onClick={() => setIndex(1)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 1 }))}
             />
           </div>
         ) : (
@@ -65,16 +72,16 @@ function SideBar({ index, setIndex }) {
             <SideBarBtn
               type={"painting"}
               selected={false}
-              onClick={() => setIndex(1)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 1 }))}
             />
           </div>
         )}
-        {index == 2 ? (
+        {page["pageIndex"] == 2 ? (
           <div className="inline-flex justify-center w-[100%]">
             <SideBarBtn
               type={"dance"}
               selected={true}
-              onClick={() => setIndex(2)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 2 }))}
             />
           </div>
         ) : (
@@ -82,16 +89,16 @@ function SideBar({ index, setIndex }) {
             <SideBarBtn
               type={"dance"}
               selected={false}
-              onClick={() => setIndex(2)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 2 }))}
             />
           </div>
         )}
-        {index == 3 ? (
+        {page["pageIndex"] == 3 ? (
           <div className="inline-flex justify-center w-[100%]">
             <SideBarBtn
               type={"cartoon"}
               selected={true}
-              onClick={() => setIndex(3)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 3 }))}
             />
           </div>
         ) : (
@@ -99,16 +106,16 @@ function SideBar({ index, setIndex }) {
             <SideBarBtn
               type={"cartoon"}
               selected={false}
-              onClick={() => setIndex(3)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 3 }))}
             />
           </div>
         )}
-        {index == 4 ? (
+        {/* {page["pageIndex"] == 4 ? (
           <div className="inline-flex justify-center w-[100%]">
             <SideBarBtn
               type={"myPage"}
               selected={true}
-              onClick={() => setIndex(4)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 4 }))}
             />
           </div>
         ) : (
@@ -116,10 +123,10 @@ function SideBar({ index, setIndex }) {
             <SideBarBtn
               type={"myPage"}
               selected={false}
-              onClick={() => setIndex(4)}
+              onClick={() => dispatch(SET_PAGE({ pageIndex: 4 }))}
             />
           </div>
-        )}
+        )} */}
       </div>
     </SideBarBase>
   );
