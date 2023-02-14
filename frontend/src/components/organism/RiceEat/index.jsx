@@ -22,6 +22,7 @@ import { logoutUser } from "./../../../api/UsersApi";
 
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 import { persistor } from "./../../../main";
+import CircleBox from "../../atoms/CircleBox";
 
 function RiceEat(params) {
   const user = useSelector((state) => state.user);
@@ -60,9 +61,14 @@ function RiceEat(params) {
           </>
         ) : (
           <>
-            <span className="font-chick text-lg mt-7 mr-4">
+            <span className="font-chick text-lg mt-14 mr-4">
               {user["userChName"]}님 안녕하세요!
             </span>
+            <CircleBox size={"small"}>
+              <div className="pl-4 w-[110px]">
+                <img src={user["profilePath"]} />
+              </div>
+            </CircleBox>
             <CommonBtn
               onClick={onLogout}
               text={"로그아웃"}
