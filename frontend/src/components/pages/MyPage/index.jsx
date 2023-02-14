@@ -17,9 +17,6 @@ function MyPage() {
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
-  const [profilePath, setProfilePath] = useState(
-    "/assets/characters/chick_01.svg"
-  );
 
   const dispatch = useDispatch();
 
@@ -33,7 +30,6 @@ function MyPage() {
     checkLogin();
     getPictureList();
     getBlockList();
-    getProfile();
   }, []);
 
   const unblock = (email) => {
@@ -72,24 +68,6 @@ function MyPage() {
     });
     return;
   };
-
-  function getProfile() {
-    axios({
-      method: "get",
-      url: APPLICATION_SERVER_URL + "api/users/profile",
-      params: {
-        email: user["userEmail"],
-      },
-      headers: { "Content-Type": "application/json;charset=UTF-8" },
-    }).then((response) => {
-      console.log("response", response);
-      console.log("response.data", response.data);
-      if (response.status == 200) {
-        const filePath = response.data.filePath;
-        setProfilePath(filePath);
-      }
-    });
-  }
 
   function getPictureList() {
     axios({
@@ -225,7 +203,7 @@ function MyPage() {
         className="absolute left-44 top-14"
       >
         <CircleBox>
-          <img src={profilePath} />
+          <img src={user["profilePath"]} />
         </CircleBox>
       </button>
       {modal === true ? (
@@ -234,7 +212,6 @@ function MyPage() {
             modal={modal}
             setModal={setModal}
             email={user["userEmail"]}
-            setProfilePath={setProfilePath}
           />
         </div>
       ) : null}
@@ -242,7 +219,9 @@ function MyPage() {
         <div className="text-start inline mt-8">
           <div className="font-chick text-lg">{user["userChName"]}</div>
           <div className="font-chick text-base">나이: {user["userAge"]}살</div>
-          <div className="font-chick text-base">생일: {user["userBirth"]}</div>
+          <div className="font-chick text-base">
+            생년월일: {user["userBirth"]}
+          </div>
           <div className="font-chick text-base">
             성별: {user["userSex"] == "M" ? "남자" : "여자"}
           </div>
@@ -260,7 +239,7 @@ function MyPage() {
           <div className="font-chick text-xl mb-2">사진 보관함</div>
         </div>
         {imageList.length > 0 ? (
-          <ImageList sx={{ width: 600, height: 190 }} cols={2} rowHeight={170}>
+          <ImageList sx={{ width: 600, height: 360 }} cols={2} rowHeight={170}>
             {imageList.map((item) => (
               <ImageListItem key={item.s3Url}>
                 <img

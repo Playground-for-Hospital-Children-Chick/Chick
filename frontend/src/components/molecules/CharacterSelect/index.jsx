@@ -13,6 +13,9 @@ import chick10 from "./../../../assets/characters/chick_10.svg";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import { SET_PROFILE_PATH } from "../../../store/reducers/UserReducer";
+import { useDispatch } from "react-redux";
+
 const characterList = [
   "/assets/characters/chick_01.svg",
   "/assets/characters/chick_02.svg",
@@ -29,6 +32,8 @@ const characterList = [
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
 function SelectCharacter({ setModal, email, setProfilePath }) {
+  const dispatch = useDispatch();
+
   function updateCharacter(index) {
     console.log(index);
 
@@ -42,7 +47,11 @@ function SelectCharacter({ setModal, email, setProfilePath }) {
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     }).then((response) => {
       if (response.status == 200) {
-        setProfilePath(characterList[index]);
+        dispatch(
+          SET_PROFILE_PATH({
+            profilePath: characterList[index],
+          })
+        );
 
         Swal.fire({
           icon: "success",

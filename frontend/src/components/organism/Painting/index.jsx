@@ -8,6 +8,7 @@ import { persistor } from "../../../main";
 
 import { logoutUser } from "../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
+import CircleBox from "../../atoms/CircleBox";
 
 function Painting() {
   const user = useSelector((state) => state.user);
@@ -45,14 +46,21 @@ function Painting() {
           </>
         ) : (
           <>
-            <span className="font-chick text-lg mt-7 mr-4">
-              {user["userChName"]}님 안녕하세요!
+            <CircleBox size={"small"}>
+              <div className="pl-4 w-[110px]">
+                <img src={user["profilePath"]} />
+              </div>
+            </CircleBox>
+            <span className="font-chick text-lg mt-14 mr-4">
+              님 안녕하세요!
             </span>
-            <CommonBtn
-              onClick={onLogout}
-              text={"로그아웃"}
-              color="bg-emerald-300"
-            />
+            <div className="mt-5">
+              <CommonBtn
+                onClick={onLogout}
+                text={"로그아웃"}
+                color="bg-emerald-300"
+              />
+            </div>
           </>
         )}
       </div>
