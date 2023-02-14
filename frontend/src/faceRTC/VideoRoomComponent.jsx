@@ -400,7 +400,7 @@ class VideoRoomComponent extends Component {
         });
       });
     }
-    localUser.setNickname(this.props.email);
+    localUser.setNickname(this.props.user);
     localUser.setConnectionId(this.state.session.connection.connectionId);
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
