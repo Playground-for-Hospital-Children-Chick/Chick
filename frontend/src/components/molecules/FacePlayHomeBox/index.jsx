@@ -55,6 +55,7 @@ function FacePlayHomeBox() {
           userBirth: response.data.userLoginInfo.userBirth,
           userSex: response.data.userLoginInfo.userSex,
           attendanceDay: response.data.userLoginInfo.attendanceDay,
+          profilePath: response.data.userLoginInfo.profilePath,
           userType: "guest",
         })
       );
