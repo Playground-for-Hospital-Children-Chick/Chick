@@ -8,15 +8,20 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
-import Chick from "../../../assets/characters/chick_01.svg";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
+
 function MyPage() {
   const user = useSelector((state) => state.user);
   const [unblockUser, setUnblockUser] = useState(undefined);
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
+  const [profilePath, setProfilePath] = useState(
+    "/assets/characters/chick_01.svg"
+  );
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -26,7 +31,65 @@ function MyPage() {
 
   useEffect(() => {
     checkLogin();
+    getPictureList();
+    getBlockList();
+    getProfile();
+  }, []);
 
+  const unblock = (email) => {
+    Swal.fire({
+      icon: "info",
+      title: "차단 해제.",
+      text: "차단을 해제할까요?.",
+      showDenyButton: true,
+
+      confirmButtonText: "차단 해제",
+      denyButtonText: `취소`,
+      confirmButtonColor: "#8cc8ff",
+      denyButtonColor: "#ff82b3",
+
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("delete 요청 메일", email);
+        axios({
+          method: "delete",
+          url: APPLICATION_SERVER_URL + "api/report/unblock",
+          data: {
+            reportedPeople: email,
+            reporter: user["userEmail"],
+          },
+          // headers: { "Content-Type": "application/json;charset=UTF-8" },
+        }).then(() => {
+          window.location.reload;
+        });
+      } else if (result.isDenied) {
+        return;
+      }
+    });
+    return;
+  };
+
+  function getProfile() {
+    axios({
+      method: "get",
+      url: APPLICATION_SERVER_URL + "api/users/profile",
+      params: {
+        email: user["userEmail"],
+      },
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+    }).then((response) => {
+      console.log("response", response);
+      console.log("response.data", response.data);
+      if (response.status == 200) {
+        const filePath = response.data.filePath;
+        setProfilePath(filePath);
+      }
+    });
+  }
+
+  function getPictureList() {
     axios({
       method: "get",
       url: APPLICATION_SERVER_URL + "api/s3/list",
@@ -44,10 +107,9 @@ function MyPage() {
         }
       }
     });
-  }, []);
+  }
 
-  useEffect(() => {
-    //차단 유저 리스트 불러오기
+  function getBlockList() {
     axios({
       method: "get",
       url: APPLICATION_SERVER_URL + "api/report/blockList",
@@ -68,7 +130,7 @@ function MyPage() {
         }
       }
     });
-  }, []);
+  }
 
   function checkLogin() {
     if (!user["login"]) {
@@ -110,7 +172,51 @@ function MyPage() {
     }
   }
 
-  console.log("user~!~!~!!~!~!~!!~~!", user);
+  function withdrawal() {
+    Swal.fire({
+      title: "비밀번호 입력",
+      input: "password",
+      showCancelButton: false,
+      confirmButtonText: "회원탈퇴",
+      preConfirm: (password) => {
+        axios({
+          method: "delete",
+          url: APPLICATION_SERVER_URL + "api/users",
+          params: {
+            email: user["userEmail"],
+            password: password,
+          },
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        }).then((response) => {
+          if (response.status == 200) {
+            Swal.fire({
+              icon: "success",
+              title: "회원 탈퇴 성공",
+              confirmButtonText: "확인",
+              confirmButtonColor: "#8cc8ff",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(DELETE_TOKEN());
+                dispatch(DELETE_USER());
+                navigate("/home");
+                return;
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "회원 탈퇴 실패",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      },
+    });
+  }
+
   return (
     <div>
       <button
@@ -120,18 +226,23 @@ function MyPage() {
         className="absolute left-44 top-14"
       >
         <CircleBox>
-          <img src={Chick} />
+          <img src={profilePath} />
         </CircleBox>
       </button>
       {modal === true ? (
         <div className="-translate-x-[50%] -translate-y-[50%] left-[50%] top-[45%] absolute z-10">
-          <SelectCharacter modal={modal} setModal={setModal} />
+          <SelectCharacter
+            modal={modal}
+            setModal={setModal}
+            email={user["userEmail"]}
+            setProfilePath={setProfilePath}
+          />
         </div>
       ) : null}
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
           <div className="font-chick text-lg">{user["userChName"]}</div>
-          <div className="font-chick text-base">나이: {user["userAge"]}</div>
+          <div className="font-chick text-base">나이: {user["userAge"]}살</div>
           <div className="font-chick text-base">생일: {user["userBirth"]}</div>
           <div className="font-chick text-base">
             성별: {user["userSex"] == "M" ? "남자" : "여자"}
@@ -147,7 +258,7 @@ function MyPage() {
 
       <div className="absolute left-44 top-64">
         <div className="text-start inline mt-8 mb-6">
-          <div className="font-chick text-xl mb-2">저장한 사진</div>
+          <div className="font-chick text-xl mb-2">사진 보관함</div>
         </div>
         {imageList.length > 0 ? (
           <ImageList sx={{ width: 600, height: 190 }} cols={2} rowHeight={170}>
@@ -165,18 +276,21 @@ function MyPage() {
       </div>
 
       {/* 차단 유저 리스트 */}
-      <div className="absolute right-44 top-64">
+      <div className="absolute right-64 top-64">
         <div className="text-start inline mt-8 mb-6">
           <div className="font-chick text-xl mb-2">
             {user["userChName"]}'s 차단 유저 리스트
           </div>
         </div>
         {blockList.length > 0 ? (
-          <div className="flex justify-center h-[230px] overflow-y-scroll flex-col scrollbar-hide">
+          <div className="flex justify-between h-[230px] overflow-y-scroll flex-col scrollbar-hide">
             {blockList.map((item, i) => (
               <div
                 key={i}
-                className=" font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm"
+                className="font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+                onClick={() => {
+                  unblock(item.email);
+                }}
               >
                 <div className="font-chick text-gray-900 text-xl leading-tight font-medium mb-2">
                   {item.name}
@@ -184,8 +298,6 @@ function MyPage() {
                 {item.reportDate}
               </div>
             ))}
-
-            {/* <div>{blockList[0].email}</div> */}
           </div>
         ) : null}
       </div>
@@ -193,6 +305,11 @@ function MyPage() {
       <div className="absolute right-5 top-14">
         <AiOutlineSetting size={60} />
       </div>
+      <button onClick={withdrawal}>
+        <div className="absolute bottom-5 right-5 font-chick text-lg">
+          회원탈퇴
+        </div>
+      </button>
     </div>
   );
 }

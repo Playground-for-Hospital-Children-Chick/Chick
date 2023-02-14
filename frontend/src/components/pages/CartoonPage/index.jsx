@@ -14,7 +14,7 @@ function CartoonPage() {
     }
   }
   function goNextPage() {
-    if (index < 7) {
+    if (index < 10) {
       console.log("goNextPage");
       setIndex(index + 1);
     }

@@ -646,6 +646,7 @@ class VideoRoomComponent extends Component {
                     <div
                       id="localUser"
                       className="relative m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center "
+                      // className="relative m-3 rounded-[30px] w-[200px] h-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px] 2xl:w-[650px] flex items-center justify-center "
                     >
                       <StreamComponent
                         user={localUser}
@@ -692,6 +693,7 @@ class VideoRoomComponent extends Component {
                     <div
                       key={i}
                       className=" m-3 rounded-[30px] w-[500px] h-[307px] flex items-center justify-center relative"
+                      // className=" m-3 rounded-[30px] w-[200px] h-[300px] md:w-[300px] lg:w-[400px] xl:w-[550px] 2xl:w-[650px] flex items-center justify-center relative"
                       id="remoteUsers"
                     >
                       <StreamComponent
@@ -766,7 +768,7 @@ class VideoRoomComponent extends Component {
                 />
               )}
               <CommonBtn
-                text="얼굴놀이"
+                text="변신놀이"
                 color={"bg-blue-300"}
                 onClick={this.applyDeepAR}
               />
