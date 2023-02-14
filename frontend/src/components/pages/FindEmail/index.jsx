@@ -140,7 +140,7 @@ function FindEmail() {
                 <CalenderSelectBox setBirthHandler={setBirthHandler} />
               </div>
             </div>
-            <div className="">
+            <div>
               <GamePlayBtn
                 text="아이디 찾기"
                 color="bg-emerald-300"

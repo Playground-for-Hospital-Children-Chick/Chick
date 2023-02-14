@@ -1,5 +1,6 @@
 import CircleBox from "../../atoms/CircleBox";
 import SelectCharacter from "./../../molecules/CharacterSelect/index";
+import UserInfoChangePage from "./../../pages/UserInfoChangePage/index";
 import { AiOutlineSetting } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +17,7 @@ function MyPage() {
   const user = useSelector((state) => state.user);
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
+  const [myinfomodal, setMyInfoModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
 
   const dispatch = useDispatch();
@@ -215,6 +217,15 @@ function MyPage() {
           />
         </div>
       ) : null}
+      {myinfomodal === true ? (
+        <div className="-translate-x-[50%] -translate-y-[50%] left-[50%] top-[45%] absolute z-10">
+          <UserInfoChangePage
+            myinfomodal={myinfomodal}
+            setMyInfoModal={setMyInfoModal}
+            email={user["userEmail"]}
+          />
+        </div>
+      ) : null}
       <div className="absolute left-96 top-14">
         <div className="text-start inline mt-8">
           <div className="font-chick text-lg">{user["userChName"]}</div>
@@ -280,9 +291,12 @@ function MyPage() {
         ) : null}
       </div>
 
-      <div className="absolute right-5 top-14">
+      <button
+        onClick={() => setMyInfoModal(!myinfomodal)}
+        className="absolute right-5 top-14 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+      >
         <AiOutlineSetting size={60} />
-      </div>
+      </button>
       <Link to="/pwchange">
         <div className="absolute bottom-5 right-32 font-chick text-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
           비밀번호 변경
