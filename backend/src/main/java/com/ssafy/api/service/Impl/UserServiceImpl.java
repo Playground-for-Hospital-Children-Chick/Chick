@@ -129,10 +129,15 @@ public class UserServiceImpl implements UserService {
 
         return getUserLoginInfo(user);
     }
-    public void changePassword(UserLoginPostReq userInfo) {
-        User user = userRepository.findByUserEmail(userInfo.getEmail());
-        user.setUserPwd(passwordEncoder.encode(userInfo.getPassword()));
-        userRepository.save(user);
+    public boolean changePassword(UserPwChangeReq userInfo) {
+        String email = userInfo.getEmail();
+        if(passwordEncoder.matches(userInfo.getPassword(), userRepository.findByUserEmail(email).getUserPwd())){
+            User user = userRepository.findByUserEmail(userInfo.getEmail());
+            user.setUserPwd(passwordEncoder.encode(userInfo.getPassword()));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
