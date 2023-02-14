@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import AlertBox from "../../atoms/AlertBox";
 import InputBox from "../../atoms/Input";
@@ -9,28 +8,15 @@ import { useSelector } from "react-redux";
 import { ErrorMessage } from "@hookform/error-message";
 import Swal from "sweetalert2";
 
-import {
-  SET_USER,
-  SET_TOKEN,
-  DELETE_TOKEN,
-} from "../../../store/reducers/UserReducer";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
 
 function PwChange() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   // useForm 사용을 위한 선언
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
-  // const onEmailChange = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const onPasswordChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
 
   const onChangePassword = async (userInput) => {
     delete userInput["newPasswordCheck"];
@@ -44,10 +30,11 @@ function PwChange() {
         confirmButtonColor: "#8cc8ff",
         allowOutsideClick: false,
         allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
       });
-      // console.log(user["userEmail"]);
-      // console.log(user["userChName"]);
-      // console.log(user["userEmail"]);
     } else {
       Swal.fire({
         icon: "error",
@@ -61,7 +48,7 @@ function PwChange() {
     setValue("newPasswordCheck", "");
   };
   return (
-    <div>
+    <div className="flex justify-center h-screen items-center">
       <AlertBox>
         <form
           className="mt-8 space-y-6"
@@ -88,7 +75,6 @@ function PwChange() {
                         value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                       },
                     })}
-                    // onChange={onEmailChange}
                     type="password"
                     placeholder={"비밀번호를 입력해주세요".toString()}
                   />
