@@ -104,8 +104,6 @@ function CodeModal({
   useEffect(() => {
     if (emailVari == "success") {
       setCount(179);
-      setMit(2);
-      setSec(59);
       setTimeTrigger(true);
     } else {
       setTimeTrigger(false);
