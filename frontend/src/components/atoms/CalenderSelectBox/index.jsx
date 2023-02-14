@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function CalenderSelectBox({ register }) {
+function CalenderSelectBox({ register, setBirthHandler, setTest }) {
   const now = new Date();
   let nowMonth = "";
   let nowDay = "";
@@ -33,12 +33,15 @@ function CalenderSelectBox({ register }) {
   }
   useEffect(() => {
     setNowCal(nowCal);
-    register["userBirth"] = parseInt(
-      nowCal["year"].toString() +
-        nowCal["month"].toString() +
-        nowCal["day"].toString()
+    // console.log(setBirth);
+    // setTest(true);
+    setBirthHandler(
+      parseInt(
+        nowCal["year"].toString() +
+          nowCal["month"].toString() +
+          nowCal["day"].toString()
+      )
     );
-    console.log(register);
   }, [nowCal]);
   if (now.getMonth() + 1 < 10) {
     nowMonth = "0" + (now.getMonth() + 1).toString();
@@ -54,7 +57,14 @@ function CalenderSelectBox({ register }) {
 
   return (
     <>
-      <input
+      {/* <input
+        onChange={() => {
+          console.log(register);
+          register["userBirth"] =
+            nowCal["year"].toString() +
+            nowCal["month"].toString() +
+            nowCal["day"].toString();
+        }}
         {...register}
         type="hidden"
         value={parseInt(
@@ -62,7 +72,7 @@ function CalenderSelectBox({ register }) {
             nowCal["month"].toString() +
             nowCal["day"].toString()
         )}
-      />
+      /> */}
       <div className="flex gap-x-6 items-center">
         <div
           className="bg-white flex text-center font-chick flex justify-center items-center  relative overflow-hidden px-5 py-5 rounded-[30px]"
@@ -73,6 +83,7 @@ function CalenderSelectBox({ register }) {
             defaultValue={nowDate[0]}
             onChange={(e) => {
               setNowCal({ ...nowCal, year: e.target.value.toString() });
+              console.log(nowCal);
             }}
           >
             {years.map((item) => (
@@ -91,6 +102,7 @@ function CalenderSelectBox({ register }) {
             defaultValue={nowDate[1]}
             onChange={(e) => {
               setNowCal({ ...nowCal, month: e.target.value.toString() });
+              console.log(nowCal);
             }}
           >
             {months.map((item) => (
