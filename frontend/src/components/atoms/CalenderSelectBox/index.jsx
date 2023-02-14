@@ -33,7 +33,7 @@ function CalenderSelectBox({ register }) {
   }
   useEffect(() => {
     setNowCal(nowCal);
-    register["user_birth"] =
+    register["userBirth"] =
       nowCal["year"].toString() +
       nowCal["month"].toString() +
       nowCal["day"].toString();
