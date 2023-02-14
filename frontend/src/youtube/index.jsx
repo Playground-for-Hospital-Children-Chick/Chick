@@ -31,8 +31,6 @@ function YouTubeVideo() {
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     }).then((response) => {
       setYoutubeKey(response.data.streamingKey[0].streamingKey);
-      console.log("dhkdhkhdkhkahfkklasdjfkldjasfklj", response);
-      console.log(youTubeKey);
     });
   }, []);
 

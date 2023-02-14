@@ -26,7 +26,7 @@ function PaintingHomeBox() {
     const response = await loginGuest();
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      console.log(response.data.accessToken);
+      // console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
         SET_USER({
@@ -41,7 +41,7 @@ function PaintingHomeBox() {
         })
       );
     } else {
-      console.log(response);
+      // console.log(response);
     }
   };
 
@@ -58,7 +58,7 @@ function PaintingHomeBox() {
         denyButtonColor: "#ff82b3",
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log("게스트로 로그인");
+          // console.log("게스트로 로그인");
           onLogin();
         } else if (result.isDenied) {
           navigate("/login");
