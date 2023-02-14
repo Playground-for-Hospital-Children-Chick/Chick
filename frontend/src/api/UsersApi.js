@@ -131,7 +131,9 @@ export const changePWUser = async function changepw(credentials) {
     },
 
     withCredentials: true,
-  }).catch((error) => error);
+  }).catch((error) => {
+    return error;
+  });
 
   return response;
 };
