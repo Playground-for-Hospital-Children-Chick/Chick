@@ -35,7 +35,7 @@ function SelectCharacter({ setModal, email, setProfilePath }) {
   const dispatch = useDispatch();
 
   function updateCharacter(index) {
-    console.log(index);
+    // console.log(index);
 
     axios({
       method: "put",

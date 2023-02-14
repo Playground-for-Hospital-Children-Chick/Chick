@@ -29,7 +29,7 @@ function Dance() {
       dispatch(DELETE_TOKEN());
       return;
     } else {
-      console.log(response);
+      // console.log(response);
     }
     // input 태그 값 비워주는 코드
   };

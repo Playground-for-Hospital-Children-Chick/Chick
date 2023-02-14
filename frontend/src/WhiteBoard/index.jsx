@@ -53,7 +53,7 @@ const Board = () => {
             timer: 1500,
           });
 
-          console.log("Image and form data saved successfully", response.data);
+          // console.log("Image and form data saved successfully", response.data);
         })
         .catch((error) => {
           Swal.fire({
@@ -86,7 +86,6 @@ const Board = () => {
     if (!emit) {
       return;
     }
-    // console.log(" 지 웠 습 니 다   방 이름은 ????", sessionName);
     socketRef.current.emit("erasing", sessionName);
   }
   function leaveSession() {
@@ -98,16 +97,9 @@ const Board = () => {
     getSessionId(user["userEmail"]);
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
     async function getSessionId(email) {
-      console.log("getSessionId");
       const sessionId = await createSession(email);
       SessionName = sessionId;
       setMyRoomName(sessionId);
-
-      console.log("sessionId", sessionId);
-      console.log("SessionName", SessionName);
-
-      // setMyRoomName(sessionId);
-      // console.log("SessionName", { SessionName });
 
       socketRef.current.emit("join_room", sessionId);
     }
@@ -121,7 +113,6 @@ const Board = () => {
       } else if (user["userType"] == "guest") {
         guest = "true";
       }
-      console.log("createSession");
       const response = await axios({
         method: "post",
         url: APPLICATION_SERVER_URL + "api/sessions",
@@ -145,8 +136,7 @@ const Board = () => {
     // ----------------------- Colors --------------------------------------------------
 
     const colors = document.getElementsByClassName("color");
-    console.log(colors, "the colors");
-    console.log(test);
+
     // set the current color
     const current = {
       color: "black",
@@ -206,7 +196,6 @@ const Board = () => {
       if (!drawing) {
         return;
       }
-      console.log("onMouseMove");
       drawLine(
         current.x,
         current.y,
@@ -223,7 +212,6 @@ const Board = () => {
       if (!drawing) {
         return;
       }
-      console.log("onMouseUp");
       drawing = false;
       drawLine(
         current.x,
