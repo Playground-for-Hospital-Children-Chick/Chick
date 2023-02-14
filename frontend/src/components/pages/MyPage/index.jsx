@@ -14,7 +14,6 @@ const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
 function MyPage() {
   const user = useSelector((state) => state.user);
-  const [unblockUser, setUnblockUser] = useState(undefined);
   const [imageList, setImageList] = useState([]);
   const [modal, setModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
