@@ -62,8 +62,10 @@ function MyPage() {
             reporter: user["userEmail"],
           },
           // headers: { "Content-Type": "application/json;charset=UTF-8" },
-        }).then(() => {
-          window.location.reload;
+        }).then((response) => {
+          if (response.status == 200) {
+            getBlockList();
+          }
         });
       } else if (result.isDenied) {
         return;
@@ -110,28 +112,25 @@ function MyPage() {
     });
   }
 
-  function getBlockList() {
-    axios({
+  const getBlockList = async () => {
+    const response = await axios({
       method: "get",
       url: APPLICATION_SERVER_URL + "api/report/blockList",
       params: {
         userEmail: user["userEmail"],
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
-    }).then((response) => {
-      console.log(
-        "response!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-        response.data[0].email
-      );
-      if (response.status == 200) {
-        const blockedList = response.data;
-        if (blockedList != null) {
-          setBlockList((old) => [...old, ...blockedList]);
-          console.log("blocklist~~~~~~~~~~~~~", blockedList);
-        }
-      }
     });
-  }
+
+    if (response.status == 200) {
+      const blockedList = response.data;
+      if (blockedList.length == 0) {
+        setBlockList([]);
+      } else {
+        setBlockList((old) => [...old, ...blockedList]);
+      }
+    }
+  };
 
   function checkLogin() {
     if (!user["login"]) {
