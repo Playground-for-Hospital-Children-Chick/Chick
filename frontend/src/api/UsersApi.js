@@ -109,7 +109,7 @@ export const findEmailUser = async function findemail(credentials) {
   const response = await axios({
     method: "GET",
     url: `${BASE_URL}/users/find/email`,
-    data: credentials,
+    params: credentials,
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
     },
