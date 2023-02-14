@@ -200,7 +200,7 @@ function MyPage() {
               if (result.isConfirmed) {
                 dispatch(DELETE_TOKEN());
                 dispatch(DELETE_USER());
-                navigate("/home");
+                navigate("/login");
                 return;
               }
             });
