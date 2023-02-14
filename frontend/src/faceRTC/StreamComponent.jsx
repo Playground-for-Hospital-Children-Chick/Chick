@@ -42,7 +42,7 @@ export default class StreamComponent extends Component {
       <div className="OT_widget-container">
         <div className="pointer nickname text-yellow-300 font-chick">
           <span id="nickname">{this.props.user.getNickname()}</span>
-          {this.props.user.isLocal() && <span id=""> (edit)</span>}
+          {this.props.user.isLocal() && <span id=""> (나)</span>}
         </div>
 
         {this.props.user !== undefined &&
