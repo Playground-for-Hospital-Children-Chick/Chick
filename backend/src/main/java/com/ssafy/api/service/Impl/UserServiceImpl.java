@@ -6,7 +6,6 @@ import com.ssafy.api.domain.entity.User;
 import com.ssafy.api.domain.repository.ProfileRepository;
 import com.ssafy.api.domain.repository.UserRepository;
 import com.ssafy.api.service.UserService;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -113,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getProfile(String email) {
-        return profileRepository.getProfileImages(email);
+        return profileRepository.getProfileImage(email);
     }
 
     @Override
@@ -146,6 +145,7 @@ public class UserServiceImpl implements UserService {
         userLoginInfo.setUserBirth(user.getUserBirth());
         userLoginInfo.setUserSex(user.getUserSex());
         userLoginInfo.setAttendanceDay(userRepository.getAttendanceDay(user.getUserEmail()));
+        userLoginInfo.setProfilePath(getProfile(user.getUserEmail()));
         return userLoginInfo;
     }
 
