@@ -128,7 +128,6 @@ function SignUp() {
           className="flex flex-col justify-center w-[640px] space-y-8"
           onSubmit={handleSubmit(onSignup)}
         >
-          <label htmlFor="test"></label>
           <div className="gap-x-5 mt-[1.2em] flex items-center">
             <label
               className="mr-[2.5em] font-chick text-xl"
