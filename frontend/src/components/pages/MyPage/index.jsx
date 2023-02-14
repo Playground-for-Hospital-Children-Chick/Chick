@@ -21,6 +21,8 @@ function MyPage() {
     "/assets/characters/chick_01.svg"
   );
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const modalOnOff = () => {
@@ -170,7 +172,51 @@ function MyPage() {
     }
   }
 
-  console.log("user~!~!~!!~!~!~!!~~!", user);
+  function withdrawal() {
+    Swal.fire({
+      title: "비밀번호 입력",
+      input: "password",
+      showCancelButton: false,
+      confirmButtonText: "회원탈퇴",
+      preConfirm: (password) => {
+        axios({
+          method: "delete",
+          url: APPLICATION_SERVER_URL + "api/users",
+          data: {
+            email: user["userEmail"],
+            password: password,
+          },
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        }).then((response) => {
+          if (response.status == 200) {
+            Swal.fire({
+              icon: "success",
+              title: "회원 탈퇴 성공",
+              confirmButtonText: "확인",
+              confirmButtonColor: "#8cc8ff",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(DELETE_TOKEN());
+                dispatch(DELETE_USER());
+                navigate("/home");
+                return;
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "회원 탈퇴 실패",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      },
+    });
+  }
+
   return (
     <div>
       <button
@@ -241,7 +287,7 @@ function MyPage() {
             {blockList.map((item, i) => (
               <div
                 key={i}
-                className=" font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm"
+                className="font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
                 onClick={() => {
                   unblock(item.email);
                 }}
@@ -259,6 +305,11 @@ function MyPage() {
       <div className="absolute right-5 top-14">
         <AiOutlineSetting size={60} />
       </div>
+      <button onClick={withdrawal}>
+        <div className="absolute bottom-5 right-5 font-chick text-lg">
+          회원탈퇴
+        </div>
+      </button>
     </div>
   );
 }
