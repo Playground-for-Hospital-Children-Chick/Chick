@@ -15,7 +15,7 @@ function HomePage({ children }) {
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
         <FacePlay />
-        <FullScreenBtn />
+        {/* <FullScreenBtn /> */}
       </div>
     );
   } else if (index == 1) {
@@ -23,7 +23,7 @@ function HomePage({ children }) {
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
         <Painting />
-        <FullScreenBtn />
+        {/* <FullScreenBtn /> */}
       </div>
     );
   } else if (index == 2) {
@@ -31,7 +31,7 @@ function HomePage({ children }) {
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
         <Dance />
-        <FullScreenBtn />
+        {/* <FullScreenBtn /> */}
       </div>
     );
   } else if (index == 3) {
@@ -39,7 +39,7 @@ function HomePage({ children }) {
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
         <CartoonPage />
-        <FullScreenBtn />
+        {/* <FullScreenBtn /> */}
       </div>
     );
   } else if (index == 4) {

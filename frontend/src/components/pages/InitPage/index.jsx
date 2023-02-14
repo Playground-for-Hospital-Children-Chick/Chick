@@ -23,20 +23,14 @@ function InitPage() {
             <div className="inline-flex justify-center w-[100%] mt-3">
               <img src={Logo} className="w-2/12" />
             </div>
-            <div className="inline-flex justify-center w-[100%] mt-7 mb-4">
+            <div className="font-chick text-base mt-4">
+              아무 화면이나 클릭하세요
+            </div>
+            <div className="inline-flex justify-center w-[100%] mt-4 mb-4">
               <img
                 className="w-4/12 border-2 border-black border-opacity-75"
                 src={CartoonOne}
               />
-            </div>
-            <div className="font-chick text-base mb-2">
-              아무 화면이나 클릭하세요
-            </div>
-            <div className="inline-flex justify-center w-[100%]">
-              <img src={ChildOne} className="w-1/12" />
-              <img src={ChildTwo} className="w-1/12" />
-              <img src={ChildThree} className="w-1/12" />
-              <img src={ChildFour} className="w-1/12" />
             </div>
           </div>
         </div>
