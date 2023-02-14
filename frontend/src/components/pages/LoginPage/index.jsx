@@ -19,6 +19,7 @@ import {
   DELETE_TOKEN,
 } from "./../../../store/reducers/UserReducer";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
+import { SET_PAGE } from "../../../store/reducers/PageReducer";
 
 function Login() {
   const navigate = useNavigate();
@@ -35,6 +36,11 @@ function Login() {
   // const onPasswordChange = (e) => {
   //   setPassword(e.target.value);
   // };
+
+  function goHomePage() {
+    dispatch(SET_PAGE({ pageIndex: 0 }));
+    navigate("/home");
+  }
 
   const onLogin = async (userinput) => {
     console.log(userinput);
@@ -80,9 +86,9 @@ function Login() {
   return (
     <>
       <div className="absolute top-3 left-3 ml-3">
-        <Link to="/home">
+        <button onClick={() => goHomePage()}>
           <Logo />
-        </Link>
+        </button>
       </div>
       <div className="flex justify-center items-center mt-12 ">
         <AlertBox>
