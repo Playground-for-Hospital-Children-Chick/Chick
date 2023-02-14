@@ -68,19 +68,21 @@ function FacePlay() {
           </>
         ) : (
           <>
-            <span className="font-chick text-lg mt-14 mr-4">
-              {user["userChName"]}님 안녕하세요!
-            </span>
             <CircleBox size={"small"}>
               <div className="pl-4 w-[110px]">
                 <img src={user["profilePath"]} />
               </div>
             </CircleBox>
-            <CommonBtn
-              onClick={onLogout}
-              text={"로그아웃"}
-              color="bg-emerald-300"
-            />
+            <span className="font-chick text-lg mt-14 mr-4">
+              님 안녕하세요!
+            </span>
+            <div className="mt-5">
+              <CommonBtn
+                onClick={onLogout}
+                text={"로그아웃"}
+                color="bg-emerald-300"
+              />
+            </div>
           </>
         )}
       </div>
