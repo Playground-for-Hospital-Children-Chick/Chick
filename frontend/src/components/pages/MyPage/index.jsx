@@ -219,7 +219,9 @@ function MyPage() {
         <div className="text-start inline mt-8">
           <div className="font-chick text-lg">{user["userChName"]}</div>
           <div className="font-chick text-base">나이: {user["userAge"]}살</div>
-          <div className="font-chick text-base">생일: {user["userBirth"]}</div>
+          <div className="font-chick text-base">
+            생년월일: {user["userBirth"]}
+          </div>
           <div className="font-chick text-base">
             성별: {user["userSex"] == "M" ? "남자" : "여자"}
           </div>
@@ -237,7 +239,7 @@ function MyPage() {
           <div className="font-chick text-xl mb-2">사진 보관함</div>
         </div>
         {imageList.length > 0 ? (
-          <ImageList sx={{ width: 600, height: 190 }} cols={2} rowHeight={170}>
+          <ImageList sx={{ width: 600, height: 360 }} cols={2} rowHeight={170}>
             {imageList.map((item) => (
               <ImageListItem key={item.s3Url}>
                 <img
