@@ -1,7 +1,7 @@
 import CircleBox from "../../atoms/CircleBox";
 import SelectCharacter from "./../../molecules/CharacterSelect/index";
 import { AiOutlineSetting } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
@@ -283,8 +283,13 @@ function MyPage() {
       <div className="absolute right-5 top-14">
         <AiOutlineSetting size={60} />
       </div>
+      <Link to="/pwchange">
+        <div className="absolute bottom-5 right-32 font-chick text-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
+          비밀번호 변경
+        </div>
+      </Link>
       <button onClick={withdrawal}>
-        <div className="absolute bottom-5 right-5 font-chick text-lg">
+        <div className="absolute bottom-5 right-5 font-chick text-lg transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
           회원탈퇴
         </div>
       </button>
