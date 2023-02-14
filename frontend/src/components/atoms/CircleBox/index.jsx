@@ -2,7 +2,7 @@ function CircleBox({ children, size }) {
   if (size == "small") {
     return (
       <div
-        className="container m-3 flex flex-col justify-evenly w-[125px] h-[125px] rounded-[100px] bg-white border border-black/75 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
+        className="container m-3 flex flex-col justify-evenly w-[80px] h-[80px] rounded-[100px] bg-white border border-black/75 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
         style={{ boxShadow: "4px 4px 4px 3px rgba(0,0,0,0.25)" }}
       >
         {children}
