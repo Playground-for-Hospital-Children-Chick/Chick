@@ -46,11 +46,13 @@ function Dance() {
           </>
         ) : (
           <>
-            <span className="font-chick text-lg mt-7 mr-4">
+            <span className="font-chick text-lg mt-14 mr-4">
               {user["userChName"]}님 안녕하세요!
             </span>
-            <CircleBox>
-              <img src={user["profilePath"]} />
+            <CircleBox size={"small"}>
+              <div className="pl-4 w-[110px]">
+                <img src={user["profilePath"]} />
+              </div>
             </CircleBox>
             <CommonBtn
               onClick={onLogout}
