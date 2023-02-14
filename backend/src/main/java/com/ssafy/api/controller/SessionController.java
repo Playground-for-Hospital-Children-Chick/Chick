@@ -45,8 +45,6 @@ public class SessionController {
         String email = roomSessionReq.getEmail();
         String gameType = roomSessionReq.getGameType();
         String guest = roomSessionReq.getGuest();
-        System.out.println("세션 요청입니다");
-        System.out.println("params: " +roomSessionReq.toString());
         String userSession = roomService.getRoomSession(email, gameType,guest); // 회원에 참여할 세션을 새로 생성 혹은 기존 새션에서 가져온다
         if (userSession.equals("visited"))  { // 유저가 참여하고 있는 방이 있으면
             return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 403 error
@@ -54,7 +52,6 @@ public class SessionController {
         roomService.createMachingInfo(roomSessionReq, userSession); // 매칭에 대한 로그를 데이터베이스에 저장한다
         Map<String, Object> sessionParam = new HashMap<>();
         sessionParam.put("customSessionId", userSession); // 방 연결을 위해 세션 정보 저장
-        System.out.println("sessionParam: " + sessionParam.toString());
         SessionProperties properties = SessionProperties.fromJson(sessionParam).build(); // openvidu properties 설정
         Session session = openvidu.createSession(properties); // openvidu 방 연결
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK); // 방 연결 완료
@@ -70,17 +67,12 @@ public class SessionController {
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        System.out.println("연결 요청입니다");
-        System.out.println("sessionId :" + sessionId);
-        System.out.println("params: " + params.toString());
         Session session = openvidu.getActiveSession(sessionId);
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
-        System.out.println("properties: " + properties.toString());
         Connection connection = session.createConnection(properties);
-        System.out.println("connection "+connection.getConnectionId()+"  "+connection.getRtspUri()+"    "+connection.getToken());
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 
@@ -88,8 +80,6 @@ public class SessionController {
     @ApiOperation(value="게임방 나가기", notes = "게임방에서 나간다")
     public ResponseEntity<String> disconnect(@RequestBody(required = true) RoomDisconnectReq roomDisconnectReq) {
         if (roomService.disconnect(roomDisconnectReq.getEmail(), roomDisconnectReq.getSessionId())) {
-            System.out.println("종료 요청입니다");
-            System.out.println("이메일 및 세션 아이디 "+roomDisconnectReq.getEmail()+" "+roomDisconnectReq.getSessionId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

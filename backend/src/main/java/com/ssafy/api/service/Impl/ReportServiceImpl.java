@@ -36,7 +36,6 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public boolean unblockPeople(UnblockReq unblockReq){
         if(reportRepository.findByRpReporterAndRpReportedPeople(unblockReq.getReporter(), unblockReq.getReportedPeople())!=null){
-            System.out.println("삭제 합시다");
             reportRepository.unblockPeople(unblockReq.getReporter(), unblockReq.getReportedPeople());
         return true;
         }
