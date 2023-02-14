@@ -62,10 +62,11 @@ function CodeModal({
         denyButtonText: undefined,
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
+      }).then(() => {
+        setCheckedEmail(emailInput);
+        setModal(!modal);
+        setCodeError(false);
       });
-      setCheckedEmail(emailInput);
-      setModal(!modal);
-      setCodeError(false);
     }
   };
   const handleChange = useCallback(
