@@ -130,6 +130,11 @@ public class UserServiceImpl implements UserService {
 
         return getUserLoginInfo(user);
     }
+    public void changePassword(UserLoginPostReq userInfo) {
+        User user = userRepository.findByUserEmail(userInfo.getEmail());
+        user.setUserPwd(passwordEncoder.encode(userInfo.getPassword()));
+        userRepository.save(user);
+    }
 
     @Override
     public UserLoginInfo getUserLoginInfo(User user) {
@@ -200,7 +205,7 @@ public class UserServiceImpl implements UserService {
         msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
         msgg+= "<h3 style='color:blue;'>임시 비밀번호가 발급되었습니다.</h3>";
         msgg+= "<div style='font-size:130%'>";
-        msgg+= "CODE : <strong>";
+        msgg+= "임시 비밀번호 : <strong>";
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용

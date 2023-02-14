@@ -20,4 +20,5 @@ public interface UserService {
         public void profileUpdate(String email,  String fileName) throws Exception;
         public String getProfile(String email);
         public UserLoginInfo updateUser(UserUpdatePostReq userUpdatePostReq);
+        public void changePassword(UserLoginPostReq userChangePostReq);
 }
