@@ -51,7 +51,6 @@ class Video extends Component {
   }
 
   async applyDeepAR() {
-    console.log("잘들어왔나확인");
     if (this.state.arEnable) {
       this.setState({
         arEnable: false,
@@ -66,17 +65,13 @@ class Video extends Component {
     await this.setState({
       mediaStream: this.canvasRef.captureStream(),
     });
-    console.log("mediaStream", this.state.mediaStream);
     var videoTracks = this.state.mediaStream.getVideoTracks();
-    console.log("videoTracks[0]", videoTracks[0]);
-    console.log(this.state.publisher.properties.videoSource);
 
     if (this.state.publisher.properties.videoSource == undefined) {
       this.state.publisher.properties.videoSource = videoTracks[0];
     } else {
       this.state.publisher.properties.videoSource = undefined;
     }
-    console.log(this.state.publisher.properties.videoSource);
     this.state.session.unpublish(this.state.publisher).then(() => {
       this.state.session.publish(this.state.publisher);
     });
@@ -96,8 +91,6 @@ class Video extends Component {
       libPath: "/lib",
       segmentationInfoZip: "segmentation.zip",
       onInitialize: () => {
-        // console.log("deepAR Ready");
-
         this.state.deepAR.startVideo(true);
 
         // deepAR.switchEffect(0, "slot", "/effects/flowers", () => {
@@ -228,7 +221,6 @@ class Video extends Component {
             .connect(token, { clientData: this.state.myUserName })
             .then(async () => {
               // --- 5) Get your own camera stream ---
-              console.log("connect Session");
 
               // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
               // element: we will manage it on our own) and with the desired properties
@@ -269,11 +261,11 @@ class Video extends Component {
               // }
             })
             .catch((error) => {
-              console.log(
-                "There was an error connecting to the session:",
-                error.code,
-                error.message
-              );
+              // console.log(
+              //   "There was an error connecting to the session:",
+              //   error.code,
+              //   error.message
+              // );
             });
         });
       }
