@@ -47,7 +47,7 @@ function HomePage({ children }) {
       <div className="flex flex-row">
         <SideBar index={index} setIndex={setIndex} />
         <MyPage />
-        <FullScreenBtn />
+        {/* <FullScreenBtn /> */}
       </div>
     );
   }
