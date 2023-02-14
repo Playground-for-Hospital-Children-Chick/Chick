@@ -120,6 +120,22 @@ export const findEmailUser = async function findemail(credentials) {
   return response;
 };
 
+//비밀번호 변경
+export const changePWUser = async function changepw(credentials) {
+  const response = await axios({
+    method: "PUT",
+    url: `${BASE_URL}/users/pwd/change`,
+    data: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+
+    withCredentials: true,
+  }).catch((error) => error);
+
+  return response;
+};
+
 //일정 시간마다 accessToken 재발행 하는 코드만들려고 하는 시도
 // useQuery([queryKey.REFRESH], authAPI.silentRefresh, {
 //   refetchOnWindowFocus: false,
