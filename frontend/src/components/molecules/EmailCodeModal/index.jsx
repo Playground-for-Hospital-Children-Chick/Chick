@@ -137,7 +137,7 @@ function CodeModal({
             남은 시간 {String(min).padStart(2, "0")} :{" "}
             {String(sec).padStart(2, "0")}
           </div>
-          <div className="mt-[1em] flex justify-center items-center">
+          <div className="ml-[1em] mt-[1em] flex justify-center items-center">
             <label
               className="mb-[1em] font-chick text-lg mr-[2em]"
               htmlFor="email"
@@ -195,7 +195,7 @@ function CodeModal({
               />
             </div>
           </div>
-          <div className="mt-[0.5em] mr-[11.4em] flex justify-center items-center">
+          <div className="mt-[0.5em] mr-[7.5em] flex justify-center items-center">
             <label
               className="mb-[0.6em] font-chick text-lg mr-[3.2em]"
               htmlFor="email"
@@ -220,27 +220,26 @@ function CodeModal({
               )}
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-row justify-center mr-[1em]">
-          <div>
-            <img
-              className="right-[3em] inline after:mr-5 w-[9em]"
-              src={chick_02}
-              alt="병아리캐릭터"
-            />
-          </div>
-          <div>
-            {min == 0 && sec == 0 ? (
-              <CommonBtn option={true} text="확인" color="bg-gray" />
-            ) : (
-              <CommonBtn
-                onClick={sendCode}
-                option={false}
-                text="확인"
-                color="bg-emerald-300"
+          <div className="flex flex-row justify-center mr-[2em]">
+            <div>
+              <img
+                className="right-[3em] inline after:mr-5 w-[9em]"
+                src={chick_02}
+                alt="병아리캐릭터"
               />
-            )}
+            </div>
+            <div>
+              {min == 0 && sec == 0 ? (
+                <CommonBtn option={true} text="확인" color="bg-gray" />
+              ) : (
+                <CommonBtn
+                  onClick={sendCode}
+                  option={false}
+                  text="확인"
+                  color="bg-emerald-300"
+                />
+              )}
+            </div>
           </div>
         </div>
       </AlertBox>
