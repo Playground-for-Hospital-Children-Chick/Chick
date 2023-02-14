@@ -76,7 +76,7 @@ function PwChange() {
             <div className="flex flex-col gap-y-[1em]  mt-10 mr-[2em]">
               <div className="mt-[3em] mb-10 flex items-center justify-center items-center mr-[5em]">
                 <label
-                  className="mr-[3em] font-chick text-lg"
+                  className="mr-[2em] font-chick text-lg"
                   htmlFor="password"
                 >
                   기존 비밀번호
@@ -92,7 +92,7 @@ function PwChange() {
                   className="mr-[3em] font-chick text-lg"
                   htmlFor="changepassword"
                 >
-                  변경 비밀번호
+                  새 비밀번호
                 </label>
                 <InputBox
                   type="text"
@@ -106,7 +106,7 @@ function PwChange() {
                     className="mr-[1em] font-chick text-lg"
                     htmlFor="checkpassword"
                   >
-                    변경 비밀번호 확인
+                    새 비밀번호 확인
                   </label>
                   <InputBox
                     type="text"
