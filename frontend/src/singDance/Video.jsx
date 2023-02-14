@@ -149,7 +149,6 @@ class SingDance extends Component {
             .connect(token, { clientData: this.state.myUserName })
             .then(async () => {
               // --- 5) Get your own camera stream ---
-              console.log("connect Session");
 
               // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
               // element: we will manage it on our own) and with the desired properties

@@ -25,8 +25,8 @@ function CodeModal({
   const [codeError, setCodeError] = useState(false);
   const [timeTrigger, setTimeTrigger] = useState(false);
   const startModal = () => {
-    console.log(inputEmail);
-    console.log(emailVari);
+    // console.log(inputEmail);
+    // console.log(emailVari);
     if (!inputEmail) {
       return <p>이메일 작성해주세요.</p>;
     } else if (emailVari == "regfail") {
