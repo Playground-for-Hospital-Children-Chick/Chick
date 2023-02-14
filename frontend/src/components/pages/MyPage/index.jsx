@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
+import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
@@ -182,7 +183,7 @@ function MyPage() {
         axios({
           method: "delete",
           url: APPLICATION_SERVER_URL + "api/users",
-          params: {
+          data: {
             email: user["userEmail"],
             password: password,
           },
@@ -200,7 +201,7 @@ function MyPage() {
               if (result.isConfirmed) {
                 dispatch(DELETE_TOKEN());
                 dispatch(DELETE_USER());
-                navigate("/home");
+                navigate("/login");
                 return;
               }
             });

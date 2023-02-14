@@ -38,11 +38,7 @@ function App() {
           <Route
             path="/facepage"
             element={
-              <VideoRoomComponent
-                user={user["userChName"]}
-                email={user["userEmail"]}
-                userType={user["userType"]}
-              />
+              <VideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
             }
           />
           <Route path="/signup" element={<SignUp />} />
