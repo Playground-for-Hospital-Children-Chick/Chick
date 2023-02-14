@@ -33,10 +33,11 @@ function CalenderSelectBox({ register }) {
   }
   useEffect(() => {
     setNowCal(nowCal);
-    register["userBirth"] =
+    register["userBirth"] = parseInt(
       nowCal["year"].toString() +
-      nowCal["month"].toString() +
-      nowCal["day"].toString();
+        nowCal["month"].toString() +
+        nowCal["day"].toString()
+    );
     console.log(register);
   }, [nowCal]);
   if (now.getMonth() + 1 < 10) {

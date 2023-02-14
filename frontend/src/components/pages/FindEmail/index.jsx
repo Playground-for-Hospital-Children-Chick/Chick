@@ -15,6 +15,9 @@ function FindEmail() {
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
   const onFindEmail = async (userInput) => {
+    userInput["userBirth"] = parseInt(userInput["userBirth"]);
+
+    console.log(userInput);
     const response = await findEmailUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
       console.log(response);
@@ -39,11 +42,35 @@ function FindEmail() {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit(onFindEmail)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div>
-              <div className="mb-10 flex justify-center items-center mr-[5em]">
-                <label className="mr-9 font-chick text-lg" htmlFor="parentName">
-                  부모님이름
+              <div className="ml-[0.4] gap-x-14 userParentName flex items-center">
+                <label className="font-chick text-xl" htmlFor="userParentName">
+                  부모님 이름
                 </label>
-                <InputBox />
+                <div className="relative">
+                  <div>
+                    <InputBox
+                      register={register("userParentName", {
+                        required: "부모님 이름을 입력하지 않았습니다.",
+                      })}
+                      // onChange={onEmailChange}
+                      type="text"
+                      placeholder={"부모님 이름을 입력해주세요".toString()}
+                    />
+                  </div>
+                  <div className="relatvie w-full">
+                    <ErrorMessage
+                      name="userParentName"
+                      errors={errors}
+                      render={({ message }) =>
+                        message == "부모님 이름을 입력하지 않았습니다." ? (
+                          <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                            {message}
+                          </div>
+                        ) : null
+                      }
+                    />
+                  </div>
+                </div>
               </div>
               <div className="mb-10 flex justify-center items-center mr-[5.5em]">
                 <label className="mr-8 font-chick text-lg" htmlFor="userChName">
