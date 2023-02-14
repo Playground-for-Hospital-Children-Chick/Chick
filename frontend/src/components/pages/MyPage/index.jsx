@@ -287,7 +287,7 @@ function MyPage() {
             {blockList.map((item, i) => (
               <div
                 key={i}
-                className=" font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm"
+                className="font-chick mt-3 p-6 rounded-lg shadow-lg bg-pink-300 max-w-sm transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150"
                 onClick={() => {
                   unblock(item.email);
                 }}
