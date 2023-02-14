@@ -133,7 +133,7 @@ public class UserController {
         return ResponseEntity.status(401).body(PwdFindPosRes.of(404, "Failure", null));
     }
 
-    @GetMapping("/find/password")
+    @PostMapping("/find/password")
     @ApiOperation(value="비밀번호 찾기", notes = "유저 비밀번호를 찾는다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공 및 이메일 반환"),
@@ -179,7 +179,7 @@ public class UserController {
         }
         return ResponseEntity.status(404).body(UserProfileRes.of(404, "회원정보 없음", null));
     }
-
+    
     @PostMapping("/updateUserInfo")
     @ApiOperation(value="회원 정보 수정", notes = "회원의 이름과 출생을 변경한다")
     @ApiResponses({
@@ -192,5 +192,16 @@ public class UserController {
             return ResponseEntity.status(200).body(UserUpdatePostRes.of(200, "회원 정보 수정 성공", userLoginInfo));
         }
         return ResponseEntity.status(404).body(UserUpdatePostRes.of(404, "회원정보 없음", null));
+    }
+
+    @PutMapping("/pwd/change")
+    @ApiOperation(value="비밀번호 변경", notes = "비밀번호를 변경한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공 및 이메일로 비밂번호 반환"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> pwdChange(@RequestBody @ApiParam(value="비밀번호 수정을 위한 회원 정보", required = true) UserLoginPostReq changePwInfo) throws Exception {
+        userService.changePassword(changePwInfo);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 }

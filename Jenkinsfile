@@ -34,7 +34,7 @@ pipeline {
             steps {
               script {
                 sh 'docker stop springboot && docker rm springboot'
-                sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 9000:9001 -u root springboot'
+                sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 9000:9000 -u root springboot'
               }
             }
    }
