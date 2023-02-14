@@ -86,12 +86,12 @@ class SmallVideoRoomComponent extends Component {
 
   async connectToSession() {
     if (this.props.token !== undefined) {
-      console.log("token received: ", this.props.token);
+      // console.log("token received: ", this.props.token);
       this.connect(this.props.token);
     } else {
       try {
         var token = await this.getToken();
-        console.log(token);
+        // console.log(token);
         this.connect(token);
       } catch (error) {
         console.error(
@@ -128,11 +128,11 @@ class SmallVideoRoomComponent extends Component {
           });
         }
         alert("There was an error connecting to the session:", error.message);
-        console.log(
-          "There was an error connecting to the session:",
-          error.code,
-          error.message
-        );
+        // console.log(
+        //   "There was an error connecting to the session:",
+        //   error.code,
+        //   error.message
+        // );
       });
   }
 
@@ -221,7 +221,7 @@ class SmallVideoRoomComponent extends Component {
       }
     );
     if (response.status == 200) {
-      console.log("leaveSession");
+      // console.log("leaveSession");
     }
 
     // Empty all properties...
@@ -306,7 +306,7 @@ class SmallVideoRoomComponent extends Component {
       remoteUsers.forEach((user) => {
         if (user.getConnectionId() === event.from.connectionId) {
           const data = JSON.parse(event.data);
-          console.log("EVENTO REMOTE: ", event.data);
+          // console.log("EVENTO REMOTE: ", event.data);
           if (data.isAudioActive !== undefined) {
             user.setAudioActive(data.isAudioActive);
           }
