@@ -61,7 +61,7 @@ function PwChange() {
     setValue("newPasswordCheck", "");
   };
   return (
-    <div>
+    <div className="flex justify-center h-screen items-center">
       <AlertBox>
         <form
           className="mt-8 space-y-6"
