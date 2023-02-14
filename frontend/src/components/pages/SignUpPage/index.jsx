@@ -84,8 +84,8 @@ function SignUp() {
   };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
-    userInput["user_birth"] = parseInt(userInput["user_birth"]);
-    delete userInput["user_password_check"];
+    userInput["userBirth"] = parseInt(userInput["userBirth"]);
+    delete userInput["userPasswordCheck"];
     //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
 
     const response = await signupUser(userInput);
@@ -125,17 +125,17 @@ function SignUp() {
           onSubmit={handleSubmit(onSignup)}
         >
           <label htmlFor="test"></label>
-          <div className="gap-x-5 mt-[1.2em] password flex items-center">
+          <div className="gap-x-5 mt-[1.2em] flex items-center">
             <label
               className="mr-[2.5em] font-chick text-xl"
-              htmlFor="user_email"
+              htmlFor="userEmail"
             >
               이메일
             </label>
             <div className="relative">
               <InputBox
                 onChange={emailInput}
-                register={register("user_email", {
+                register={register("userEmail", {
                   required: "이메일을 입력하지 않았습니다.",
                   pattern: {
                     message: "이메일형식이 잘못되었습니다.",
@@ -156,7 +156,7 @@ function SignUp() {
               />
               <div className="relatvie w-full">
                 <ErrorMessage
-                  name="user_email"
+                  name="userEmail"
                   errors={errors}
                   render={({ message }) =>
                     message == "이메일을 입력하지 않았습니다." ? (
@@ -176,13 +176,13 @@ function SignUp() {
           <div className="gap-x-5 mt-10 password flex items-center">
             <label
               className="mr-[1.9em] font-chick text-xl"
-              htmlFor="user_password"
+              htmlFor="userPassword"
             >
               비밀번호
             </label>
             <div className="relative">
               <InputBox
-                register={register("user_password", {
+                register={register("userPassword", {
                   required: "비밀번호를 입력하지 않았습니다.",
                   pattern: {
                     message: "숫자+영문자포함 8글자 이상입니다.",
@@ -191,7 +191,7 @@ function SignUp() {
                   },
                   validate: {
                     check: (val) => {
-                      if (getValues("user_password_check") !== val) {
+                      if (getValues("userPasswordCheck") !== val) {
                         return "비밀번호가 일치하지 않습니다.";
                       }
                     },
@@ -203,7 +203,7 @@ function SignUp() {
               />
               <div className="relatvie w-full">
                 <ErrorMessage
-                  name="user_password"
+                  name="userPassword"
                   errors={errors}
                   render={({ message }) =>
                     message == "비밀번호를 입력하지 않았습니다." ? (
@@ -227,13 +227,13 @@ function SignUp() {
           <div className="gap-x-5 mt-10 password flex items-center">
             <label
               className=" font-chick text-xl"
-              htmlFor="user_password_check"
+              htmlFor="userPasswordCheck"
             >
               비밀번호 확인
             </label>
             <div className="relative">
               <InputBox
-                register={register("user_password_check", {
+                register={register("userPasswordCheck", {
                   required: "비밀번호를 입력하지 않았습니다.",
                   pattern: {
                     message: "숫자+영문자포함 8글자 이상입니다.",
@@ -241,7 +241,7 @@ function SignUp() {
                   },
                   validate: {
                     check: (val) => {
-                      if (getValues("user_password") !== val) {
+                      if (getValues("userPassword") !== val) {
                         return "비밀번호가 일치하지 않습니다.";
                       }
                     },
@@ -253,7 +253,7 @@ function SignUp() {
               />
               <div className="relatvie w-full">
                 <ErrorMessage
-                  name="user_password_check"
+                  name="userPasswordCheck"
                   errors={errors}
                   render={({ message }) =>
                     message == "비밀번호를 입력하지 않았습니다." ? (
@@ -274,16 +274,16 @@ function SignUp() {
               </div>
             </div>
           </div>
-          <div className="gap-x-5 mt-10 password flex items-center">
+          <div className="gap-x-5 mt-10 flex items-center">
             <label
               className="mr-[2.2em] font-chick text-xl"
-              htmlFor="user_child_name"
+              htmlFor="userChildName"
             >
               자녀이름
             </label>
             <div className="relative">
               <InputBox
-                register={register("user_child_name", {
+                register={register("userChildName", {
                   required: "자녀 이름을 입력하지 않았습니다.",
                 })}
                 // onChange={onEmailChange}
@@ -292,7 +292,7 @@ function SignUp() {
               />
               <div className="relatvie w-full">
                 <ErrorMessage
-                  name="user_child_name"
+                  name="userChildName"
                   errors={errors}
                   render={({ message }) =>
                     message == "자녀 이름을 입력하지 않았습니다." ? (
@@ -305,14 +305,14 @@ function SignUp() {
               </div>
             </div>
           </div>
-          <div className="ml-[0.4] gap-x-14 user_parent_name flex items-center">
-            <label className="font-chick text-xl" htmlFor="user_parent_name">
+          <div className="ml-[0.4] gap-x-14 userParentName flex items-center">
+            <label className="font-chick text-xl" htmlFor="userParentName">
               부모님 이름
             </label>
             <div className="relative">
               <div>
                 <InputBox
-                  register={register("user_parent_name", {
+                  register={register("userParentName", {
                     required: "부모님 이름을 입력하지 않았습니다.",
                   })}
                   // onChange={onEmailChange}
@@ -322,7 +322,7 @@ function SignUp() {
               </div>
               <div className="relatvie w-full">
                 <ErrorMessage
-                  name="user_parent_name"
+                  name="userParentName"
                   errors={errors}
                   render={({ message }) =>
                     message == "부모님 이름을 입력하지 않았습니다." ? (
@@ -343,13 +343,13 @@ function SignUp() {
               출생/성별
             </label>
             <CalenderSelectBox
-              register={register("user_birth", {
+              register={register("userBirth", {
                 required: "생일을 입력하지 않으셨습니다.",
               })}
             />
             <div className="ml-[0.5em]">
               <Sex
-                register={register("user_sex", {
+                register={register("userSex", {
                   required: "생일을 입력하지 않으셨습니다.",
                 })}
               />
