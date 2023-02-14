@@ -1,10 +1,13 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.domain.dto.*;
+import com.ssafy.api.domain.entity.AuthRefreshSave;
 import com.ssafy.api.domain.entity.User;
+import com.ssafy.api.domain.repository.AuthRefreshSaveRepository;
 import com.ssafy.api.service.EmailService;
 import com.ssafy.api.service.UserService;
 import io.swagger.annotations.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@AllArgsConstructor
 @Api(value = "유저 API", tags = {"User"})
 @RestController
 @RequestMapping("/api/users")
@@ -22,11 +26,7 @@ public class UserController {
     private final UserService userService;
     @Autowired
     private final EmailService emailService;
-    @Autowired
-    public UserController(UserService userService, EmailService emailService) {
-        this.userService = userService;
-        this.emailService = emailService;
-    }
+    AuthRefreshSaveRepository authRefreshSaveRepository;
     @PostMapping("/register")
     @ApiOperation(value="회원 가입", notes = "이메일, 비밀번호, 자녀이름, 부모님 이름, 성별, 출생일을 통해 회원가입 한다")
     @ApiResponses({
@@ -199,6 +199,7 @@ public class UserController {
     @ApiOperation(value="비밀번호 변경", notes = "비밀번호를 변경한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공 및 이메일로 비밂번호 반환"),
+            @ApiResponse(code = 401, message = "토큰이 유효하지 않음"),
             @ApiResponse(code = 404, message = "refreshtoken 없음"),
             @ApiResponse(code = 405, message = "refreshtoken 없음"),
             @ApiResponse(code = 500, message = "서버 오류"),
@@ -220,9 +221,13 @@ public class UserController {
         if(refreshToken==null) {
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Not Exist refreshToken"));
         }
-        if(userService.changePassword(changePwInfo)){
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-        }
+        AuthRefreshSave token = authRefreshSaveRepository.findByRefreshToken(refreshToken);
+        if(token!=null){
+            if(userService.changePassword(changePwInfo)){
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+            }
         return ResponseEntity.status(405).body(BaseResponseBody.of(405, "비밀번호가 일치 하지않음"));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Invalid Token"));
     }
 }
