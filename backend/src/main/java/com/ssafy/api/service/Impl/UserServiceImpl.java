@@ -117,6 +117,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void changePassword(UserLoginPostReq userInfo) {
+        User user = userRepository.findByUserEmail(userInfo.getEmail());
+        user.setUserPwd(passwordEncoder.encode(userInfo.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
     public UserLoginInfo getUserLoginInfo(User user) {
         UserLoginInfo userLoginInfo = new UserLoginInfo();
         userLoginInfo.setUserEmail(user.getUserEmail());

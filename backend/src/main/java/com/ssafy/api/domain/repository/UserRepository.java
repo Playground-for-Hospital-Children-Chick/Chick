@@ -23,7 +23,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     void deleteByEmail(String userEmail);
 
     @Query(nativeQuery = true, value = "select count(distinct(date_format(mat_create_date,  '%y-%m-%d')))as attendance_day from matching where mat_create_by= :email")
-
     int getAttendanceDay(String email);
 
 }
