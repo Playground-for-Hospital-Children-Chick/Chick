@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
         msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
         msgg+= "<h3 style='color:blue;'>임시 비밀번호가 발급되었습니다.</h3>";
         msgg+= "<div style='font-size:130%'>";
-        msgg+= "CODE : <strong>";
+        msgg+= "임시 비밀번호 : <strong>";
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
