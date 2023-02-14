@@ -10,11 +10,11 @@ public interface UserService {
 
         public UserLoginInfo getUserLoginInfo(User user);
 
-        public String findEmail(String  userParentName, String userChName,String  userBirth);
+        public User findEmail(String  userParentName, String userChName,String  userBirth);
 
         public boolean deleteUser(UserLoginPostReq deleteInfo);
 
-        public String sendPwdMessage(String to)throws Exception;
+        public void sendPwdMessage(String to)throws Exception;
         public UserLoginInfo createGuest();
 
         public void profileUpdate(String email,  String fileName) throws Exception;

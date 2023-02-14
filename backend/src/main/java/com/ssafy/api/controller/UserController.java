@@ -124,9 +124,9 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류"),
     })
     public ResponseEntity<? extends PwdFindPosRes> findEmail(@RequestParam String userParentName, @RequestParam String userChName, @RequestParam String userBirth) {
-        String email = userService.findEmail(  userParentName,   userChName,  userBirth);
-        if(email!=null && !"".equals(email)){
-            String[] splitMail = email.split("@");
+        User user = userService.findEmail(userParentName,   userChName,  userBirth);
+        if(user!=null){
+            String[] splitMail = user.getUserEmail().split("@");
             String front = splitMail[0].substring(0, splitMail[0].length()-3)+"***";
             return ResponseEntity.status(200).body(PwdFindPosRes.of(200, "Success", front+"@"+splitMail[1]));
         }
@@ -143,7 +143,7 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> findPassword(@RequestParam String email) throws Exception {
         User user = userService.getUserByEmail(email);
         if (user != null) {
-            String result = userService.sendPwdMessage(email);
+            userService.sendPwdMessage(email);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));

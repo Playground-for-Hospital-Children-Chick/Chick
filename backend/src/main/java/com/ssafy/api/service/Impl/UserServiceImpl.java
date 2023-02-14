@@ -150,10 +150,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String findEmail(String  userParentName, String userChName,String  userBirth) {
+    public User findEmail(String  userParentName, String userChName,String  userBirth) {
         User user = userRepository.findByUserParentNameAndUserChNameAndUserBirth(userParentName,
                 userChName, userBirth);
-        return user.getUserEmail();
+        return user;
     }
 
     @Override
@@ -214,7 +214,7 @@ public class UserServiceImpl implements UserService {
         return message;
     }
     @Override
-    public String sendPwdMessage(String to)throws Exception {
+    public void sendPwdMessage(String to)throws Exception {
         // TODO Auto-generated method stub
         MimeMessage message = pwdFindMessage(to);
         User user = userRepository.findByUserEmail(to);
@@ -227,9 +227,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setUserPwd(passwordEncoder.encode(ePw));
             userRepository.save(user);
-            return ePw;
         }
-        return "";
     }
     static int calcuAge(String birth) { // 만 나이를 계산하여 리턴
         int userYear = Integer.parseInt(birth.substring(0, 4)); // 회원 출생년도
