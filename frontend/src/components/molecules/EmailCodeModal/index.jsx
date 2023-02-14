@@ -12,7 +12,8 @@ function CodeModal({
   turnOnModal,
   setCheckedEmail,
   setInputEmail,
-  checkedEmail,
+  emailInput,
+  // checkedEmail,
   inputEmail,
   setModal,
   modal,
@@ -63,7 +64,7 @@ function CodeModal({
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
       }).then(() => {
-        setCheckedEmail(emailInput);
+        setInputEmail(emailInput);
         setModal(!modal);
         setCodeError(false);
       });
