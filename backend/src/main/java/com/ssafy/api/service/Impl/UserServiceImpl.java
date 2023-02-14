@@ -47,25 +47,25 @@ public class UserServiceImpl implements UserService {
 
     public boolean createUser(UserRegisterPostReq userRegisterInfo) {
         String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
-        if ((userRepository.findByUserEmail(userRegisterInfo.getUser_email()) != null)
-        ||(!userRegisterInfo.getUser_email().matches(pattern))) {
+        if ((userRepository.findByUserEmail(userRegisterInfo.getUserEmail()) != null)
+        ||(!userRegisterInfo.getUserEmail().matches(pattern))) {
             return false;
         }
         User user = User.builder()
-                .userEmail(userRegisterInfo.getUser_email().toString())
-                .userPwd(passwordEncoder.encode(userRegisterInfo.getUser_password()).toString())
-                .userChName(userRegisterInfo.getUser_child_name().toString())
-                .userParentName(userRegisterInfo.getUser_parent_name().toString())
-                .userSex(userRegisterInfo.getUser_sex().toString())
-                .userBirth(userRegisterInfo.getUser_birth().toString())
+                .userEmail(userRegisterInfo.getUserEmail().toString())
+                .userPwd(passwordEncoder.encode(userRegisterInfo.getUserPassword()).toString())
+                .userChName(userRegisterInfo.getUserChildName().toString())
+                .userParentName(userRegisterInfo.getUserParentName().toString())
+                .userSex(userRegisterInfo.getUserSex().toString())
+                .userBirth(userRegisterInfo.getUserBirth().toString())
                 .userState("0")
                 .userNumberOfReports(0)
                 .userServiceTerm("Y")
                 .userPrivacyTerm("Y")
                 .userRole(UserRole.ROLE_USER)
-                .userCreateBy(userRegisterInfo.getUser_email())
+                .userCreateBy(userRegisterInfo.getUserEmail())
                 .userCreateDate(LocalDateTime.now())
-                .userUpdateBy(userRegisterInfo.getUser_email())
+                .userUpdateBy(userRegisterInfo.getUserEmail())
                 .userUpdateDate(LocalDateTime.now())
                 .build();
         Profile profile = profileRepository.findById(0);
