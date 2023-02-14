@@ -21,7 +21,9 @@ function SignUp() {
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
   const [modal, setModal] = useState(false);
+  const [test, setTest] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
+  const [birth, setBirth] = useState("");
   const [inputEmail, setInputEmail] = useState("");
   const [emailVari, setEmailVari] = useState("");
   const navigate = useNavigate();
@@ -84,7 +86,7 @@ function SignUp() {
   };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
-    userInput["userBirth"] = parseInt(userInput["userBirth"]);
+    userInput.userBirth = parseInt(birth);
     delete userInput["userPasswordCheck"];
     //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
 
@@ -94,7 +96,9 @@ function SignUp() {
     } else {
     }
   };
-
+  const setBirthHandler = (e) => {
+    setBirth(e);
+  };
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
@@ -225,10 +229,7 @@ function SignUp() {
             </div>
           </div>
           <div className="gap-x-5 mt-10 password flex items-center">
-            <label
-              className=" font-chick text-xl"
-              htmlFor="userPasswordCheck"
-            >
+            <label className=" font-chick text-xl" htmlFor="userPasswordCheck">
               비밀번호 확인
             </label>
             <div className="relative">
@@ -343,9 +344,11 @@ function SignUp() {
               출생/성별
             </label>
             <CalenderSelectBox
-              register={register("userBirth", {
-                required: "생일을 입력하지 않으셨습니다.",
-              })}
+              setTest={setTest}
+              setBirthHandler={setBirthHandler}
+              // register={register("userBirth", {
+              //   required: "생일을 입력하지 않으셨습니다.",
+              // })}
             />
             <div className="ml-[0.5em]">
               <Sex

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function CalenderSelectBox({ register }) {
+function CalenderSelectBox({ setBirthHandler }) {
   const now = new Date();
   let nowMonth = "";
   let nowDay = "";
@@ -33,12 +33,13 @@ function CalenderSelectBox({ register }) {
   }
   useEffect(() => {
     setNowCal(nowCal);
-    register["userBirth"] = parseInt(
-      nowCal["year"].toString() +
-        nowCal["month"].toString() +
-        nowCal["day"].toString()
+    setBirthHandler(
+      parseInt(
+        nowCal["year"].toString() +
+          nowCal["month"].toString() +
+          nowCal["day"].toString()
+      )
     );
-    console.log(register);
   }, [nowCal]);
   if (now.getMonth() + 1 < 10) {
     nowMonth = "0" + (now.getMonth() + 1).toString();
@@ -54,15 +55,6 @@ function CalenderSelectBox({ register }) {
 
   return (
     <>
-      <input
-        {...register}
-        type="hidden"
-        value={parseInt(
-          nowCal["year"].toString() +
-            nowCal["month"].toString() +
-            nowCal["day"].toString()
-        )}
-      />
       <div className="flex gap-x-6 items-center">
         <div
           className="bg-white flex text-center font-chick flex justify-center items-center  relative overflow-hidden px-5 py-5 rounded-[30px]"
