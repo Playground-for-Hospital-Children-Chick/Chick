@@ -9,13 +9,13 @@ function CartoonPage() {
   React.useEffect(() => {}, [index]);
   function goBeforePage() {
     if (index > 0) {
-      console.log("goBeforePage");
+      // console.log("goBeforePage");
       setIndex(index - 1);
     }
   }
   function goNextPage() {
     if (index < 10) {
-      console.log("goNextPage");
+      // console.log("goNextPage");
       setIndex(index + 1);
     }
   }

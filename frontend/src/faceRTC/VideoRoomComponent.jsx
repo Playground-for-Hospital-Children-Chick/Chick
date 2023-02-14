@@ -109,10 +109,6 @@ class VideoRoomComponent extends Component {
   }
 
   async block(sub) {
-    console.log("차단 가즈아아아아아아아아앙아111111111");
-    console.log(sub);
-    console.log(this.props);
-
     const response = await axios({
       method: "post",
       url: APPLICATION_SERVER_URL + "api/report/block",
@@ -124,10 +120,9 @@ class VideoRoomComponent extends Component {
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     });
-    console.log(response.status);
 
     if (response.status == 200) {
-      console.log("**********leaveSession Success**********");
+      // console.log("**********leaveSession Success**********");
     }
 
     window.location.href = "/home";
@@ -171,7 +166,7 @@ class VideoRoomComponent extends Component {
             timer: 1500,
           });
 
-          console.log("Image and form data saved successfully", response.data);
+          // console.log("Image and form data saved successfully", response.data);
         })
         .catch((error) => {
           Swal.fire({
@@ -266,7 +261,7 @@ class VideoRoomComponent extends Component {
     this.state.deepAR.downloadFaceTrackingModel(
       "/lib/models-68-extreme.bin",
       () => {
-        console.log("AR 효과 적용");
+        // console.log("AR 효과 적용");
       }
     );
   }
@@ -287,7 +282,6 @@ class VideoRoomComponent extends Component {
   }
 
   joinSession() {
-    console.log("joinSession");
     this.OV = new OpenVidu();
 
     this.setState(
@@ -302,17 +296,13 @@ class VideoRoomComponent extends Component {
   }
 
   async connectToSession() {
-    console.log("connectToSession");
     if (this.props.token !== undefined) {
-      console.log("token received: ", this.props.token);
       this.connect(this.props.token);
     } else {
       try {
         var token = await this.getToken();
-        console.log(token);
         this.connect(token);
       } catch (error) {
-        console.log("리다이렉트해줘");
         console.error(
           "There was an error getting the token:",
           error.code,
@@ -345,7 +335,6 @@ class VideoRoomComponent extends Component {
   }
 
   connect(token) {
-    console.log("connect");
     this.state.session
       .connect(token, { clientData: this.state.myUserName })
       .then(async () => {
@@ -370,7 +359,6 @@ class VideoRoomComponent extends Component {
   }
 
   async connectWebCam() {
-    console.log("connectWebCam");
     await this.OV.getUserMedia({
       audioSource: undefined,
       videoSource: undefined,
@@ -400,7 +388,7 @@ class VideoRoomComponent extends Component {
         });
       });
     }
-    localUser.setNickname(this.props.email);
+    localUser.setNickname(this.props.user);
     localUser.setConnectionId(this.state.session.connection.connectionId);
     localUser.setStreamManager(publisher);
     this.subscribeToUserChanged();
@@ -441,7 +429,6 @@ class VideoRoomComponent extends Component {
 
   async leaveSession() {
     // this.state.deepAR.stopVideo();
-    console.log("**********leaveSession**********");
     const mySession = this.state.session;
 
     if (mySession) {
@@ -461,10 +448,8 @@ class VideoRoomComponent extends Component {
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     });
-    console.log(response.status);
 
     if (response.status == 200) {
-      console.log("**********leaveSession Success**********");
     }
 
     // Empty all properties...
@@ -557,7 +542,6 @@ class VideoRoomComponent extends Component {
       remoteUsers.forEach((user) => {
         if (user.getConnectionId() === event.from.connectionId) {
           const data = JSON.parse(event.data);
-          console.log("EVENTO REMOTE: ", event.data);
           if (data.isAudioActive !== undefined) {
             user.setAudioActive(data.isAudioActive);
           }
@@ -805,8 +789,6 @@ class VideoRoomComponent extends Component {
   }
 
   async getToken() {
-    console.log("getToken");
-
     const sessionId = await this.createSession(this.props.email);
     this.setState({
       mySessionId: sessionId,
@@ -816,8 +798,6 @@ class VideoRoomComponent extends Component {
   }
 
   async createSession(email) {
-    console.log("createSession");
-
     let guest = "true";
 
     // 유저 타입에 따라 매칭되는게 다름
@@ -841,8 +821,6 @@ class VideoRoomComponent extends Component {
   }
 
   async createToken(sessionId) {
-    console.log("createToken");
-
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
       {},

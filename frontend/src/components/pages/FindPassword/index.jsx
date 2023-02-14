@@ -27,13 +27,13 @@ function FindPassword() {
   };
 
   const sendPassword = async (userInput) => {
-    console.log(userInput);
+    // console.log(userInput);
     // userInput["user_birth"] = parseInt(userInput["user_birth"]);
     // delete userInput["user_password_check"];
     // //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
 
     const response = await sendPasswordUser(userInput);
-    console.log(response);
+    // console.log(response);
     if (parseInt(Number(response.status) / 100) === 2) {
       Swal.fire({
         icon: "success",

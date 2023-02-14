@@ -48,7 +48,7 @@ function MyPage() {
       allowEscapeKey: false,
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("delete 요청 메일", email);
+        // console.log("delete 요청 메일", email);
         axios({
           method: "delete",
           url: APPLICATION_SERVER_URL + "api/report/unblock",
@@ -78,8 +78,8 @@ function MyPage() {
       },
       headers: { "Content-Type": "application/json;charset=UTF-8" },
     }).then((response) => {
-      console.log("response", response);
-      console.log("response.data", response.data);
+      // console.log("response", response);
+      // console.log("response.data", response.data);
       if (response.status == 200) {
         const fileList = response.data.filelist;
         if (fileList != null) {

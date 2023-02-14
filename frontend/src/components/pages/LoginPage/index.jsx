@@ -43,11 +43,11 @@ function Login() {
   }
 
   const onLogin = async (userinput) => {
-    console.log(userinput);
+    // console.log(userinput);
     const response = await loginUser(userinput);
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      console.log(response.data.accessToken);
+      // console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
         SET_USER({
@@ -61,9 +61,9 @@ function Login() {
           userType: "user",
         })
       );
-      console.log(user["userEmail"]);
-      console.log(user["userChName"]);
-      console.log(user["userEmail"]);
+      // console.log(user["userEmail"]);
+      // console.log(user["userChName"]);
+      // console.log(user["userEmail"]);
 
       return navigate("/home");
     } else {
@@ -78,7 +78,7 @@ function Login() {
         denyButtonColor: undefined,
       });
 
-      console.log(response);
+      // console.log(response);
     }
     // input 태그 값 비워주는 코드
     setValue("password", "");
