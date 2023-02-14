@@ -182,7 +182,7 @@ function MyPage() {
         axios({
           method: "delete",
           url: APPLICATION_SERVER_URL + "api/users",
-          params: {
+          data: {
             email: user["userEmail"],
             password: password,
           },
