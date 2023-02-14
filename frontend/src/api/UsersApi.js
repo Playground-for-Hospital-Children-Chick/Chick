@@ -52,7 +52,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 // 게스트 로그인 요청
 export const loginGuest = async function guestLogin() {
   const response = await axios({
-    method: "get",
+    method: "post",
     url: BASE_URL + "/auth/loginGuest",
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
