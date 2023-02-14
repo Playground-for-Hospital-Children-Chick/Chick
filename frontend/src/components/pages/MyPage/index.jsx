@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
+import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
@@ -20,6 +21,8 @@ function MyPage() {
   const [profilePath, setProfilePath] = useState(
     "/assets/characters/chick_01.svg"
   );
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -170,7 +173,51 @@ function MyPage() {
     }
   }
 
-  console.log("user~!~!~!!~!~!~!!~~!", user);
+  function withdrawal() {
+    Swal.fire({
+      title: "비밀번호 입력",
+      input: "password",
+      showCancelButton: false,
+      confirmButtonText: "회원탈퇴",
+      preConfirm: (password) => {
+        axios({
+          method: "delete",
+          url: APPLICATION_SERVER_URL + "api/users",
+          data: {
+            email: user["userEmail"],
+            password: password,
+          },
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        }).then((response) => {
+          if (response.status == 200) {
+            Swal.fire({
+              icon: "success",
+              title: "회원 탈퇴 성공",
+              confirmButtonText: "확인",
+              confirmButtonColor: "#8cc8ff",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(DELETE_TOKEN());
+                dispatch(DELETE_USER());
+                navigate("/login");
+                return;
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "회원 탈퇴 실패",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      },
+    });
+  }
+
   return (
     <div>
       <button
@@ -259,6 +306,11 @@ function MyPage() {
       <div className="absolute right-5 top-14">
         <AiOutlineSetting size={60} />
       </div>
+      <button onClick={withdrawal}>
+        <div className="absolute bottom-5 right-5 font-chick text-lg">
+          회원탈퇴
+        </div>
+      </button>
     </div>
   );
 }

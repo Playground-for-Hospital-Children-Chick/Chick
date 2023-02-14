@@ -88,6 +88,22 @@ export const logoutUser = async function logout() {
   return response;
 };
 
+//임시 비밀번호 요청
+export const sendPasswordUser = async function temppassword(credentials) {
+  const response = await axios({
+    method: "POST",
+    url: `${BASE_URL}/users/find/password`,
+    params: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+
+    withCredentials: true,
+  }).catch((error) => error);
+
+  return response;
+};
+
 //일정 시간마다 accessToken 재발행 하는 코드만들려고 하는 시도
 // useQuery([queryKey.REFRESH], authAPI.silentRefresh, {
 //   refetchOnWindowFocus: false,

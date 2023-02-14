@@ -38,11 +38,7 @@ function App() {
           <Route
             path="/facepage"
             element={
-              <VideoRoomComponent
-                user={user["userChName"]}
-                email={user["userEmail"]}
-                userType={user["userType"]}
-              />
+              <VideoRoomComponent user={user["userChName"]} email={user["userEmail"]} userType={user["userType"]} />
             }
           />
           <Route path="/signup" element={<SignUp />} />
@@ -54,6 +50,7 @@ function App() {
           <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/signupComplete" element={<SignUpComplete />} />
           <Route path="/termsofuse" element={<TermsOfPage />} />
+          <Route path="/pwchange" element={<PwChange />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
