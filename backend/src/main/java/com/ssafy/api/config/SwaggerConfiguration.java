@@ -32,7 +32,7 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         String descript = "병아리 React API Reference for Developers<br>";
-        descript += "<img src=\"/assets/img/chick.jpg\">";
+        descript += "<img style=\"width: 150px\" src=\"/assets/img/chick.jpg\">";
         return new ApiInfoBuilder().title(title).description(descript)
 //				.termsOfServiceUrl("https://edu.ssafy.com")
                 .contact(new Contact("병아리", "http://i8b207.p.ssafy.io/", "kimchick207@gmail.com")).license("chick License")
