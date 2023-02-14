@@ -180,7 +180,7 @@ public class AuthController {
         return ResponseEntity.status(401).body(ReAccessPostRes.of(401, "Invalid Token", null, null));
     }
 
-    @GetMapping("/loginGuest")
+    @PostMapping("/loginGuest")
     @ApiOperation(value="게스트 로그인", notes = "게스트로 회원 가입하고 로그인 한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
