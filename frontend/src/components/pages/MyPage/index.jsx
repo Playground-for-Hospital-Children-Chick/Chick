@@ -230,14 +230,14 @@ function MyPage() {
       </div>
 
       {/* 차단 유저 리스트 */}
-      <div className="absolute right-44 top-64">
+      <div className="absolute right-64 top-64">
         <div className="text-start inline mt-8 mb-6">
           <div className="font-chick text-xl mb-2">
             {user["userChName"]}'s 차단 유저 리스트
           </div>
         </div>
         {blockList.length > 0 ? (
-          <div className="flex justify-center h-[230px] overflow-y-scroll flex-col scrollbar-hide">
+          <div className="flex justify-between h-[230px] overflow-y-scroll flex-col scrollbar-hide">
             {blockList.map((item, i) => (
               <div
                 key={i}
