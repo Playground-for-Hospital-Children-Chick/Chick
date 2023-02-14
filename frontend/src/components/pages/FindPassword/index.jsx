@@ -16,7 +16,9 @@ function FindPassword() {
           <span className="mr-28 text-center inline-block my-10 font-chick text-3xl">비밀번호를알려줘</span>
         </div>
         <div className="top w-21 flex justify-center">
-          <span className="ml-20 mr-28 text-center inline-block my-10 font-chick text-xl">비밀번호를 찾고자하는 아이디를 입력해주세요</span>
+          <span className="ml-20 mr-28 text-center inline-block my-10 font-chick text-xl">
+            비밀번호를 찾고자하는 이메일을 입력해주세요
+          </span>
         </div>
         <div className="form">
           <form className="mt-8 space-y-6">
