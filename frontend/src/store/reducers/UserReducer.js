@@ -20,6 +20,7 @@ export const userSlice = createSlice({
     expireTime: null,
     attendanceDay: null,
     login: false,
+    profilePath: "/assets/characters/chick_01.svg",
   },
   reducers: {
     SET_USER: (state, action) => {
@@ -32,6 +33,7 @@ export const userSlice = createSlice({
       state.userSex = action.payload.userSex;
       state.attendanceDay = action.payload.attendanceDay;
       state.login = true;
+      state.profilePath = action.payload.profilePath;
     },
     DELETE_USER: (state) => {
       console.log("DELETE_USER");
@@ -43,6 +45,7 @@ export const userSlice = createSlice({
       state.userSex = null;
       state.attendanceDay = null;
       state.login = false;
+      state.profilePath = "/assets/characters/chick_01.svg";
     },
     SET_TOKEN: (state, action) => {
       console.log("SET_TOKEN");
