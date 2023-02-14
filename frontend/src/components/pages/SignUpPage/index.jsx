@@ -185,7 +185,8 @@ function SignUp() {
                 register={register("user_password", {
                   required: "비밀번호를 입력하지 않았습니다.",
                   pattern: {
-                    message: "비밀번호형식이 잘못되었습니다.",
+                    message: "숫자+영문자포함 8글자 이상입니다.",
+
                     value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                   },
                   validate: {
@@ -207,6 +208,10 @@ function SignUp() {
                   render={({ message }) =>
                     message == "비밀번호를 입력하지 않았습니다." ? (
                       <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                        {message}
+                      </div>
+                    ) : message == "숫자+영문자포함 8글자 이상입니다." ? (
+                      <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
                         {message}
                       </div>
                     ) : (
@@ -231,7 +236,7 @@ function SignUp() {
                 register={register("user_password_check", {
                   required: "비밀번호를 입력하지 않았습니다.",
                   pattern: {
-                    message: "비밀번호형식이 잘못되었습니다.",
+                    message: "숫자+영문자포함 8글자 이상입니다.",
                     value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                   },
                   validate: {
@@ -253,6 +258,10 @@ function SignUp() {
                   render={({ message }) =>
                     message == "비밀번호를 입력하지 않았습니다." ? (
                       <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                        {message}
+                      </div>
+                    ) : message == "숫자+영문자포함 8글자 이상입니다." ? (
+                      <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
                         {message}
                       </div>
                     ) : (
