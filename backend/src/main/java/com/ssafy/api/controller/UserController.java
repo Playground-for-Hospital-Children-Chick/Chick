@@ -123,9 +123,9 @@ public class UserController {
             @ApiResponse(code = 404, message = "회원정보 없음"),
             @ApiResponse(code = 500, message = "서버 오류"),
     })
-    public ResponseEntity<? extends PwdFindPosRes> findEmail(@RequestBody @ApiParam(value="이메일 찾기 위한 정보", required = true) UserFindEmailReq userFindEmailReq) {
-        String email = userService.findEmail(userFindEmailReq).getUserEmail();
-        if(email!=null && !email.equals("")){
+    public ResponseEntity<? extends PwdFindPosRes> findEmail(@RequestParam String userParentName, @RequestParam String userChName, @RequestParam String userBirth) {
+        String email = userService.findEmail(  userParentName,   userChName,  userBirth);
+        if(email!=null && !"".equals(email)){
             String[] splitMail = email.split("@");
             String front = splitMail[0].substring(0, splitMail[0].length()-3)+"***";
             return ResponseEntity.status(200).body(PwdFindPosRes.of(200, "Success", front+"@"+splitMail[1]));

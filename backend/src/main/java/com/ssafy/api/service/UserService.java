@@ -10,7 +10,7 @@ public interface UserService {
 
         public UserLoginInfo getUserLoginInfo(User user);
 
-        public User findEmail(UserFindEmailReq userFindEmailReq);
+        public String findEmail(String  userParentName, String userChName,String  userBirth);
 
         public boolean deleteUser(UserLoginPostReq deleteInfo);
 
