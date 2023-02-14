@@ -12,8 +12,11 @@ import AlertBox from "./../../atoms/AlertBox/index";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import CalenderSelectBox from "../../atoms/CalenderSelectBox";
+import { SET_USER } from "./../../../store/reducers/UserReducer";
 
 function UserInfoChangePage({ myinfomodal, setMyInfoModal }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
@@ -23,9 +26,11 @@ function UserInfoChangePage({ myinfomodal, setMyInfoModal }) {
     setBirth(e);
   };
   const onUpdateMyInfo = async (userInput) => {
+    userInput["user_email"] = user["userEmail"];
     userInput["user_birth"] = parseInt(birth);
 
     const response = await updateMyInfo(userInput);
+    console.log(response);
     if (parseInt(Number(response.status) / 100) === 2) {
       Swal.fire({
         icon: "info",
@@ -36,7 +41,20 @@ function UserInfoChangePage({ myinfomodal, setMyInfoModal }) {
         denyButtonText: undefined,
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
-      });
+      }).then(() => {});
+      dispatch(
+        SET_USER({
+          userEmail: response.data.userLoginInfo.userEmail,
+          userChName: response.data.userLoginInfo.userChName,
+          userAge: response.data.userLoginInfo.userAge,
+          userBirth: response.data.userLoginInfo.userBirth,
+          userSex: response.data.userLoginInfo.userSex,
+          attendanceDay: response.data.userLoginInfo.attendanceDay,
+          profilePath: response.data.userLoginInfo.profilePath,
+          userType: "user",
+        })
+      );
+      setMyInfoModal(!myinfomodal);
     } else {
       Swal.fire({
         icon: "error",
@@ -46,8 +64,6 @@ function UserInfoChangePage({ myinfomodal, setMyInfoModal }) {
       });
     }
   };
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <div className="absolute -translate-x-[50%] -translate-y-[50%] top-[50%] left-[50%]">
