@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Api(value = "유저 API", tags = {"User"})
@@ -198,10 +199,30 @@ public class UserController {
     @ApiOperation(value="비밀번호 변경", notes = "비밀번호를 변경한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공 및 이메일로 비밂번호 반환"),
+            @ApiResponse(code = 404, message = "refreshtoken 없음"),
+            @ApiResponse(code = 405, message = "refreshtoken 없음"),
             @ApiResponse(code = 500, message = "서버 오류"),
     })
-    public ResponseEntity<? extends BaseResponseBody> pwdChange(@RequestBody @ApiParam(value="비밀번호 수정을 위한 회원 정보", required = true) UserLoginPostReq changePwInfo) throws Exception {
-        userService.changePassword(changePwInfo);
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+    public ResponseEntity<? extends BaseResponseBody> pwdChange(HttpServletRequest request, @RequestBody @ApiParam(value="비밀번호 수정을 위한 회원 정보", required = true) UserPwChangeReq changePwInfo) throws Exception {
+        String refreshToken=null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies==null) {
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Cookies is null"));
+        }
+
+        for(Cookie cookie : cookies){
+            if("refreshToken".equals(cookie.getName())){
+                refreshToken=cookie.getValue();
+            }
+        }
+
+        // 쿠키 목록에 refreshToken 이 없으면 요청 실패 에러
+        if(refreshToken==null) {
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Not Exist refreshToken"));
+        }
+        if(userService.changePassword(changePwInfo)){
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.status(405).body(BaseResponseBody.of(405, "비밀번호가 일치 하지않음"));
     }
 }
