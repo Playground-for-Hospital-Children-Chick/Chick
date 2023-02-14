@@ -7,6 +7,7 @@ import GamePlayBtn from "../../atoms/GamePlayBtn";
 import CalenderSelectBox from "../../atoms/CalenderSelectBox";
 import { findEmailUser } from "./../../../api/UsersApi";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -17,13 +18,15 @@ function FindEmail() {
   const navigate = useNavigate();
   const { setValue, formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
+  const [birth, setBirth] = useState("");
+  const setBirthHandler = (e) => {
+    setBirth(e);
+  };
   const onFindEmail = async (userInput) => {
-    userInput["userBirth"] = parseInt(userInput["userBirth"]);
+    userInput["userBirth"] = parseInt(birth);
 
-    console.log(userInput);
     const response = await findEmailUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
-      console.log(response);
       Swal.fire({
         icon: "info",
         title: "이메일 인증 성공",
@@ -134,11 +137,7 @@ function FindEmail() {
                 >
                   출생
                 </label>
-                <CalenderSelectBox
-                  register={register("userBirth", {
-                    required: "생일을 입력하지 않으셨습니다.",
-                  })}
-                />
+                <CalenderSelectBox setBirthHandler={setBirthHandler} />
               </div>
             </div>
             <div className="">
