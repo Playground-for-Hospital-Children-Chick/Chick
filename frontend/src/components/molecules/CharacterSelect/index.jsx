@@ -93,7 +93,7 @@ function SelectCharacter({ setModal, email, setProfilePath }) {
             />
           </button>
         </div>
-        <hr className="" />
+        <hr />
         <div className="h-42 w-full character">
           <div className="flex flex-row">
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-150">
