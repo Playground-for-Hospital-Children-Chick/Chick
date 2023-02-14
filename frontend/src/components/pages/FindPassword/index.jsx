@@ -58,83 +58,85 @@ function FindPassword() {
   };
 
   return (
-    <div>
-      <AlertBox>
-        <div className="top flex flex-row  justify-center">
-          <img
-            className="inline after:mr-5 w-1/6"
-            src={chick_02}
-            alt="병아리캐릭터"
-          />
-          <span className="mr-[3.5em] text-center inline-block my-10 font-chick text-3xl">
-            비밀번호 찾기
-          </span>
-        </div>
-        <div className="top w-21 flex flex-col justify-center">
-          <span className=" text-center inline-block my-5 font-chick text-2xl">
-            비밀번호를 찾으려는
-          </span>
-          <span className=" text-center inline-block font-chick text-2xl">
-            이메일을 입력해주세요{" "}
-          </span>
-        </div>
-        <div className="form">
-          <form
-            className="mt-8 space-y-6"
-            onSubmit={handleSubmit(sendPassword)}
-          >
-            <input type="hidden" name="remember" defaultValue="true" />
-            <div>
-              <div className="ml-10 mb-10 flex justify-start items-center mr-[4em]">
-                <label
-                  className="mr-[2.5em] font-chick text-xl"
-                  htmlFor="email"
-                >
-                  이메일
-                </label>
-                <div className="relative">
-                  <InputBox
-                    onChange={emailInput}
-                    register={register("email", {
-                      required: "이메일을 입력하지 않았습니다.",
-                      pattern: {
-                        message: "이메일형식이 잘못되었습니다.",
-                        value:
-                          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
-                      },
-                    })}
-                  />
-                  <div className="relatvie w-full">
-                    <ErrorMessage
-                      name="email"
-                      errors={errors}
-                      render={({ message }) =>
-                        message == "이메일을 입력하지 않았습니다." ? (
-                          <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
-                            {message}
-                          </div>
-                        ) : (
-                          <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
-                            {message}
-                          </div>
-                        )
-                      }
+    <>
+      <div className="-translate-x-[50%] -translate-y-[50%] left-[50%] top-[50%] absolute">
+        <AlertBox>
+          <div className="top flex flex-row  justify-center">
+            <img
+              className="inline after:mr-5 w-1/6"
+              src={chick_02}
+              alt="병아리캐릭터"
+            />
+            <span className="mr-[3.5em] text-center inline-block my-10 font-chick text-3xl">
+              비밀번호 찾기
+            </span>
+          </div>
+          <div className="top w-21 flex flex-col justify-center">
+            <span className=" text-center inline-block my-5 font-chick text-2xl">
+              비밀번호를 찾으려는
+            </span>
+            <span className=" text-center inline-block font-chick text-2xl">
+              이메일을 입력해주세요{" "}
+            </span>
+          </div>
+          <div className="form">
+            <form
+              className="mt-8 space-y-6"
+              onSubmit={handleSubmit(sendPassword)}
+            >
+              <input type="hidden" name="remember" defaultValue="true" />
+              <div>
+                <div className="ml-10 mb-10 flex justify-start items-center mr-[4em]">
+                  <label
+                    className="mr-[2.5em] font-chick text-xl"
+                    htmlFor="email"
+                  >
+                    이메일
+                  </label>
+                  <div className="relative">
+                    <InputBox
+                      onChange={emailInput}
+                      register={register("email", {
+                        required: "이메일을 입력하지 않았습니다.",
+                        pattern: {
+                          message: "이메일형식이 잘못되었습니다.",
+                          value:
+                            /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
+                        },
+                      })}
                     />
+                    <div className="relatvie w-full">
+                      <ErrorMessage
+                        name="email"
+                        errors={errors}
+                        render={({ message }) =>
+                          message == "이메일을 입력하지 않았습니다." ? (
+                            <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                              {message}
+                            </div>
+                          ) : (
+                            <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
+                              {message}
+                            </div>
+                          )
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="">
-              <GamePlayBtn
-                text="비밀번호찾기"
-                color="bg-emerald-300"
-                type="submit"
-              />
-            </div>
-          </form>
-        </div>
-      </AlertBox>
-    </div>
+              <div className="">
+                <GamePlayBtn
+                  text="비밀번호찾기"
+                  color="bg-emerald-300"
+                  type="submit"
+                />
+              </div>
+            </form>
+          </div>
+        </AlertBox>
+      </div>
+    </>
   );
 }
 
