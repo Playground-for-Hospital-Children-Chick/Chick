@@ -81,7 +81,7 @@ function SignUp() {
     }
   };
 
-  const emailInput = (e) => {
+  const emailInputfollow = (e) => {
     setInputEmail(e.target.value);
   };
   //회원가입 버튼 누를 시 실행
@@ -112,7 +112,7 @@ function SignUp() {
       {modal === true ? (
         <div className="absolute  -translate-x-[50%] -translate-y-[50%] z-[1000] top-[60%] left-[50%]">
           <CodeModal
-            emailInput={emailInput}
+            emailInputfollow={emailInputfollow}
             emailVari={emailVari}
             turnOnModal={turnOnModal}
             modal={modal}
@@ -138,7 +138,7 @@ function SignUp() {
             </label>
             <div className="relative">
               <InputBox
-                onChange={emailInput}
+                onChange={emailInputfollow}
                 register={register("userEmail", {
                   required: "이메일을 입력하지 않았습니다.",
                   pattern: {

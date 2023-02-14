@@ -12,8 +12,7 @@ function CodeModal({
   turnOnModal,
   setCheckedEmail,
   setInputEmail,
-  emailInput,
-  // checkedEmail,
+  emailInputfollow,
   inputEmail,
   setModal,
   modal,
@@ -64,7 +63,8 @@ function CodeModal({
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
       }).then(() => {
-        setInputEmail(emailInput);
+        setCheckedEmail(emailInput);
+        emailInputfollow(emailInput);
         setModal(!modal);
         setCodeError(false);
       });
@@ -72,7 +72,7 @@ function CodeModal({
   };
   const handleChange = useCallback(
     (e) => {
-      setInputEmail(e.target.value);
+      emailInputfollow(e.target.value);
     },
     [emailInput]
   );
@@ -100,7 +100,7 @@ function CodeModal({
   }, [emailInput]);
   useEffect(() => {
     setemailInput(inputEmail);
-  }, []);
+  }, [inputEmail]);
   useEffect(() => {
     if (emailVari == "success") {
       setCount(179);
