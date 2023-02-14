@@ -40,8 +40,6 @@ public class RoomServiceImpl implements RoomService {
         for (Room room: roomArrayList) { // 게임방
             if(room.getRoomCnt() >= 4) break; // 침가할 수 없는 방이면
             ArrayList<String> reported = matchingRepository.fineReported(email, room.getRoomSession()); // 해당방에 접속해 있는 사람 중 차단한 사람 목록을 가져온다
-            System.out.println("현재 세션: " + room.getRoomSession());
-            System.out.println("차단한 사람 목록: " + reported.toString());
             if (reported.size() > 0) continue; // 차단한 사람이 방에 존재하면
             room.setRoomCnt(room.getRoomCnt() + 1); // 방의 인원수 + 1
             room.setRoomUpdateBy(email); // 마지막으로 들어온 회원의 이메일

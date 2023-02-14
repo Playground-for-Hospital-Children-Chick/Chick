@@ -43,7 +43,6 @@ public class AuthController {
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo, HttpServletResponse response) {
-        System.out.println("로그인입니다");
         String email = loginInfo.getEmail();
         String password = loginInfo.getPassword();
         User user = userService.getUserByEmail(email);
@@ -109,7 +108,6 @@ public class AuthController {
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<BaseResponseBody> logout(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("로그아웃 입니다");
         String refreshToken=null;
         Cookie[] cookies = request.getCookies();
         if(cookies==null) {
@@ -188,7 +186,6 @@ public class AuthController {
             @ApiResponse(code = 200, message = "성공"),
     })
     public ResponseEntity<UserLoginPostRes> findPassword(HttpServletResponse response) throws Exception{
-        System.out.println("게스트 로그인입니다");
         UserLoginInfo userLoginInfo = userService.createGuest();
         String guestEmail = userLoginInfo.getUserEmail();
         String refreshToken = JwtTokenUtil.getRefreshToken(guestEmail);
