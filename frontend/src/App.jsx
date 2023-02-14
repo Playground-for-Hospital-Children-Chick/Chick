@@ -18,7 +18,7 @@ import SingDance from "./singDance/Video";
 import VideoRoomComponent from "./faceRTC/VideoRoomComponent";
 import PaintingPage from "./components/pages/paintingPage";
 
-import FindEmail from "./components/pages/FindId";
+import FindEmail from "./components/pages/FindEmail";
 import FindPassword from "./components/pages/FindPassword";
 
 import YouTubeVideo from "./youtube";
