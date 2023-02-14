@@ -107,7 +107,7 @@ export const sendPasswordUser = async function temppassword(credentials) {
 //이메일 찾기
 export const findEmailUser = async function findemail(credentials) {
   const response = await axios({
-    method: "POST",
+    method: "GET",
     url: `${BASE_URL}/users/find/email`,
     data: credentials,
     headers: {
