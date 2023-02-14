@@ -47,20 +47,16 @@ function Painting() {
         ) : (
           <>
             <CircleBox size={"small"}>
-              <div className="pl-4 w-[110px]">
+              <div className="pl-3 w-[70px]">
                 <img src={user["profilePath"]} />
               </div>
             </CircleBox>
-            <span className="font-chick text-lg mt-14 mr-4">
-              님 안녕하세요!
-            </span>
-            <div className="mt-5">
-              <CommonBtn
-                onClick={onLogout}
-                text={"로그아웃"}
-                color="bg-emerald-300"
-              />
-            </div>
+            <span className="font-chick text-lg mt-9 mr-4">님 안녕하세요!</span>
+            <CommonBtn
+              onClick={onLogout}
+              text={"로그아웃"}
+              color="bg-emerald-300"
+            />
           </>
         )}
       </div>
