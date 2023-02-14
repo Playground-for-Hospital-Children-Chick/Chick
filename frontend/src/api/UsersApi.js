@@ -104,6 +104,22 @@ export const sendPasswordUser = async function temppassword(credentials) {
   return response;
 };
 
+//이메일 찾기
+export const findEmailUser = async function findemail(credentials) {
+  const response = await axios({
+    method: "POST",
+    url: `${BASE_URL}/users/find/email`,
+    data: credentials,
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+
+    withCredentials: true,
+  }).catch((error) => error);
+
+  return response;
+};
+
 //일정 시간마다 accessToken 재발행 하는 코드만들려고 하는 시도
 // useQuery([queryKey.REFRESH], authAPI.silentRefresh, {
 //   refetchOnWindowFocus: false,
