@@ -127,7 +127,7 @@ public class UserController {
         String email = userService.findEmail(userFindEmailReq).getUserEmail();
         if(email!=null && !email.equals("")){
             String[] splitMail = email.split("@");
-            String front = splitMail[0].substring(0, splitMail[0].length()-2)+"**";
+            String front = splitMail[0].substring(0, splitMail[0].length()-3)+"***";
             return ResponseEntity.status(200).body(PwdFindPosRes.of(200, "Success", front+"@"+splitMail[1]));
         }
         return ResponseEntity.status(401).body(PwdFindPosRes.of(404, "Failure", null));
