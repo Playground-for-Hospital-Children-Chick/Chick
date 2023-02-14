@@ -117,6 +117,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserLoginInfo updateUser(UserUpdatePostReq userUpdatePostReq) {
+        String email = userUpdatePostReq.getUser_email(); // 회원 이메일
+        String name = userUpdatePostReq.getUser_child_name(); // 회원 자녀 이름
+        String birth = userUpdatePostReq.getUser_birth(); // 회원 자녀 출생일
+
+        User user = userRepository.findByUserEmail(email); // 이메일에 일치하는 회원 정보를 가져온다
+        if (user == null) return null; // 회원이 없으면
+        user.setUserChName(name); // 자녀 이름 업데이트
+        user.setUserBirth(birth); // 자녀 출생일 업데이트
+        userRepository.save(user); // 회원 정보 업데이트
+
+        return getUserLoginInfo(user);
+    }
     public void changePassword(UserLoginPostReq userInfo) {
         User user = userRepository.findByUserEmail(userInfo.getEmail());
         user.setUserPwd(passwordEncoder.encode(userInfo.getPassword()));
