@@ -62,11 +62,13 @@ function CodeModal({
         denyButtonText: undefined,
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
-      }).then(() => {
-        setCheckedEmail(emailInput);
-        emailInputfollow(emailInput);
-        setModal(!modal);
-        setCodeError(false);
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setCheckedEmail(emailInput);
+          emailInputfollow(emailInput);
+          setModal(!modal);
+          setCodeError(false);
+        }
       });
     }
   };
