@@ -12,9 +12,11 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 @Table(name = "PROFILE")

@@ -16,17 +16,17 @@ public class UserRegisterPostReq {
 //    @ApiModelProperty(name="유저 현재 프로필", example = "1")
 //    long prof_no;
     @ApiModelProperty(name="유저 이메일", example = "ssafy@ssafy.com")
-    String user_email;
+    String userEmail;
     @ApiModelProperty(name="유저 비밀번호", example = "your_password")
-    String user_password;
+    String userPassword;
     @ApiModelProperty(name="유저 자녀 이름", example = "ssafy")
-    String user_child_name;
+    String userChildName;
     @ApiModelProperty(name="유저 부모님 이름", example = "ssafy")
-    String user_parent_name;
+    String userParentName;
     @ApiModelProperty(name="유저 성별: 남자(M), 여자(W)", example = "M")
-    String user_sex;
+    String userSex;
     @ApiModelProperty(name="유저 출생일", example = "20160101")
-    String user_birth;
+    String userBirth;
 //    @ApiModelProperty(name="정상(normal), 탈퇴(withdrawal), 신고당해서 차단(block)", example = "normal")
 //    String user_state;
 //    @ApiModelProperty(name="유저 신고당한 횟수", example = "0")

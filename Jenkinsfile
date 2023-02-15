@@ -1,23 +1,22 @@
 pipeline {
     agent any
-    tools {
-    nodejs "nodejs"
-    }
+   tools {
+   gradle "gradle7.6"
+ }
     stages {
         stage('Pull') {
             steps {
 				script{
-				  git branch: 'front-end', credentialsId: 'jaeuk', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
+				  git branch: 'back-end', credentialsId: 'jaeuk', url: 'https://lab.ssafy.com/s08-webmobile1-sub2/S08P12B207'
 				}
             }
         }
         stage('React Build') {
           steps {
             script {
-              script {
-                sh 'npm install -g yarn'
-                sh 'yarn --cwd ./frontend install --network-timeout 100000'
-                sh 'yarn --cwd ./frontend build'
+              dir('backend') {
+                 sh 'chmod +x ./gradlew'
+                sh './gradlew build'
               }
             }
           }

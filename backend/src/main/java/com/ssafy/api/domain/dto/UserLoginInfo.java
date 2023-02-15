@@ -19,5 +19,15 @@ public class UserLoginInfo {
     private String userChName;
     @ApiModelProperty(value = "회원 역할")
     private UserRole userRole;
+    @ApiModelProperty(value = "회원 만나이")
+    int userAge;
+    @ApiModelProperty(value = "회원 출생일")
+    String userBirth;
+    @ApiModelProperty(value = "회원 성별")
+    String userSex;
+    @ApiModelProperty(value = "출석일")
+    int attendanceDay;
+    @ApiModelProperty(name="프로필 사진", example = "")
+    String profilePath;
 
 }

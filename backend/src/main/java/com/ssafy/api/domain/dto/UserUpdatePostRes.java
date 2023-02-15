@@ -1,28 +1,21 @@
 package com.ssafy.api.domain.dto;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 유저 로그인 API ([POST] /api/auth) 요청에 대한 응답값 정의
- */
 @Getter
 @Setter
 @ApiModel("UserLoginPostResponse")
-public class UserLoginPostRes extends BaseResponseBody{
-    @ApiModelProperty(name="JWT access 인증 토큰", example = "ekdif123SDKVIdf1231...")
-    String accessToken;
+public class UserUpdatePostRes extends BaseResponseBody {
     @ApiModelProperty(name="유저 로그인 정보", example = "이메일, 아이이름, 회원 역할")
     UserLoginInfo userLoginInfo;
 
-    public static UserLoginPostRes of(Integer statusCode, String message, String accessToken,  UserLoginInfo userLoginInfo) {
-        UserLoginPostRes res = new UserLoginPostRes();
+    public static UserUpdatePostRes of(Integer statusCode, String message, UserLoginInfo userLoginInfo) {
+        UserUpdatePostRes res = new UserUpdatePostRes();
         res.setStatusCode(statusCode);
         res.setMessage(message);
-        res.setAccessToken(accessToken);
         res.setUserLoginInfo(userLoginInfo);
 
         return res;

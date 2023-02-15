@@ -17,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @ToString
 @Builder
 @AllArgsConstructor
@@ -33,6 +34,7 @@ public class Room {
     private String roomType;
     private String roomSession;
     private String roomStatus;
+    private String roomGuest;
 
     @CreatedBy
     @Column(updatable = false)

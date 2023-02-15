@@ -23,7 +23,7 @@ public class JwtTokenUtil {
 
     public static final String TOKEN_PRIFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
-    public static final String ISSUER = "FarmNFarms.com";
+    public static final String ISSUER = "SsafyChick.com";
 
     @Autowired
     public JwtTokenUtil(@Value("${jwt.secret}") String secretKey, @Value("${jwt.access-expiration}") Integer accessExpirationTime, @Value("${jwt.refresh-expiration}") Integer refreshExpirationTime) {
@@ -45,10 +45,10 @@ public class JwtTokenUtil {
     }
 
     // JWT Access 토큰 발급 (만료시간을 파라미터로 설정)
-    public static String getAccessToken(String phone) {
+    public static String getAccessToken(String email) {
         Date expires = JwtTokenUtil.getTokenExpiration(accessExpirationTime);
         return JWT.create()
-                .withSubject(phone)
+                .withSubject(email)
                 .withExpiresAt(expires)
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
@@ -56,10 +56,10 @@ public class JwtTokenUtil {
     }
 
     // JWT Refresh 토큰 발급 (기 설정된 만료시간으로)
-    public static String getRefreshToken(String phone) {
+    public static String getRefreshToken(String email) {
         Date expires = JwtTokenUtil.getTokenExpiration(refreshExpirationTime);
         return JWT.create()
-                .withSubject(phone)
+                .withSubject(email)
                 .withExpiresAt(expires)
                 .withIssuer(ISSUER)
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))

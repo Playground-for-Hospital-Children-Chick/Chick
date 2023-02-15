@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### front-end ###
+/front-end/*

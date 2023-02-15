@@ -44,11 +44,16 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.querydsl/querydsl-apt
 	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '4.1.4'
 	implementation "org.springframework.boot:spring-boot-starter-actuator"
-	//openvidu
+	//opvidu
 	implementation group: 'io.openvidu', name: 'openvidu-java-client', version: '2.23.0'
 	// JWT 의존
 	implementation("com.auth0:java-jwt:3.10.3")
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// monitoring 시각화
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+	//s3
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
