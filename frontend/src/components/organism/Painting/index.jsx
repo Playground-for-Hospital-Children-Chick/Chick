@@ -40,7 +40,7 @@ function Painting() {
   // const [loginState, setLoginState] = useState(user);
   const dispatch = useDispatch();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const onLogout = async () => {
     const response = await logoutUser();
     const purge = async () => {
