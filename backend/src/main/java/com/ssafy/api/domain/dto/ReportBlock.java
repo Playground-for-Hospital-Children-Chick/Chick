@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 유저 차단 API ([GET] /api/report) 요청에 필요한 리퀘스트 바디 정의
+ */
+
 @Setter
 @Getter
 @ToString

@@ -8,6 +8,9 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 
+/**
+ * 차단한 유저 리스트 API ([GET] /auth/report) 요청에 대한 응답값 정의
+ */
 @Setter
 @Getter
 @ToString

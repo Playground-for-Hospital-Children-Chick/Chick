@@ -5,6 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+
+
+/**
+ * 로그아웃 API ([POST] /api/user) 요청에 대한 응답값 정의
+ */
 @Getter
 @Setter
 @ApiModel("UserLogoutPostRes")

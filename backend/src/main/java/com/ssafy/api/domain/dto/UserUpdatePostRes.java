@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 회원정보 수정 API ([POST] /api/user/updateUserInfo) 요청에 대한 응답값 정의
+ */
 @Getter
 @Setter
 @ApiModel("UserLoginPostResponse")

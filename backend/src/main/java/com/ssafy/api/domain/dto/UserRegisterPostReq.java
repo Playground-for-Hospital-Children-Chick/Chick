@@ -8,13 +8,15 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * 유저 회원정보 수정 API ([POST] /api/user/updateUserInfo) 요청에 필요한 리퀘스트 바디 정의
+ */
 @Getter
 @Setter
 @ToString
 @ApiModel("UserRegisterPostRequest")
 public class UserRegisterPostReq {
-//    @ApiModelProperty(name="유저 현재 프로필", example = "1")
-//    long prof_no;
     @ApiModelProperty(name="유저 이메일", example = "ssafy@ssafy.com")
     String userEmail;
     @ApiModelProperty(name="유저 비밀번호", example = "your_password")
@@ -27,22 +29,5 @@ public class UserRegisterPostReq {
     String userSex;
     @ApiModelProperty(name="유저 출생일", example = "20160101")
     String userBirth;
-//    @ApiModelProperty(name="정상(normal), 탈퇴(withdrawal), 신고당해서 차단(block)", example = "normal")
-//    String user_state;
-//    @ApiModelProperty(name="유저 신고당한 횟수", example = "0")
-//    int user_reported;
-//    @ApiModelProperty(name="유저 서비스이용약관", example = "Y")
-//    String user_service_term;
-//    @ApiModelProperty(name="유저 개인정보이용약관", example = "Y")
-//    String user_privacy_term;
-//    @ApiModelProperty(name="유저 역할: 회원(user),관리자(admin),부모님(parent)")
-//    String user_role;
-//    @ApiModelProperty(name="생성자", example="ssafy")
-//    String user_create_by;
-//    @ApiModelProperty(name="생성일", example="2023-01-27")
-//    String user_create_date;
-//    @ApiModelProperty(name="수정자", example="ssafy")
-//    String user_upadate_by;
-//    @ApiModelProperty(name="수정일", example="2023-01-27")
-//    String user_update_date;
+
 }

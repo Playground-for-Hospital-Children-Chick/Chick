@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 @Configuration
 public class S3Config {
     @Value("${cloud.aws.credentials.access-key}")
-    private String accessKey;
+    private String accessKey;//s3 access key
 
     @Value("${cloud.aws.credentials.secret-key}")
-    private String secretKey;
+    private String secretKey;//s3 secret key
 
     @Value("${cloud.aws.region.static}")
-    private String region;
+    private String region;// 지역 ap-northeast-2
 
     public AmazonS3 amazonS3Client() {
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);

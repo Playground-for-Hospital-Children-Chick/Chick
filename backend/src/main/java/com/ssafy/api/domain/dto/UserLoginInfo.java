@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+/**
+ * 유저 로그인 관련 Dto 정의
+ */
 @Component
 @Getter
 @Setter

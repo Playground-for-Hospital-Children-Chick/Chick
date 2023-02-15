@@ -8,6 +8,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+
+/**
+ * s3 이미지 리스트 API ([GET] /api/s3/list) 요청에 대한 응답값 정의
+ */
 @Getter
 @Setter
 @ApiModel("S3ImagesRes")

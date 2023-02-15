@@ -9,6 +9,11 @@ import lombok.Setter;
 
 import java.util.List;
 
+
+
+/**
+ * 유튜브 스트림 키 관련 ([GET] /api/s3/youtubekey) 요청에 대한 응답값 정의
+ */
 @Getter
 @Setter
 @ApiModel("YoutubeRes")

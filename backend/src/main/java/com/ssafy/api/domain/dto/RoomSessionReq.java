@@ -5,6 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * 유저 방 매칭 API ([POST] /api/sessions) 요청에 필요한 리퀘스트 바디 정의
+ */
+
 @Getter
 @ApiModel("RoomSessionReq")
 @ToString

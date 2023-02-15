@@ -5,6 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+
+/**
+ * 차단해제 API ([DELETE] /api/user/unblock) 요청에 필요한 리퀘스트 바디 정의
+ */
 @Getter
 @ApiModel("UnblockReq")
 @ToString

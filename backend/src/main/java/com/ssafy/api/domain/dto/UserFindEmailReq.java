@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
+/**
+ * 이메일 찾기 API ([POST] /api/user/find/email) 요청에 필요한 리퀘스트 바디 정의
+ */
 @Getter
 @Setter
 @ApiModel("UserFindEmailReq")

@@ -8,6 +8,10 @@ import lombok.Setter;
 
 import java.util.List;
 
+
+/**
+ * 유저 프로필 관리 API ([GET] /api/user) 요청에 대한 응답값 정의
+ */
 @Getter
 @Setter
 @ApiModel("UserProfileRes")

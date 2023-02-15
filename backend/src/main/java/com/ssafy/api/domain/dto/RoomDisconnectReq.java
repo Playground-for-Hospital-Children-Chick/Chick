@@ -5,6 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ * 방 나가기 API ([POST] /api/sessions) 요청에 필요한 리퀘스트 바디 정의
+ */
+
 @Getter
 @ApiModel("RoomDisconnectRequest")
 public class RoomDisconnectReq {

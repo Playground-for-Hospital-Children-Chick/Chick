@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ *  신고하기 API ([POST] /api/report) 요청에 대한 응답값 정의
+ */
 @Getter
 @ApiModel("ReportReq")
 @ToString

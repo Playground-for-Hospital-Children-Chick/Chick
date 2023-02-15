@@ -7,7 +7,7 @@ import lombok.Setter;
 
 
 /**
- * 비밀번호 찾기 ([POST] /api/auth) 요청에 대한 응답값 정의
+ * 비밀번호 찾기 API ([GET] /api/user) 요청에 대한 응답값 정의
  */
 @Getter
 @Setter
