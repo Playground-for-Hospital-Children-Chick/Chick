@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../../../main";
+import { loginGuest } from "../../../api/UsersApi";
+import { SET_USER, SET_TOKEN } from "../../../store/reducers/UserReducer";
 
 import { logoutUser } from "../../../api/UsersApi";
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 import CircleBox from "../../atoms/CircleBox";
 import { SET_PAGE } from "../../../store/reducers/PageReducer";
+import Swal from "sweetalert2";
 
 function Painting() {
   const user = useSelector((state) => state.user);
@@ -33,6 +36,28 @@ function Painting() {
     }
     // input 태그 값 비워주는 코드
   };
+  const onLogin = async () => {
+    const response = await loginGuest();
+
+    if (parseInt(Number(response.status) / 100) === 2) {
+      // console.log(response.data.accessToken);
+      dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
+      dispatch(
+        SET_USER({
+          userEmail: response.data.userLoginInfo.userEmail,
+          userChName: response.data.userLoginInfo.userChName,
+          userAge: response.data.userLoginInfo.userAge,
+          userBirth: response.data.userLoginInfo.userBirth,
+          userSex: response.data.userLoginInfo.userSex,
+          attendanceDay: response.data.userLoginInfo.attendanceDay,
+          profilePath: response.data.userLoginInfo.profilePath,
+          userType: "guest",
+        })
+      );
+    } else {
+      // console.log(response);
+    }
+  };
   return (
     <div className="absolute left-48 w-[1076px] h-[100%]">
       <div className="flex justify-end">
@@ -41,9 +66,31 @@ function Painting() {
             <Link to="/termsofuse">
               <CommonBtn text={"회원가입"} color="bg-blue-300" />
             </Link>
-            <Link to="/login">
+            {/* <Link to="/login">
               <CommonBtn text={"로그인"} color="bg-emerald-300" />
-            </Link>
+            </Link> */}
+            <CommonBtn
+              text={"로그인"}
+              onClick={() => {
+                Swal.fire({
+                  icon: "info",
+                  title: "로그인 방식을 선택해주세요.",
+                  showDenyButton: true,
+                  confirmButtonText: "게스트로 로그인",
+                  denyButtonText: `로그인하러가기`,
+                  confirmButtonColor: "#8cc8ff",
+                  denyButtonColor: "#ff82b3",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    // console.log("게스트로 로그인");
+                    onLogin();
+                  } else if (result.isDenied) {
+                    navigate("/login");
+                  }
+                });
+              }}
+              color="bg-emerald-300"
+            />
           </>
         ) : (
           <>
