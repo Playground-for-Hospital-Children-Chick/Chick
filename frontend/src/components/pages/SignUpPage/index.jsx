@@ -1,3 +1,24 @@
+{
+  /* 
+최초 작성자: 김민준
+수정 작성자: 김민준
+최초 작성일: 23.02.08
+수정 작성일: 23.02.15
+
+Ver 1.0.0
+
+- 사용 예시:
+<CommonBtn
+text="버튼 이름"
+color="버튼 색깔"
+onClick={() => console.log("Clicked")}
+/> 
+
+- 버튼 색깔
+default="blue"
+종류: "white, pink, blue, yellow emerald"
+*/
+}
 import CommonBtn from "../../atoms/CommonBtn";
 import Logo from "../../atoms/Logo/index";
 import InputBox from "../../atoms/Input";
@@ -18,7 +39,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import CodeModal from "./../../molecules/EmailCodeModal/index";
 
 function SignUp() {
-  const { setValue, formState, handleSubmit, register, getValues } = useForm();
+  const { formState, handleSubmit, register, getValues } = useForm();
   const { errors } = formState;
   const [modal, setModal] = useState(false);
   const [test, setTest] = useState(false);
