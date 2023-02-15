@@ -11,7 +11,7 @@ pipeline {
 				}
             }
         }
-        stage('SpringBoot Build') {
+        stage('React Build') {
           steps {
             script {
               dir('backend') {
@@ -19,22 +19,22 @@ pipeline {
                 sh './gradlew build'
               }
             }
-
           }
         }
    
         stage('Build') {
           steps {
             script {
-              sh 'docker build -t springboot ./backend/'
+              sh 'docker build -t basepage/nginx ./frontend/'
             }
           }
         }
            stage('Deploy') {
             steps {
               script {
-                sh 'docker stop springboot && docker rm springboot'
-                sh 'docker run -d -v /var/lib/image:/root/pictures -v /etc/timezone:/etc/timezone -v /etc/localtime:/etc/localtime --name springboot -p 9000:9000 -u root springboot'
+                sh 'docker stop nginx'
+                sh 'docker rm nginx'
+                sh 'docker run -d --name nginx -p 3000:80 -u root basepage/nginx'
               }
             }
    }
