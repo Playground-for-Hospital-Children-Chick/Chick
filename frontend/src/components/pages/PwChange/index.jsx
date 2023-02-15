@@ -1,3 +1,24 @@
+{
+  /* 
+최초 작성자: 한재욱
+수정 작성자: 김민준
+최초 작성일: 23.02.09
+수정 작성일: 23.02.14
+
+Ver 1.0.0
+
+- 사용 예시:
+<CommonBtn
+text="버튼 이름"
+color="버튼 색깔"
+onClick={() => console.log("Clicked")}
+/> 
+
+- 버튼 색깔
+default="blue"
+종류: "white, pink, blue, yellow emerald"
+*/
+}
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AlertBox from "../../atoms/AlertBox";
