@@ -48,7 +48,7 @@ const Board = () => {
         .then((response) => {
           Swal.fire({
             icon: "success",
-            title: "이미지 저장 성공",
+            title: "내 정보에서 확인하세요!",
             showConfirmButton: false,
             timer: 1500,
           });
