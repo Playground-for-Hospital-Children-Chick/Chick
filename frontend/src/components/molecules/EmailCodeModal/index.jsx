@@ -62,14 +62,17 @@ function CodeModal({
         denyButtonText: undefined,
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setCheckedEmail(emailInput);
-          emailInputfollow(emailInput);
-          setModal(!modal);
-          setCodeError(false);
-        }
       });
+      // .then(() => {
+      //   setCheckedEmail(emailInput);
+      //   emailInputfollow(emailInput);
+      //   setModal(!modal);
+      //   setCodeError(false);
+      // });
+      setCheckedEmail(emailInput);
+      emailInputfollow(emailInput);
+      setModal(!modal);
+      setCodeError(false);
     }
   };
   const handleChange = useCallback(
