@@ -1,20 +1,14 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/pages/LoginPage";
-import Logout from "./components/pages/LogoutPage";
 import HomePage from "./components/pages/HomePage/index";
-import UserInfoChangePage from "./components/pages/UserInfoChangePage/index";
 import SignUpComplete from "./components/pages/SignUpComplete/index";
 import TermsOfPage from "./components/pages/TermsOfPage/index";
-import CodeModal from "./components/molecules/EmailCodeModal/index";
 import SignUp from "./components/pages/SignUpPage/index";
 import WhiteBoard from "./WhiteBoard/index";
 import PwChange from "./components/pages/PwChange/index";
 import NotFound from "./components/pages/404Page/index";
-import SelectCharacter from "./components/molecules/CharacterSelect/index";
 import { useSelector } from "react-redux";
-
-import SingDance from "./singDance/Video";
 
 import VideoRoomComponent from "./faceRTC/VideoRoomComponent";
 import PaintingPage from "./components/pages/paintingPage";
@@ -35,7 +29,6 @@ function App() {
           <Route path="/" element={<InitPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
           <Route
             path="/facepage"
             element={

@@ -29,13 +29,6 @@ function Login() {
   // useForm 사용을 위한 선언
   const { setValue, formState, handleSubmit, register } = useForm();
   const { errors } = formState;
-  // const onEmailChange = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const onPasswordChange = (e) => {
-  //   setPassword(e.target.value);
-  // };
 
   function goHomePage() {
     dispatch(SET_PAGE({ pageIndex: 0 }));
@@ -43,11 +36,9 @@ function Login() {
   }
 
   const onLogin = async (userinput) => {
-    // console.log(userinput);
     const response = await loginUser(userinput);
 
     if (parseInt(Number(response.status) / 100) === 2) {
-      // console.log(response.data.accessToken);
       dispatch(SET_TOKEN({ accessToken: response.data.accessToken }));
       dispatch(
         SET_USER({
@@ -61,9 +52,6 @@ function Login() {
           userType: "user",
         })
       );
-      // console.log(user["userEmail"]);
-      // console.log(user["userChName"]);
-      // console.log(user["userEmail"]);
 
       return navigate("/home");
     } else {
@@ -77,8 +65,6 @@ function Login() {
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
       });
-
-      // console.log(response);
     }
     // input 태그 값 비워주는 코드
     setValue("password", "");
@@ -125,7 +111,7 @@ function Login() {
                       type="text"
                       placeholder={"이메일을 입력해주세요".toString()}
                     />
-                    <div className="relatvie w-full">
+                    <div className=" w-full">
                       <ErrorMessage
                         name="email"
                         errors={errors}
@@ -152,30 +138,10 @@ function Login() {
                     <InputBox
                       register={register("password", {
                         required: "비밀번호를 입력하지 않았습니다.",
-                        // pattern: {
-                        //   message: "비밀번호를 확인해주세요.",
-                        //   value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
-                        // },
                       })}
-                      // onChange={onEmailChange}
                       type="password"
                       placeholder={"암호를 입력해주세요".toString()}
                     />
-                    {/* <ErrorMessage
-                    name="password"
-                    errors={errors}
-                    render={({ message }) =>
-                      message == "암호를 입력하지 않았습니다." ? (
-                        <div className="absolute top-16 text-md font-chick right-[32%]  text-center text-red-500">
-                          {message}
-                        </div>
-                      ) : (
-                        <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-red-500">
-                          {message}
-                        </div>
-                      )
-                    }
-                  /> */}
                   </div>
                 </div>
               </div>

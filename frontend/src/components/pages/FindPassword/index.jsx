@@ -1,7 +1,25 @@
+{
+  /* 
+최초 작성자: 김민준
+수정 작성자: 김민준
+최초 작성일: 23.02.09
+수정 작성일: 23.02.14
+
+Ver 1.0.0
+
+- 사용 예시:
+<CommonBtn
+text="버튼 이름"
+color="버튼 색깔"
+onClick={() => console.log("Clicked")}
+/> 
+
+- 버튼 색깔
+default="blue"
+종류: "white, pink, blue, yellow emerald"
+*/
+}
 import InputBox from "../../atoms/Input";
-import CommonBtn from "../../atoms/CommonBtn";
-import Logo from "../../atoms/Logo";
-import { Link } from "react-router-dom";
 import AlertBox from "../../atoms/AlertBox";
 import chick_02 from "../../../assets/characters/chick_02.svg";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
@@ -13,12 +31,10 @@ import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
-import CalenderSelectBox from "../../atoms/CalenderSelectBox";
-
 function FindPassword() {
   const navigate = useNavigate();
 
-  const { setValue, formState, handleSubmit, register, getValues } = useForm();
+  const { formState, handleSubmit, register } = useForm();
   const { errors } = formState;
   const [inputEmail, setInputEmail] = useState("");
 
@@ -27,13 +43,10 @@ function FindPassword() {
   };
 
   const sendPassword = async (userInput) => {
-    // console.log(userInput);
-    // userInput["user_birth"] = parseInt(userInput["user_birth"]);
-    // delete userInput["user_password_check"];
     // //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
 
     const response = await sendPasswordUser(userInput);
-    // console.log(response);
+
     if (parseInt(Number(response.status) / 100) === 2) {
       Swal.fire({
         icon: "success",

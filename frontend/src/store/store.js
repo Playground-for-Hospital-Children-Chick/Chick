@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { AuthReducer } from "./reducers/AuthReducer";
 import { persistReducer, PERSIST, PURGE } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 import { userSlice } from "./../store/reducers/UserReducer";
@@ -28,7 +27,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [PERSIST, PURGE],
       },
-    }).concat(logger),
+    }),
 });
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
