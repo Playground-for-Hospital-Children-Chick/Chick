@@ -110,6 +110,7 @@ public class AuthController {
     public ResponseEntity<BaseResponseBody> logout(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken=null;
         Cookie[] cookies = request.getCookies();
+        // 쿠키가 존재하지 않을 때 요청 실패 에러
         if(cookies==null) {
             return ResponseEntity.status(404).body(ReAccessPostRes.of(404, "Cookies is null", null, null));
         }
@@ -129,7 +130,7 @@ public class AuthController {
         AuthRefreshSave token = authRefreshSaveRepository.findByRefreshToken(refreshToken);
         if(token!=null) {
             authRefreshSaveRepository.delete(token);
-
+            //쿠키 시간 0으로 변경
             Cookie cookie = new Cookie("refreshToken", null);
             cookie.setMaxAge(0);
             cookie.setPath("/");
@@ -153,6 +154,7 @@ public class AuthController {
     public ResponseEntity<ReAccessPostRes> reissue(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken=null;
         Cookie[] cookies = request.getCookies();
+        // 쿠키가 존재하지 않을 때 요청 실패 에러
         if(cookies==null) {
             return ResponseEntity.status(404).body(ReAccessPostRes.of(404, "Cookies is null", null, null));
         }
@@ -170,7 +172,7 @@ public class AuthController {
         // DB에 refreshToken 이 있으면 토큰재발급
         AuthRefreshSave token = authRefreshSaveRepository.findByRefreshToken(refreshToken);
         if(token!=null) {
-            // 폰번호도 보내기
+            //이메일 보내기
             DecodedJWT decodedJWT = JwtTokenUtil.getVerifier().verify(refreshToken.replace(JwtTokenUtil.TOKEN_PRIFIX, ""));
             String email = decodedJWT.getSubject();
             return ResponseEntity.ok(ReAccessPostRes.of(200, "Success", JwtTokenUtil.getAccessToken(email), email));

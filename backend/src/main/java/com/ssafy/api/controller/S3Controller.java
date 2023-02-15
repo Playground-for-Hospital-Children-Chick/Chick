@@ -28,10 +28,6 @@ public class S3Controller {
     @Autowired
     private final FileService fileService;
 
-    // 1. 업로드 파일경로 추가
-    // 2. upload한 파일보기
-    // 3. delete
-    // https://green-joo.tistory.com/2
     @PostMapping("/upload")
     @ApiOperation(value = "파일 업로드", notes = "S3에 파일을 업로드 한다.")
     @ApiResponses({
@@ -40,12 +36,15 @@ public class S3Controller {
             @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
     public ResponseEntity<BaseResponseBody> uploadFile(FileDto fileDto) throws IOException {
+        //파일업로드
         String url = s3Service.uploadFile(fileDto.getFile(), fileDto.getEmail());
         if(url != null){
+            //url 값을 DB에 저장
             fileDto.setUrl(url);
             fileService.save(fileDto);
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
         }
+        //파일 업로드가 실패했을 경우 요청 실패
         return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
     }
 

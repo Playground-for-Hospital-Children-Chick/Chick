@@ -27,7 +27,7 @@ public class ReportController {
     })
     @ApiOperation(value="차단 기능", notes = "다른 유저를 차단한다.")
     public ResponseEntity<? extends BaseResponseBody> reportingPeople(@RequestBody ReportReq reportReq) throws Exception {
-        resportService.createReport(reportReq);
+        resportService.createReport(reportReq);//유저를 차단
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
     @DeleteMapping("/unblock")
@@ -40,6 +40,7 @@ public class ReportController {
         if(resportService.unblockPeople(unblockReq)){
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
+        //차단한 유저가 없을 경우 요청 실패
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Failure"));
     }
     @GetMapping("/blockList")
