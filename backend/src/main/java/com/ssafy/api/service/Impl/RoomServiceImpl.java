@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Map;
 
 @Service
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final MatchingRepository matchingRepository;
+    static long roomNo = 100L;
 
     @Autowired
     public RoomServiceImpl(RoomRepository roomRepository, MatchingRepository matchingRepository) {
@@ -59,7 +59,8 @@ public class RoomServiceImpl implements RoomService {
 
         // 참가할 수 있는 게임방이 없으면 새로운 세션 생성
         // newSession := [회원/게스트][게임종류]Session[방번호]
-        String newSession = guest + gameType + "Session" + roomRepository.count();
+//        String newSession = guest + gameType + "Session" + roomRepository.count();
+        String newSession = guest + gameType + "Session" + (++roomNo);
 
         // 새로운 게임방 생성
         roomRepository.save(Room.builder()
