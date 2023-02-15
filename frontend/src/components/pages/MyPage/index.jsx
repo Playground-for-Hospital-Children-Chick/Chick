@@ -21,6 +21,7 @@ default="blue"
 }
 import CircleBox from "../../atoms/CircleBox";
 import SelectCharacter from "./../../molecules/CharacterSelect/index";
+import CapturePic from "./../../molecules/CapturePic/index";
 import UserInfoChangePage from "./../../pages/UserInfoChangePage/index";
 import { AiOutlineSetting } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,6 +41,8 @@ function MyPage() {
   const [modal, setModal] = useState(false);
   const [myinfomodal, setMyInfoModal] = useState(false);
   const [blockList, setBlockList] = useState([]);
+  const [selectImg, setSelectImg] = useState(null);
+  const [toggle, setToggle] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -272,18 +275,36 @@ function MyPage() {
         </div>
         {imageList.length > 0 ? (
           <ImageList sx={{ width: 600, height: 360 }} cols={2} rowHeight={170}>
-            {imageList.map((item) => (
-              <ImageListItem key={item.s3Url}>
-                <img
-                  src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
-                  className="border-2 border-black border-opacity-75"
-                  loading="lazy"
-                />
+            {imageList.map((item, i) => (
+              <ImageListItem key={i}>
+                <button
+                  onClick={() => {
+                    setSelectImg(i);
+                    setToggle(!toggle);
+                  }}
+                >
+                  <img
+                    src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                    className="border-2 border-black border-opacity-75"
+                    loading="lazy"
+                  />
+                </button>
               </ImageListItem>
             ))}
           </ImageList>
         ) : null}
       </div>
+      {toggle === true && selectImg !== null ? (
+        <div className="absolute -translate-x-[50%] -translate-y-[50%] left-[70%] top-[50%] z-40">
+          <CapturePic
+            toggle={toggle}
+            setToggle={setToggle}
+            imageList={imageList}
+            selectImg={selectImg}
+            getPictureList={getPictureList}
+          />
+        </div>
+      ) : null}
 
       {/* 차단 유저 리스트 */}
       <div className="absolute right-64 top-64">
