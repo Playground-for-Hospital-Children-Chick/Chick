@@ -134,7 +134,7 @@ OpenVidu, AR로 얼굴 바꾸기
 
 ### 데모 서비스 실행
 
-서버의 안정성과 버그를 찾기 위해 프로젝트 배포를 하고 Prometheus 와 Grafana를 통해 테스트를 진행함
+서버의 안정성과 버그를 찾기 위해 프로젝트 배포를 하고 Prometheus 와 Grafana를 통해 로그를 추적함
 
 ![image](/uploads/47cafd88aa28dc687a2c85ca457e6a62/image.png)
 
