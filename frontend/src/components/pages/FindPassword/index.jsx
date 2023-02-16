@@ -44,6 +44,7 @@ function FindPassword() {
 
   const sendPassword = async (userInput) => {
     // //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교
+    userInput.email = userInput.email.trim();
 
     const response = await sendPasswordUser(userInput);
 
@@ -117,6 +118,7 @@ function FindPassword() {
                             /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/,
                         },
                       })}
+                      placeholder={"이메일을 입력해주세요.".toString()}
                     />
                     <div className="relatvie w-full">
                       <ErrorMessage
