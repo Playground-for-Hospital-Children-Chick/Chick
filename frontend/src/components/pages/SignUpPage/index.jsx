@@ -158,7 +158,8 @@ function SignUp() {
             modal={modal}
             setModal={setModal}
             inputEmail={inputEmail}
-            emailCheckedfollow={emailCheckedfollow}
+            checkedEmail={checkedEmail}
+            setCheckedEmail={setCheckedEmail}
           />
         </div>
       ) : null}
