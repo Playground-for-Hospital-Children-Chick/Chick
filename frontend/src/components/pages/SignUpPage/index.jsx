@@ -163,7 +163,7 @@ function SignUp() {
               displayEmailVerificationResult("이메일을 인증하지 않았습니다.");
             }}
             onSuccess={() => {
-              displayEmailVerificationResult("이메일 인증이 완료되었습니다.");
+              displayEmailVerificationResult("이메일을 인증을 완료하였습니다.");
             }}
           />
         </div>
