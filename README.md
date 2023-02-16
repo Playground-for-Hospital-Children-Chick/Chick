@@ -75,5 +75,5 @@ OpenVidu, AR로 얼굴 바꾸기
 >&nbsp;|&nbsp;|Jenkins|2.375.2
 >&nbsp;|WebServer|Nginx|1.23.3
 >성능테스트|&nbsp;|Grafana|&nbsp;
-
+>&nbsp;|&nbsp;|Prometheus|&nbsp;
 
