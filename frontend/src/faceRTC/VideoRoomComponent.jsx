@@ -742,7 +742,7 @@ class VideoRoomComponent extends Component {
             </div>
 
             <div className="relative w-[9.5em]">
-              <div className="font-chick ">{this.state.mySessionId}</div>
+              {/* <div className="font-chick ">{this.state.mySessionId}</div> */}
 
               {this.props.userType == "guest" ? null : (
                 <CommonBtn
