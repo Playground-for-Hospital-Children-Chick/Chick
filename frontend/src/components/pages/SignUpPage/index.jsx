@@ -54,10 +54,8 @@ function SignUp() {
   const reDB = async () => {
     const resDB = await checkVaildEmail({ email: inputEmail });
     if (parseInt(Number(resDB.status) / 100) === 2) {
-      console.log("디비에 계정있음");
       return "DBsuccess";
     } else if (parseInt(Number(resDB.data.statusCode)) === 401) {
-      console.log("디비에 계정있음");
       return "DBsuccess";
     } else {
       return "DBfail";
