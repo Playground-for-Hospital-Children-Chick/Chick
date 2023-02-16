@@ -1,10 +1,25 @@
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import AlertBox from "../../atoms/AlertBox";
 import CloseMark from "./../../../assets/favicon/closemark.svg";
 
 function CapturePic({ imageList, selectImg, setToggle, toggle }) {
+  const modalRef = useRef();
+
+  useEffect(() => {
+    document.addEventListener("mousedown", clickModalOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", clickModalOutside);
+    };
+  });
+
+  const clickModalOutside = (event) => {
+    if (toggle && !modalRef.current.contains(event.target)) {
+      setToggle(false);
+    }
+  };
   return (
     <>
       <AlertBox color="bg-white">
