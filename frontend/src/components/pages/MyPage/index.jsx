@@ -31,6 +31,8 @@ import { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import axios from "axios";
+import { persistor } from "./../../../main";
+
 import { DELETE_USER, DELETE_TOKEN } from "../../../store/reducers/UserReducer";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -47,7 +49,9 @@ function MyPage() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
+  const purge = async () => {
+    await persistor.purge();
+  };
   const modalOnOff = () => {
     setModal(!modal);
   };
@@ -199,8 +203,9 @@ function MyPage() {
               confirmButtonColor: "#8cc8ff",
               allowOutsideClick: false,
               allowEscapeKey: false,
-            }).then((result) => {
+            }).then(async (result) => {
               if (result.isConfirmed) {
+                await purge();
                 dispatch(DELETE_TOKEN());
                 dispatch(DELETE_USER());
                 navigate("/login");
