@@ -612,7 +612,7 @@ class VideoRoomComponent extends Component {
     const localUser = this.state.localUser;
 
     return (
-      <div>
+      <div className="flex justify-center">
         {this.state.session === undefined ? (
           <div className="p-2 m-2">
             <Box sx={{ width: "50%" }}>
@@ -621,7 +621,7 @@ class VideoRoomComponent extends Component {
           </div>
         ) : null}
         {this.state.session !== undefined ? (
-          <div className="flex flex-row w-[80em]">
+          <div className="flex flex-row justify-center w-[80em]">
             <div id="webcamboard">
               <WebCamBoard>
                 {localUser !== undefined &&
