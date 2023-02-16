@@ -32,6 +32,8 @@ function Login() {
   }
 
   const onLogin = async (userinput) => {
+    userinput.email = userinput.email.trim();
+
     const response = await loginUser(userinput);
 
     if (parseInt(Number(response.status) / 100) === 2) {
@@ -149,6 +151,30 @@ function Login() {
                       type="password"
                       placeholder={"암호를 입력해주세요".toString()}
                     />
+                    <div className="relatvie w-full">
+                      <ErrorMessage
+                        name="password"
+                        errors={errors}
+                        render={
+                          ({ message }) =>
+                            message == "비밀번호를 입력하지 않았습니다." ? (
+                              <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                                {message}
+                              </div>
+                            ) : null
+                          // 완전 마스터할때 올리기
+                          // message == "숫자+영문자포함 8글자 이상입니다." ? (
+                          //   <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
+                          //     {message}
+                          //   </div>
+                          // ) : (
+                          //   <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
+                          //     {message}
+                          //   </div>
+                          // )
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

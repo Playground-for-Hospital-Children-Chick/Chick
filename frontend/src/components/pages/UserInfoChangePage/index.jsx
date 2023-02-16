@@ -26,11 +26,11 @@ function UserInfoChangePage({ myinfomodal, setMyInfoModal }) {
     setBirth(e);
   };
   const onUpdateMyInfo = async (userInput) => {
+    userInput["user_child_name"] = userInput["user_child_name"].trim();
     userInput["user_email"] = user["userEmail"];
     userInput["user_birth"] = parseInt(birth);
 
     const response = await updateMyInfo(userInput);
-    console.log(response);
     if (parseInt(Number(response.status) / 100) === 2) {
       Swal.fire({
         icon: "info",

@@ -119,6 +119,9 @@ function SignUp() {
   };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
+    userInput.userChildName = userInput.userChildName.trim();
+    userInput.userEmail = userInput.userEmail.trim();
+    userInput.userParentName = userInput.userParentName.trim();
     userInput.userBirth = parseInt(birth);
     delete userInput["userPasswordCheck"];
     //회원가입 이메일 작성란이랑 인증된 이메일이랑 비교

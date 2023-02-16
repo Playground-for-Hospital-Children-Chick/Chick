@@ -44,6 +44,12 @@ function FindEmail() {
   const onFindEmail = async (userInput) => {
     userInput["userBirth"] = parseInt(birth);
 
+    //트리밍
+    userInput.userChName = userInput.userChName.trim();
+    userInput.userParentName = userInput.userParentName.trim();
+    console.log(userInput.userChName.length);
+    console.log(userInput.userParentName);
+
     const response = await findEmailUser(userInput);
     if (parseInt(Number(response.status) / 100) === 2) {
       Swal.fire({

@@ -33,7 +33,7 @@ function CodeModal({
     turnOnModal();
   };
   const sendCode = async () => {
-    const response = await sendCheckCodeUser({ userToken: codeInput });
+    const response = await sendCheckCodeUser({ userToken: codeInput.trim() });
     if (response === "error") {
       setCodeError(true);
     } else if (parseInt(Number(response.status) / 100) === 2) {
