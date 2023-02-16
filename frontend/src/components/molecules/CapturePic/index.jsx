@@ -23,7 +23,7 @@ function CapturePic({ imageList, selectImg, setToggle, toggle }) {
   };
   return (
     <>
-      <AlertBox color="bg-white">
+      <AlertBox color="bg-white" height="h-[600px]">
         <div className="ml-[0.5em] mr-[1em] mt-[1em] flex flex-row justify-between">
           <div className="ml-[0.5em] mt-[0.5em] font-chick text-3xl">
             사진 확대
@@ -41,12 +41,12 @@ function CapturePic({ imageList, selectImg, setToggle, toggle }) {
           </button>
         </div>
         <hr />
-        <div className="ml-[5em] h-[300px] max-h-5">
+        <div className="ml-[5em] h-[320px] max-h-5">
           <ImageList
-            sx={{ width: 650, scrollbar: "hidden" }}
+            sx={{ width: 720, scrollbar: "hidden" }}
             hideScrollbar
             cols={1}
-            rowHeight={460}
+            rowHeight={500}
           >
             {imageList.map((item, i) =>
               selectImg == i ? (

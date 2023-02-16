@@ -20,12 +20,14 @@ function AlertBox({
   color = "bg-[#fcff83]",
   overflow = "overflow-hidden",
   scrollbar,
+  height = "h-[561px]",
 }) {
   const classStr = classnames(
-    `w-[817px] h-[561px]  rounded-[30px]  border border-black/30`,
+    `w-[817px]  rounded-[30px]  border border-black/30`,
     color,
     overflow,
-    scrollbar
+    scrollbar,
+    height
   );
   return (
     <div
