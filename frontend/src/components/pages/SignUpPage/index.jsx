@@ -138,6 +138,9 @@ function SignUp() {
   const setBirthHandler = (e) => {
     setBirth(e);
   };
+  useEffect(()=>{
+
+  },[checkedEmail])
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
