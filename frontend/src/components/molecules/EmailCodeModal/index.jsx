@@ -13,8 +13,6 @@ function CodeModal({
   setCheckedEmail,
   checkedEmail,
   setInputEmail,
-  emailCheckedfollow,
-  emailInputfollow,
   inputEmail,
   setModal,
   modal,
@@ -47,19 +45,10 @@ function CodeModal({
         denyButtonText: undefined,
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
-      }).then((res) => {
-        if (res.isConfirmed) {
-          console.log("test");
-        }
       });
-      console.log("test1");
-      emailCheckedfollow(inputEmail);
-      console.log(checkedEmail);
-      console.log(inputEmail);
-      // emailInputfollow(emailInput);
-      console.log("g");
-      // setModal(!modal);
-      // setCodeError(false);
+      setCheckedEmail(inputEmail);
+      setModal(!modal);
+      setCodeError(false);
     }
   };
   const handleChange = useCallback(
