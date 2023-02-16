@@ -16,6 +16,8 @@ function CodeModal({
   inputEmail,
   setModal,
   modal,
+  onSuccess = () => {},
+  onError = () => {},
 }) {
   const [count, setCount] = useState(179);
   const [min, setMit] = useState(2);
@@ -35,7 +37,10 @@ function CodeModal({
     const response = await sendCheckCodeUser({ userToken: codeInput.trim() });
     if (response === "error") {
       setCodeError(true);
+      setCheckedEmail(inputEmail);
+      onError();
     } else if (parseInt(Number(response.status) / 100) === 2) {
+      setCodeError(false);
       Swal.fire({
         icon: "info",
         title: "이메일 인증 성공",
@@ -48,7 +53,7 @@ function CodeModal({
       });
       setCheckedEmail(inputEmail);
       setModal(!modal);
-      setCodeError(false);
+      onSuccess();
     }
   };
   const handleChange = useCallback(
