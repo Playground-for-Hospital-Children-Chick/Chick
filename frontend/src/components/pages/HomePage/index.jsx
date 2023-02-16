@@ -45,7 +45,7 @@ function HomePage({ children }) {
     );
   } else if (page["pageIndex"] == 4) {
     return (
-      <div className="flex flex-row">
+      <div className="flex flex-row justify-end mr-[21em] mt-[1.5em]">
         <SideBar />
         <MyPage />
         {/* <FullScreenBtn /> */}
