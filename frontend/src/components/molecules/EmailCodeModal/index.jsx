@@ -52,7 +52,7 @@ function CodeModal({
         }
       });
       console.log("test1");
-      setCheckedEmail(inputEmail);
+      emailCheckedfollow(inputEmail);
       console.log(checkedEmail);
       console.log(inputEmail);
       // emailInputfollow(emailInput);
