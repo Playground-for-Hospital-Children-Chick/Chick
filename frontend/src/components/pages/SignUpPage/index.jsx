@@ -40,7 +40,7 @@ import CodeModal from "./../../molecules/EmailCodeModal/index";
 import { Input } from "@mui/material";
 
 function SignUp() {
-  const { formState, handleSubmit, register, getValues } = useForm();
+  const { formState, handleSubmit, register, getValues, setError } = useForm();
   const { errors } = formState;
   const [modal, setModal] = useState(false);
   const [test, setTest] = useState(false);
@@ -131,6 +131,13 @@ function SignUp() {
   const setBirthHandler = (e) => {
     setBirth(e);
   };
+
+  const displayEmailVerificationResult = (message) => {
+    setError("userEmail", {
+      type: "manual",
+      message: message,
+    });
+  };
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
@@ -152,6 +159,12 @@ function SignUp() {
             setInputEmail={setInputEmail}
             checkedEmail={checkedEmail}
             setCheckedEmail={setCheckedEmail}
+            onError={() => {
+              displayEmailVerificationResult("이메일을 인증하지 않았습니다.");
+            }}
+            onSuccess={() => {
+              displayEmailVerificationResult("이메일 인증이 완료되었습니다.");
+            }}
           />
         </div>
       ) : null}
