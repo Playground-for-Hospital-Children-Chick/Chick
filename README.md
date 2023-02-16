@@ -36,12 +36,11 @@ WebRTC를 활용한 비대면 놀이터
 >FrontEnd|HTML5|
 >&nbsp;|CSS3|
 >&nbsp;|JavaScript(ES6)|
->&nbsp;|styled-components||5.3.5
->&nbsp;|Material-UI||5.9.1
+>&nbsp;|styled-components|Tailwind|2.2.0
 >&nbsp;|React|React|18.2.0
->&nbsp;|&nbsp;|Redux|8.0.2
->&nbsp;|&nbsp;|Redux-Toolkit|1.8.3
->&nbsp;|IDE|Visual Studio Code|1.70.1
+>&nbsp;|&nbsp;|Redux|8.0.5
+>&nbsp;|&nbsp;|Redux-Toolkit|1.9.2
+>&nbsp;|IDE|Visual Studio Code|1.75.1
 >BackEnd|Java|OpenJDK|11.0.16
 >&nbsp;|Build|Gradle|7.5.1
 >&nbsp;|Spring|Boot|2.5.9
@@ -50,10 +49,11 @@ WebRTC를 활용한 비대면 놀이터
 >&nbsp;|DB|Mysql|8.0.32
 >&nbsp;|&nbsp;|Spring-Data-jpa|2.1.10
 >&nbsp;|WebRTC|OpenVidu|2.25.0
+>&nbsp;|Socket|Nodejs|14.21.2
 >&nbsp;|IDE|IntelliJ|22.3.1
->Server|AWS EC2|GNU/Linux|5.4.0-1018
->&nbsp;|배포|Docker|20.10.17
->&nbsp;|&nbsp;|Jenkins|2.346.2
->&nbsp;|WebServer|Nginx|1.18.0
+>Server|AWS EC2|Ubuntu|20.04
+>&nbsp;|배포|Docker|23.0.0
+>&nbsp;|&nbsp;|Jenkins|2.375.2
+>&nbsp;|WebServer|Nginx|1.23.3
 
 
