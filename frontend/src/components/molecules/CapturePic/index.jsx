@@ -41,25 +41,22 @@ function CapturePic({ imageList, selectImg, setToggle, toggle }) {
           </button>
         </div>
         <hr />
-        <div className="ml-[3.2em] h-[320px] max-h-5">
-          <ImageList
-            sx={{ width: 720, scrollbar: "hidden" }}
-            hideScrollbar
-            cols={1}
-            rowHeight={500}
-          >
-            {imageList.map((item, i) =>
-              selectImg == i ? (
-                <ImageListItem key={i}>
+        <div className="ml-[3em]">
+          {imageList.map((item, i) =>
+            selectImg == i ? (
+              <ImageListItem key={i}>
+                <div
+                  className={` border-2 w-[720px] border-black border-opacity-75`}
+                >
                   <img
-                    src={`${item.s3Url}?w=650&h=400&fit=crop&auto=format`}
+                    src={`${item.s3Url}?w=600`}
                     className="border-2 border-black border-opacity-75"
                     loading="lazy"
                   />
-                </ImageListItem>
-              ) : null
-            )}
-          </ImageList>
+                </div>
+              </ImageListItem>
+            ) : null
+          )}
         </div>
       </AlertBox>
     </>
