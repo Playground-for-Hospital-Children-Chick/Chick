@@ -5,7 +5,7 @@ WebRTC를 활용한 비대면 놀이터
 ## 프로젝트 소개
 
 ### 진행 일정
-23.01.09(월) ~ 23.02.17(금) (총 7주)
+23.01.09(월) ~ 23.02.17(금) (총 6주)
 
 ### WBS
 
@@ -26,6 +26,7 @@ WebRTC를 활용한 비대면 놀이터
 ##### 벡엔드
 
 ## 기술 스택
+![Architecture](/uploads/ded2e30cc1b0609813b2adcaeaf09345/Architecture.png)
 
 - 세부내역
 >구분|기술스택|상세내용|버전
@@ -55,5 +56,6 @@ WebRTC를 활용한 비대면 놀이터
 >&nbsp;|배포|Docker|23.0.0
 >&nbsp;|&nbsp;|Jenkins|2.375.2
 >&nbsp;|WebServer|Nginx|1.23.3
+>성능테스트|&nbsp;|Grafana|&nbsp;
 
 
