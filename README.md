@@ -31,8 +31,10 @@ WebRTC를 활용한 비대면 놀이터
 #### Technical
 
 ##### 프론트엔드
+OpenVidu, AR 기술
 
 ##### 벡엔드
+자동 매칭 알고리즘 적용, 그림판 소켓 통신
 
 ## 기술 스택
 ![Architecture](/uploads/ded2e30cc1b0609813b2adcaeaf09345/Architecture.png)
