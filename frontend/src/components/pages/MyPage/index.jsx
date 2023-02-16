@@ -312,26 +312,32 @@ function MyPage() {
         <div className="text-start inline mt-8 mb-6">
           <div className="font-chick text-xl mb-2">사진 보관함</div>
         </div>
-        {imageList.length > 0 ? (
-          <ImageList sx={{ width: 600, height: 360 }} cols={2} rowHeight={170}>
-            {imageList.map((item, i) => (
-              <ImageListItem key={i}>
-                <button
-                  onClick={() => {
-                    setSelectImg(i);
-                    setToggle(!toggle);
-                  }}
-                >
-                  <img
-                    src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
-                    className="border-2 border-black border-opacity-75"
-                    loading="lazy"
-                  />
-                </button>
-              </ImageListItem>
-            ))}
-          </ImageList>
-        ) : null}
+        <div className="scrollbar-hide">
+          {imageList.length > 0 ? (
+            <ImageList
+              sx={{ width: 600, height: 360 }}
+              cols={2}
+              rowHeight={170}
+            >
+              {imageList.map((item, i) => (
+                <ImageListItem key={i}>
+                  <button
+                    onClick={() => {
+                      setSelectImg(i);
+                      setToggle(!toggle);
+                    }}
+                  >
+                    <img
+                      src={`${item.s3Url}?w=164&h=164&fit=crop&auto=format`}
+                      className="border-2 border-black border-opacity-75"
+                      loading="lazy"
+                    />
+                  </button>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          ) : null}
+        </div>
       </div>
       {toggle === true && selectImg !== null ? (
         <div className="absolute -translate-x-[50%] -translate-y-[50%] left-[70%] top-[50%] z-40">

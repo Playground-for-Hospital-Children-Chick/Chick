@@ -41,7 +41,12 @@ function CapturePic({ imageList, selectImg, setToggle, toggle }) {
         </div>
         <hr />
         <div className="ml-[5em]">
-          <ImageList sx={{ width: 650 }} cols={1} rowHeight={460}>
+          <ImageList
+            style={{ overflow: "hidden" }}
+            sx={{ width: 650 }}
+            cols={1}
+            rowHeight={460}
+          >
             {imageList.map((item, i) =>
               selectImg == i ? (
                 <ImageListItem key={i}>
