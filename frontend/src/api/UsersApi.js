@@ -176,7 +176,9 @@ export const sendCodeUser = async function sendcode(credentials) {
     },
     withCredentials: true,
   }).catch((error) => {
-    return "error";
+    console.dir("이메일확인", error);
+
+    return error.response;
   });
 
   return response;
@@ -214,7 +216,8 @@ export const checkVaildEmail = async function validemail(credentials) {
     },
     withCredentials: true,
   }).catch((error) => {
-    return "error";
+    console.dir(error.response);
+    return error.response;
   });
 
   return response;

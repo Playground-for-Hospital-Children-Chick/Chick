@@ -54,6 +54,10 @@ function SignUp() {
   const reDB = async () => {
     const resDB = await checkVaildEmail({ email: inputEmail });
     if (parseInt(Number(resDB.status) / 100) === 2) {
+      console.log("디비에 계정있음");
+      return "DBsuccess";
+    } else if (parseInt(Number(resDB.data.statusCode)) === 401) {
+      console.log("디비에 계정있음");
       return "DBsuccess";
     } else {
       return "DBfail";
@@ -63,6 +67,12 @@ function SignUp() {
     const resCode = await sendCodeUser({ email: inputEmail });
     if (parseInt(Number(resCode.status) / 100) === 2) {
       return "codeSuccess";
+    } else if (parseInt(Number(resCode.data.statusCode)) === 401) {
+      console.log("이미 가입된 이메일입니다.");
+      return "alreadyRegistered";
+    } else if (parseInt(Number(resCode.data.statusCode)) === 405) {
+      console.log("탈퇴한 계정입니다.");
+      return "withdrawn";
     } else {
       return "codeFail";
     }
@@ -91,6 +101,10 @@ function SignUp() {
         const resultCODE = await reCode();
         if (resultCODE == "codeSuccess") {
           setEmailVari("success");
+        } else if (resultCODE == "alreadyRegistered") {
+          setEmailVari("alreadyRegistered");
+        } else if (resultCODE == "withdrawn") {
+          setEmailVari("withdrawn");
         } else {
           setEmailVari("codeFail");
         }

@@ -24,24 +24,7 @@ function CodeModal({
   const [codeInput, setcodeInput] = useState("");
   const [codeError, setCodeError] = useState(false);
   const [timeTrigger, setTimeTrigger] = useState(false);
-  const startModal = () => {
-    // console.log(inputEmail);
-    // console.log(emailVari);
-    if (!inputEmail) {
-      return <p>이메일 작성해주세요.</p>;
-    } else if (emailVari == "regfail") {
-      return <p>이메일 형식에 맞지 않습니다.</p>;
-    } else if (emailVari == "DBfail") {
-      return <p>가입된 이메일입니다.</p>;
-    } else if (emailVari == "codeFail") {
-      return <p>서버에 문의해주세요.</p>;
-    } else {
-      return <p>코드 보내기 성공!</p>;
-    }
-  };
-  const memoizedCallback = useCallback(() => {
-    startModal();
-  }, []);
+
   const sendEmail = async () => {
     setCount(179);
     setMit(2);
@@ -63,12 +46,7 @@ function CodeModal({
         confirmButtonColor: "#8cc8ff",
         denyButtonColor: undefined,
       });
-      // .then(() => {
-      //   setCheckedEmail(emailInput);
-      //   emailInputfollow(emailInput);
-      //   setModal(!modal);
-      //   setCodeError(false);
-      // });
+
       setCheckedEmail(emailInput);
       emailInputfollow(emailInput);
       setModal(!modal);
@@ -173,7 +151,19 @@ function CodeModal({
                 } else if (emailVari == "DBfail") {
                   return (
                     <p className="text-md font-chick text-center text-pink-600">
-                      가입된 이메일입니다.
+                      서버에 문의해주세요.
+                    </p>
+                  );
+                } else if (emailVari == "alreadyRegistered") {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      이미 가입된 이메일입니다.
+                    </p>
+                  );
+                } else if (emailVari == "withdrawn") {
+                  return (
+                    <p className="text-md font-chick text-center text-pink-600">
+                      회원탈퇴처리가 된 이메일입니다..
                     </p>
                   );
                 } else if (emailVari == "codeFail") {
