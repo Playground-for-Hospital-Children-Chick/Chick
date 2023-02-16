@@ -19,8 +19,23 @@ WebRTC를 활용한 비대면 놀이터
   - 오류 수정
   - 산출물 정리
 
-### 팀
-최정온 엄희원 김민준 한재욱 김주성
+## 🤝팀 소개
+
+#### 🌈프론트엔드
+
+| 이름 | 개발 내용 |
+| ------ | ------------ |
+|[👨🏻‍💻 최정온](https://github.com/sigamflo) [📧](mailto:hitedin@gmail.com) | 팀장, 프론트 리더 <br /> React, TypeScript, Socket.io(client), WebRTC<br />웹사이트 전체 디자인 및 UI/UX 기획 <br /> 웹소켓 게임 기능 <br /> UCC <br />|
+|[👨🏻‍💻 엄희원](https://github.com/sigamflo) [📧](mailto:jhkang9820@gmail.com)   | React, WebRTC <br /> 게임방 페이지 구현 |
+|[👨🏻‍💻 김민준](https://github.com/sigamflo) [📧](mailto:jyeon3930@naver.com) |React <br /> 마에페이지, 회원 관리 페이지|
+
+#### 🛰벡엔드
+
+| 이름 | 개발 내용 |
+| ------ | ------------ |
+|[👨🏻‍💻 한재욱](https://github.com/sigamflo) [📧](mailto:dyffh1031@naver.com)        | Spring Boot REST API<br />Socket.io(server)<br /> 웹소켓 게임 기능 <br /> 젠킨스와 도커를 활용한 CI/CD
+|[👨🏻‍💻 김주성](https://github.com/sigamflo) [📧](mailto:kjschocolate@gmail.com)   | Spring Boot REST API<br /> 자동 매칭 알고리즘 <br /> 젠킨스와 도커를 활용한 CI/CD|
+
 
 ### 목표
 주제, 기획의도에 충실한, 완성도 있는 프로젝트를 구현하여 무중단 배포까지 달성하기!!
