@@ -13,11 +13,7 @@ import Logo from "../../atoms/Logo/index";
 import { ErrorMessage } from "@hookform/error-message";
 
 import chick_02 from "../../../assets/characters/chick_02.svg";
-import {
-  SET_USER,
-  SET_TOKEN,
-  DELETE_TOKEN,
-} from "./../../../store/reducers/UserReducer";
+import { SET_USER, SET_TOKEN } from "./../../../store/reducers/UserReducer";
 import GamePlayBtn from "../../atoms/GamePlayBtn";
 import { SET_PAGE } from "../../../store/reducers/PageReducer";
 
@@ -54,11 +50,22 @@ function Login() {
       );
 
       return navigate("/home");
+    } else if (parseInt(Number(response.data.statusCode)) === 405) {
+      Swal.fire({
+        icon: "error",
+        title: "탈퇴한 계정입니다.",
+        text: "다른 아이디로 로그인해주세요.",
+        showDenyButton: false,
+        confirmButtonText: "확인",
+        denyButtonText: undefined,
+        confirmButtonColor: "#8cc8ff",
+        denyButtonColor: undefined,
+      });
     } else {
       Swal.fire({
-        icon: "info",
+        icon: "error",
         title: "로그인 실패.",
-        text: "아이디 혹은 비밀번호를 확인해주세요!",
+        text: "아이디 패스워드를 확인해주세요.",
         showDenyButton: false,
         confirmButtonText: "확인",
         denyButtonText: undefined,
