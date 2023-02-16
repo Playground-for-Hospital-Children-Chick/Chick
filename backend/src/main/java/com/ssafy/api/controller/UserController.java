@@ -75,8 +75,10 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> EmailDuplicteCheck(@RequestParam String email) throws Exception {
         User user = userService.getUserByEmail(email);
         if(user ==null){
+            // 이메일 중복이 없으면 성공
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
+        // 중복된 이메일 존재시 실패
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
     }
     @PostMapping("/emailConfirm")
@@ -99,8 +101,10 @@ public class UserController {
 
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
-        if(user.getUserState().equals("1"))
+        if(user.getUserState().equals("1")){// 탈퇴한 계정일 시 실패
             return ResponseEntity.status(405).body(BaseResponseBody.of(405, "Failure"));
+        }
+        //중복된 이메일이 존재 시 실패
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failure"));
     }
 
@@ -114,6 +118,7 @@ public class UserController {
         if (emailConfirmToken.equals(userToken)) {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
+        //이메일 토큰과 이메일로 인증받은 value가 다를 시 실패
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Invalid Password"));
     }
 
@@ -128,9 +133,10 @@ public class UserController {
         User user = userService.findEmail(userParentName,   userChName,  userBirth);
         if(user!=null){
             String[] splitMail = user.getUserEmail().split("@");
-            String front = splitMail[0].substring(0, splitMail[0].length()-3)+"***";
+            String front = splitMail[0].substring(0, splitMail[0].length()-3)+"***";//@ 앞에 3글자 주석처리
             return ResponseEntity.status(200).body(PwdFindPosRes.of(200, "Success", front+"@"+splitMail[1]));
         }
+        //존재 하지 않는 계정일시 실패
         return ResponseEntity.status(401).body(PwdFindPosRes.of(404, "Failure", null));
     }
 
@@ -144,9 +150,10 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> findPassword(@RequestParam String email) throws Exception {
         User user = userService.getUserByEmail(email);
         if (user != null) {
-            userService.sendPwdMessage(email);
+            userService.sendPwdMessage(email);// 이메일로 임시 비밀번호 발급`
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
+        //존재하지 않는 이메일 일 시 요청 실패
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
     }
     @PutMapping("/profile/change")
@@ -162,6 +169,7 @@ public class UserController {
             userService.profileUpdate(email, filePath);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
+        //존재 하지 않는 계정일시 요청실패
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원정보 없음"));
     }
 
@@ -178,6 +186,7 @@ public class UserController {
             String filePath = userService.getProfile(email);
             return ResponseEntity.status(200).body(UserProfileRes.of(200, "Success", filePath));
         }
+        //존재 하지 않는 계정일시 요청실패
         return ResponseEntity.status(404).body(UserProfileRes.of(404, "회원정보 없음", null));
     }
     
@@ -192,6 +201,7 @@ public class UserController {
         if (userLoginInfo != null) {
             return ResponseEntity.status(200).body(UserUpdatePostRes.of(200, "회원 정보 수정 성공", userLoginInfo));
         }
+        //존재 하지 않는 계정일시 요청실패
         return ResponseEntity.status(404).body(UserUpdatePostRes.of(404, "회원정보 없음", null));
     }
 
@@ -208,6 +218,7 @@ public class UserController {
         String refreshToken=null;
         Cookie[] cookies = request.getCookies();
         if(cookies==null) {
+            //쿠키값이 존재 하지않으면 요청 실패
             return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Cookies is null"));
         }
 
@@ -226,8 +237,10 @@ public class UserController {
             if(userService.changePassword(changePwInfo)){
                 return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
             }
-        return ResponseEntity.status(405).body(BaseResponseBody.of(405, "비밀번호가 일치 하지않음"));
+            //계정의 기존 비밀번호가 일치하지 않으면 요청 실패
+            return ResponseEntity.status(405).body(BaseResponseBody.of(405, "비밀번호가 일치 하지않음"));
         }
+        //Token값이 없는 값이 요청 실패
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Invalid Token"));
     }
 }

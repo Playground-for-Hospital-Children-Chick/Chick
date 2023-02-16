@@ -67,7 +67,7 @@ public class SessionController {
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        Session session = openvidu.getActiveSession(sessionId);
+        Session session = openvidu.getActiveSession(sessionId);//세션 아이디에 맞는 세션을 가져온다.
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

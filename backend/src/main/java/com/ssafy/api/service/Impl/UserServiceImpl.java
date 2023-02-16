@@ -45,18 +45,18 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean createUser(UserRegisterPostReq userRegisterInfo) {
-        String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
+        String pattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";//이메일 정규 표현식
         if ((userRepository.findByUserEmail(userRegisterInfo.getUserEmail()) != null)
-        ||(!userRegisterInfo.getUserEmail().matches(pattern))) {
+        ||(!userRegisterInfo.getUserEmail().matches(pattern))) {// 이메일이 존재 하거나, 이미일이 패턴이 맞을 때
             return false;
         }
         User user = User.builder()
-                .userEmail(userRegisterInfo.getUserEmail().toString())
-                .userPwd(passwordEncoder.encode(userRegisterInfo.getUserPassword()).toString())
-                .userChName(userRegisterInfo.getUserChildName().toString())
-                .userParentName(userRegisterInfo.getUserParentName().toString())
-                .userSex(userRegisterInfo.getUserSex().toString())
-                .userBirth(userRegisterInfo.getUserBirth().toString())
+                .userEmail(userRegisterInfo.getUserEmail())
+                .userPwd(passwordEncoder.encode(userRegisterInfo.getUserPassword()))
+                .userChName(userRegisterInfo.getUserChildName())
+                .userParentName(userRegisterInfo.getUserParentName())
+                .userSex(userRegisterInfo.getUserSex())
+                .userBirth(userRegisterInfo.getUserBirth())
                 .userState("0")
                 .userNumberOfReports(0)
                 .userServiceTerm("Y")
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 .userUpdateBy(userRegisterInfo.getUserEmail())
                 .userUpdateDate(LocalDateTime.now())
                 .build();
-        Profile profile = profileRepository.findById(0);
+        Profile profile = profileRepository.findById(0);//기본 프로필 지정
         user.setProfile(profile);
         userRepository.save(user);
         return true;
@@ -131,15 +131,21 @@ public class UserServiceImpl implements UserService {
     }
     public boolean changePassword(UserPwChangeReq userInfo) {
         String email = userInfo.getEmail();
+        //입력 받은 패스워드와 이메일값으로 얻은 패스워드가 동일한 경우
         if(passwordEncoder.matches(userInfo.getPassword(), userRepository.findByUserEmail(email).getUserPwd())){
             User user = userRepository.findByUserEmail(userInfo.getEmail());
-            user.setUserPwd(passwordEncoder.encode(userInfo.getNewPassword()));
+            user.setUserPwd(passwordEncoder.encode(userInfo.getNewPassword()));//새로운 비밀번호로 변경
             userRepository.save(user);
             return true;
         }
         return false;
     }
 
+    /**
+     * 로그인 정보를 가져온다
+     * @param user 유저 정보
+     * @return
+     */
     @Override
     public UserLoginInfo getUserLoginInfo(User user) {
         UserLoginInfo userLoginInfo = new UserLoginInfo();

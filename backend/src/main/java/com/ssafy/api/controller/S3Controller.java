@@ -60,6 +60,7 @@ public class S3Controller {
         if(fileList.size()!=0){
             return ResponseEntity.ok(S3ImagesRes.of(200, "Success", fileList));
         }
+        //파일 리스트 가져오기가 실패했을 경우 요청 실패
         return ResponseEntity.ok(S3ImagesRes.of(404, "Failure", null));
     }
     @DeleteMapping("/delete")
@@ -73,6 +74,7 @@ public class S3Controller {
         if(s3Service.deleteFile(filePath)){
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
         }
+        //파일 삭제가 실패했을 경우 요청 실패
         return ResponseEntity.ok(BaseResponseBody.of(404, "Failure"));
     }
     @GetMapping("/youtubekey")
@@ -87,6 +89,7 @@ public class S3Controller {
         if(keyList.size()!=0){
             return ResponseEntity.ok(YoutubeRes.of(200, "Success", keyList));
         }
+        //스트리밍 키가 존재하지 않는경우 요청 실패
         return ResponseEntity.ok(YoutubeRes.of(404, "Failure", null));
     }
 }

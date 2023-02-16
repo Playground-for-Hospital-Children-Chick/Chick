@@ -59,6 +59,7 @@ public class S3Service {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
+            //날짜가 들어간 파일 형식 지정
             String formDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("/yyyy-MM-dd HH:mm"));
             uploadFileName = dirName+formDate+fileName;
             amazonS3.putObject(new PutObjectRequest(bucket, uploadFileName, multipartFile.getInputStream(), metadata)
