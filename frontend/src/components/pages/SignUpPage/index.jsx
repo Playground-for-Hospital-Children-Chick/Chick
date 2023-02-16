@@ -118,7 +118,7 @@ function SignUp() {
     setInputEmail(e.target.value);
   };
   const emailCheckedfollow = (e) => {
-    setCheckedEmail(e.target.value);
+    setCheckedEmail(e);
   };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
