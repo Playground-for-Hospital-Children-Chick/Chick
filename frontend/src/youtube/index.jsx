@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CommonBtn from "../components/atoms/CommonBtn";
 import DanceVideoRoomComponent from "./danceRTC/VideoRoomComponent";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_PAGE } from "./../store/reducers/PageReducer";
 import axios from "axios";
 
 const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
@@ -21,10 +22,13 @@ const videoOptions = {
 };
 
 function YouTubeVideo() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [youtubeKey, setYoutubeKey] = useState();
 
   useEffect(() => {
+    dispatch(SET_PAGE({ pageIndex: 0 }));
+
     axios({
       method: "get",
       url: APPLICATION_SERVER_URL + "api/s3/youtubekey",
