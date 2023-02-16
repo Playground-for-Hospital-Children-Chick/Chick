@@ -1,3 +1,4 @@
+import { Hidden } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useEffect, useRef } from "react";
@@ -40,10 +41,10 @@ function CapturePic({ imageList, selectImg, setToggle, toggle }) {
           </button>
         </div>
         <hr />
-        <div className="ml-[5em]">
+        <div className="ml-[5em] h-[300px] max-h-5">
           <ImageList
-            style={{ overflow: "hidden" }}
-            sx={{ width: 650 }}
+            sx={{ width: 650, scrollbar: "hidden" }}
+            hideScrollbar
             cols={1}
             rowHeight={460}
           >

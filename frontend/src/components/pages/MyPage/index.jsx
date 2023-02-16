@@ -315,7 +315,7 @@ function MyPage() {
         <div className="scrollbar-hide">
           {imageList.length > 0 ? (
             <ImageList
-              sx={{ width: 400, height: 560 }}
+              sx={{ width: 400, height: 400 }}
               cols={1}
               rowHeight={240}
             >
