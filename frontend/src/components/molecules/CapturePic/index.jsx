@@ -41,7 +41,7 @@ function CapturePic({ imageList, selectImg, setToggle, toggle }) {
           </button>
         </div>
         <hr />
-        <div className="ml-[5em] h-[320px] max-h-5">
+        <div className="ml-[3.2em] h-[320px] max-h-5">
           <ImageList
             sx={{ width: 720, scrollbar: "hidden" }}
             hideScrollbar
