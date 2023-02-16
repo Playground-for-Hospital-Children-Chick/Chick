@@ -113,9 +113,6 @@ function SignUp() {
     }
   };
 
-  const emailCheckedfollow = (e) => {
-    setCheckedEmail(e);
-  };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
     userInput.userChildName = userInput.userChildName.trim();
@@ -134,8 +131,6 @@ function SignUp() {
   const setBirthHandler = (e) => {
     setBirth(e);
   };
-  useEffect(() => {
-  }, [checkedEmail]);
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
@@ -186,6 +181,8 @@ function SignUp() {
                     check: (val) => {
                       if (checkedEmail && checkedEmail !== val) {
                         return "이메일을 인증하지 않았습니다.";
+                      } else if (checkedEmail && checkedEmail === val) {
+                        return "이메일을 인증을 완료하였습니다.";
                       }
                     },
                   },
@@ -205,6 +202,10 @@ function SignUp() {
                       </div>
                     ) : message == "이메일형식이 잘못되었습니다." ? (
                       <div className="absolute top-1 text-md font-chick right-[25%]  text-center text-pink-600">
+                        {message}
+                      </div>
+                    ) : message == "이메일을 인증을 완료하였습니다." ? (
+                      <div className="absolute top-1 text-md font-chick right-[28%]  text-center text-emerald-600">
                         {message}
                       </div>
                     ) : (
