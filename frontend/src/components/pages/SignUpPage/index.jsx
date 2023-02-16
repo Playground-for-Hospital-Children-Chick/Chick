@@ -37,6 +37,7 @@ import {
 import { useState, useEffect } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import CodeModal from "./../../molecules/EmailCodeModal/index";
+import { Input } from "@mui/material";
 
 function SignUp() {
   const { formState, handleSubmit, register, getValues } = useForm();
@@ -66,10 +67,8 @@ function SignUp() {
     if (parseInt(Number(resCode.status) / 100) === 2) {
       return "codeSuccess";
     } else if (parseInt(Number(resCode.data.statusCode)) === 401) {
-      console.log("이미 가입된 이메일입니다.");
       return "alreadyRegistered";
     } else if (parseInt(Number(resCode.data.statusCode)) === 405) {
-      console.log("탈퇴한 계정입니다.");
       return "withdrawn";
     } else {
       return "codeFail";
@@ -114,9 +113,6 @@ function SignUp() {
     }
   };
 
-  const emailInputfollow = (e) => {
-    setInputEmail(e.target.value);
-  };
   const emailCheckedfollow = (e) => {
     setCheckedEmail(e);
   };
@@ -138,7 +134,8 @@ function SignUp() {
   const setBirthHandler = (e) => {
     setBirth(e);
   };
-  useEffect(() => {}, [checkedEmail]);
+  useEffect(() => {
+  }, [checkedEmail]);
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
@@ -152,12 +149,12 @@ function SignUp() {
       {modal === true ? (
         <div className="absolute  -translate-x-[50%] -translate-y-[50%] z-[1000] top-[60%] left-[50%]">
           <CodeModal
-            emailInputfollow={emailInputfollow}
             emailVari={emailVari}
             turnOnModal={turnOnModal}
             modal={modal}
             setModal={setModal}
             inputEmail={inputEmail}
+            setInputEmail={setInputEmail}
             checkedEmail={checkedEmail}
             setCheckedEmail={setCheckedEmail}
           />
@@ -177,7 +174,7 @@ function SignUp() {
             </label>
             <div className="relative">
               <InputBox
-                onChange={emailInputfollow}
+                onChange={(e) => setInputEmail(e.target.value)}
                 register={register("userEmail", {
                   required: "이메일을 입력하지 않았습니다.",
                   pattern: {
@@ -187,35 +184,31 @@ function SignUp() {
                   },
                   validate: {
                     check: (val) => {
-                      if (checkedEmail != val) {
+                      if (checkedEmail && checkedEmail !== val) {
                         return "이메일을 인증하지 않았습니다.";
                       }
                     },
                   },
                 })}
-                // onChange={onEmailChange}
                 type="text"
                 placeholder={"이메일을 입력해주세요".toString()}
               />
+
               <div className="relative w-full">
                 <ErrorMessage
                   name="userEmail"
                   errors={errors}
                   render={({ message }) =>
                     message == "이메일을 입력하지 않았습니다." ? (
-                      <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                      <div className="absolute top-1 text-md font-chick right-[28%]  text-center text-pink-600">
                         {message}
                       </div>
                     ) : message == "이메일형식이 잘못되었습니다." ? (
-                      <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
-                        {message}
-                      </div>
-                    ) : message == "이메일을 인증하지 않았습니다." ? (
-                      <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
+                      <div className="absolute top-1 text-md font-chick right-[25%]  text-center text-pink-600">
                         {message}
                       </div>
                     ) : (
-                      <div className="absolute top-16 text-md font-chick left-[30%]  text-center text-pink-600">
+                      <div className="absolute top-1 text-md font-chick left-[30%]  text-center text-pink-600">
                         {message}
                       </div>
                     )
@@ -241,11 +234,9 @@ function SignUp() {
                     value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/,
                   },
                   validate: {
-                    check: (val) => {
-                      if (getValues("userPasswordCheck") !== val) {
-                        return "비밀번호가 일치하지 않습니다.";
-                      }
-                    },
+                    check: (val) =>
+                      getValues("userPasswordCheck") === val ||
+                      "비밀번호가 일치하지 않습니다.",
                   },
                 })}
                 // onChange={onEmailChange}
