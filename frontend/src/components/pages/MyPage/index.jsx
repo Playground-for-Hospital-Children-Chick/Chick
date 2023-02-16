@@ -315,9 +315,9 @@ function MyPage() {
         <div className="scrollbar-hide">
           {imageList.length > 0 ? (
             <ImageList
-              sx={{ width: 600, height: 360 }}
-              cols={2}
-              rowHeight={170}
+              sx={{ width: 400, height: 560 }}
+              cols={1}
+              rowHeight={240}
             >
               {imageList.map((item, i) => (
                 <ImageListItem key={i}>
