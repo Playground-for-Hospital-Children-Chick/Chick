@@ -19,6 +19,18 @@ default="blue"
 종류: "white, pink, blue, yellow emerald"
 */
 }
+import CloseMark from "./../../../assets/favicon/closemark.svg";
+import chick1 from "./../../../assets/characters/chick_01.svg";
+import chick2 from "./../../../assets/characters/chick_02.svg";
+import chick3 from "./../../../assets/characters/chick_03.svg";
+import chick4 from "./../../../assets/characters/chick_04.svg";
+import chick5 from "./../../../assets/characters/chick_05.svg";
+import chick6 from "./../../../assets/characters/chick_06.svg";
+import chick7 from "./../../../assets/characters/chick_07.svg";
+import chick8 from "./../../../assets/characters/chick_08.svg";
+import chick9 from "./../../../assets/characters/chick_09.svg";
+import chick10 from "./../../../assets/characters/chick_10.svg";
+
 import CircleBox from "../../atoms/CircleBox";
 import SelectCharacter from "./../../molecules/CharacterSelect/index";
 import CapturePic from "./../../molecules/CapturePic/index";
@@ -234,9 +246,31 @@ function MyPage() {
         className="absolute left-44 top-14"
       >
         <CircleBox>
+          {console.log(user["profilePath"])}
           <img src={user["profilePath"]} />
         </CircleBox>
       </button>
+      <div className="flex flex-col">
+        <div className="flex flex-col justify-end">
+          <div className="font-chick text-2xl">
+            같이 놀자, {user["userChName"]}!
+          </div>
+        </div>
+        <div className="flex flex-row justify-center">
+          <img className="w-[80px] h-[80px]" src={chick1} alt="병아리1" />
+          <img className="w-[80px] h-[80px]" src={chick2} alt="병아리2" />
+          <img className="w-[80px] h-[80px]" src={chick3} alt="병아리3" />
+          <img className="w-[80px] h-[80px]" src={chick4} alt="병아리4" />
+          <img className="w-[80px] h-[80px]" src={chick5} alt="병아리5" />
+        </div>
+        <div className="flex flex-row justify-center">
+          <img className="w-[80px] h-[80px]" src={chick6} alt="병아리6" />
+          <img className="w-[80px] h-[80px]" src={chick7} alt="병아리7" />
+          <img className="w-[80px] h-[80px]" src={chick8} alt="병아리8" />
+          <img className="w-[80px] h-[80px]" src={chick9} alt="병아리9" />
+          <img className="w-[80px] h-[80px]" src={chick10} alt="병아리10" />
+        </div>
+      </div>
       {modal === true ? (
         <div className="-translate-x-[50%] -translate-y-[50%] left-[50%] top-[45%] absolute z-10">
           <SelectCharacter
