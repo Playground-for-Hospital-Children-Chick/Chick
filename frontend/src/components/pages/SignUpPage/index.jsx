@@ -117,6 +117,9 @@ function SignUp() {
   const emailInputfollow = (e) => {
     setInputEmail(e.target.value);
   };
+  const emailCheckedfollow = (e) => {
+    setCheckedEmail(e.target.value);
+  };
   //회원가입 버튼 누를 시 실행
   const onSignup = async (userInput) => {
     userInput.userChildName = userInput.userChildName.trim();
@@ -154,8 +157,7 @@ function SignUp() {
             modal={modal}
             setModal={setModal}
             inputEmail={inputEmail}
-            checkedEmail={checkedEmail}
-            setCheckedEmail={setCheckedEmail}
+            emailCheckedfollow={emailCheckedfollow}
           />
         </div>
       ) : null}
@@ -183,7 +185,7 @@ function SignUp() {
                   },
                   validate: {
                     check: (val) => {
-                      if (!checkedEmail && checkedEmail !== val) {
+                      if (checkedEmail != val) {
                         return "이메일을 인증하지 않았습니다.";
                       }
                     },
@@ -193,13 +195,21 @@ function SignUp() {
                 type="text"
                 placeholder={"이메일을 입력해주세요".toString()}
               />
-              <div className="relatvie w-full">
+              <div className="relative w-full">
                 <ErrorMessage
                   name="userEmail"
                   errors={errors}
                   render={({ message }) =>
                     message == "이메일을 입력하지 않았습니다." ? (
                       <div className="absolute top-16 text-md font-chick right-[28%]  text-center text-pink-600">
+                        {message}
+                      </div>
+                    ) : message == "이메일형식이 잘못되었습니다." ? (
+                      <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
+                        {message}
+                      </div>
+                    ) : message == "이메일을 인증하지 않았습니다." ? (
+                      <div className="absolute top-16 text-md font-chick right-[25%]  text-center text-pink-600">
                         {message}
                       </div>
                     ) : (
