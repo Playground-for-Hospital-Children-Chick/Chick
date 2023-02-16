@@ -11,6 +11,7 @@ function CodeModal({
   emailVari,
   turnOnModal,
   setCheckedEmail,
+  checkedEmail,
   setInputEmail,
   emailInputfollow,
   inputEmail,
@@ -51,7 +52,8 @@ function CodeModal({
         }
       });
       console.log("test1");
-      // setCheckedEmail(emailInput);
+      setCheckedEmail(emailInput);
+      console.log(checkedEmail);
       // emailInputfollow(emailInput);
       console.log("g");
       // setModal(!modal);
