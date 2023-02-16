@@ -11,6 +11,9 @@ import RedPan from "../assets/images/board/red_pan.png";
 import YellowPan from "../assets/images/board/yellow_pan.png";
 import GreenPan from "../assets/images/board/green_pan.png";
 import EraserPNG from "../assets/images/board/eraser.png";
+import { useDispatch } from "react-redux";
+import { SET_PAGE } from "./../store/reducers/PageReducer";
+
 
 import html2canvas from "html2canvas";
 import Swal from "sweetalert2";
@@ -18,11 +21,13 @@ import axios from "axios";
 import { FcCompactCamera } from "react-icons/fc";
 
 const Board = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
   const [myRoomName, setMyRoomName] = useState();
   const user = useSelector((state) => state.user);
+
   const APPLICATION_SERVER_URL = "https://i8b207.p.ssafy.io/";
 
   function handleCapture() {
@@ -93,6 +98,7 @@ const Board = () => {
   }
 
   useEffect(() => {
+    dispatch(SET_PAGE({ pageIndex: 0 }));
     let SessionName = "";
     getSessionId(user["userEmail"]);
     socketRef.current = io.connect("ws://i8b207.p.ssafy.io:8001");
