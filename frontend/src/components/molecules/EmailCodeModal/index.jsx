@@ -13,6 +13,7 @@ function CodeModal({
   setCheckedEmail,
   checkedEmail,
   setInputEmail,
+  emailCheckedfollow,
   emailInputfollow,
   inputEmail,
   setModal,
