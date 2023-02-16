@@ -48,8 +48,8 @@ export const loginUser = async function login(credentials) {
     data: credentials,
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     withCredentials: true,
-  }).catch((e) => {
-    return "errors";
+  }).catch((error) => {
+    return error.response;
   });
   return response;
 };
@@ -176,8 +176,6 @@ export const sendCodeUser = async function sendcode(credentials) {
     },
     withCredentials: true,
   }).catch((error) => {
-    console.dir("이메일확인", error);
-
     return error.response;
   });
 
@@ -216,7 +214,6 @@ export const checkVaildEmail = async function validemail(credentials) {
     },
     withCredentials: true,
   }).catch((error) => {
-    console.dir(error.response);
     return error.response;
   });
 
