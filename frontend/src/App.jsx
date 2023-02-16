@@ -11,7 +11,6 @@ import NotFound from "./components/pages/404Page/index";
 import { useSelector } from "react-redux";
 
 import VideoRoomComponent from "./faceRTC/VideoRoomComponent";
-import PaintingPage from "./components/pages/paintingPage";
 
 import FindEmail from "./components/pages/FindEmail";
 import FindPassword from "./components/pages/FindPassword";
@@ -43,7 +42,6 @@ function App() {
           <Route path="/board" element={<WhiteBoard />} />
           <Route path="/singdance" element={<YouTubeVideo />} />
           <Route path="/pwchange" element={<PwChange />} />
-          <Route path="/painting" element={<PaintingPage />} />
           <Route path="/findid" element={<FindEmail />} />
           <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/signupComplete" element={<SignUpComplete />} />

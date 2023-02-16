@@ -37,6 +37,7 @@ import Swal from "sweetalert2";
 
 function Painting() {
   const user = useSelector((state) => state.user);
+
   // const [loginState, setLoginState] = useState(user);
   const dispatch = useDispatch();
 
