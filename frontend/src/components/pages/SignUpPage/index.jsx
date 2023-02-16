@@ -34,7 +34,7 @@ import {
   sendCodeUser,
 } from "./../../../api/UsersApi";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import CodeModal from "./../../molecules/EmailCodeModal/index";
 
@@ -138,9 +138,7 @@ function SignUp() {
   const setBirthHandler = (e) => {
     setBirth(e);
   };
-  useEffect(()=>{
-
-  },[checkedEmail])
+  useEffect(() => {}, [checkedEmail]);
   return (
     <>
       <div className="mt-5 mr-5 flex justify-between navbar">
