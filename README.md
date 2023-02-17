@@ -33,7 +33,7 @@ WebRTC를 활용한 비대면 놀이터
 | 이름 | 개발 내용 |
 | ------ | ------------ |
 |[👨🏻‍💻 한재욱](https://github.com/Jaeukhan) [📧](mailto:hju9707@gmail.com)        | Spring Boot REST API<br />Socket.io(server)<br /> 웹소켓 게임 기능 <br /> 젠킨스와 도커를 활용한 CI/CD
-|[👨🏻‍💻 김주성](https://github.com/sigamflo) [📧](mailto:kjschocolate@gmail.com)   | Spring Boot REST API<br /> 자동 매칭 알고리즘 <br /> 젠킨스와 도커를 활용한 CI/CD|
+|[👨🏻‍💻 김주성](https://github.com/Sigmaflo) [📧](mailto:kjschocolate@gmail.com)   | Spring Boot REST API<br /> 자동 매칭 알고리즘 <br /> 젠킨스와 도커를 활용한 CI/CD|
 
 
 ### 🏁목표
