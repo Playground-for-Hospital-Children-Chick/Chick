@@ -25,7 +25,7 @@ WebRTC를 활용한 비대면 놀이터
 
 | 이름 | 개발 내용 |
 | ------ | ------------ |
-|[👨🏻‍💻 최정온](https://github.com/choijeongon) [📧](mailto:chjo0330@gmail.com) | 팀장, 프론트 리더 <br /> React, TypeScript, Socket.io(client), WebRTC<br />웹사이트 전체 디자인 및 UI/UX 기획 <br /> 웹소켓 게임 기능 <br /> UCC <br />|
+|[👨🏻‍💻 최정온](https://github.com/choijeongon) [📧](mailto:chjo0330@gmail.com) | 팀장, 프론트 리더 <br /> React, Socket.io(client), WebRTC<br />웹사이트 전체 디자인 및 UI/UX 기획 <br /> 웹소켓 게임 기능 <br /> UCC <br />|
 |[👨🏻‍💻 엄희원](https://github.com/eomtiger) [📧](mailto:eomtiger@gmail.com)   | React, WebRTC <br /> 게임방 페이지 구현 |
 |[👨🏻‍💻 김민준](https://github.com/GotPrgmer) [📧](mailto:gofiction95@gmail.com) |React <br /> 마이 페이지, 회원 관리 페이지 구현|
 
