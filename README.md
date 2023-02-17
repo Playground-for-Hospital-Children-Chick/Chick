@@ -25,15 +25,15 @@ WebRTC를 활용한 비대면 놀이터
 
 | 이름 | 개발 내용 |
 | ------ | ------------ |
-|[👨🏻‍💻 최정온](https://github.com/sigamflo) [📧](mailto:chjo0330@gmail.com) | 팀장, 프론트 리더 <br /> React, TypeScript, Socket.io(client), WebRTC<br />웹사이트 전체 디자인 및 UI/UX 기획 <br /> 웹소켓 게임 기능 <br /> UCC <br />|
+|[👨🏻‍💻 최정온](https://github.com/choijeongon) [📧](mailto:chjo0330@gmail.com) | 팀장, 프론트 리더 <br /> React, TypeScript, Socket.io(client), WebRTC<br />웹사이트 전체 디자인 및 UI/UX 기획 <br /> 웹소켓 게임 기능 <br /> UCC <br />|
 |[👨🏻‍💻 엄희원](https://github.com/eomtiger) [📧](mailto:eomtiger@gmail.com)   | React, WebRTC <br /> 게임방 페이지 구현 |
-|[👨🏻‍💻 김민준](https://github.com/sigamflo) [📧](mailto:jyeon3930@naver.com) |React <br /> 마에페이지, 회원 관리 페이지|
+|[👨🏻‍💻 김민준](https://github.com/GotPrgmer) [📧](mailto:gofiction95@gmail.com) |React <br /> 마이 페이지, 회원 관리 페이지 구현|
 
 #### 🛰벡엔드
 
 | 이름 | 개발 내용 |
 | ------ | ------------ |
-|[👨🏻‍💻 한재욱](https://github.com/hju9707) [📧](mailto:hju9707@gmail.com)        | Spring Boot REST API<br />Socket.io(server)<br /> 웹소켓 게임 기능 <br /> 젠킨스와 도커를 활용한 CI/CD
+|[👨🏻‍💻 한재욱](https://github.com/Jaeukhan) [📧](mailto:hju9707@gmail.com)        | Spring Boot REST API<br />Socket.io(server)<br /> 웹소켓 게임 기능 <br /> 젠킨스와 도커를 활용한 CI/CD
 |[👨🏻‍💻 김주성](https://github.com/sigamflo) [📧](mailto:kjschocolate@gmail.com)   | Spring Boot REST API<br /> 자동 매칭 알고리즘 <br /> 젠킨스와 도커를 활용한 CI/CD|
 
 
