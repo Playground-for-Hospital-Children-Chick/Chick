@@ -2,6 +2,8 @@
 
 WebRTC를 활용한 비대면 놀이터
 
+## 🎥 [소개 영상 보기 : UCC 링크](https://youtu.be/h87OlAGpSqk)
+
 ## 🚀프로젝트 소개
 
 ### 📅진행 일정
